@@ -109,7 +109,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
 
   useEffect(() => {
     setLoadingReligions(true);
-    fetch('/api/taxonomy/religions')
+    fetch('/api/taxonomy/religions', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setReligions(data);
@@ -124,7 +124,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
       return;
     }
     setLoadingCastes(true);
-    fetch(`/api/taxonomy/castes?religion=${encodeURIComponent(selectedReligion)}`)
+    fetch(`/api/taxonomy/castes?religion=${encodeURIComponent(selectedReligion)}`, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setCastes(data);
@@ -139,7 +139,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
       return;
     }
     setLoadingSubcastes(true);
-    fetch(`/api/taxonomy/subcastes?caste=${encodeURIComponent(selectedCaste)}`)
+    fetch(`/api/taxonomy/subcastes?caste=${encodeURIComponent(selectedCaste)}`, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setSubcastes(data);
