@@ -32,9 +32,9 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const t = formTranslations[language || 'TA'];
   const profile = initialData?.profile;
   
-  const [religions, setReligions] = useState<string[]>([]);
-  const [castes, setCastes] = useState<string[]>([]);
-  const [subcastes, setSubcastes] = useState<string[]>([]);
+  const [religions, setReligions] = useState<any[]>([]);
+  const [castes, setCastes] = useState<any[]>([]);
+  const [subcastes, setSubcastes] = useState<any[]>([]);
   
   const [loadingReligions, setLoadingReligions] = useState(true);
   const [loadingCastes, setLoadingCastes] = useState(false);
