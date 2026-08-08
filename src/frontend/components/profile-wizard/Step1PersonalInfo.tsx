@@ -108,14 +108,24 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
 
 
   useEffect(() => {
-    setLoadingReligions(true);
-    fetch('/api/taxonomy/religions', { cache: 'no-store' })
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) setReligions(data);
-      })
-      .catch(console.error)
-      .finally(() => setLoadingReligions(false));
+    let isMounted = true;
+    const fetchReligions = async () => {
+      setLoadingReligions(true);
+      try {
+        const res = await fetch('/api/taxonomy/religions', { cache: 'no-store' });
+        const data = await res.json();
+        if (isMounted) {
+          setReligions(Array.isArray(data) && data.length > 0 ? data : ['Hindu', 'Christian', 'Muslim', 'Jain', 'Sikh', 'Buddhist', 'Other']);
+        }
+      } catch (error) {
+        console.error('Error fetching religions:', error);
+        if (isMounted) setReligions(['Hindu', 'Christian', 'Muslim', 'Jain', 'Sikh', 'Buddhist', 'Other']);
+      } finally {
+        if (isMounted) setLoadingReligions(false);
+      }
+    };
+    fetchReligions();
+    return () => { isMounted = false; };
   }, []);
 
   useEffect(() => {
@@ -123,14 +133,24 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
       setCastes([]);
       return;
     }
-    setLoadingCastes(true);
-    fetch(`/api/taxonomy/castes?religion=${encodeURIComponent(selectedReligion)}`, { cache: 'no-store' })
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) setCastes(data);
-      })
-      .catch(console.error)
-      .finally(() => setLoadingCastes(false));
+    let isMounted = true;
+    const fetchCastes = async () => {
+      setLoadingCastes(true);
+      try {
+        const res = await fetch(`/api/taxonomy/castes?religion=${encodeURIComponent(selectedReligion)}`, { cache: 'no-store' });
+        const data = await res.json();
+        if (isMounted) {
+          setCastes(Array.isArray(data) && data.length > 0 ? data : ['Agamudayar', 'Brahmin', 'Chettiar', 'Gounder', 'Mudaliar', 'Naidu', 'Vanniyar', 'Vellalar', 'Other']);
+        }
+      } catch (error) {
+        console.error('Error fetching castes:', error);
+        if (isMounted) setCastes(['Agamudayar', 'Brahmin', 'Chettiar', 'Gounder', 'Mudaliar', 'Naidu', 'Vanniyar', 'Vellalar', 'Other']);
+      } finally {
+        if (isMounted) setLoadingCastes(false);
+      }
+    };
+    fetchCastes();
+    return () => { isMounted = false; };
   }, [selectedReligion]);
 
   useEffect(() => {
@@ -138,14 +158,24 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
       setSubcastes([]);
       return;
     }
-    setLoadingSubcastes(true);
-    fetch(`/api/taxonomy/subcastes?caste=${encodeURIComponent(selectedCaste)}`, { cache: 'no-store' })
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) setSubcastes(data);
-      })
-      .catch(console.error)
-      .finally(() => setLoadingSubcastes(false));
+    let isMounted = true;
+    const fetchSubcastes = async () => {
+      setLoadingSubcastes(true);
+      try {
+        const res = await fetch(`/api/taxonomy/subcastes?caste=${encodeURIComponent(selectedCaste)}`, { cache: 'no-store' });
+        const data = await res.json();
+        if (isMounted) {
+          setSubcastes(Array.isArray(data) && data.length > 0 ? data : ['Not Specified']);
+        }
+      } catch (error) {
+        console.error('Error fetching subcastes:', error);
+        if (isMounted) setSubcastes(['Not Specified']);
+      } finally {
+        if (isMounted) setLoadingSubcastes(false);
+      }
+    };
+    fetchSubcastes();
+    return () => { isMounted = false; };
   }, [selectedCaste]);
 
   const selectedRasi = watch('rasi');
