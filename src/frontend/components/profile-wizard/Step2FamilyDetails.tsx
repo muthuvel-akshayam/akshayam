@@ -168,10 +168,8 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
               <label className="block text-xs font-semibold text-gray-600">{t.relation}</label>
               <select {...register(`siblings.${index}.relation` as const)} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-sm border p-2 text-gray-900">
                 <option value="">{t.selectStatus}</option>
-                <option value="Brother">{t.brother}</option>
                 <option value="Elder Brother">{t.elderBrother}</option>
                 <option value="Younger Brother">{t.youngerBrother}</option>
-                <option value="Sister">{t.sister}</option>
                 <option value="Elder Sister">{t.elderSister}</option>
                 <option value="Younger Sister">{t.youngerSister}</option>
               </select>
