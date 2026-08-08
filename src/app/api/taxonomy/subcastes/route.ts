@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/backend/prisma';
+import { SUB_CASTE_OPTIONS } from '@/constants/demographics';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,11 +26,15 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    const subcasteNames = subcastes.map((s) => s.subcaste);
+    if (!subcastes || subcastes.length === 0) {
+      console.warn('Database returned no subcastes, using fallback.');
+      return NextResponse.json(SUB_CASTE_OPTIONS);
+    }
 
+    const subcasteNames = subcastes.map((s) => s.subcaste);
     return NextResponse.json(subcasteNames);
   } catch (error) {
-    console.error('Error fetching subcastes:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.warn('Database connection failed, returning fallback subcastes:', error);
+    return NextResponse.json(SUB_CASTE_OPTIONS, { status: 200 });
   }
 }

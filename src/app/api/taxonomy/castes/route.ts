@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/backend/prisma';
+import { CASTE_OPTIONS } from '@/constants/demographics';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,11 +26,15 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    const casteNames = castes.map((c) => c.caste);
+    if (!castes || castes.length === 0) {
+      console.warn('Database returned no castes, using fallback.');
+      return NextResponse.json(CASTE_OPTIONS);
+    }
 
+    const casteNames = castes.map((c) => c.caste);
     return NextResponse.json(casteNames);
   } catch (error) {
-    console.error('Error fetching castes:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.warn('Database connection failed, returning fallback castes:', error);
+    return NextResponse.json(CASTE_OPTIONS, { status: 200 });
   }
 }
