@@ -227,10 +227,12 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
                 <label className={labelClass}>{watch('workNature') === 'BUSINESS' ? (t as any).businessName : t.organisation}</label>
                 <input {...register('organisation')} className={inputClass} />
               </div>
-              <div>
-                <label className={labelClass}>{watch('workNature') === 'BUSINESS' ? (t as any).businessRole : t.designation}</label>
-                <input {...register('designation')} className={inputClass} />
-              </div>
+              {watch('workNature') !== 'BUSINESS' && (
+                <div>
+                  <label className={labelClass}>{t.designation}</label>
+                  <input {...register('designation')} className={inputClass} />
+                </div>
+              )}
               <div>
                 <label className={labelClass}>{watch('workNature') === 'BUSINESS' ? (t as any).businessAddress : t.workingAddress} <span className="text-xs font-normal text-gray-500">{t.masked}</span></label>
                 <input {...register('workingAddress')} className={inputClass} />
