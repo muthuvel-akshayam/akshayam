@@ -236,6 +236,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
       onNext();
     } catch (err) {
       console.error(err);
+      alert('Error saving data: ' + (err as Error).message);
     } finally {
       setIsSaving(false);
     }
@@ -683,6 +684,23 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
 
       </div>
       
+      {Object.keys(errors).length > 0 && (
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 my-4">
+          <div className="flex">
+            <div className="ml-3">
+              <p className="text-sm text-red-700 font-bold">
+                {language === 'TA' ? 'தயவுசெய்து பின்வரும் தவறுகளை சரிசெய்யவும்:' : 'Please fix the following errors:'}
+              </p>
+              <ul className="list-disc pl-5 mt-2 text-sm text-red-700">
+                {Object.values(errors).map((err: any, idx) => (
+                  <li key={idx}>{err.message}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex justify-end pt-4 border-t border-gray-100">
         <button type="submit" disabled={isSaving} className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 disabled:opacity-50 font-semibold shadow-md transition-all active:scale-95 cursor-pointer">
           {isSaving 
