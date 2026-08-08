@@ -1,0 +1,322 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==========================================
+// ENUMS
+// ==========================================
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum PhysicalCondition {
+  SLIM
+  AVERAGE
+  FAT
+}
+
+enum MaritalStatus {
+  NEVER_MARRIED
+  DIVORCED
+  WIDOWED
+  AWAITING_DIVORCE
+}
+
+enum FamilyStatus {
+  LOW
+  MIDDLE
+  UPPER_MIDDLE
+  HIGH
+  VIP
+}
+
+enum Habit {
+  NONE
+  OCCASIONAL
+  REGULAR
+}
+
+enum ParentLivingStatus {
+  ALIVE
+  LATE
+}
+
+enum WorkNature {
+  JOB
+  BUSINESS
+  NOT_WORKING
+}
+
+enum ApprovalStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum ProfileStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  MATCHED_REMOVED
+}
+
+enum ProfileSentStatus {
+  SENT
+  NOT_MATCHED
+}
+
+// ==========================================
+// MODELS
+// ==========================================
+
+model User {
+  id                    String            @id @default(uuid())
+  email                 String?           @unique
+  mobile_no             String?           @unique
+  password              String?
+  role                  UserRole          @default(USER)
+  status                String            @default("ACTIVE") // ACTIVE, SUSPENDED, DELETED
+  profile               Profile?
+  family                Family?
+  expectations          Expectations?
+  sentRequests          ContactApproval[] @relation("SentRequests")
+  receivedRequests      ContactApproval[] @relation("ReceivedRequests")
+  targetUserSentLogs    ProfileSentLog[]  @relation("TargetUserSentLogs")
+  recipientUserSentLogs ProfileSentLog[]  @relation("RecipientUserSentLogs")
+  userIndex             Int?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  @@index([role, status])
+}
+
+model Profile {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Personal Details
+  name          String
+  gender        Gender
+  livingCountry String
+  state         String
+  city          String
+  houseAddress  String?
+  religion      String
+  caste         String
+  subCaste      String?
+  koottam       String?
+  dob           DateTime
+  tob           String?
+  lob           String?
+
+  // Physical Attributes
+  height            Float // in cm
+  weight            Float // in kg
+  physicalCondition PhysicalCondition
+  skinColour        String
+  maritalStatus     MaritalStatus
+  familyStatus      FamilyStatus
+  foodHabits        Habit
+  drinkingHabits    Habit
+  smokingHabits     Habit
+
+  // Astrology & Documents
+  rasi                String?
+  nakshatra           String?
+  poruthaNakshatram   String[]
+  dosham              String?
+  jathakamUrl         String?
+  jathagamData        Json?
+  rasiGrid            Json?
+  amsamGrid           Json?
+  dasaBalance         String?
+  photoUrl            String?
+  casteCertificateUrl String?
+
+  // Privacy Flags
+  hideMobileNo      Boolean @default(true)
+  hideHouseAddress  Boolean @default(true)
+  hideHouseLocation Boolean @default(true)
+  hidePhoto         Boolean @default(false)
+
+  // Moderation & Approval System
+  status         ProfileStatus @default(PENDING)
+  approvedAt     DateTime?
+  approvedBy     String? // ID of the admin who approved
+  rejectedReason String? // Reason provided if status is REJECTED
+  isLive         Boolean       @default(false)
+
+  educations Education[]
+
+  @@index([status, isLive])
+}
+
+model Education {
+  id          String  @id @default(uuid())
+  profileId   String
+  profile     Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  level       String
+  degreeName  String
+  institution String
+}
+
+model Family {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Father Details
+  fatherName         String?
+  fatherLivingStatus ParentLivingStatus?
+  fatherStatus       String?
+  fatherMobile       String?
+
+  // Mother Details
+  motherName         String?
+  motherLivingStatus ParentLivingStatus?
+  motherStatus       String?
+  motherMobile       String?
+
+  siblings Sibling[]
+
+  // Career Details
+  workNature     WorkNature?
+  salary         String?
+  organisation   String?
+  designation    String?
+  workingAddress String?
+  googleLocation String?
+  rentalIncome   String?
+
+  // Property & Assets
+  houseType       String?
+  houseSqFt       String?
+  siteLand        String?
+  thottam         String?
+  vacantLand      String?
+  totalAssetValue String?
+  assetComments   String?
+  dowryDetails    String?
+}
+
+model Sibling {
+  id       String @id @default(uuid())
+  familyId String
+  family   Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  name     String
+  relation String // Brother / Sister
+  status   String // Married / Unmarried
+}
+
+model Expectations {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  expectedHeight   Float?
+  colourPreference String?
+  maxAgeLimit      Int?
+  dowryExpectation String?
+
+  preferredSectors   String[]
+  preferredLocations String[]
+  expectedIncome     String?
+
+  expectsRentalIncome     Boolean?
+  expectsThottam          Boolean?
+  expectsVacantLand       Boolean?
+  vacantLand              String?
+  preferredDistanceRadius Int?
+  city                    String?
+  comments                String?
+}
+
+model ContactApproval {
+  id          String         @id @default(uuid())
+  requesterId String
+  recipientId String
+  status      ApprovalStatus @default(PENDING)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  requester User @relation("SentRequests", fields: [requesterId], references: [id], onDelete: Cascade)
+  recipient User @relation("ReceivedRequests", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  @@unique([requesterId, recipientId])
+}
+
+model ProfileSentLog {
+  id              Int               @id @default(autoincrement())
+  targetUserId    String
+  recipientUserId String
+  status          ProfileSentStatus @default(SENT)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  targetUser    User @relation("TargetUserSentLogs", fields: [targetUserId], references: [id], onDelete: Cascade)
+  recipientUser User @relation("RecipientUserSentLogs", fields: [recipientUserId], references: [id], onDelete: Cascade)
+
+  @@unique([targetUserId, recipientUserId])
+}
+
+model NakshatraCompatibility {
+  id                 String   @id @default(uuid())
+  maleNakshatra      String
+  femaleNakshatra    String
+  compatibilityScore Int
+  compatibilityType  String
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@unique([maleNakshatra, femaleNakshatra])
+  @@index([maleNakshatra])
+  @@index([femaleNakshatra])
+}
+
+model SiteSettings {
+  id                    String   @id @default("default_settings")
+  minMaleAge            Int      @default(21)
+  minFemaleAge          Int      @default(18)
+  maxPhotoSizeMb        Int      @default(5)
+  maxDocSizeMb          Int      @default(10)
+  featuredProfilesLimit Int      @default(12)
+  maintenanceMode       Boolean  @default(false)
+  updatedAt             DateTime @updatedAt
+}
+
+model AdminAuditLog {
+  id        String   @id @default(uuid())
+  adminId   String
+  adminName String?
+  action    String
+  targetId  String?
+  details   String?
+  createdAt DateTime @default(now())
+
+  @@index([adminId, createdAt])
+  @@index([action])
+}
+
+model CasteLookup {
+  id       Int    @id @default(autoincrement())
+  religion String
+  caste    String
+  subcaste String
+
+  @@index([religion])
+  @@index([religion, caste])
+}
