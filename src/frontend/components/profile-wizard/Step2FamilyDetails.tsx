@@ -63,10 +63,14 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
     }
     setIsSaving(true);
     try {
-      await saveFamilyDetails(data);
+      const res = await saveFamilyDetails(data);
+      if (res && !res.success) {
+        throw new Error(res.error || 'Failed to save family details');
+      }
       onNext();
     } catch (err) {
       console.error(err);
+      alert('Error saving data: ' + (err as Error).message);
     } finally {
       setIsSaving(false);
     }

@@ -27,41 +27,46 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
     }
   }
 
-  // Create user if not exists
-  await prisma.user.upsert({
-    where: { id: userId },
-    create: { 
-      id: userId, 
-      mobile_no: mobileNo || undefined, 
-      email: email || (mobileNo ? `${mobileNo}@akshayam.local` : `test-${userId}@example.com`) 
-    },
-    update: {
-      mobile_no: mobileNo || undefined
-    }
-  });
-
-  const profile = await prisma.profile.upsert({
-    where: { userId },
-    create: {
-      userId,
-      ...profileData,
-      dob: new Date(profileData.dob),
-      educations: {
-        create: educations || []
+  try {
+    // Create user if not exists
+    await prisma.user.upsert({
+      where: { id: userId },
+      create: { 
+        id: userId, 
+        mobile_no: mobileNo || undefined, 
+        email: email || (mobileNo ? `${mobileNo}@akshayam.local` : `test-${userId}@example.com`) 
+      },
+      update: {
+        mobile_no: mobileNo || undefined
       }
-    },
-    update: {
-      ...profileData,
-      dob: new Date(profileData.dob),
-      educations: {
-        deleteMany: {},
-        create: educations || []
-      }
-    }
-  });
+    });
 
-  revalidatePath('/profile');
-  return { success: true, profile };
+    const profile = await prisma.profile.upsert({
+      where: { userId },
+      create: {
+        userId,
+        ...profileData,
+        dob: new Date(profileData.dob),
+        educations: {
+          create: educations || []
+        }
+      },
+      update: {
+        ...profileData,
+        dob: new Date(profileData.dob),
+        educations: {
+          deleteMany: {},
+          create: educations || []
+        }
+      }
+    });
+
+    revalidatePath('/profile');
+    return { success: true, profile };
+  } catch (error: any) {
+    console.error('Error saving personal info:', error);
+    return { success: false, error: 'Database connection failed or operation unsuccessful. Please try again.' };
+  }
 }
 
 export async function saveFamilyDetails(data: z.infer<typeof familyDetailsSchema>) {
@@ -74,26 +79,31 @@ export async function saveFamilyDetails(data: z.infer<typeof familyDetailsSchema
   
   const { siblings, ...familyData } = parsed.data;
   
-  const family = await prisma.family.upsert({
-    where: { userId },
-    create: {
-      userId,
-      ...familyData,
-      siblings: {
-        create: siblings || []
+  try {
+    const family = await prisma.family.upsert({
+      where: { userId },
+      create: {
+        userId,
+        ...familyData,
+        siblings: {
+          create: siblings || []
+        }
+      },
+      update: {
+        ...familyData,
+        siblings: {
+          deleteMany: {},
+          create: siblings || []
+        }
       }
-    },
-    update: {
-      ...familyData,
-      siblings: {
-        deleteMany: {},
-        create: siblings || []
-      }
-    }
-  });
+    });
 
-  revalidatePath('/profile');
-  return { success: true, family };
+    revalidatePath('/profile');
+    return { success: true, family };
+  } catch (error: any) {
+    console.error('Error saving family details:', error);
+    return { success: false, error: 'Database connection failed or operation unsuccessful. Please try again.' };
+  }
 }
 
 export async function saveExpectations(data: z.infer<typeof expectationsSchema>) {
@@ -125,9 +135,9 @@ export async function saveExpectations(data: z.infer<typeof expectationsSchema>)
 
     revalidatePath('/profile');
     return { success: true, expectations };
-  } catch (err: any) {
-    console.error("saveExpectations error:", err);
-    throw new Error(err.message || "Unknown error occurred in saveExpectations");
+  } catch (error: any) {
+    console.error('Error saving expectations:', error);
+    return { success: false, error: 'Database connection failed or operation unsuccessful. Please try again.' };
   }
 }
 

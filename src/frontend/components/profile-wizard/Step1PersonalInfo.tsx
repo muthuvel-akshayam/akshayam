@@ -232,7 +232,10 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
     }
     setIsSaving(true);
     try {
-      await savePersonalInfo(data);
+      const res = await savePersonalInfo(data);
+      if (res && !res.success) {
+        throw new Error(res.error || 'Failed to save personal info');
+      }
       onNext();
     } catch (err) {
       console.error(err);

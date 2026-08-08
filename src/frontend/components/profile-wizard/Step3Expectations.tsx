@@ -78,7 +78,10 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
     }
     setIsSaving(true);
     try {
-      await saveExpectations(data);
+      const res = await saveExpectations(data);
+      if (res && !res.success) {
+        throw new Error(res.error || 'Failed to save expectations');
+      }
       alert(language === 'TA' ? 'சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!' : 'Profile updated successfully!');
       router.push('/dashboard');
     } catch (err: any) {
