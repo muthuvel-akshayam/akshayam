@@ -543,21 +543,21 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
                   <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'அலைபேசி எண்' : 'Mobile No.'}</span>
                   <span className="text-sm font-bold text-gray-900 flex items-center">
-                    {profile.hideMobileNo && <Lock className="w-3 h-3 mr-1.5 text-amber-500" title="Hidden from public" />}
+                    {profile.hideMobileNo && <span title="Hidden from public" className="inline-flex items-center mr-1.5"><Lock className="w-3 h-3 text-amber-500" /></span>}
                     {user.mobile_no || 'N/A'}
                   </span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
                   <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'பெற்றோர் அலைபேசி' : 'Parents Mobile'}</span>
                   <span className="text-sm font-bold text-gray-900 flex items-center">
-                    {profile.hideMobileNo && <Lock className="w-3 h-3 mr-1.5 text-amber-500" title="Hidden from public" />}
+                    {profile.hideMobileNo && <span title="Hidden from public" className="inline-flex items-center mr-1.5"><Lock className="w-3 h-3 text-amber-500" /></span>}
                     {family?.fatherMobile || family?.motherMobile || 'N/A'}
                   </span>
                 </div>
                 <div className="py-2">
                   <span className="text-sm font-semibold text-gray-500 block mb-1">{language === 'TA' ? 'வீட்டு முகவரி' : 'House Address'}</span>
                   <p className="text-sm font-bold text-gray-900 flex items-start">
-                    {profile.hideHouseAddress && <Lock className="w-3 h-3 mr-1.5 mt-1 text-amber-500 flex-shrink-0" title="Hidden from public" />}
+                    {profile.hideHouseAddress && <span title="Hidden from public" className="inline-flex items-center mt-1 mr-1.5 flex-shrink-0"><Lock className="w-3 h-3 text-amber-500" /></span>}
                     <span>{profile.houseAddress || (language === 'TA' ? 'முகவரி வழங்கப்படவில்லை' : 'Address not provided')}</span>
                   </p>
                 </div>

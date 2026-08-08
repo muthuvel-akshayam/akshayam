@@ -62,7 +62,7 @@ Zodiac Mapping (Clockwise from top-left):
         }
     });
 
-    const resultText = response.text();
+    const resultText = response.text;
     if (!resultText) {
         throw new Error("Empty response from AI");
     }
