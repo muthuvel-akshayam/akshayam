@@ -15,43 +15,48 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
 
   const hashedPassword = hashPassword(passwordPlain);
 
-  // Check if user already exists
-  const existingUser = await prisma.user.findFirst({
-    where: { mobile_no: mobileNo }
-  });
-
-  if (existingUser) {
-    // Update password if user exists
-    const updated = await prisma.user.update({
-      where: { id: existingUser.id },
-      data: { password: hashedPassword }
+  try {
+    // Check if user already exists
+    const existingUser = await prisma.user.findFirst({
+      where: { mobile_no: mobileNo }
     });
+
+    if (existingUser) {
+      // Update password if user exists
+      const updated = await prisma.user.update({
+        where: { id: existingUser.id },
+        data: { password: hashedPassword }
+      });
+      const cookieStore = await cookies();
+      cookieStore.set('auth_token', updated.id, {
+        httpOnly: true,
+        path: '/',
+        maxAge: 60 * 60 * 24 * 30
+      });
+      return { success: true, userId: updated.id };
+    }
+
+    // Create new user
+    const newUser = await prisma.user.create({
+      data: {
+        mobile_no: mobileNo,
+        password: hashedPassword,
+        email: `${mobileNo}@akshayam.local`
+      }
+    });
+
     const cookieStore = await cookies();
-    cookieStore.set('auth_token', updated.id, {
+    cookieStore.set('auth_token', newUser.id, {
       httpOnly: true,
       path: '/',
       maxAge: 60 * 60 * 24 * 30
     });
-    return { success: true, userId: updated.id };
+
+    return { success: true, userId: newUser.id };
+  } catch (error: any) {
+    console.error('Error in registerAuthUser:', error);
+    return { success: false, error: 'Database connection failed. Please try again.' };
   }
-
-  // Create new user
-  const newUser = await prisma.user.create({
-    data: {
-      mobile_no: mobileNo,
-      password: hashedPassword,
-      email: `${mobileNo}@akshayam.local`
-    }
-  });
-
-  const cookieStore = await cookies();
-  cookieStore.set('auth_token', newUser.id, {
-    httpOnly: true,
-    path: '/',
-    maxAge: 60 * 60 * 24 * 30
-  });
-
-  return { success: true, userId: newUser.id };
 }
 
 export async function loginUser(mobileNo: string, passwordPlain: string) {
@@ -61,26 +66,31 @@ export async function loginUser(mobileNo: string, passwordPlain: string) {
 
   const hashedPassword = hashPassword(passwordPlain);
 
-  const user = await prisma.user.findFirst({
-    where: { mobile_no: mobileNo }
-  });
+  try {
+    const user = await prisma.user.findFirst({
+      where: { mobile_no: mobileNo }
+    });
 
-  if (!user) {
-    return { success: false, error: 'User not found with this mobile number' };
+    if (!user) {
+      return { success: false, error: 'User not found with this mobile number' };
+    }
+
+    if (user.password !== hashedPassword && user.password !== passwordPlain) {
+      return { success: false, error: 'Invalid password' };
+    }
+
+    const cookieStore = await cookies();
+    cookieStore.set('auth_token', user.id, {
+      httpOnly: true,
+      path: '/',
+      maxAge: 60 * 60 * 24 * 30
+    });
+
+    return { success: true, userId: user.id };
+  } catch (error: any) {
+    console.error('Error in loginUser:', error);
+    return { success: false, error: 'Database connection failed. Please try again.' };
   }
-
-  if (user.password !== hashedPassword && user.password !== passwordPlain) {
-    return { success: false, error: 'Invalid password' };
-  }
-
-  const cookieStore = await cookies();
-  cookieStore.set('auth_token', user.id, {
-    httpOnly: true,
-    path: '/',
-    maxAge: 60 * 60 * 24 * 30
-  });
-
-  return { success: true, userId: user.id };
 }
 
 export async function logoutUser() {

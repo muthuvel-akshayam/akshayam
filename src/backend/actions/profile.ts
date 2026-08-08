@@ -18,16 +18,15 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
 
   const { mobileNo, password, email, educations, ...profileData } = parsed.data;
 
-  let userId = await getUserId();
-  
-  if (mobileNo && password) {
-    const authRes = await registerAuthUser(mobileNo, password);
-    if (authRes.success && authRes.userId) {
-      userId = authRes.userId;
-    }
-  }
-
   try {
+    let userId = await getUserId();
+    
+    if (mobileNo && password) {
+      const authRes = await registerAuthUser(mobileNo, password);
+      if (authRes.success && authRes.userId) {
+        userId = authRes.userId;
+      }
+    }
     // Create user if not exists
     await prisma.user.upsert({
       where: { id: userId },
