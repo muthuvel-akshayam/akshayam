@@ -12,6 +12,7 @@ import { Plus, Trash2 } from 'lucide-react';
 import { FileUpload } from '../FileUpload';
 import { rasiOptions, nakshatraByRasi } from '@/frontend/utils/astrology';
 import { formTranslations } from '@/frontend/utils/formTranslations';
+import { RELIGION_OPTIONS, CASTE_OPTIONS, SUB_CASTE_OPTIONS } from '@/constants/demographics';
 
 type FormValues = z.infer<typeof personalInfoSchema>;
 
@@ -115,11 +116,11 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         const res = await fetch('/api/taxonomy/religions', { cache: 'no-store' });
         const data = await res.json();
         if (isMounted) {
-          setReligions(Array.isArray(data) && data.length > 0 ? data : ['Hindu', 'Christian', 'Muslim', 'Jain', 'Sikh', 'Buddhist', 'Other']);
+          setReligions(Array.isArray(data) && data.length > 0 ? data : RELIGION_OPTIONS);
         }
       } catch (error) {
         console.error('Error fetching religions:', error);
-        if (isMounted) setReligions(['Hindu', 'Christian', 'Muslim', 'Jain', 'Sikh', 'Buddhist', 'Other']);
+        if (isMounted) setReligions(RELIGION_OPTIONS);
       } finally {
         if (isMounted) setLoadingReligions(false);
       }
@@ -140,11 +141,11 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         const res = await fetch(`/api/taxonomy/castes?religion=${encodeURIComponent(selectedReligion)}`, { cache: 'no-store' });
         const data = await res.json();
         if (isMounted) {
-          setCastes(Array.isArray(data) && data.length > 0 ? data : ['Agamudayar', 'Brahmin', 'Chettiar', 'Gounder', 'Mudaliar', 'Naidu', 'Vanniyar', 'Vellalar', 'Other']);
+          setCastes(Array.isArray(data) && data.length > 0 ? data : CASTE_OPTIONS);
         }
       } catch (error) {
         console.error('Error fetching castes:', error);
-        if (isMounted) setCastes(['Agamudayar', 'Brahmin', 'Chettiar', 'Gounder', 'Mudaliar', 'Naidu', 'Vanniyar', 'Vellalar', 'Other']);
+        if (isMounted) setCastes(CASTE_OPTIONS);
       } finally {
         if (isMounted) setLoadingCastes(false);
       }
@@ -165,11 +166,11 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         const res = await fetch(`/api/taxonomy/subcastes?caste=${encodeURIComponent(selectedCaste)}`, { cache: 'no-store' });
         const data = await res.json();
         if (isMounted) {
-          setSubcastes(Array.isArray(data) && data.length > 0 ? data : ['Not Specified']);
+          setSubcastes(Array.isArray(data) && data.length > 0 ? data : SUB_CASTE_OPTIONS);
         }
       } catch (error) {
         console.error('Error fetching subcastes:', error);
-        if (isMounted) setSubcastes(['Not Specified']);
+        if (isMounted) setSubcastes(SUB_CASTE_OPTIONS);
       } finally {
         if (isMounted) setLoadingSubcastes(false);
       }
@@ -324,19 +325,22 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
           <div>
             <label className={labelClass}>{t.religion}</label>
             <select 
-              {...register('religion', { 
+              {...register('religion', {
                 onChange: () => {
                   setValue('caste', '');
                   setValue('subCaste', '');
                 }
               })} 
-              className={`border-slate-300 bg-white ${inputClass}`}
-              disabled={loadingReligions}
+              className={inputClass}
             >
-              <option value="">{loadingReligions ? 'Loading...' : t.selectReligion}</option>
-              {religions.map(r => (
-                <option key={r} value={r}>{r}</option>
-              ))}
+              <option value="">{t.selectReligion}</option>
+              {(religions.length ? religions : RELIGION_OPTIONS).map((opt: any) => {
+                const value = typeof opt === 'string' ? opt : opt.value;
+                const label = typeof opt === 'string' ? opt : (language === 'TA' ? opt.labelTa : opt.labelEn);
+                return (
+                  <option key={value} value={value}>{label}</option>
+                );
+              })}
             </select>
             {errors.religion && <p className="text-red-500 text-xs mt-1">{errors.religion.message}</p>}
           </div>
@@ -348,26 +352,30 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                   setValue('subCaste', '');
                 }
               })} 
-              className={`border-slate-300 bg-white ${inputClass}`}
-              disabled={!selectedReligion || loadingCastes}
+              className={inputClass} 
+              disabled={loadingCastes || !selectedReligion}
             >
               <option value="">{loadingCastes ? 'Loading...' : t.selectCaste}</option>
-              {castes.map(c => (
-                <option key={c} value={c}>{c}</option>
-              ))}
+              {(castes.length ? castes : CASTE_OPTIONS).map((opt: any) => {
+                const value = typeof opt === 'string' ? opt : opt.value;
+                const label = typeof opt === 'string' ? opt : (language === 'TA' ? opt.labelTa : opt.labelEn);
+                return (
+                  <option key={value} value={value}>{label}</option>
+                );
+              })}
             </select>
           </div>
           <div>
             <label className={labelClass}>{t.subCaste}</label>
-            <select 
-              {...register('subCaste')} 
-              className={`border-slate-300 bg-white ${inputClass}`}
-              disabled={!selectedCaste || loadingSubcastes}
-            >
+            <select {...register('subCaste')} className={inputClass} disabled={loadingSubcastes || !selectedCaste}>
               <option value="">{loadingSubcastes ? 'Loading...' : t.selectSubCaste}</option>
-              {subcastes.map(sc => (
-                <option key={sc} value={sc}>{sc}</option>
-              ))}
+              {(subcastes.length ? subcastes : SUB_CASTE_OPTIONS).map((opt: any) => {
+                const value = typeof opt === 'string' ? opt : opt.value;
+                const label = typeof opt === 'string' ? opt : (language === 'TA' ? opt.labelTa : opt.labelEn);
+                return (
+                  <option key={value} value={value}>{label}</option>
+                );
+              })}
             </select>
           </div>
           {showKoottam && (
