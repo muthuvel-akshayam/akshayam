@@ -31,7 +31,5 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching subcastes:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
   }
 }
