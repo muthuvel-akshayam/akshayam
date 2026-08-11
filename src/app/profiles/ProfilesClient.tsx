@@ -157,9 +157,9 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
               <div key={match.id} className="bg-white rounded-xl shadow-[0px_2px_15px_-3px_rgba(0,0,0,0.07)] border border-gray-200 flex flex-col md:flex-row overflow-hidden w-full transition-all hover:shadow-md">
                 
                 {/* Image Section */}
-                <Link href={`/profiles/${match.id}`} className="w-full md:w-48 h-56 md:h-auto relative overflow-hidden flex-shrink-0 cursor-pointer block group">
+                <Link href={`/profiles/${match.id}`} className="w-full md:w-48 h-72 sm:h-80 md:h-auto relative overflow-hidden flex-shrink-0 cursor-pointer block group">
                   {(!profile.hidePhoto || isApproved) && profile.photoUrl ? (
-                    <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-contain bg-gray-50 transition-transform duration-700 group-hover:scale-105" />
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 transition-colors duration-300 group-hover:bg-gray-100">
                       <User className="w-16 h-16 text-gray-300 mb-2 transition-transform duration-500 group-hover:scale-110" />

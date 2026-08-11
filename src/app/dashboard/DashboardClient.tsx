@@ -384,7 +384,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                     {/* Left Photo Container */}
                     <div className="w-28 sm:w-36 h-full relative bg-gray-100 flex-shrink-0 overflow-hidden">
                       {p.photoUrl ? (
-                        <img src={p.photoUrl} alt={p.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" />
+                        <img src={p.photoUrl} alt={p.name} className="w-full h-full object-contain bg-gray-50 group-hover:scale-105 transition-transform duration-300" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gray-100">
                           <User className="w-12 h-12 text-gray-400 group-hover:scale-110 transition-transform" />

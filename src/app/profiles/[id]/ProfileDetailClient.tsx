@@ -111,7 +111,7 @@ export function ProfileDetailClient({ user }: { user: any }) {
                 <span className="text-xs mt-1">This user has chosen to hide their photo.</span>
               </div>
             ) : profile.photoUrl && !profile.photoUrl.includes('blurred-avatar.png') ? (
-              <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-cover" />
+              <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-contain bg-gray-50" />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400">No Photo Available</div>
             )}
