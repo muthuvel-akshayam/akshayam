@@ -1,11 +1,16 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { User, MapPin, Briefcase, GraduationCap, Calendar, Clock, Star, Phone, Shield, Lock, Activity, Link as LinkIcon, Download, Share2, Wand2 } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { translateNakshatra, translateRasi } from '@/frontend/utils/astrology';
 import JathagamChart from '@/frontend/components/JathagamChart';
 import { supabase } from '@/backend/supabase';
-import { Wand2 } from 'lucide-react';
+import { requestContact } from '@/backend/actions/matches';
+import JathagamPDFTemplate from '@/frontend/components/pdf/JathagamPDFTemplate';
+import { downloadBioDataPdf } from '@/lib/generatePdf';
+import { shareProfile } from '@/lib/shareProfile';
 
 export function ProfileDetailClient({ user }: { user: any }) {
   const router = useRouter();
@@ -91,13 +96,31 @@ export function ProfileDetailClient({ user }: { user: any }) {
     <div className="min-h-screen bg-background py-10 px-4">
       <div className="max-w-5xl mx-auto space-y-8">
         
-        {/* Back Button */}
-        <button 
-          onClick={() => router.back()}
-          className="text-red-600 hover:text-red-800 font-semibold flex items-center gap-2"
-        >
-          &larr; Back to Profiles
-        </button>
+        <div className="flex items-center justify-between">
+          <button 
+            onClick={() => router.back()}
+            className="text-red-600 hover:text-red-800 font-semibold flex items-center gap-2"
+          >
+            &larr; Back to Profiles
+          </button>
+          
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => shareProfile(profile.id, profile.name)}
+              className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 shadow-sm transition-colors"
+            >
+              <Share2 className="w-4 h-4" />
+              <span className="text-sm font-bold hidden sm:inline">Share</span>
+            </button>
+            <button
+              onClick={() => downloadBioDataPdf(`pdf-template-${profile.id}`, profile.id)}
+              className="flex items-center gap-2 px-4 py-2 bg-red-600 rounded-lg text-white hover:bg-red-700 shadow-sm transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              <span className="text-sm font-bold hidden sm:inline">Download Bio-Data</span>
+            </button>
+          </div>
+        </div>
 
         {/* Top Header Section */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col md:flex-row border border-gray-100">
@@ -299,6 +322,10 @@ export function ProfileDetailClient({ user }: { user: any }) {
           </div>
         )}
         
+        {/* Hidden PDF Template */}
+        <div className="absolute opacity-0 pointer-events-none -z-50" aria-hidden="true">
+           <JathagamPDFTemplate profile={profile} profileId={profile.id} />
+        </div>
       </div>
     </div>
   );

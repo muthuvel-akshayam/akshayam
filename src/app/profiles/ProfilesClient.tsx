@@ -4,13 +4,15 @@ import { useState } from 'react';
 import { User, MapPin, Briefcase, GraduationCap, Phone, Shield, Lock, CheckCircle, Clock, Star, ArrowRightCircle, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
 import { useLanguage } from '@/frontend/context/LanguageContext';
 import { translateRasi, translateNakshatra } from '@/frontend/utils/astrology';
 import { logoutUser } from '@/backend/actions/auth';
 import { toggleShortlist } from '@/backend/actions/shortlist';
 import { requestContact } from '@/backend/actions/matches';
-import { Heart } from 'lucide-react';
+import { Heart, Download, Share2 } from 'lucide-react';
+import JathagamPDFTemplate from '@/frontend/components/pdf/JathagamPDFTemplate';
+import { downloadBioDataPdf } from '@/lib/generatePdf';
+import { shareProfile } from '@/lib/shareProfile';
 
 export default function ProfilesClient({ profiles, initialShortlists = [], initialSentInterests = [], activeTab = 'matches' }: { profiles: any[], initialShortlists?: string[], initialSentInterests?: string[], activeTab?: string }) {
   const router = useRouter();
@@ -218,6 +220,20 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                   </div>
 
                   <div className="mt-6 pt-5 border-t border-gray-100 flex flex-wrap items-center justify-end gap-3">
+                    <button
+                      onClick={() => shareProfile(match.id, profile.name)}
+                      className="w-10 h-[40px] rounded-full border border-gray-200 text-gray-500 hover:text-primary hover:bg-gray-100 flex items-center justify-center transition-colors shadow-sm"
+                      title={language === 'TA' ? 'பகிர' : 'Share'}
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => downloadBioDataPdf(`pdf-template-${match.id}`, match.id)}
+                      className="w-10 h-[40px] rounded-full border border-gray-200 text-gray-500 hover:text-primary hover:bg-gray-100 flex items-center justify-center transition-colors shadow-sm"
+                      title={language === 'TA' ? 'பதிவிறக்கு' : 'Download'}
+                    >
+                      <Download className="w-4 h-4" />
+                    </button>
                     <Link href={`/profiles/${match.id}`} className="h-[40px] px-6 py-2.5 bg-gray-100 rounded-full border border-gray-200 text-gray-700 font-bold text-sm flex items-center justify-center hover:bg-gray-200 transition-colors shadow-sm">
                       {language === 'TA' ? 'முழு விவரம்' : 'View Profile'}
                     </Link>
@@ -278,6 +294,13 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
             </div>
           )}
         </div>
+      </div>
+      
+      {/* Hidden PDF Templates */}
+      <div className="absolute opacity-0 pointer-events-none -z-50" aria-hidden="true">
+        {profiles.map((match) => (
+          match.profile && <JathagamPDFTemplate key={`pdf-${match.id}`} profile={match.profile as any} profileId={match.id} />
+        ))}
       </div>
     </div>
   );
