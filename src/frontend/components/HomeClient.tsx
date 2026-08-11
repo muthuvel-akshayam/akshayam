@@ -89,6 +89,7 @@ export default function HomeClient() {
             </button>
             <div className="flex flex-col items-center justify-center">
               <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-10 md:h-14 object-contain" />
+              <span className="text-[10px] sm:text-xs font-bold text-primary mt-0.5 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
             </div>
             <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
   <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
@@ -113,6 +114,7 @@ export default function HomeClient() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <a href="#home" className="flex flex-col items-start md:items-center">
             <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-12 md:h-16 object-contain" />
+            <span className="text-[10px] sm:text-xs font-bold text-primary mt-0.5 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
           </a>
 
           <div className="hidden md:flex items-center space-x-8 text-base font-bold text-gray-800">

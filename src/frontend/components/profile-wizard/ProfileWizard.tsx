@@ -46,6 +46,10 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
           )}
 
           <div className="mb-10 text-center">
+            <div className="flex flex-col items-center justify-center mb-6">
+              <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-16 md:h-20 object-contain" />
+              <span className="text-[10px] sm:text-xs font-bold text-primary mt-1 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2 font-serif">
               {language === 'TA' ? 'சுயவிவரப் பதிவு / Create Your Profile' : 'Create Your Profile'}
             </h2>
