@@ -70,8 +70,8 @@ export default function JathagamPDFTemplate({ profile, profileId }: JathagamPDFT
   return (
     <div 
       id={`pdf-template-${profileId}`} 
-      className="fixed -left-[9999px] top-0 bg-white" 
-      style={{ width: '794px', height: '1123px' }} // Standard A4 at 96 DPI
+      className="bg-white text-gray-900" 
+      style={{ width: '794px', height: '1123px', position: 'relative' }} 
     >
       <div className="w-full h-full border-4 border-[#004d25] flex flex-col font-sans p-6">
         

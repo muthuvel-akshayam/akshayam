@@ -323,7 +323,7 @@ export function ProfileDetailClient({ user }: { user: any }) {
         )}
         
         {/* Hidden PDF Template */}
-        <div>
+        <div style={{ position: 'absolute', top: 0, left: 0, zIndex: -1000, opacity: 0.01, pointerEvents: 'none' }}>
            <JathagamPDFTemplate profile={profile} profileId={profile.id} />
         </div>
       </div>
