@@ -255,6 +255,8 @@ export type UserWhereInput = {
   receivedRequests?: Prisma.ContactApprovalListRelationFilter
   targetUserSentLogs?: Prisma.ProfileSentLogListRelationFilter
   recipientUserSentLogs?: Prisma.ProfileSentLogListRelationFilter
+  shortlists?: Prisma.ShortlistListRelationFilter
+  shortlistedBy?: Prisma.ShortlistListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -274,6 +276,8 @@ export type UserOrderByWithRelationInput = {
   receivedRequests?: Prisma.ContactApprovalOrderByRelationAggregateInput
   targetUserSentLogs?: Prisma.ProfileSentLogOrderByRelationAggregateInput
   recipientUserSentLogs?: Prisma.ProfileSentLogOrderByRelationAggregateInput
+  shortlists?: Prisma.ShortlistOrderByRelationAggregateInput
+  shortlistedBy?: Prisma.ShortlistOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -296,6 +300,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   receivedRequests?: Prisma.ContactApprovalListRelationFilter
   targetUserSentLogs?: Prisma.ProfileSentLogListRelationFilter
   recipientUserSentLogs?: Prisma.ProfileSentLogListRelationFilter
+  shortlists?: Prisma.ShortlistListRelationFilter
+  shortlistedBy?: Prisma.ShortlistListRelationFilter
 }, "id" | "email" | "mobile_no">
 
 export type UserOrderByWithAggregationInput = {
@@ -347,6 +353,8 @@ export type UserCreateInput = {
   receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -366,6 +374,8 @@ export type UserUncheckedCreateInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
 }
 
 export type UserUpdateInput = {
@@ -385,6 +395,8 @@ export type UserUpdateInput = {
   receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -404,6 +416,8 @@ export type UserUncheckedUpdateInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -613,6 +627,34 @@ export type UserUpdateOneRequiredWithoutRecipientUserSentLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecipientUserSentLogsInput, Prisma.UserUpdateWithoutRecipientUserSentLogsInput>, Prisma.UserUncheckedUpdateWithoutRecipientUserSentLogsInput>
 }
 
+export type UserCreateNestedOneWithoutShortlistsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShortlistsInput, Prisma.UserUncheckedCreateWithoutShortlistsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShortlistsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutShortlistedByInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShortlistedByInput, Prisma.UserUncheckedCreateWithoutShortlistedByInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShortlistedByInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutShortlistsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShortlistsInput, Prisma.UserUncheckedCreateWithoutShortlistsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShortlistsInput
+  upsert?: Prisma.UserUpsertWithoutShortlistsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShortlistsInput, Prisma.UserUpdateWithoutShortlistsInput>, Prisma.UserUncheckedUpdateWithoutShortlistsInput>
+}
+
+export type UserUpdateOneRequiredWithoutShortlistedByNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShortlistedByInput, Prisma.UserUncheckedCreateWithoutShortlistedByInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShortlistedByInput
+  upsert?: Prisma.UserUpsertWithoutShortlistedByInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShortlistedByInput, Prisma.UserUpdateWithoutShortlistedByInput>, Prisma.UserUncheckedUpdateWithoutShortlistedByInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   email?: string | null
@@ -629,6 +671,8 @@ export type UserCreateWithoutProfileInput = {
   receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -647,6 +691,8 @@ export type UserUncheckedCreateWithoutProfileInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -681,6 +727,8 @@ export type UserUpdateWithoutProfileInput = {
   receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -699,6 +747,8 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
 }
 
 export type UserCreateWithoutFamilyInput = {
@@ -717,6 +767,8 @@ export type UserCreateWithoutFamilyInput = {
   receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
 }
 
 export type UserUncheckedCreateWithoutFamilyInput = {
@@ -735,6 +787,8 @@ export type UserUncheckedCreateWithoutFamilyInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
 }
 
 export type UserCreateOrConnectWithoutFamilyInput = {
@@ -769,6 +823,8 @@ export type UserUpdateWithoutFamilyInput = {
   receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFamilyInput = {
@@ -787,6 +843,8 @@ export type UserUncheckedUpdateWithoutFamilyInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
 }
 
 export type UserCreateWithoutExpectationsInput = {
@@ -805,6 +863,8 @@ export type UserCreateWithoutExpectationsInput = {
   receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
 }
 
 export type UserUncheckedCreateWithoutExpectationsInput = {
@@ -823,6 +883,8 @@ export type UserUncheckedCreateWithoutExpectationsInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
 }
 
 export type UserCreateOrConnectWithoutExpectationsInput = {
@@ -857,6 +919,8 @@ export type UserUpdateWithoutExpectationsInput = {
   receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExpectationsInput = {
@@ -875,6 +939,8 @@ export type UserUncheckedUpdateWithoutExpectationsInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
 }
 
 export type UserCreateWithoutSentRequestsInput = {
@@ -893,6 +959,8 @@ export type UserCreateWithoutSentRequestsInput = {
   receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
 }
 
 export type UserUncheckedCreateWithoutSentRequestsInput = {
@@ -911,6 +979,8 @@ export type UserUncheckedCreateWithoutSentRequestsInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
 }
 
 export type UserCreateOrConnectWithoutSentRequestsInput = {
@@ -934,6 +1004,8 @@ export type UserCreateWithoutReceivedRequestsInput = {
   sentRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRequesterInput
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
 }
 
 export type UserUncheckedCreateWithoutReceivedRequestsInput = {
@@ -952,6 +1024,8 @@ export type UserUncheckedCreateWithoutReceivedRequestsInput = {
   sentRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRequesterInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
 }
 
 export type UserCreateOrConnectWithoutReceivedRequestsInput = {
@@ -986,6 +1060,8 @@ export type UserUpdateWithoutSentRequestsInput = {
   receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentRequestsInput = {
@@ -1004,6 +1080,8 @@ export type UserUncheckedUpdateWithoutSentRequestsInput = {
   receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUpsertWithoutReceivedRequestsInput = {
@@ -1033,6 +1111,8 @@ export type UserUpdateWithoutReceivedRequestsInput = {
   sentRequests?: Prisma.ContactApprovalUpdateManyWithoutRequesterNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedRequestsInput = {
@@ -1051,6 +1131,8 @@ export type UserUncheckedUpdateWithoutReceivedRequestsInput = {
   sentRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRequesterNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
 }
 
 export type UserCreateWithoutTargetUserSentLogsInput = {
@@ -1069,6 +1151,8 @@ export type UserCreateWithoutTargetUserSentLogsInput = {
   sentRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRequesterInput
   receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
 }
 
 export type UserUncheckedCreateWithoutTargetUserSentLogsInput = {
@@ -1087,6 +1171,8 @@ export type UserUncheckedCreateWithoutTargetUserSentLogsInput = {
   sentRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRequesterInput
   receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
 }
 
 export type UserCreateOrConnectWithoutTargetUserSentLogsInput = {
@@ -1110,6 +1196,8 @@ export type UserCreateWithoutRecipientUserSentLogsInput = {
   sentRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRequesterInput
   receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
 }
 
 export type UserUncheckedCreateWithoutRecipientUserSentLogsInput = {
@@ -1128,6 +1216,8 @@ export type UserUncheckedCreateWithoutRecipientUserSentLogsInput = {
   sentRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRequesterInput
   receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
 }
 
 export type UserCreateOrConnectWithoutRecipientUserSentLogsInput = {
@@ -1162,6 +1252,8 @@ export type UserUpdateWithoutTargetUserSentLogsInput = {
   sentRequests?: Prisma.ContactApprovalUpdateManyWithoutRequesterNestedInput
   receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTargetUserSentLogsInput = {
@@ -1180,6 +1272,8 @@ export type UserUncheckedUpdateWithoutTargetUserSentLogsInput = {
   sentRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRequesterNestedInput
   receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUpsertWithoutRecipientUserSentLogsInput = {
@@ -1209,6 +1303,8 @@ export type UserUpdateWithoutRecipientUserSentLogsInput = {
   sentRequests?: Prisma.ContactApprovalUpdateManyWithoutRequesterNestedInput
   receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecipientUserSentLogsInput = {
@@ -1227,6 +1323,200 @@ export type UserUncheckedUpdateWithoutRecipientUserSentLogsInput = {
   sentRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRequesterNestedInput
   receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
+}
+
+export type UserCreateWithoutShortlistsInput = {
+  id?: string
+  email?: string | null
+  mobile_no?: string | null
+  password?: string | null
+  role?: $Enums.UserRole
+  status?: string
+  userIndex?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  family?: Prisma.FamilyCreateNestedOneWithoutUserInput
+  expectations?: Prisma.ExpectationsCreateNestedOneWithoutUserInput
+  sentRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRequesterInput
+  receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
+  targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
+}
+
+export type UserUncheckedCreateWithoutShortlistsInput = {
+  id?: string
+  email?: string | null
+  mobile_no?: string | null
+  password?: string | null
+  role?: $Enums.UserRole
+  status?: string
+  userIndex?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  family?: Prisma.FamilyUncheckedCreateNestedOneWithoutUserInput
+  expectations?: Prisma.ExpectationsUncheckedCreateNestedOneWithoutUserInput
+  sentRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRequesterInput
+  receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
+  targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
+}
+
+export type UserCreateOrConnectWithoutShortlistsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShortlistsInput, Prisma.UserUncheckedCreateWithoutShortlistsInput>
+}
+
+export type UserCreateWithoutShortlistedByInput = {
+  id?: string
+  email?: string | null
+  mobile_no?: string | null
+  password?: string | null
+  role?: $Enums.UserRole
+  status?: string
+  userIndex?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  family?: Prisma.FamilyCreateNestedOneWithoutUserInput
+  expectations?: Prisma.ExpectationsCreateNestedOneWithoutUserInput
+  sentRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRequesterInput
+  receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
+  targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutShortlistedByInput = {
+  id?: string
+  email?: string | null
+  mobile_no?: string | null
+  password?: string | null
+  role?: $Enums.UserRole
+  status?: string
+  userIndex?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  family?: Prisma.FamilyUncheckedCreateNestedOneWithoutUserInput
+  expectations?: Prisma.ExpectationsUncheckedCreateNestedOneWithoutUserInput
+  sentRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRequesterInput
+  receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
+  targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutShortlistedByInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShortlistedByInput, Prisma.UserUncheckedCreateWithoutShortlistedByInput>
+}
+
+export type UserUpsertWithoutShortlistsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShortlistsInput, Prisma.UserUncheckedUpdateWithoutShortlistsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShortlistsInput, Prisma.UserUncheckedCreateWithoutShortlistsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShortlistsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShortlistsInput, Prisma.UserUncheckedUpdateWithoutShortlistsInput>
+}
+
+export type UserUpdateWithoutShortlistsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobile_no?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  userIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  family?: Prisma.FamilyUpdateOneWithoutUserNestedInput
+  expectations?: Prisma.ExpectationsUpdateOneWithoutUserNestedInput
+  sentRequests?: Prisma.ContactApprovalUpdateManyWithoutRequesterNestedInput
+  receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
+  targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShortlistsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobile_no?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  userIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  family?: Prisma.FamilyUncheckedUpdateOneWithoutUserNestedInput
+  expectations?: Prisma.ExpectationsUncheckedUpdateOneWithoutUserNestedInput
+  sentRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
+  targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
+}
+
+export type UserUpsertWithoutShortlistedByInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShortlistedByInput, Prisma.UserUncheckedUpdateWithoutShortlistedByInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShortlistedByInput, Prisma.UserUncheckedCreateWithoutShortlistedByInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShortlistedByInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShortlistedByInput, Prisma.UserUncheckedUpdateWithoutShortlistedByInput>
+}
+
+export type UserUpdateWithoutShortlistedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobile_no?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  userIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  family?: Prisma.FamilyUpdateOneWithoutUserNestedInput
+  expectations?: Prisma.ExpectationsUpdateOneWithoutUserNestedInput
+  sentRequests?: Prisma.ContactApprovalUpdateManyWithoutRequesterNestedInput
+  receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
+  targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShortlistedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobile_no?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  userIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  family?: Prisma.FamilyUncheckedUpdateOneWithoutUserNestedInput
+  expectations?: Prisma.ExpectationsUncheckedUpdateOneWithoutUserNestedInput
+  sentRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
+  targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1239,6 +1529,8 @@ export type UserCountOutputType = {
   receivedRequests: number
   targetUserSentLogs: number
   recipientUserSentLogs: number
+  shortlists: number
+  shortlistedBy: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1246,6 +1538,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   receivedRequests?: boolean | UserCountOutputTypeCountReceivedRequestsArgs
   targetUserSentLogs?: boolean | UserCountOutputTypeCountTargetUserSentLogsArgs
   recipientUserSentLogs?: boolean | UserCountOutputTypeCountRecipientUserSentLogsArgs
+  shortlists?: boolean | UserCountOutputTypeCountShortlistsArgs
+  shortlistedBy?: boolean | UserCountOutputTypeCountShortlistedByArgs
 }
 
 /**
@@ -1286,6 +1580,20 @@ export type UserCountOutputTypeCountRecipientUserSentLogsArgs<ExtArgs extends ru
   where?: Prisma.ProfileSentLogWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShortlistsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShortlistWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShortlistedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShortlistWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1304,6 +1612,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   receivedRequests?: boolean | Prisma.User$receivedRequestsArgs<ExtArgs>
   targetUserSentLogs?: boolean | Prisma.User$targetUserSentLogsArgs<ExtArgs>
   recipientUserSentLogs?: boolean | Prisma.User$recipientUserSentLogsArgs<ExtArgs>
+  shortlists?: boolean | Prisma.User$shortlistsArgs<ExtArgs>
+  shortlistedBy?: boolean | Prisma.User$shortlistedByArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1352,6 +1662,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   receivedRequests?: boolean | Prisma.User$receivedRequestsArgs<ExtArgs>
   targetUserSentLogs?: boolean | Prisma.User$targetUserSentLogsArgs<ExtArgs>
   recipientUserSentLogs?: boolean | Prisma.User$recipientUserSentLogsArgs<ExtArgs>
+  shortlists?: boolean | Prisma.User$shortlistsArgs<ExtArgs>
+  shortlistedBy?: boolean | Prisma.User$shortlistedByArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1367,6 +1679,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     receivedRequests: Prisma.$ContactApprovalPayload<ExtArgs>[]
     targetUserSentLogs: Prisma.$ProfileSentLogPayload<ExtArgs>[]
     recipientUserSentLogs: Prisma.$ProfileSentLogPayload<ExtArgs>[]
+    shortlists: Prisma.$ShortlistPayload<ExtArgs>[]
+    shortlistedBy: Prisma.$ShortlistPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1779,6 +2093,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   receivedRequests<T extends Prisma.User$receivedRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContactApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   targetUserSentLogs<T extends Prisma.User$targetUserSentLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$targetUserSentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileSentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recipientUserSentLogs<T extends Prisma.User$recipientUserSentLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recipientUserSentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileSentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shortlists<T extends Prisma.User$shortlistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shortlistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShortlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shortlistedBy<T extends Prisma.User$shortlistedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shortlistedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShortlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2360,6 +2676,54 @@ export type User$recipientUserSentLogsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.ProfileSentLogScalarFieldEnum | Prisma.ProfileSentLogScalarFieldEnum[]
+}
+
+/**
+ * User.shortlists
+ */
+export type User$shortlistsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Shortlist
+   */
+  select?: Prisma.ShortlistSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Shortlist
+   */
+  omit?: Prisma.ShortlistOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShortlistInclude<ExtArgs> | null
+  where?: Prisma.ShortlistWhereInput
+  orderBy?: Prisma.ShortlistOrderByWithRelationInput | Prisma.ShortlistOrderByWithRelationInput[]
+  cursor?: Prisma.ShortlistWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShortlistScalarFieldEnum | Prisma.ShortlistScalarFieldEnum[]
+}
+
+/**
+ * User.shortlistedBy
+ */
+export type User$shortlistedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Shortlist
+   */
+  select?: Prisma.ShortlistSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Shortlist
+   */
+  omit?: Prisma.ShortlistOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShortlistInclude<ExtArgs> | null
+  where?: Prisma.ShortlistWhereInput
+  orderBy?: Prisma.ShortlistOrderByWithRelationInput | Prisma.ShortlistOrderByWithRelationInput[]
+  cursor?: Prisma.ShortlistWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShortlistScalarFieldEnum | Prisma.ShortlistScalarFieldEnum[]
 }
 
 /**

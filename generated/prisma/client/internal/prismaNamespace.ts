@@ -408,7 +408,8 @@ export const ModelName = {
   NakshatraCompatibility: 'NakshatraCompatibility',
   SiteSettings: 'SiteSettings',
   AdminAuditLog: 'AdminAuditLog',
-  CasteLookup: 'CasteLookup'
+  CasteLookup: 'CasteLookup',
+  Shortlist: 'Shortlist'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -424,7 +425,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "profile" | "education" | "family" | "sibling" | "expectations" | "contactApproval" | "profileSentLog" | "nakshatraCompatibility" | "siteSettings" | "adminAuditLog" | "casteLookup"
+    modelProps: "user" | "profile" | "education" | "family" | "sibling" | "expectations" | "contactApproval" | "profileSentLog" | "nakshatraCompatibility" | "siteSettings" | "adminAuditLog" | "casteLookup" | "shortlist"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1316,6 +1317,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Shortlist: {
+      payload: Prisma.$ShortlistPayload<ExtArgs>
+      fields: Prisma.ShortlistFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShortlistFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShortlistFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload>
+        }
+        findFirst: {
+          args: Prisma.ShortlistFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShortlistFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload>
+        }
+        findMany: {
+          args: Prisma.ShortlistFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload>[]
+        }
+        create: {
+          args: Prisma.ShortlistCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload>
+        }
+        createMany: {
+          args: Prisma.ShortlistCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShortlistCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload>[]
+        }
+        delete: {
+          args: Prisma.ShortlistDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload>
+        }
+        update: {
+          args: Prisma.ShortlistUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShortlistDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShortlistUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShortlistUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShortlistUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortlistPayload>
+        }
+        aggregate: {
+          args: Prisma.ShortlistAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShortlist>
+        }
+        groupBy: {
+          args: Prisma.ShortlistGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShortlistGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShortlistCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShortlistCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1379,6 +1454,7 @@ export const ProfileScalarFieldEnum = {
   state: 'state',
   city: 'city',
   houseAddress: 'houseAddress',
+  houseLocation: 'houseLocation',
   religion: 'religion',
   caste: 'caste',
   subCaste: 'subCaste',
@@ -1405,6 +1481,7 @@ export const ProfileScalarFieldEnum = {
   amsamGrid: 'amsamGrid',
   dasaBalance: 'dasaBalance',
   photoUrl: 'photoUrl',
+  idProofUrl: 'idProofUrl',
   casteCertificateUrl: 'casteCertificateUrl',
   hideMobileNo: 'hideMobileNo',
   hideHouseAddress: 'hideHouseAddress',
@@ -1568,6 +1645,16 @@ export const CasteLookupScalarFieldEnum = {
 } as const
 
 export type CasteLookupScalarFieldEnum = (typeof CasteLookupScalarFieldEnum)[keyof typeof CasteLookupScalarFieldEnum]
+
+
+export const ShortlistScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  targetId: 'targetId',
+  createdAt: 'createdAt'
+} as const
+
+export type ShortlistScalarFieldEnum = (typeof ShortlistScalarFieldEnum)[keyof typeof ShortlistScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2010,6 +2097,7 @@ export type GlobalOmitConfig = {
   siteSettings?: Prisma.SiteSettingsOmit
   adminAuditLog?: Prisma.AdminAuditLogOmit
   casteLookup?: Prisma.CasteLookupOmit
+  shortlist?: Prisma.ShortlistOmit
 }
 
 /* Types for Logging */

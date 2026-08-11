@@ -95,6 +95,8 @@ model User {
   receivedRequests      ContactApproval[] @relation("ReceivedRequests")
   targetUserSentLogs    ProfileSentLog[]  @relation("TargetUserSentLogs")
   recipientUserSentLogs ProfileSentLog[]  @relation("RecipientUserSentLogs")
+  shortlists            Shortlist[]       @relation("UserShortlists")
+  shortlistedBy         Shortlist[]       @relation("TargetShortlists")
   userIndex             Int?
   createdAt             DateTime          @default(now())
   updatedAt             DateTime          @updatedAt
@@ -114,6 +116,7 @@ model Profile {
   state         String
   city          String
   houseAddress  String?
+  houseLocation String?
   religion      String
   caste         String
   subCaste      String?
@@ -144,6 +147,7 @@ model Profile {
   amsamGrid           Json?
   dasaBalance         String?
   photoUrl            String?
+  idProofUrl          String?
   casteCertificateUrl String?
 
   // Privacy Flags
@@ -319,4 +323,16 @@ model CasteLookup {
 
   @@index([religion])
   @@index([religion, caste])
+}
+
+model Shortlist {
+  id        String   @id @default(uuid())
+  userId    String
+  targetId  String
+  createdAt DateTime @default(now())
+
+  user      User     @relation("UserShortlists", fields: [userId], references: [id], onDelete: Cascade)
+  target    User     @relation("TargetShortlists", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, targetId])
 }

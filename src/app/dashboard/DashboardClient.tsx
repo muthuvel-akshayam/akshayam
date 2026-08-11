@@ -15,17 +15,17 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
   if (!user || !user.profile) {
     return (
       <div className="min-h-screen bg-background text-gray-900 flex flex-col items-center justify-center p-4 font-sans">
-        <header className="absolute top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-4 px-6 shadow-sm flex justify-between items-center">
-          <Link href="/" className="text-xl font-serif font-extrabold text-primary">அக்‌ஷயம் | Akshayam</Link>
-          <button
-            onClick={toggleLanguage}
-            className="relative inline-flex h-8 w-16 items-center rounded-full bg-primary focus:outline-none transition-colors shadow-inner"
-            title="Translate English/Tamil"
-          >
-            <span className="absolute left-2 text-[10px] font-bold text-white z-0">EN</span>
-            <span className="absolute right-2 text-[10px] font-bold text-white z-0">TA</span>
-            <span className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform shadow-md z-10 ${language === 'TA' ? 'translate-x-9' : 'translate-x-1'}`}></span>
-          </button>
+        <header className="absolute top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-3 px-4 sm:px-6 shadow-sm flex justify-between items-center">
+          <Link href="/" className="flex items-center">
+            <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-8 sm:h-10 object-contain" />
+          </Link>
+          <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
+  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
+  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
+  </div>
+  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+</div>
         </header>
         <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 text-center max-w-md w-full mt-16">
           <div className="w-16 h-16 bg-red-50 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -84,7 +84,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
     return (
       <div className="min-h-screen bg-background text-gray-900 pb-12 font-sans selection:bg-rose-200 flex flex-col justify-between">
         {/* HEADER */}
-        <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-3 px-6 shadow-sm">
+        <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-3 px-4 sm:px-6 shadow-sm">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <Link href="/" className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full font-bold text-xs hover:bg-primary-light transition-all shadow">
               ← {language === 'TA' ? 'முகப்பு' : 'Home'}
@@ -104,15 +104,13 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                 <LogOut className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">{language === 'TA' ? 'வெளியேறு' : 'Logout'}</span>
               </button>
-              <button
-                onClick={toggleLanguage}
-                className="relative inline-flex h-8 w-16 items-center rounded-full bg-primary focus:outline-none transition-colors shadow-inner"
-                title="Translate English/Tamil"
-              >
-                <span className="absolute left-2 text-[10px] font-bold text-white z-0">EN</span>
-                <span className="absolute right-2 text-[10px] font-bold text-white z-0">TA</span>
-                <span className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform shadow-md z-10 ${language === 'TA' ? 'translate-x-9' : 'translate-x-1'}`}></span>
-              </button>
+              <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
+  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
+  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
+  </div>
+  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+</div>
             </div>
           </div>
         </header>
@@ -219,7 +217,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
     <div className="min-h-screen bg-background text-gray-900 pb-12 font-sans selection:bg-rose-200">
       
       {/* GLOBAL NAVBAR WITH LANGUAGE TOGGLE */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-3 px-6 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-3 px-4 sm:px-6 shadow-sm">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full font-bold text-xs hover:bg-primary-light transition-all shadow">
             ← {language === 'TA' ? 'முகப்பு' : 'Home'}
@@ -244,15 +242,13 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
               <LogOut className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">{language === 'TA' ? 'வெளியேறு' : 'Logout'}</span>
             </button>
-            <button
-              onClick={toggleLanguage}
-              className="relative inline-flex h-8 w-16 items-center rounded-full bg-primary focus:outline-none transition-colors shadow-inner"
-              title="Translate English/Tamil"
-            >
-              <span className="absolute left-2 text-[10px] font-bold text-white z-0">EN</span>
-              <span className="absolute right-2 text-[10px] font-bold text-white z-0">TA</span>
-              <span className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform shadow-md z-10 ${language === 'TA' ? 'translate-x-9' : 'translate-x-1'}`}></span>
-            </button>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
+  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
+  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
+  </div>
+  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+</div>
           </div>
         </div>
       </header>
@@ -432,7 +428,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                 {language === 'TA' ? 'சுருக்கமான விவரம்' : 'Quick Overview'}
               </h3>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Age & Height */}
                 <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 flex flex-col items-center text-center hover:shadow-sm transition-shadow">
                   <div className="bg-red-50 text-rose-600 p-2 rounded-lg mb-2">
@@ -474,7 +470,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                 </div>
                 
                 {/* Location */}
-                <div className="col-span-2 bg-gray-50 p-3 rounded-xl border border-gray-100 flex flex-col items-center text-center hover:shadow-sm transition-shadow">
+                <div className="col-span-1 sm:col-span-2 bg-gray-50 p-3 rounded-xl border border-gray-100 flex flex-col items-center text-center hover:shadow-sm transition-shadow">
                   <div className="bg-yellow-50 text-yellow-500 p-2 rounded-lg mb-2">
                     <MapPin className="w-5 h-5" />
                   </div>
@@ -644,7 +640,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                   </a>
                 )}
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
                   <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">{language === 'TA' ? 'ராசி' : 'Rasi (Moon Sign)'}</p>
                   <p className="text-sm font-bold text-gray-900">{translateRasi(profile.rasi, language)}</p>

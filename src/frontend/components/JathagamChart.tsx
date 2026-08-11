@@ -24,7 +24,7 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses }) =
   };
 
   return (
-    <div className="w-full max-w-[350px] sm:max-w-[400px] grid grid-cols-4 grid-rows-4 gap-px bg-rose-200/60 border border-rose-200/60 rounded-xl overflow-hidden shadow-md mx-auto">
+    <div className="w-full max-w-[320px] xs:max-w-xs sm:max-w-[400px] grid grid-cols-4 grid-rows-4 gap-px bg-rose-200/60 border border-rose-200/60 rounded-xl overflow-hidden shadow-md mx-auto">
       {sequence.map((item, idx) => {
         if (item === 'CENTER') {
           return (
@@ -42,7 +42,7 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses }) =
               {planets.map((planet, pIdx) => (
                 <span 
                   key={pIdx} 
-                  className="block text-[11px] sm:text-[13px] text-gray-800 font-bold text-center tracking-tight"
+                  className="block text-[9px] xs:text-[10px] sm:text-[13px] px-1 py-0.5 text-gray-800 font-bold text-center tracking-tight truncate w-full"
                 >
                   {planet}
                 </span>

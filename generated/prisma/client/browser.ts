@@ -77,3 +77,8 @@ export type AdminAuditLog = Prisma.AdminAuditLogModel
  * 
  */
 export type CasteLookup = Prisma.CasteLookupModel
+/**
+ * Model Shortlist
+ * 
+ */
+export type Shortlist = Prisma.ShortlistModel

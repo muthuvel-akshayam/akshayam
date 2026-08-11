@@ -36,12 +36,20 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
       return { success: true, userId: updated.id };
     }
 
+    // Fetch max userIndex to generate sequential ID
+    const maxUser = await prisma.user.findFirst({
+      orderBy: { userIndex: 'desc' },
+      select: { userIndex: true }
+    });
+    const nextIndex = (maxUser?.userIndex || 0) + 1;
+
     // Create new user
     const newUser = await prisma.user.create({
       data: {
         mobile_no: mobileNo,
         password: hashedPassword,
-        email: `${mobileNo}@akshayam.local`
+        email: `${mobileNo}@akshayam.local`,
+        userIndex: nextIndex
       }
     });
 

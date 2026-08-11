@@ -7,7 +7,7 @@ import { loginUser } from '@/backend/actions/auth';
 import { 
   Phone, MapPin, Heart, Shield, Compass, Users, Star, 
   CheckCircle, Sparkles, UserPlus, ArrowRight, Home as HomeIcon, 
-  Info, Briefcase, Mail, ChevronRight, Lock, LogIn
+  Info, Briefcase, Mail, ChevronRight, Lock, LogIn, Menu, X
 } from 'lucide-react';
 
 export default function HomeClient() {
@@ -17,6 +17,7 @@ export default function HomeClient() {
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, toggleLanguage } = useLanguage();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -41,14 +42,17 @@ export default function HomeClient() {
     { title: 'ஜாதகம் பதிவு', desc: 'உங்கள் ஜாதகத்தை பாதுகாப்பாகவும் துல்லியமாகவும் பதிவு செய்தல்.' },
     { title: 'வாழை மரம்', desc: 'திருமண நிகழ்ச்சிகளுக்கான சிறந்த அலங்கார வாழை மரங்கள்.' },
     { title: 'ஐயர்', desc: 'முறைப்படி திருமண சடங்குகளை நடத்தும் அனுபவமிக்க புரோகிதர்கள்.' },
-    { title: 'மாங்கல்ய வாத்தியம்', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.' },
-    { title: 'சீர்வரிசைத் தட்டு', desc: 'அழகான மற்றும் பாரம்பரிய சீர்வரிசை தட்டுகள் அலங்காரம்.' },
+    { title: 'மங்கல வாத்தியம்', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.' },
+    { title: 'சீர்வரிசை தட்டு', desc: 'அழகான மற்றும் பாரம்பரிய சீர்வரிசை தட்டுகள் அலங்காரம்.' },
     { title: 'சமையல் கேட்டரிங்', desc: 'சுவையான மற்றும் தரமான கொங்கு பாரம்பரிய சமையல்.' },
     { title: 'காய்கறி, காளான்', desc: 'திருமண விருந்துக்கான புதிய மற்றும் தரமான காய்கறிகள்.' },
     { title: 'பால், தயிர், நெய்', desc: 'சுத்தமான பண்ணை பால் மற்றும் நெய் விநியோகம்.' },
-    { title: 'பால்கோவா, பன்னீர்', desc: 'விருந்துக்கு தேவையான உயர்தர இனிப்புகள் மற்றும் பன்னீர்.' },
+    { title: 'பால் கோவா, பன்னீர்', desc: 'விருந்துக்கு தேவையான உயர்தர இனிப்புகள் மற்றும் பன்னீர்.' },
+    { title: 'இங்கிலீஷ் காய்கறிகள்', desc: 'சமையலுக்கு தேவையான ஃப்ரெஷ்ஷான ஆங்கிலக் காய்கறிகள்.' },
+    { title: 'தண்ணீர் 300 ml to 20 லிட்டர்', desc: 'பாதுகாப்பான மற்றும் சுத்திகரிக்கப்பட்ட குடிநீர் விநியோகம்.' },
     { title: 'டெக்கரேஷன்', desc: 'நவீன மற்றும் பாரம்பரிய மேடை அலங்காரங்கள்.' },
-    { title: 'போட்டோ & வீடியோ', desc: 'உங்கள் திருமண நினைவுகளை அழியாப் படங்களாக்கும் நிபுணர்கள்.' },
+    { title: 'போட்டோ வீடியோ', desc: 'உங்கள் திருமண நினைவுகளை அழியாப் படங்களாக்கும் நிபுணர்கள்.' },
+    { title: 'ஐஸ்கிரீம், பீடா, பழங்கள்', desc: 'சிறப்பு ஐஸ்கிரீம் கவுண்டர்கள், தாம்பூலம் மற்றும் பழங்கள்.' },
     { title: 'கரும்பு ஜூஸ் மற்றும் பல', desc: 'விருந்தினர்களை உபசரிக்க சிறப்பு பானங்கள் மற்றும் தின்பண்டங்கள்.' },
   ];
 
@@ -56,15 +60,18 @@ export default function HomeClient() {
     { title: 'Horoscope Registration', desc: 'Accurate and secure registration of horoscopes for matchmaking.' },
     { title: 'Banana Tree Decor', desc: 'Traditional auspicious banana tree arrangements for weddings.' },
     { title: 'Priest / Iyer', desc: 'Experienced Vedic priests to conduct traditional rituals.' },
-    { title: 'Mangalya Music', desc: 'Auspicious Nadaswaram and Thavil artists for wedding ceremonies.' },
+    { title: 'Auspicious Music', desc: 'Auspicious Nadaswaram and Thavil artists for wedding ceremonies.' },
     { title: 'Seer Varisai Plates', desc: 'Artistic and traditional gift plate decorations for the bride & groom.' },
     { title: 'Catering Services', desc: 'Authentic Kongu style hygienic and delicious feast preparation.' },
-    { title: 'Fresh Vegetables', desc: 'Supply of farm-fresh vegetables and mushrooms for wedding feasts.' },
+    { title: 'Fresh Vegetables & Mushroom', desc: 'Supply of farm-fresh vegetables and mushrooms for wedding feasts.' },
     { title: 'Milk, Curd & Ghee', desc: 'Pure dairy supplies for authentic cooking and sweets.' },
-    { title: 'Sweets & Paneer', desc: 'Premium quality Palkova, Paneer, and traditional desserts.' },
-    { title: 'Stage Decoration', desc: 'Grand traditional and contemporary wedding stage floral decors.' },
-    { title: 'Photo & Videography', desc: 'Expert candid photographers to capture timeless wedding memories.' },
-    { title: 'Welcome Drinks & Stalls', desc: 'Special sugarcane juice, ice cream, and paan counters for guests.' },
+    { title: 'Sweets & Paneer', desc: 'Premium quality Milk Kova, Paneer, and traditional desserts.' },
+    { title: 'English Vegetables', desc: 'Supply of fresh exotic and english vegetables.' },
+    { title: 'Water 300ml to 20L', desc: 'Safe and purified packaged drinking water supply.' },
+    { title: 'Decoration', desc: 'Grand traditional and contemporary wedding stage floral decors.' },
+    { title: 'Photo & Video', desc: 'Expert candid photographers to capture timeless wedding memories.' },
+    { title: 'Ice Cream, Beeda & Fruits', desc: 'Special dessert counters, traditional betel leaf, and fresh fruit stalls.' },
+    { title: 'Sugarcane Juice & More', desc: 'Welcome drinks and snacks to treat your guests.' },
   ];
 
   const services = language === 'TA' ? servicesTa : servicesEn;
@@ -80,23 +87,16 @@ export default function HomeClient() {
             >
               ← {language === 'TA' ? 'முகப்புக்கு திரும்பு' : 'Back to Home'}
             </button>
-            <div className="text-center">
-              <h1 className="text-xl md:text-2xl font-serif font-serif font-extrabold text-primary">
-                {language === 'TA' ? 'அக்‌ஷயம் திருமணத் தகவல் மையம்' : 'Akshayam Matrimony'}
-              </h1>
-              <p className="text-xs text-accent font-bold mt-0.5">
-                {language === 'TA' ? 'ஜாதகம் முதல் பந்தி வரை' : 'Horoscope to Wedding Feast'}
-              </p>
+            <div className="flex flex-col items-center justify-center">
+              <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-10 md:h-14 object-contain" />
             </div>
-            <button
-              onClick={toggleLanguage}
-              className="relative inline-flex h-8 w-16 items-center rounded-full bg-primary focus:outline-none transition-colors shadow-inner"
-              title="Translate English/Tamil"
-            >
-              <span className="absolute left-2 text-[10px] font-bold text-white z-0">EN</span>
-              <span className="absolute right-2 text-[10px] font-bold text-white z-0">TA</span>
-              <span className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform shadow-md z-10 ${language === 'TA' ? 'translate-x-9' : 'translate-x-1'}`}></span>
-            </button>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
+  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
+  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
+  </div>
+  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+</div>
           </div>
         </header>
         <div className="flex-1">
@@ -109,15 +109,10 @@ export default function HomeClient() {
   return (
     <div className="min-h-screen bg-background text-gray-900 flex flex-col font-sans">
       {/* Navbar */}
-      <nav className="sticky top-0 w-full z-50 transition-all duration-300 bg-background/95 backdrop-blur-md pt-4 pb-3 shadow-sm border-b border-primary/10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
+      <nav className="sticky top-0 w-full z-50 transition-all duration-300 bg-background/95 backdrop-blur-md py-3 shadow-sm border-b border-primary/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <a href="#home" className="flex flex-col items-start md:items-center">
-            <span className="text-2xl md:text-3xl font-serif font-serif font-extrabold text-primary tracking-tight drop-shadow-sm">
-              அக்‌ஷயம்
-            </span>
-            <span className="text-[11px] md:text-xs text-accent font-bold tracking-wide mt-[-2px]">
-              {language === 'TA' ? 'ஜாதகம் முதல் பந்தி வரை' : 'Horoscope to Wedding Feast'}
-            </span>
+            <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-12 md:h-16 object-contain" />
           </a>
 
           <div className="hidden md:flex items-center space-x-8 text-base font-bold text-gray-800">
@@ -126,15 +121,13 @@ export default function HomeClient() {
             <a href="#services" className="hover:text-primary transition-colors">{language === 'TA' ? 'சேவைகள்' : 'Services'}</a>
             <a href="#contact" className="hover:text-primary transition-colors">{language === 'TA' ? 'தொடர்புக்கு' : 'Contact'}</a>
             
-            <button
-              onClick={toggleLanguage}
-              className="relative inline-flex h-8 w-16 items-center rounded-full bg-primary focus:outline-none transition-colors shadow-inner"
-              title="Translate English/Tamil"
-            >
-              <span className="absolute left-2 text-[10px] font-bold text-white z-0">EN</span>
-              <span className="absolute right-2 text-[10px] font-bold text-white z-0">TA</span>
-              <span className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform shadow-md z-10 ${language === 'TA' ? 'translate-x-9' : 'translate-x-1'}`}></span>
-            </button>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
+  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
+  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
+  </div>
+  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+</div>
 
             {/* LOGIN BUTTON IN NAVBAR */}
             <button
@@ -151,100 +144,147 @@ export default function HomeClient() {
               className="bg-primary hover:bg-primary-light text-white px-7 py-2.5 rounded-full font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-2 border-2 border-accent/50"
             >
               <UserPlus className="w-4 h-4 text-accent" />
-              {language === 'TA' ? 'இலவச பதிவு' : 'Register Now'}
+              {language === 'TA' ? 'பதிவு செய்க' : 'Register Now'}
             </button>
           </div>
 
           <div className="md:hidden flex items-center gap-2">
             <button
-              onClick={toggleLanguage}
-              className="relative inline-flex h-7 w-14 items-center rounded-full bg-primary focus:outline-none transition-colors shadow-inner"
-            >
-              <span className="absolute left-1.5 text-[9px] font-bold text-white z-0">EN</span>
-              <span className="absolute right-1.5 text-[9px] font-bold text-white z-0">TA</span>
-              <span className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform shadow-md z-10 ${language === 'TA' ? 'translate-x-8' : 'translate-x-1'}`}></span>
-            </button>
-            <button
               onClick={() => { setShowLogin(true); setLoginError(''); }}
-              className="bg-white text-primary px-3 py-1.5 rounded-full font-bold text-xs shadow-sm flex items-center gap-1 border border-primary/30"
+              className="bg-white text-primary px-3 py-2 rounded-full font-bold text-xs shadow-sm flex items-center gap-1 border border-primary/30"
             >
               {language === 'TA' ? 'உள்நுழைக' : 'Login'}
             </button>
             <button
-              onClick={() => setShowRegister(true)}
-              className="bg-primary text-white px-3.5 py-1.5 rounded-full font-bold text-xs shadow-md flex items-center gap-1 border border-accent"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-2 text-primary"
             >
-              <UserPlus className="w-3.5 h-3.5 text-accent" />
-              {language === 'TA' ? 'பதிவு' : 'Register'}
+              <Menu className="w-6 h-6" />
             </button>
           </div>
         </div>
       </nav>
 
+      {/* Mobile Drawer */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[60] flex md:hidden">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)}></div>
+          <div className="relative w-64 max-w-xs h-full bg-white shadow-2xl flex flex-col p-6 animate-in slide-in-from-right duration-300 ml-auto">
+            <div className="flex items-center justify-between mb-8">
+              <span className="text-xl font-serif font-extrabold text-primary">அக்‌ஷயம்</span>
+              <button onClick={() => setIsMobileMenuOpen(false)} className="text-gray-500 hover:text-gray-900 p-2">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            
+            <div className="flex flex-col space-y-4 text-base font-bold text-gray-800">
+              <a href="#home" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">{language === 'TA' ? 'முகப்பு' : 'Home'}</a>
+              <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">{language === 'TA' ? 'எங்களை பற்றி' : 'About Us'}</a>
+              <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">{language === 'TA' ? 'சேவைகள்' : 'Services'}</a>
+              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">{language === 'TA' ? 'தொடர்புக்கு' : 'Contact'}</a>
+            </div>
+
+            <div className="mt-8 space-y-4">
+              <div className="flex items-center justify-between py-2 border-t border-gray-100">
+                <span className="text-sm font-bold text-gray-600">{language === 'TA' ? 'மொழி / Language' : 'Language'}</span>
+                <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
+  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
+  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
+  </div>
+  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+</div>
+              </div>
+              
+              <button
+                onClick={() => { setIsMobileMenuOpen(false); setShowRegister(true); }}
+                className="w-full bg-primary hover:bg-primary-light text-white px-4 py-3 h-12 rounded-xl font-bold transition-all shadow-md flex items-center justify-center gap-2"
+              >
+                <UserPlus className="w-5 h-5 text-accent" />
+                {language === 'TA' ? 'பதிவு செய்க' : 'Register Now'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
-      <section id="home" className="relative w-full min-h-[85vh] flex items-center justify-center py-16 px-6 overflow-hidden bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)]/60 to-[var(--color-background)]">
+      <section id="home" className="relative w-full min-h-[85vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)]/60 to-[var(--color-background)]">
         <div className="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(var(--color-primary)_1px,transparent_1px)] [background-size:24px_24px]"></div>
         
-        <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-xs md:text-sm mb-6 animate-pulse">
-            <Sparkles className="w-4 h-4 text-accent" />
-            {language === 'TA' ? '100% நம்பகமான கொங்கு திருமணத் தகவல் சேவை' : '100% Trusted Kongu Matrimonial Service'}
+        <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+          
+          {/* Left: Bride and Groom Image */}
+          <div className="w-full md:w-1/2 flex justify-center order-2 md:order-1">
+            <img 
+              src="/hero-couple.png" 
+              alt="Akshayam Bride and Groom" 
+              className="w-full max-w-md md:max-w-full rounded-2xl shadow-xl object-cover border-4 border-white/50"
+            />
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-serif font-extrabold text-primary mb-6 leading-tight drop-shadow-sm font-serif">
-            {language === 'TA' ? (
-              <>
-                அக்‌ஷயம் <br className="hidden sm:inline" />
-                <span className="text-gray-900">திருமணத் தகவல் மையம்</span>
-              </>
-            ) : (
-              <>
-                Akshayam <br className="hidden sm:inline" />
-                <span className="text-gray-900">Matrimony</span>
-              </>
-            )}
-          </h1>
+          {/* Right: Text Content */}
+          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-1 md:order-2">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-xs md:text-sm mb-6 animate-pulse">
+              <Sparkles className="w-4 h-4 text-accent" />
+              {language === 'TA' ? '100% நம்பகமான கொங்கு திருமணத் தகவல் சேவை' : '100% Trusted Kongu Matrimonial Service'}
+            </div>
 
-          <p className="text-xl sm:text-2xl md:text-3xl font-bold text-accent mb-6 tracking-wide font-serif">
-            {language === 'TA' 
-              ? '"உங்கள் இல்லத்தின் இனிய உறவுக்கு நம்பிக்கையான துணை"' 
-              : '"A Trusted Companion for Your Family\'s Sweetest Relationships"'}
-          </p>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-serif font-extrabold text-primary mb-6 leading-tight drop-shadow-sm font-serif">
+              {language === 'TA' ? (
+                <>
+                  அக்‌ஷயம் <br className="hidden sm:inline" />
+                  <span className="text-gray-900">திருமணத் தகவல் மையம்</span>
+                </>
+              ) : (
+                <>
+                  Akshayam <br className="hidden sm:inline" />
+                  <span className="text-gray-900">Matrimony</span>
+                </>
+              )}
+            </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-10 max-w-2xl font-medium leading-relaxed">
-            {language === 'TA'
-              ? 'பல ஆண்டுகளாக நம்பிக்கையுடன் செயல்பட்டு வரும் திருமணத் தகவல் மையம். குடும்ப மதிப்புகளையும், தனியுரிமையையும் முன்னிலைப்படுத்தி சிறந்த வாழ்க்கைத்துணையை இணைத்து வருகிறோம்.'
-              : 'Operating with trust and excellence for over a decade. We connect matching souls while upholding family values, tradition, and total privacy protection.'}
-          </p>
+            <p className="text-xl sm:text-2xl md:text-3xl font-bold text-accent mb-6 tracking-wide font-serif">
+              {language === 'TA' 
+                ? '"உங்கள் இல்லத்தின் இனிய உறவுக்கு நம்பிக்கையான துணை"' 
+                : '"A Trusted Companion for Your Family\'s Sweetest Relationships"'}
+            </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto">
-            {/* HERO REGISTER BUTTON */}
-            <button
-              onClick={() => setShowRegister(true)}
-              className="w-full sm:w-auto flex items-center justify-center gap-3 bg-primary hover:bg-primary-light text-white px-10 py-5 rounded-full font-extrabold text-xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 border-2 border-accent group"
-            >
-              <UserPlus className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
-              {language === 'TA' ? 'இலவச பதிவு செய்க' : 'Register Your Profile'}
-              <ArrowRight className="w-5 h-5 ml-1 opacity-80 group-hover:translate-x-1 transition-transform" />
-            </button>
+            <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-10 max-w-2xl font-medium leading-relaxed">
+              {language === 'TA'
+                ? 'பல ஆண்டுகளாக நம்பிக்கையுடன் செயல்பட்டு வரும் திருமணத் தகவல் மையம். குடும்ப மதிப்புகளையும், தனியுரிமையையும் முன்னிலைப்படுத்தி சிறந்த வாழ்க்கைத்துணையை இணைத்து வருகிறோம்.'
+                : 'Operating with trust and excellence for over a decade. We connect matching souls while upholding family values, tradition, and total privacy protection.'}
+            </p>
 
-            <a
-              href="tel:9677613716"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-primary border-2 border-primary px-8 py-5 rounded-full font-bold text-lg transition-all shadow-md hover:shadow-lg"
-            >
-              <Phone className="w-5 h-5 text-primary" />
-              {language === 'TA' ? 'இப்போது அழைக்க' : 'Call Now'}
-            </a>
-          </div>
+            <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-5 w-full sm:w-auto">
+              {/* HERO REGISTER BUTTON */}
+              <button
+                onClick={() => setShowRegister(true)}
+                className="w-full sm:w-auto flex items-center justify-center gap-3 bg-primary hover:bg-primary-light text-white px-10 py-5 rounded-full font-extrabold text-xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 border-2 border-accent group"
+              >
+                <UserPlus className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
+                {language === 'TA' ? 'பதிவு செய்க' : 'Register Your Profile'}
+                <ArrowRight className="w-5 h-5 ml-1 opacity-80 group-hover:translate-x-1 transition-transform" />
+              </button>
 
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-primary text-lg md:text-xl font-bold">
-            <a href="tel:9677613716" className="hover:text-accent transition-colors flex items-center gap-2 bg-white/80 px-4 py-2 rounded-xl shadow-sm border border-primary/10">
-              <Phone className="w-4 h-4 text-accent" /> 96776 13716
-            </a>
-            <span className="text-accent opacity-50 hidden sm:inline">|</span>
-            <a href="tel:9345289217" className="hover:text-accent transition-colors flex items-center gap-2 bg-white/80 px-4 py-2 rounded-xl shadow-sm border border-primary/10">
-              <Phone className="w-4 h-4 text-accent" /> 93452 89217
-            </a>
+              <a
+                href="tel:9677613716"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-primary border-2 border-primary px-8 py-5 rounded-full font-bold text-lg transition-all shadow-md hover:shadow-lg"
+              >
+                <Phone className="w-5 h-5 text-primary" />
+                {language === 'TA' ? 'இப்போது அழைக்க' : 'Call Now'}
+              </a>
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-4 text-primary text-base font-bold">
+              <a href="tel:9677613716" className="hover:text-accent transition-colors flex items-center gap-2 bg-white/80 px-4 py-2 rounded-xl shadow-sm border border-primary/10">
+                <Phone className="w-4 h-4 text-accent" /> 96776 13716
+              </a>
+              <span className="text-accent opacity-50 hidden sm:inline">|</span>
+              <a href="tel:9345289217" className="hover:text-accent transition-colors flex items-center gap-2 bg-white/80 px-4 py-2 rounded-xl shadow-sm border border-primary/10">
+                <Phone className="w-4 h-4 text-accent" /> 93452 89217
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -252,7 +292,7 @@ export default function HomeClient() {
       {/* About Section */}
       <section id="about" className="py-24 bg-white relative">
         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-[var(--color-accent)] to-transparent opacity-60"></div>
-        <div className="max-w-5xl mx-auto px-6 lg:px-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-serif font-serif font-extrabold text-primary mb-4">
               {language === 'TA' ? 'எங்களை பற்றி' : 'About Us'}
@@ -279,7 +319,7 @@ export default function HomeClient() {
 
       {/* Services Section */}
       <section id="services" className="py-24 bg-background relative border-y border-primary/10">
-        <div className="max-w-6xl mx-auto px-6 lg:px-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-serif font-extrabold text-primary mb-4">
               {language === 'TA' ? 'எங்கள் சேவைகள்' : 'Our Services'}
@@ -331,7 +371,7 @@ export default function HomeClient() {
 
       {/* Why Choose Us */}
       <section className="py-24 bg-white relative">
-        <div className="max-w-6xl mx-auto px-6 lg:px-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-serif font-extrabold text-primary mb-4">
               {language === 'TA' ? 'ஏன் எங்களை தேர்வு செய்ய வேண்டும்?' : 'Why Choose Akshayam?'}
@@ -392,7 +432,7 @@ export default function HomeClient() {
           </h2>
           <p className="text-lg md:text-xl text-emerald-100 mb-10 max-w-2xl mx-auto font-medium">
             {language === 'TA'
-              ? 'இலவசமாக பதிவு செய்து உங்கள் குடும்பத்திற்கான பொருத்தமான வாழ்க்கைத்துணையை தேர்ந்தெடுக்கவும்.'
+              ? 'பதிவு செய்து உங்கள் குடும்பத்திற்கான பொருத்தமான வாழ்க்கைத்துணையை தேர்ந்தெடுக்கவும்.'
               : 'Register for free and explore verified, high-compatibility profiles from respected families.'}
           </p>
           <button
@@ -400,14 +440,14 @@ export default function HomeClient() {
             className="bg-accent hover:bg-[#c29d2b] text-[#2a1414] px-12 py-5 rounded-full font-extrabold text-xl transition-all shadow-2xl hover:scale-105 inline-flex items-center gap-3 border-2 border-white/20"
           >
             <UserPlus className="w-6 h-6 text-[#2a1414]" />
-            {language === 'TA' ? 'இப்போதே பதிவு செய்யுங்கள்' : 'Register Now - Free'}
+            {language === 'TA' ? 'இப்போதே பதிவு செய்யுங்கள்' : 'Register Now'}
           </button>
         </div>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="py-24 bg-background relative">
-        <div className="max-w-5xl mx-auto px-6 lg:px-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-serif font-extrabold text-primary mb-4">
               {language === 'TA' ? 'தொடர்புக்கு' : 'Contact Us'}
@@ -446,7 +486,8 @@ export default function HomeClient() {
                   <h3 className="text-xl font-bold text-primary">{language === 'TA' ? 'முகவரி' : 'Address'}</h3>
                 </div>
               </div>
-              <div className="p-6 bg-gray-50 rounded-xl flex flex-col items-center justify-center border border-gray-100">
+              <div className="p-6 bg-gray-50 rounded-xl flex flex-col items-center justify-center border border-gray-100 overflow-hidden">
+                <img src="/temple.jpg" alt="Malaikovil Temple" className="w-full h-48 sm:h-56 object-cover rounded-xl mb-6 shadow-md border border-gray-200" />
                 <address className="not-italic text-lg font-semibold text-gray-800 leading-relaxed text-center">
                   {language === 'TA' ? (
                     <>
@@ -490,16 +531,7 @@ export default function HomeClient() {
         </div>
       </footer>
 
-      {/* Floating Call CTA */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
-        <a
-          href="tel:9677613716"
-          className="w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-primary-light hover:scale-110 transition-all border-2 border-accent"
-          title="Call Now"
-        >
-          <Phone className="w-6 h-6" />
-        </a>
-      </div>
+
 
       {/* LOGIN MODAL */}
       {showLogin && (
@@ -543,7 +575,7 @@ export default function HomeClient() {
                     value={loginMobile}
                     onChange={(e) => setLoginMobile(e.target.value)}
                     placeholder="98765 43210"
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 font-bold text-sm focus:bg-white focus:border-primary focus:outline-none transition-all"
+                    className="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 font-bold text-base sm:text-sm focus:bg-white focus:border-primary focus:outline-none transition-all"
                   />
                 </div>
               </div>
@@ -552,20 +584,20 @@ export default function HomeClient() {
                 <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                   {language === 'TA' ? 'கடவுச்சொல்' : 'Password'}
                 </label>
-                <input
+                  <input
                   type="password"
                   required
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 font-bold text-sm focus:bg-white focus:border-primary focus:outline-none transition-all"
+                  className="w-full h-12 px-4 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 font-bold text-base sm:text-sm focus:bg-white focus:border-primary focus:outline-none transition-all"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isLoggingIn}
-                className="w-full mt-2 bg-primary hover:bg-primary-light disabled:opacity-50 text-white font-bold py-3 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 text-sm flex items-center justify-center gap-2"
+                className="w-full mt-2 bg-primary hover:bg-primary-light disabled:opacity-50 text-white font-bold h-12 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 text-sm flex items-center justify-center gap-2"
               >
                 {isLoggingIn ? (
                   <span>{language === 'TA' ? 'உள்நுழைகிறது...' : 'Logging in...'}</span>

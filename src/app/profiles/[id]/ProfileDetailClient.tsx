@@ -140,7 +140,7 @@ export function ProfileDetailClient({ user }: { user: any }) {
             <div className="bg-gray-50 p-6 flex-1 border-t border-gray-100">
               <div className="grid grid-cols-[150px_auto] gap-y-4">
                 <div className="font-semibold text-gray-700">பதிவு எண்</div>
-                <div className="font-bold text-gray-900">: {user.id.substring(0, 8).toUpperCase()}</div>
+                <div className="font-bold text-gray-900">: {user.userIndex ? `${1000 + user.userIndex}AE` : `${1000 + (parseInt(user.id.substring(0, 4), 16) % 9000)}AE`}</div>
                 
                 <div className="font-semibold text-gray-700">ஜாதி</div>
                 <div className="text-gray-900">: {safeStr(profile.caste)}</div>
@@ -163,7 +163,7 @@ export function ProfileDetailClient({ user }: { user: any }) {
         </div>
 
         {/* Personal Details Grid */}
-        <div className="bg-[#f2f8f6] rounded-xl shadow-sm border border-gray-100 p-8">
+        <div className="bg-[#f2f8f6] rounded-xl shadow-sm border border-gray-100 p-4 sm:p-8 overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
             
             {/* Left Column */}
@@ -282,7 +282,7 @@ export function ProfileDetailClient({ user }: { user: any }) {
              ) : (
                <div className="flex justify-center w-full">
                   {fullJathakamUrl.toLowerCase().endsWith('.pdf') ? (
-                     <a href={fullJathakamUrl} target="_blank" rel="noreferrer" className="px-6 py-3 bg-red-600 text-white rounded-md font-bold shadow-sm hover:bg-red-700 transition-colors">
+                     <a href={fullJathakamUrl} target="_blank" rel="noreferrer" className="w-full sm:w-auto px-6 py-3 bg-red-600 text-white rounded-md font-bold shadow-sm hover:bg-red-700 transition-colors flex justify-center items-center">
                        View Horoscope PDF
                      </a>
                   ) : (

@@ -92,7 +92,7 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
     }
   };
 
-  const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 sm:text-sm border p-3 bg-gray-50 text-gray-900 transition-colors";
+  const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-base sm:text-sm border py-3 px-4 bg-gray-50 text-gray-900 transition-colors";
   const labelClass = "block text-sm font-semibold text-gray-700";
 
   return (
@@ -215,13 +215,30 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
 
         <div>
           <label className={labelClass}>{t.expectedMonthlyIncome}</label>
-          <select {...register('expectedIncome')} className={inputClass}>
-            <option value="">{t.selectExpectation}</option>
-            <option value="Any">{t.doesntMatter}</option>
-            <option value="25k-50k">25,000 - 50,000</option>
-            <option value="50k-1L">50,000 - 1,00,000</option>
-            <option value="1L+">1,00,000+</option>
-          </select>
+          {watch('expectedIncome')?.startsWith('Custom:') ? (
+             <div className="flex gap-2 items-center">
+               <input 
+                 type="text" 
+                 className={inputClass + " flex-1"} 
+                 value={watch('expectedIncome')?.replace('Custom:', '') || ''} 
+                 onChange={(e) => setValue('expectedIncome', 'Custom:' + e.target.value)} 
+                 placeholder={language === 'TA' ? 'வருமானத்தை தட்டச்சு செய்யவும்' : 'Enter amount'} 
+               />
+               <button type="button" onClick={() => setValue('expectedIncome', '')} className="text-sm text-primary font-bold bg-primary/10 px-3 py-3 rounded-lg mt-2 whitespace-nowrap hover:bg-primary/20">
+                 {language === 'TA' ? 'மாற்று' : 'Reset'}
+               </button>
+             </div>
+          ) : (
+            <select {...register('expectedIncome')} className={inputClass}>
+              <option value="">{t.selectExpectation}</option>
+              <option value="Any">{t.doesntMatter}</option>
+              <option value="<25k">{language === 'TA' ? '25,000 க்கும் குறைவான' : 'Less than 25,000'}</option>
+              <option value="25k-50k">25,000 - 50,000</option>
+              <option value="50k-1L">50,000 - 1,00,000</option>
+              <option value="1L+">1,00,000+</option>
+              <option value="Custom:">{language === 'TA' ? 'மற்றவை (Manual Entry)' : 'Other (Manual Entry)'}</option>
+            </select>
+          )}
         </div>
       </div>
 

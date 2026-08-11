@@ -6,13 +6,13 @@ import { personalInfoSchema } from '@/backend/schema';
 import { Gender, PhysicalCondition, MaritalStatus, FamilyStatus, Habit } from '../../../../generated/prisma/client/browser';
 import { z } from 'zod';
 import { savePersonalInfo } from '@/backend/actions/profile';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { extractAstrologyData } from '@/backend/actions/extractAstrology';
 import { Plus, Trash2 } from 'lucide-react';
 import { FileUpload } from '../FileUpload';
 import { rasiOptions, nakshatraByRasi } from '@/frontend/utils/astrology';
 import { formTranslations } from '@/frontend/utils/formTranslations';
-import { RELIGION_OPTIONS, CASTE_OPTIONS, SUB_CASTE_OPTIONS } from '@/constants/demographics';
+import { RELIGION_OPTIONS, CASTE_OPTIONS, SUB_CASTE_OPTIONS, translateTerm } from '@/constants/demographics';
 
 type FormValues = z.infer<typeof personalInfoSchema>;
 
@@ -27,8 +27,13 @@ const formatDob = (dobVal: any) => {
   }
 };
 
+
+const KVG_KOOTTAMS = ["Aandai (ஆந்தை)","Aadar (ஆடர்)","Aadhi (ஆதி / ஆதிக்குலம்)","Aadhirai (ஆதிரை)","Aadhitreya Kumban (ஆதித்தேய கும்பன்)","Aanthuvan (அந்துவன்)","Aavan (ஆவன்)","Agini / Akini (அக்கினி)","Alagan / Azhagu (அழகன் / அழகு)","Anangan (அனகன் / அனங்கன்)","Ariyan / Ashariyan (ஆரியன் / அஷரியன்)","Bharatan (பாரதன்)","Bramman (பிரம்மா)","Dananjayan / Thananjayan (தனஞ்செயன்)","Danavantan (தனவந்தன்)","Devendran (தேவேந்திரன்)","Eenjan (ஈஞ்சன்)","Ennai (எண்ணை)","Kaadan (காடன்)","Kaadai (காடை)","Kaari (காரி)","Kalingarayan (காலிங்கராயன் - Royal title/Lineage)","Kanavalan (கணவாளன்)","Kanakkan (கணக்கன்)","Kannan (கண்ணன்)","Kannanthai / Kananthai (கண்ணாந்தை)","Keeran (கீரன்)","Koorai (கூறை)","Koovendhar (கோவேந்தர்)","Kuzhalayan / Kuzhayar (குழையன்)","Maadar (மாடர்)","Maadai (மாடை)","Maniyan (மணியன்)","Mayilar / Mayilan (மயிலர் / மயிலான்)","Medhi / Moti (மேதி / மோதி)","Mulan (மூலன்)","Mutthan (முத்தன்)","Muzhukathan / Mulukadhan (முழுக்காதன்)","Neerunniyar (நீருண்ணியர்)","Ozukkar (ஒழுக்கர்)","Oothaalar / Odhaalar (ஓதாளர்)","Pallavarayan (பல்லவராயன்)","Panagkaadar (பனங்காடர்)","Panayan / Panaiyar (பணையன்)","Pandiyan (பாண்டியன்)","Pannai (பண்ணை)","Pathariar (பதறியர்)","Pathuman (பதுமன்)","Pavazhalar / Pavazhar (பவழர்)","Payiran (பயிரன்)","Periyan (பெரியன்)","Perunkudi (பெருங்குடி)","Pillar (பில்லர்)","Podiyan (பொடியன்)","Ponnar / Ponnan (பொன்னர் / பொன்னன்)","Poochadhai / Poochanthai (பூச்சந்தை)","Poodhiyan / Puthan (பூதியன் / புதன்)","Poosan (பூசன்)","Poondhai / Punnai (பூந்தை / புன்னை)","Porulaanthai / Porulthantha (பொருளாந்தை)","Saakadai (சாகாடை)","Sariyan / San (சரியன் / சன்)","Sathanthai / Sathandhai (சாத்தந்தை)","Sathuvaraayan (சத்துவராயன்)","Sanagan (சனகன்)","Sedan (சேடன்)","Sellan / Selvan (செல்லன் / செல்வன்)","Sembonn (செம்பொன்)","Sempoothan / Sembuthan (செம்பூதன்)","Semvan (செம்வன்)","Sengannan / Cenkannan (செங்கண்ணன்)","Sengunni / Senkunnier (செங்குன்னி)","Seralan (சேரலன்)","Seran / Cheran (சேரன்)","Sevadi (சேவடி)","Sevvayan / Sevvaayar (செவ்வாயர்)","Sevvandhi (செவ்வந்தி)","Silamban (சிலம்பன்)","Soman (சோமன்)","Soolan (சூலன்)","Sooriyan / Suriyan (சூரியன்)","Sothi (சோதி)","Sowriyan (சவுறியன்)","Surapi (சுரபி)","Thanakkavan (தனக்கவன்)","Thavalayan (தவளையன்)","Thazhinji / Taliyinji (தழிஞ்சி)","Themaan (தேமான்)","Thodai / Thodar (தோடை / தோடர்)","Thooran (தூரன்)","Thorakkan (தொரக்கன்)","Thunduman (துண்டுமன்)","Uvanan (உவணன்)","Uzhavan / Uzhuvar (உழவன்)","Urugalan (உறுகலன்)","Vaanan / Vaani (வாணன் / வாணி)","Vaanavarayar (வானவராயர் - Royal clan)","Vannakkan (வண்ணக்கன்)","Veliyan (வெளியன்)","Vellamban (வெள்ளம்பர்)","Vendhai / Venduvan (வெந்தை / வெண்டுவன்)","Viliyan / Vilayan (விளையன்)","Villi (வில்லி)","Vilosanan (விலோசனன்)","Viradhan (விரதன்)","Viraivulan (விரைவுலன்)","Vizhiyar (விழியர்)","Vennag / Vennai (வெண்ணங் / வெண்ணை)"];
+
 export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGenderChange }: { onNext: () => void; language?: 'TA' | 'EN'; initialData?: any; onGenderChange?: (gender: string) => void }) {
   const [isSaving, setIsSaving] = useState(false);
+  const [tobTime, setTobTime] = useState('');
+  const [tobAmPm, setTobAmPm] = useState('AM');
   const t = formTranslations[language || 'TA'];
   const profile = initialData?.profile;
   
@@ -51,6 +56,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
       state: profile?.state || 'Tamil Nadu',
       city: profile?.city || '',
       houseAddress: profile?.houseAddress || '',
+      houseLocation: profile?.houseLocation || '',
       religion: profile?.religion || 'Hindu',
       caste: profile?.caste || 'Kongu Vellalar',
       subCaste: profile?.subCaste || '',
@@ -107,6 +113,19 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const showKoottam = (selectedCaste && (selectedCaste.toLowerCase().includes('gounder') || selectedCaste.toLowerCase().includes('kongu vellala'))) || 
                       (selectedSubCaste && (selectedSubCaste.toLowerCase().includes('gounder') || selectedSubCaste.toLowerCase().includes('kongu vellala')));
 
+  const koottamRef = useRef<any>(null);
+  
+  useEffect(() => {
+    if (selectedCaste === 'Kongu Vellala Gounder') {
+      setValue('subCaste', ''); // Bypass subcaste
+      setTimeout(() => {
+        if (koottamRef.current) {
+          koottamRef.current.focus();
+        }
+      }, 100);
+    }
+  }, [selectedCaste, setValue]);
+
 
   useEffect(() => {
     let isMounted = true;
@@ -141,7 +160,17 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         const res = await fetch(`/api/taxonomy/castes?religion=${encodeURIComponent(selectedReligion)}`, { cache: 'no-store' });
         const data = await res.json();
         if (isMounted) {
-          setCastes(Array.isArray(data) && data.length > 0 ? data : CASTE_OPTIONS);
+          let casteList = Array.isArray(data) && data.length > 0 ? data : CASTE_OPTIONS;
+          if (selectedReligion.toLowerCase() === 'hindu') {
+            const kongu = casteList.find(c => c.value === 'Kongu Vellala Gounder' || c === 'Kongu Vellala Gounder') || { value: 'Kongu Vellala Gounder', labelEn: 'Kongu Vellala Gounder', labelTa: 'கொங்கு வேளாள கவுண்டர்' };
+            const gounderOther = casteList.find(c => c.value === 'Gounder (Other)' || c === 'Gounder (Other)') || { value: 'Gounder (Other)', labelEn: 'Gounder (Other)', labelTa: 'கவுண்டர் (மற்றவை)' };
+            const others = casteList.filter(c => {
+              const val = typeof c === 'string' ? c : c.value;
+              return val !== 'Kongu Vellala Gounder' && val !== 'Gounder (Other)';
+            });
+            casteList = [kongu, gounderOther, ...others];
+          }
+          setCastes(casteList);
         }
       } catch (error) {
         console.error('Error fetching castes:', error);
@@ -259,7 +288,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
     }
   };
 
-  const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 sm:text-sm border p-3 bg-gray-50 text-gray-900 transition-colors";
+  const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-base sm:text-sm border py-3 px-4 bg-gray-50 text-gray-900 transition-colors";
   const labelClass = "block text-sm font-semibold text-gray-700";
 
   return (
@@ -325,6 +354,9 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
           <div className="md:col-span-2">
             <label className={labelClass}>{t.houseAddress}</label>
             <textarea {...register('houseAddress')} className={`${inputClass} resize-none`} rows={2} placeholder={t.houseAddressPlaceholder} />
+            <div className="mt-2 flex gap-2 items-center">
+              <input {...register('houseLocation')} className={inputClass.replace('mt-2', '') + ' flex-1'} placeholder="https://maps.google.com/..." />
+            </div>
           </div>
           <div>
             <label className={labelClass}>{t.religion}</label>
@@ -340,7 +372,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="">{t.selectReligion}</option>
               {(religions.length ? religions : RELIGION_OPTIONS).map((opt: any) => {
                 const value = typeof opt === 'string' ? opt : opt.value;
-                const label = typeof opt === 'string' ? opt : (language === 'TA' ? opt.labelTa : opt.labelEn);
+                const label = typeof opt === 'string' ? translateTerm(opt, language || 'TA') : (language === 'TA' ? opt.labelTa : opt.labelEn);
                 return (
                   <option key={value} value={value}>{label}</option>
                 );
@@ -362,30 +394,48 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="">{loadingCastes ? 'Loading...' : t.selectCaste}</option>
               {(castes.length ? castes : CASTE_OPTIONS).map((opt: any) => {
                 const value = typeof opt === 'string' ? opt : opt.value;
-                const label = typeof opt === 'string' ? opt : (language === 'TA' ? opt.labelTa : opt.labelEn);
+                const label = typeof opt === 'string' ? translateTerm(opt, language || 'TA') : (language === 'TA' ? opt.labelTa : opt.labelEn);
                 return (
                   <option key={value} value={value}>{label}</option>
                 );
               })}
             </select>
           </div>
-          <div>
-            <label className={labelClass}>{t.subCaste}</label>
-            <select {...register('subCaste')} className={inputClass} disabled={loadingSubcastes || !selectedCaste}>
-              <option value="">{loadingSubcastes ? 'Loading...' : t.selectSubCaste}</option>
-              {(subcastes.length ? subcastes : SUB_CASTE_OPTIONS).map((opt: any) => {
-                const value = typeof opt === 'string' ? opt : opt.value;
-                const label = typeof opt === 'string' ? opt : (language === 'TA' ? opt.labelTa : opt.labelEn);
-                return (
-                  <option key={value} value={value}>{label}</option>
-                );
-              })}
-            </select>
-          </div>
+          {selectedCaste !== 'Kongu Vellala Gounder' && (
+            <div>
+              <label className={labelClass}>{t.subCaste}</label>
+              <select {...register('subCaste')} className={inputClass} disabled={loadingSubcastes || !selectedCaste}>
+                <option value="">{loadingSubcastes ? 'Loading...' : t.selectSubCaste}</option>
+                {(subcastes.length ? subcastes : SUB_CASTE_OPTIONS).map((opt: any) => {
+                  const value = typeof opt === 'string' ? opt : opt.value;
+                  const label = typeof opt === 'string' ? translateTerm(opt, language || 'TA') : (language === 'TA' ? opt.labelTa : opt.labelEn);
+                  return (
+                    <option key={value} value={value}>{label}</option>
+                  );
+                })}
+              </select>
+            </div>
+          )}
           {showKoottam && (
             <div>
               <label className={labelClass}>{t.koottam}</label>
-              <input {...register('koottam')} className={inputClass} placeholder={t.koottamPlaceholder} />
+              {selectedCaste === 'Kongu Vellala Gounder' ? (
+                <select {...register('koottam')} className={inputClass} ref={(e) => {
+                  register('koottam').ref(e);
+                  koottamRef.current = e;
+                }}>
+                  <option value="">{language === 'TA' ? 'கூட்டம் தேர்ந்தெடுக்கவும்' : 'Select Koottam'}</option>
+                  {KVG_KOOTTAMS.map((k) => (
+                    <option key={k} value={k}>{k}</option>
+                  ))}
+                  <option value="Other">{language === 'TA' ? 'மற்றவை' : 'Other'}</option>
+                </select>
+              ) : (
+                <input {...register('koottam')} className={inputClass} placeholder={t.koottamPlaceholder} ref={(e) => {
+                  register('koottam').ref(e);
+                  koottamRef.current = e;
+                }} />
+              )}
             </div>
           )}
           <div>
@@ -395,7 +445,19 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
           </div>
           <div>
             <label className={labelClass}>{t.tob}</label>
-            <input type="time" {...register('tob')} className={inputClass} />
+            <div className="mt-2 flex gap-2 items-center">
+              <input type="text" placeholder="HH:MM" value={tobTime} className={inputClass.replace('mt-2', '')} maxLength={5} onChange={(e) => {
+                 let val = e.target.value.replace(/[^0-9]/g, '');
+                 if (val.length > 2) val = val.slice(0,2) + ':' + val.slice(2,4);
+                 e.target.value = val;
+                 setTobTime(val);
+                 setValue('tob', `${val} ${tobAmPm}`);
+              }} />
+              <select value={tobAmPm} onChange={(e) => { setTobAmPm(e.target.value); setValue('tob', `${tobTime} ${e.target.value}`); }} className={`${inputClass.replace('mt-2', '')} w-24 px-2`}>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
           </div>
           <div>
             <label className={labelClass}>{t.lob}</label>
@@ -448,9 +510,11 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
             <div>
               <label className={labelClass}>{t.dosham}</label>
               <select {...register('dosham')} className={inputClass}>
-                <option value="None">{t.none}</option>
-                <option value="Chevvai">{t.chevvai}</option>
-                <option value="Rahu-Ketu">{t.rahuKetu}</option>
+                <option value="">{language === 'TA' ? 'தேர்ந்தெடுக்கவும்' : 'Select'}</option>
+                <option value="Sutham">{language === 'TA' ? 'சுத்தம்' : 'Sutham'}</option>
+                <option value="Rahu Kethu">{language === 'TA' ? 'ராகு கேது' : 'Rahu Kethu'}</option>
+                <option value="Chevvai">{language === 'TA' ? 'செவ்வாய்' : 'Chevvai'}</option>
+                <option value="Rahu Kethu Chevvai">{language === 'TA' ? 'ராகு கேது செவ்வாய்' : 'Rahu Kethu Chevvai'}</option>
               </select>
             </div>
 
@@ -566,6 +630,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
             onUploadSuccess={(url) => setValue('casteCertificateUrl', url, { shouldValidate: true, shouldDirty: true })} 
             initialUrl={watch('casteCertificateUrl')}
           />
+          
         </div>
       </div>
 

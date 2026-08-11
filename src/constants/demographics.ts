@@ -99,3 +99,95 @@ export const SUB_CASTE_OPTIONS: DropdownOption[] = [
   // Other / Generic
   { value: "Don't wish to specify / Other", labelEn: "Other Subcaste", labelTa: "மற்றவை" }
 ];
+
+
+export const TERM_DICTIONARY: Record<string, string> = {
+  // Core Religions
+  "Hindu": "இந்து",
+  "Christian": "கிறிஸ்தவர்",
+  "Muslim": "முஸ்லிம்",
+
+  // Castes
+  "Adi Dravida": "ஆதி திராவிடர்",
+  "Agamudayar / Arcot / Thuluva Vellala": "அகமுடையார் / ஆற்காடு / துளுவ வெள்ளாளர்",
+  "Brahmin": "பிராமணர்",
+  "Chettiar": "செட்டியார்",
+  "Devandra Kula Vellalar": "தேவேந்திர குல வேளாளர்",
+  "Gounder": "கவுண்டர்",
+  "Mudaliar": "முதலியார்",
+  "Mutharaiyar": "முத்தரையர்",
+  "Naidu": "நாயுடு",
+  "Naicker / Nayakar": "நாயக்கர்",
+  "Nadar": "நாடார்",
+  "Pillai": "பிள்ளை",
+  "Reddiar": "ரெட்டியார்",
+  "Vanniyar / Vannia Kula Kshatriyar": "வன்னியர் / வன்னிய குல க்ஷத்ரியர்",
+  "Vellalar": "வேளாளர்",
+  "Vishwakarma": "விஸ்வகர்மா",
+  "Yadav": "யாதவ் / கோனார்",
+  "Sourashtra": "சௌராஷ்டிரா",
+  "Arunthathiyar": "அருந்ததியர்",
+  "Caste No Bar": "சாதி தடையில்லை",
+  "Other Hindu": "மற்ற இந்து",
+  
+  "Christian Adi Dravida": "கிறிஸ்தவ ஆதி திராவிடர்",
+  "Christian Devandra Kula Vellalar": "கிறிஸ்தவ தேவேந்திர குல வேளாளர்",
+  "Christian Nadar": "கிறிஸ்தவ நாடார்",
+  "Christian Vellalar": "கிறிஸ்தவ வேளாளர்",
+  "Christian Other": "கிறிஸ்தவர் (மற்றவை)",
+  "Roman Catholic": "ரோமன் கத்தோலிக்கர்",
+  "Church of South India (CSI)": "தென்னிந்திய திருச்சபை (CSI)",
+  "Pentecostal": "பெந்தேகோஸ்தே",
+  "Protestant": "புராட்டஸ்டன்ட்",
+  "Orthodox": "ஆர்த்தடாக்ஸ்",
+  "Seventh-day Adventist": "செவன்த்-டே அட்வென்டிஸ்ட்",
+  "Syrian Catholic": "சிரியன் கத்தோலிக்கர்",
+  
+  "Sunni": "சுன்னி",
+  "Shia": "ஷியா",
+  "Labbai / Lebbai": "லெப்பை",
+  "Rowther": "ராவுத்தர்",
+  "Marakkayar": "மரைக்காயர்",
+  "Dhakni": "தக்னி",
+  "Other Muslim": "மற்ற முஸ்லிம்",
+  
+  "Jain": "ஜைனர்",
+  "Jain Digambar": "திகம்பர ஜைனர்",
+  "Jain Shwetambar": "சுவேதாம்பர ஜைனர்",
+  "Sikh": "சீக்கியர்",
+  "Buddhist": "பௌத்தர்",
+  "Parsi": "பார்சி",
+  "Jewish": "யூதர்",
+  "No Religious Belief": "மத நம்பிக்கையில்லை",
+  "InterReligion": "மதமாற்றத் திருமணம்",
+  
+  // Some common subcastes missing
+  "Kongu Vellala Gounder": "கொங்கு வேளாள கவுண்டர்",
+  "Vettuva Gounder": "வேட்டுவ கவுண்டர்",
+  "Nattu Gounder": "நாட்டு கவுண்டர்",
+  "Odayar Gounder": "உடையார் கவுண்டர்",
+  "Kaikolar / Sengunthar": "கைக்கோளர் / செங்குந்தர்",
+  "Balija Naidu": "பலிஜா நாயுடு",
+  "Kamma Naidu": "கம்மா நாயுடு",
+  "Reddy Naicker": "ரெட்டி நாயக்கர்",
+  "Saiva Pillai": "சைவ பிள்ளை",
+  "Vellala Pillai": "வெள்ளாள பிள்ளை",
+  "Isai Vellalar": "இசை வேளாளர்",
+  "Kongu Vellalar": "கொங்கு வேளாளர்",
+  "Paraiyar": "பறையர்",
+  "Sambavar": "சாம்பவர்",
+  "Pallan": "பள்ளன்",
+  "Iyer": "ஐயர்",
+  "Iyengar": "ஐயங்கார்",
+  "Vadama": "வடமா",
+  "Brahacharanam": "பிரஹசரணம்",
+  "Ashtasahasram": "அஷ்டசஹஸ்ரம்",
+  "Dravida Brahmin": "திராவிட பிராமணர்",
+  "Madhwa": "மாத்வா",
+  "Smartha": "ஸ்மார்த்தா"
+};
+
+export const translateTerm = (term: string, language: string) => {
+  if (language === 'EN') return term;
+  return TERM_DICTIONARY[term] || term;
+};

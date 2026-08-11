@@ -35,16 +35,13 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
               <a href="/dashboard" className="text-xs font-bold text-primary bg-primary/10 hover:bg-primary/20 px-4 py-2 rounded-full transition-all">
                 ← {language === 'TA' ? 'என் சுயவிவரம்' : 'My Dashboard'}
               </a>
-              <button
-                onClick={toggleLanguage}
-                type="button"
-                className="relative inline-flex h-8 w-16 items-center rounded-full bg-primary focus:outline-none transition-colors shadow-inner"
-                title="Translate English/Tamil"
-              >
-                <span className="absolute left-2 text-[10px] font-bold text-white z-0">EN</span>
-                <span className="absolute right-2 text-[10px] font-bold text-white z-0">TA</span>
-                <span className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform shadow-md z-10 ${language === 'TA' ? 'translate-x-9' : 'translate-x-1'}`}></span>
-              </button>
+              <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
+  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
+  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
+  </div>
+  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+</div>
             </div>
           )}
 

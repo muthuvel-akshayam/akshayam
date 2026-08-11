@@ -45,6 +45,7 @@ export type ProfileMinAggregateOutputType = {
   state: string | null
   city: string | null
   houseAddress: string | null
+  houseLocation: string | null
   religion: string | null
   caste: string | null
   subCaste: string | null
@@ -67,6 +68,7 @@ export type ProfileMinAggregateOutputType = {
   jathakamUrl: string | null
   dasaBalance: string | null
   photoUrl: string | null
+  idProofUrl: string | null
   casteCertificateUrl: string | null
   hideMobileNo: boolean | null
   hideHouseAddress: boolean | null
@@ -88,6 +90,7 @@ export type ProfileMaxAggregateOutputType = {
   state: string | null
   city: string | null
   houseAddress: string | null
+  houseLocation: string | null
   religion: string | null
   caste: string | null
   subCaste: string | null
@@ -110,6 +113,7 @@ export type ProfileMaxAggregateOutputType = {
   jathakamUrl: string | null
   dasaBalance: string | null
   photoUrl: string | null
+  idProofUrl: string | null
   casteCertificateUrl: string | null
   hideMobileNo: boolean | null
   hideHouseAddress: boolean | null
@@ -131,6 +135,7 @@ export type ProfileCountAggregateOutputType = {
   state: number
   city: number
   houseAddress: number
+  houseLocation: number
   religion: number
   caste: number
   subCaste: number
@@ -157,6 +162,7 @@ export type ProfileCountAggregateOutputType = {
   amsamGrid: number
   dasaBalance: number
   photoUrl: number
+  idProofUrl: number
   casteCertificateUrl: number
   hideMobileNo: number
   hideHouseAddress: number
@@ -190,6 +196,7 @@ export type ProfileMinAggregateInputType = {
   state?: true
   city?: true
   houseAddress?: true
+  houseLocation?: true
   religion?: true
   caste?: true
   subCaste?: true
@@ -212,6 +219,7 @@ export type ProfileMinAggregateInputType = {
   jathakamUrl?: true
   dasaBalance?: true
   photoUrl?: true
+  idProofUrl?: true
   casteCertificateUrl?: true
   hideMobileNo?: true
   hideHouseAddress?: true
@@ -233,6 +241,7 @@ export type ProfileMaxAggregateInputType = {
   state?: true
   city?: true
   houseAddress?: true
+  houseLocation?: true
   religion?: true
   caste?: true
   subCaste?: true
@@ -255,6 +264,7 @@ export type ProfileMaxAggregateInputType = {
   jathakamUrl?: true
   dasaBalance?: true
   photoUrl?: true
+  idProofUrl?: true
   casteCertificateUrl?: true
   hideMobileNo?: true
   hideHouseAddress?: true
@@ -276,6 +286,7 @@ export type ProfileCountAggregateInputType = {
   state?: true
   city?: true
   houseAddress?: true
+  houseLocation?: true
   religion?: true
   caste?: true
   subCaste?: true
@@ -302,6 +313,7 @@ export type ProfileCountAggregateInputType = {
   amsamGrid?: true
   dasaBalance?: true
   photoUrl?: true
+  idProofUrl?: true
   casteCertificateUrl?: true
   hideMobileNo?: true
   hideHouseAddress?: true
@@ -410,6 +422,7 @@ export type ProfileGroupByOutputType = {
   state: string
   city: string
   houseAddress: string | null
+  houseLocation: string | null
   religion: string
   caste: string
   subCaste: string | null
@@ -436,6 +449,7 @@ export type ProfileGroupByOutputType = {
   amsamGrid: runtime.JsonValue | null
   dasaBalance: string | null
   photoUrl: string | null
+  idProofUrl: string | null
   casteCertificateUrl: string | null
   hideMobileNo: boolean
   hideHouseAddress: boolean
@@ -480,6 +494,7 @@ export type ProfileWhereInput = {
   state?: Prisma.StringFilter<"Profile"> | string
   city?: Prisma.StringFilter<"Profile"> | string
   houseAddress?: Prisma.StringNullableFilter<"Profile"> | string | null
+  houseLocation?: Prisma.StringNullableFilter<"Profile"> | string | null
   religion?: Prisma.StringFilter<"Profile"> | string
   caste?: Prisma.StringFilter<"Profile"> | string
   subCaste?: Prisma.StringNullableFilter<"Profile"> | string | null
@@ -506,6 +521,7 @@ export type ProfileWhereInput = {
   amsamGrid?: Prisma.JsonNullableFilter<"Profile">
   dasaBalance?: Prisma.StringNullableFilter<"Profile"> | string | null
   photoUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
+  idProofUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   casteCertificateUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   hideMobileNo?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseAddress?: Prisma.BoolFilter<"Profile"> | boolean
@@ -529,6 +545,7 @@ export type ProfileOrderByWithRelationInput = {
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
   houseAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -555,6 +572,7 @@ export type ProfileOrderByWithRelationInput = {
   amsamGrid?: Prisma.SortOrderInput | Prisma.SortOrder
   dasaBalance?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
@@ -581,6 +599,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   state?: Prisma.StringFilter<"Profile"> | string
   city?: Prisma.StringFilter<"Profile"> | string
   houseAddress?: Prisma.StringNullableFilter<"Profile"> | string | null
+  houseLocation?: Prisma.StringNullableFilter<"Profile"> | string | null
   religion?: Prisma.StringFilter<"Profile"> | string
   caste?: Prisma.StringFilter<"Profile"> | string
   subCaste?: Prisma.StringNullableFilter<"Profile"> | string | null
@@ -607,6 +626,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   amsamGrid?: Prisma.JsonNullableFilter<"Profile">
   dasaBalance?: Prisma.StringNullableFilter<"Profile"> | string | null
   photoUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
+  idProofUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   casteCertificateUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   hideMobileNo?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseAddress?: Prisma.BoolFilter<"Profile"> | boolean
@@ -630,6 +650,7 @@ export type ProfileOrderByWithAggregationInput = {
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
   houseAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -656,6 +677,7 @@ export type ProfileOrderByWithAggregationInput = {
   amsamGrid?: Prisma.SortOrderInput | Prisma.SortOrder
   dasaBalance?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
@@ -685,6 +707,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
   state?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   city?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   houseAddress?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  houseLocation?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   religion?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   caste?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   subCaste?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
@@ -711,6 +734,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
   amsamGrid?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
   dasaBalance?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  idProofUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   casteCertificateUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   hideMobileNo?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
   hideHouseAddress?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
@@ -731,6 +755,7 @@ export type ProfileCreateInput = {
   state: string
   city: string
   houseAddress?: string | null
+  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -757,6 +782,7 @@ export type ProfileCreateInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: string | null
   photoUrl?: string | null
+  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -780,6 +806,7 @@ export type ProfileUncheckedCreateInput = {
   state: string
   city: string
   houseAddress?: string | null
+  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -806,6 +833,7 @@ export type ProfileUncheckedCreateInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: string | null
   photoUrl?: string | null
+  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -827,6 +855,7 @@ export type ProfileUpdateInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -853,6 +882,7 @@ export type ProfileUpdateInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -876,6 +906,7 @@ export type ProfileUncheckedUpdateInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -902,6 +933,7 @@ export type ProfileUncheckedUpdateInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -924,6 +956,7 @@ export type ProfileCreateManyInput = {
   state: string
   city: string
   houseAddress?: string | null
+  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -950,6 +983,7 @@ export type ProfileCreateManyInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: string | null
   photoUrl?: string | null
+  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -970,6 +1004,7 @@ export type ProfileUpdateManyMutationInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -996,6 +1031,7 @@ export type ProfileUpdateManyMutationInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1017,6 +1053,7 @@ export type ProfileUncheckedUpdateManyInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1043,6 +1080,7 @@ export type ProfileUncheckedUpdateManyInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1077,6 +1115,7 @@ export type ProfileCountOrderByAggregateInput = {
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
   houseAddress?: Prisma.SortOrder
+  houseLocation?: Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrder
@@ -1103,6 +1142,7 @@ export type ProfileCountOrderByAggregateInput = {
   amsamGrid?: Prisma.SortOrder
   dasaBalance?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
@@ -1129,6 +1169,7 @@ export type ProfileMaxOrderByAggregateInput = {
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
   houseAddress?: Prisma.SortOrder
+  houseLocation?: Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrder
@@ -1151,6 +1192,7 @@ export type ProfileMaxOrderByAggregateInput = {
   jathakamUrl?: Prisma.SortOrder
   dasaBalance?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
@@ -1172,6 +1214,7 @@ export type ProfileMinOrderByAggregateInput = {
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
   houseAddress?: Prisma.SortOrder
+  houseLocation?: Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrder
@@ -1194,6 +1237,7 @@ export type ProfileMinOrderByAggregateInput = {
   jathakamUrl?: Prisma.SortOrder
   dasaBalance?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
@@ -1319,6 +1363,7 @@ export type ProfileCreateWithoutUserInput = {
   state: string
   city: string
   houseAddress?: string | null
+  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -1345,6 +1390,7 @@ export type ProfileCreateWithoutUserInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: string | null
   photoUrl?: string | null
+  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -1366,6 +1412,7 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   state: string
   city: string
   houseAddress?: string | null
+  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -1392,6 +1439,7 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: string | null
   photoUrl?: string | null
+  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -1429,6 +1477,7 @@ export type ProfileUpdateWithoutUserInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1455,6 +1504,7 @@ export type ProfileUpdateWithoutUserInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1476,6 +1526,7 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1502,6 +1553,7 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1523,6 +1575,7 @@ export type ProfileCreateWithoutEducationsInput = {
   state: string
   city: string
   houseAddress?: string | null
+  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -1549,6 +1602,7 @@ export type ProfileCreateWithoutEducationsInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: string | null
   photoUrl?: string | null
+  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -1571,6 +1625,7 @@ export type ProfileUncheckedCreateWithoutEducationsInput = {
   state: string
   city: string
   houseAddress?: string | null
+  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -1597,6 +1652,7 @@ export type ProfileUncheckedCreateWithoutEducationsInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: string | null
   photoUrl?: string | null
+  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -1633,6 +1689,7 @@ export type ProfileUpdateWithoutEducationsInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1659,6 +1716,7 @@ export type ProfileUpdateWithoutEducationsInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1681,6 +1739,7 @@ export type ProfileUncheckedUpdateWithoutEducationsInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1707,6 +1766,7 @@ export type ProfileUncheckedUpdateWithoutEducationsInput = {
   amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1759,6 +1819,7 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   state?: boolean
   city?: boolean
   houseAddress?: boolean
+  houseLocation?: boolean
   religion?: boolean
   caste?: boolean
   subCaste?: boolean
@@ -1785,6 +1846,7 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   amsamGrid?: boolean
   dasaBalance?: boolean
   photoUrl?: boolean
+  idProofUrl?: boolean
   casteCertificateUrl?: boolean
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -1809,6 +1871,7 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   state?: boolean
   city?: boolean
   houseAddress?: boolean
+  houseLocation?: boolean
   religion?: boolean
   caste?: boolean
   subCaste?: boolean
@@ -1835,6 +1898,7 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   amsamGrid?: boolean
   dasaBalance?: boolean
   photoUrl?: boolean
+  idProofUrl?: boolean
   casteCertificateUrl?: boolean
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -1857,6 +1921,7 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   state?: boolean
   city?: boolean
   houseAddress?: boolean
+  houseLocation?: boolean
   religion?: boolean
   caste?: boolean
   subCaste?: boolean
@@ -1883,6 +1948,7 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   amsamGrid?: boolean
   dasaBalance?: boolean
   photoUrl?: boolean
+  idProofUrl?: boolean
   casteCertificateUrl?: boolean
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -1905,6 +1971,7 @@ export type ProfileSelectScalar = {
   state?: boolean
   city?: boolean
   houseAddress?: boolean
+  houseLocation?: boolean
   religion?: boolean
   caste?: boolean
   subCaste?: boolean
@@ -1931,6 +1998,7 @@ export type ProfileSelectScalar = {
   amsamGrid?: boolean
   dasaBalance?: boolean
   photoUrl?: boolean
+  idProofUrl?: boolean
   casteCertificateUrl?: boolean
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
@@ -1943,7 +2011,7 @@ export type ProfileSelectScalar = {
   isLive?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "gender" | "livingCountry" | "state" | "city" | "houseAddress" | "religion" | "caste" | "subCaste" | "koottam" | "dob" | "tob" | "lob" | "height" | "weight" | "physicalCondition" | "skinColour" | "maritalStatus" | "familyStatus" | "foodHabits" | "drinkingHabits" | "smokingHabits" | "rasi" | "nakshatra" | "poruthaNakshatram" | "dosham" | "jathakamUrl" | "jathagamData" | "rasiGrid" | "amsamGrid" | "dasaBalance" | "photoUrl" | "casteCertificateUrl" | "hideMobileNo" | "hideHouseAddress" | "hideHouseLocation" | "hidePhoto" | "status" | "approvedAt" | "approvedBy" | "rejectedReason" | "isLive", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "gender" | "livingCountry" | "state" | "city" | "houseAddress" | "houseLocation" | "religion" | "caste" | "subCaste" | "koottam" | "dob" | "tob" | "lob" | "height" | "weight" | "physicalCondition" | "skinColour" | "maritalStatus" | "familyStatus" | "foodHabits" | "drinkingHabits" | "smokingHabits" | "rasi" | "nakshatra" | "poruthaNakshatram" | "dosham" | "jathakamUrl" | "jathagamData" | "rasiGrid" | "amsamGrid" | "dasaBalance" | "photoUrl" | "idProofUrl" | "casteCertificateUrl" | "hideMobileNo" | "hideHouseAddress" | "hideHouseLocation" | "hidePhoto" | "status" | "approvedAt" | "approvedBy" | "rejectedReason" | "isLive", ExtArgs["result"]["profile"]>
 export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   educations?: boolean | Prisma.Profile$educationsArgs<ExtArgs>
@@ -1971,6 +2039,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     state: string
     city: string
     houseAddress: string | null
+    houseLocation: string | null
     religion: string
     caste: string
     subCaste: string | null
@@ -1997,6 +2066,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     amsamGrid: runtime.JsonValue | null
     dasaBalance: string | null
     photoUrl: string | null
+    idProofUrl: string | null
     casteCertificateUrl: string | null
     hideMobileNo: boolean
     hideHouseAddress: boolean
@@ -2440,6 +2510,7 @@ export interface ProfileFieldRefs {
   readonly state: Prisma.FieldRef<"Profile", 'String'>
   readonly city: Prisma.FieldRef<"Profile", 'String'>
   readonly houseAddress: Prisma.FieldRef<"Profile", 'String'>
+  readonly houseLocation: Prisma.FieldRef<"Profile", 'String'>
   readonly religion: Prisma.FieldRef<"Profile", 'String'>
   readonly caste: Prisma.FieldRef<"Profile", 'String'>
   readonly subCaste: Prisma.FieldRef<"Profile", 'String'>
@@ -2466,6 +2537,7 @@ export interface ProfileFieldRefs {
   readonly amsamGrid: Prisma.FieldRef<"Profile", 'Json'>
   readonly dasaBalance: Prisma.FieldRef<"Profile", 'String'>
   readonly photoUrl: Prisma.FieldRef<"Profile", 'String'>
+  readonly idProofUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly casteCertificateUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly hideMobileNo: Prisma.FieldRef<"Profile", 'Boolean'>
   readonly hideHouseAddress: Prisma.FieldRef<"Profile", 'Boolean'>

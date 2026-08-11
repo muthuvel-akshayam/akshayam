@@ -3,14 +3,44 @@
 import { useState } from 'react';
 import { User, MapPin, Briefcase, GraduationCap, Phone, Shield, Lock, CheckCircle, Clock, Star, ArrowRightCircle, LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { useLanguage } from '@/frontend/context/LanguageContext';
 import { translateRasi, translateNakshatra } from '@/frontend/utils/astrology';
 import { logoutUser } from '@/backend/actions/auth';
+import { toggleShortlist } from '@/backend/actions/shortlist';
+import { requestContact } from '@/backend/actions/matches';
+import { Heart } from 'lucide-react';
 
-export default function ProfilesClient({ profiles }: { profiles: any[] }) {
+export default function ProfilesClient({ profiles, initialShortlists = [], initialSentInterests = [], activeTab = 'matches' }: { profiles: any[], initialShortlists?: string[], initialSentInterests?: string[], activeTab?: string }) {
+  const router = useRouter();
   const { language, toggleLanguage } = useLanguage();
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [shortlists, setShortlists] = useState<Set<string>>(new Set(initialShortlists));
+  const [sentInterests, setSentInterests] = useState<Set<string>>(new Set(initialSentInterests));
+
+  const handleShortlist = async (targetId: string) => {
+    setLoadingId(`shortlist-${targetId}`);
+    const res = await toggleShortlist(targetId);
+    if (res.success) {
+      const newSet = new Set(shortlists);
+      if (res.action === 'added') newSet.add(targetId);
+      else newSet.delete(targetId);
+      setShortlists(newSet);
+    }
+    setLoadingId(null);
+  };
+
+  const handleSendInterest = async (targetId: string) => {
+    setLoadingId(`interest-${targetId}`);
+    const res = await requestContact(targetId);
+    if (res && res.success !== false) {
+      const newSet = new Set(sentInterests);
+      newSet.add(targetId);
+      setSentInterests(newSet);
+    }
+    setLoadingId(null);
+  };
 
   const calculateAge = (dob: Date | string | null | undefined) => {
     if (!dob) return 'N/A';
@@ -54,15 +84,13 @@ export default function ProfilesClient({ profiles }: { profiles: any[] }) {
               <LogOut className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">{language === 'TA' ? 'வெளியேறு' : 'Logout'}</span>
             </button>
-            <button
-              onClick={toggleLanguage}
-              className="relative inline-flex h-8 w-16 items-center rounded-full bg-primary focus:outline-none transition-colors shadow-inner"
-              title="Translate English/Tamil"
-            >
-              <span className="absolute left-2 text-[10px] font-bold text-white z-0">EN</span>
-              <span className="absolute right-2 text-[10px] font-bold text-white z-0">TA</span>
-              <span className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform shadow-md z-10 ${language === 'TA' ? 'translate-x-9' : 'translate-x-1'}`}></span>
-            </button>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
+  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
+  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
+  </div>
+  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+</div>
           </div>
         </div>
       </header>
@@ -77,13 +105,38 @@ export default function ProfilesClient({ profiles }: { profiles: any[] }) {
           <div className="h-1.5 w-8 sm:w-16 bg-amber-400 rounded-full"></div>
         </div>
 
-        <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4 pb-3 border-b border-gray-200">
-          <h3 className="text-lg sm:text-xl font-bold text-gray-900">
-            {language === 'TA' ? 'பொருத்தமான வரன்கள்' : 'Recommended Matches'}
-          </h3>
-          <span className="text-sm font-semibold text-gray-500 bg-white px-4 py-1.5 rounded-full border border-gray-200 shadow-sm">
-            {profiles.length} {language === 'TA' ? 'வரன்கள்' : 'Profiles'}
-          </span>
+        <div className="mb-6 flex flex-col items-center gap-4 border-b border-gray-200 pb-2">
+          <div className="flex w-full overflow-x-auto no-scrollbar gap-2 sm:gap-6 bg-gray-50/50 p-1.5 rounded-xl border border-gray-100">
+            <button 
+              onClick={() => { router.push('/profiles?tab=matches'); router.refresh(); }} 
+              className={`flex-1 min-w-[120px] py-2.5 px-4 rounded-lg text-sm font-bold transition-all ${activeTab === 'matches' ? 'bg-white text-primary shadow-sm ring-1 ring-gray-200' : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'}`}
+            >
+              {language === 'TA' ? 'பொருத்தங்கள்' : 'All Matches'}
+            </button>
+            <button 
+              onClick={() => { router.push('/profiles?tab=received'); router.refresh(); }} 
+              className={`flex-1 min-w-[120px] py-2.5 px-4 rounded-lg text-sm font-bold transition-all ${activeTab === 'received' ? 'bg-white text-primary shadow-sm ring-1 ring-gray-200' : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'}`}
+            >
+              {language === 'TA' ? 'விருப்பங்கள்' : 'Interests Received'}
+            </button>
+            <button 
+              onClick={() => { router.push('/profiles?tab=shortlisted'); router.refresh(); }} 
+              className={`flex-1 min-w-[120px] py-2.5 px-4 rounded-lg text-sm font-bold transition-all ${activeTab === 'shortlisted' ? 'bg-white text-primary shadow-sm ring-1 ring-gray-200' : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'}`}
+            >
+              {language === 'TA' ? 'ஷார்ட்லிஸ்ட்' : 'My Shortlists'}
+            </button>
+          </div>
+          
+          <div className="w-full flex justify-between items-center px-2">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900">
+              {activeTab === 'matches' ? (language === 'TA' ? 'பொருத்தமான வரன்கள்' : 'Recommended Matches') : ''}
+              {activeTab === 'received' ? (language === 'TA' ? 'உங்களுக்கு வந்த விருப்பங்கள்' : 'Interests Received') : ''}
+              {activeTab === 'shortlisted' ? (language === 'TA' ? 'நீங்கள் ஷார்ட்லிஸ்ட் செய்தவை' : 'Your Shortlisted Profiles') : ''}
+            </h3>
+            <span className="text-sm font-semibold text-gray-500 bg-white px-4 py-1.5 rounded-full border border-gray-200 shadow-sm">
+              {profiles.length} {language === 'TA' ? 'வரன்கள்' : 'Profiles'}
+            </span>
+          </div>
         </div>
 
         {/* Profiles List */}
@@ -114,7 +167,7 @@ export default function ProfilesClient({ profiles }: { profiles: any[] }) {
                     </div>
                   )}
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-[10px] font-bold text-gray-800 border border-gray-200 shadow-sm">
-                    ID: {match.id.substring(0,8).toUpperCase()}
+                    ID: {match.userIndex ? `${1000 + match.userIndex}AE` : `${1000 + (parseInt(match.id.substring(0, 4), 16) % 9000)}AE`}
                   </div>
                 </Link>
 
@@ -164,10 +217,39 @@ export default function ProfilesClient({ profiles }: { profiles: any[] }) {
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-end gap-3">
+                  <div className="mt-6 pt-5 border-t border-gray-100 flex flex-wrap items-center justify-end gap-3">
                     <Link href={`/profiles/${match.id}`} className="h-[40px] px-6 py-2.5 bg-gray-100 rounded-full border border-gray-200 text-gray-700 font-bold text-sm flex items-center justify-center hover:bg-gray-200 transition-colors shadow-sm">
                       {language === 'TA' ? 'முழு விவரம்' : 'View Profile'}
                     </Link>
+
+                    <button 
+                      onClick={() => handleShortlist(match.id)} 
+                      disabled={loadingId === `shortlist-${match.id}`} 
+                      className={`h-[40px] w-[40px] rounded-full border flex items-center justify-center transition-colors shadow-sm disabled:opacity-50 ${shortlists.has(match.id) ? 'bg-primary/10 border-primary text-primary hover:bg-primary/20' : 'bg-gray-100 border-gray-200 text-gray-500 hover:bg-gray-200'}`}
+                      title={language === 'TA' ? 'ஷார்ட்லிஸ்ட்' : 'Shortlist'}
+                    >
+                      {loadingId === `shortlist-${match.id}` ? (
+                        <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <Heart className={`w-4 h-4 ${shortlists.has(match.id) ? 'fill-current text-primary' : ''}`} />
+                      )}
+                    </button>
+
+                    {!isApproved && !isPending && !theyArePending && (
+                      <button 
+                        onClick={() => handleSendInterest(match.id)} 
+                        disabled={loadingId === `interest-${match.id}` || sentInterests.has(match.id)} 
+                        className="h-[40px] px-6 py-2.5 bg-primary rounded-full text-white font-bold text-sm flex items-center justify-center hover:bg-primary/90 transition-colors shadow-sm disabled:opacity-50"
+                      >
+                        {loadingId === `interest-${match.id}` ? (
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        ) : sentInterests.has(match.id) ? (
+                          language === 'TA' ? 'விருப்பம் அனுப்பப்பட்டது' : 'Interest Sent'
+                        ) : (
+                          language === 'TA' ? 'விருப்பம் அனுப்பு' : 'Send Interest'
+                        )}
+                      </button>
+                    )}
 
                     {isApproved ? (
                       <span className="text-green-600 font-bold text-sm flex items-center bg-green-50 px-4 py-2 rounded-full border border-green-200 h-[40px]">

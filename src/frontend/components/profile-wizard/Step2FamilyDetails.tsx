@@ -76,7 +76,7 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
     }
   };
 
-  const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 sm:text-sm border p-3 bg-white text-gray-900 transition-colors";
+  const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-base sm:text-sm border py-3 px-4 bg-white text-gray-900 transition-colors";
   const labelClass = "block text-sm font-semibold text-gray-700";
 
   return (
@@ -241,7 +241,9 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
               </div>
               <div>
                 <label className={labelClass}>{t.googleLocation} <span className="text-xs font-normal text-gray-500">{t.masked}</span></label>
-                <input {...register('googleLocation')} className={inputClass} placeholder="https://maps.google.com/..." />
+                <div className="mt-1 flex gap-2">
+                  <input {...register('googleLocation')} className={inputClass.replace('mt-2', '') + ' flex-1'} placeholder="https://maps.google.com/..." />
+                </div>
               </div>
             </>
           )}
@@ -256,13 +258,12 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
             <div className="flex-1">
               <label className={labelClass}>{t.houseTypeSqft}</label>
               <select {...register('houseType')} className={inputClass}>
-                <option value="">{t.selectStatus}</option>
-                <option value="Own House (Individual Villa / House)">{t.ownHouseIndividual}</option>
-                <option value="Own House (Apartment / Flat)">{t.ownHouseApartment}</option>
-                <option value="Own House (Ancestral / Family Property)">{t.ownHouseAncestral}</option>
-                <option value="Rented House">{t.rentedHouse}</option>
-                <option value="Leased House">{t.leasedHouse}</option>
-                <option value="Government / Company Quarters">{t.quarters}</option>
+                <option value="">{language === 'TA' ? 'தேர்ந்தெடுக்கவும்' : 'Select'}</option>
+                <option value="RC Own">{language === 'TA' ? 'சொந்த ஆர்.சி - RC Own' : 'RC Own'}</option>
+                <option value="RC Rented">{language === 'TA' ? 'வாடகை ஆர்.சி - RC Rented' : 'RC Rented'}</option>
+                <option value="Tiles Roof House">{language === 'TA' ? 'டைல்ஸ் ஓட்டு வீடு - Tiles Roof House' : 'Tiles Roof House'}</option>
+                <option value="Standard Roof House">{language === 'TA' ? 'ஓட்டு வீடு - Standard Roof House' : 'Standard Roof House'}</option>
+                <option value="Rented Roof House">{language === 'TA' ? 'வாடகை ஓட்டு வீடு - Rented Roof House' : 'Rented Roof House'}</option>
               </select>
             </div>
             <div className="flex-1">

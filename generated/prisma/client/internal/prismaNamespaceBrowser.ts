@@ -62,7 +62,8 @@ export const ModelName = {
   NakshatraCompatibility: 'NakshatraCompatibility',
   SiteSettings: 'SiteSettings',
   AdminAuditLog: 'AdminAuditLog',
-  CasteLookup: 'CasteLookup'
+  CasteLookup: 'CasteLookup',
+  Shortlist: 'Shortlist'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -105,6 +106,7 @@ export const ProfileScalarFieldEnum = {
   state: 'state',
   city: 'city',
   houseAddress: 'houseAddress',
+  houseLocation: 'houseLocation',
   religion: 'religion',
   caste: 'caste',
   subCaste: 'subCaste',
@@ -131,6 +133,7 @@ export const ProfileScalarFieldEnum = {
   amsamGrid: 'amsamGrid',
   dasaBalance: 'dasaBalance',
   photoUrl: 'photoUrl',
+  idProofUrl: 'idProofUrl',
   casteCertificateUrl: 'casteCertificateUrl',
   hideMobileNo: 'hideMobileNo',
   hideHouseAddress: 'hideHouseAddress',
@@ -294,6 +297,16 @@ export const CasteLookupScalarFieldEnum = {
 } as const
 
 export type CasteLookupScalarFieldEnum = (typeof CasteLookupScalarFieldEnum)[keyof typeof CasteLookupScalarFieldEnum]
+
+
+export const ShortlistScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  targetId: 'targetId',
+  createdAt: 'createdAt'
+} as const
+
+export type ShortlistScalarFieldEnum = (typeof ShortlistScalarFieldEnum)[keyof typeof ShortlistScalarFieldEnum]
 
 
 export const SortOrder = {

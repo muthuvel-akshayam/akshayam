@@ -148,6 +148,7 @@ export async function getMatches(filters?: {
 
 export async function requestContact(recipientId: string) {
   const requesterId = await getUserId();
+  if (!requesterId) return { success: false, error: 'Not authenticated' };
   
   await prisma.contactApproval.upsert({
     where: {
@@ -239,4 +240,57 @@ export async function getProfileById(targetUserId: string) {
   }
 
   return targetUser;
+}
+
+export async function getSentInterestsForUser() {
+  const userId = await getUserId();
+  if (!userId) return [];
+
+  const requests = await prisma.contactApproval.findMany({
+    where: { requesterId: userId },
+    select: { recipientId: true }
+  });
+
+  return requests.map(r => r.recipientId);
+}
+
+export async function getReceivedInterestsFull() {
+  const currentUserId = await getUserId();
+  if (!currentUserId) return [];
+
+  const requests = await prisma.contactApproval.findMany({
+    where: { recipientId: currentUserId },
+    select: { requesterId: true }
+  });
+
+  const requesterIds = requests.map(r => r.requesterId);
+  if (requesterIds.length === 0) return [];
+
+  const matches = await prisma.user.findMany({
+    where: { id: { in: requesterIds }, status: 'ACTIVE' },
+    include: {
+      profile: { include: { educations: true } },
+      family: true,
+      expectations: true,
+      sentRequests: { where: { recipientId: currentUserId } },
+      receivedRequests: { where: { requesterId: currentUserId } }
+    }
+  });
+
+  return matches.map(match => {
+    if (match.profile?.gender === 'FEMALE') {
+      if (match.mobile_no) match.mobile_no = 'Hidden for Safety';
+      if (match.profile.houseAddress) match.profile.houseAddress = 'Hidden for Safety';
+      if (match.family) {
+        if (match.family.fatherMobile) match.family.fatherMobile = 'Hidden for Safety';
+        if (match.family.motherMobile) match.family.motherMobile = 'Hidden for Safety';
+        if (match.family.workingAddress) match.family.workingAddress = 'Hidden for Safety';
+      }
+    }
+    if (match.profile?.hidePhoto) {
+      match.profile.photoUrl = '/static/assets/blurred-avatar.png';
+    }
+    if (match.profile) match.profile.casteCertificateUrl = null;
+    return match;
+  });
 }
