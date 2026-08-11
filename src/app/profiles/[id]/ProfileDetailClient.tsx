@@ -323,7 +323,7 @@ export function ProfileDetailClient({ user }: { user: any }) {
         )}
         
         {/* Hidden PDF Template */}
-        <div className="absolute opacity-0 pointer-events-none -z-50" aria-hidden="true">
+        <div>
            <JathagamPDFTemplate profile={profile} profileId={profile.id} />
         </div>
       </div>

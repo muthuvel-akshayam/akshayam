@@ -297,7 +297,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
       </div>
       
       {/* Hidden PDF Templates */}
-      <div className="absolute opacity-0 pointer-events-none -z-50" aria-hidden="true">
+      <div>
         {profiles.map((match) => (
           match.profile && <JathagamPDFTemplate key={`pdf-${match.id}`} profile={match.profile as any} profileId={match.id} />
         ))}

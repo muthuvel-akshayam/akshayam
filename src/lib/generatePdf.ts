@@ -9,6 +9,7 @@ export async function downloadBioDataPdf(elementId: string, profileId: string) {
     const dataUrl = await toJpeg(element, {
       quality: 1.0,
       pixelRatio: 2,
+      backgroundColor: '#ffffff'
     });
 
     const pdf = new jsPDF("p", "mm", "a4");
