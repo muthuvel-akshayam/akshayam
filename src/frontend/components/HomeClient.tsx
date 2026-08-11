@@ -212,19 +212,19 @@ export default function HomeClient() {
       <section id="home" className="relative w-full min-h-[85vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)]/60 to-[var(--color-background)]">
         <div className="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(var(--color-primary)_1px,transparent_1px)] [background-size:24px_24px]"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center gap-10 text-center">
           
-          {/* Left: Bride and Groom Image */}
-          <div className="w-full md:w-1/2 flex justify-center">
+          {/* Top: Bride and Groom Image */}
+          <div className="w-full flex justify-center">
             <img 
               src="/hero-couple.png" 
               alt="Akshayam Bride and Groom" 
-              className="w-full max-w-md md:max-w-full rounded-2xl shadow-xl object-cover border-4 border-white/50"
+              className="w-full max-w-lg rounded-2xl shadow-xl object-cover border-4 border-white/50"
             />
           </div>
 
-          {/* Right: Text Content */}
-          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left">
+          {/* Bottom: Text Content */}
+          <div className="w-full flex flex-col items-center text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-xs md:text-sm mb-6 animate-pulse">
               <Sparkles className="w-4 h-4 text-accent" />
               {language === 'TA' ? '100% நம்பகமான கொங்கு திருமணத் தகவல் சேவை' : '100% Trusted Kongu Matrimonial Service'}
@@ -256,7 +256,7 @@ export default function HomeClient() {
                 : 'Operating with trust and excellence for over a decade. We connect matching souls while upholding family values, tradition, and total privacy protection.'}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-5 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto">
               {/* HERO REGISTER BUTTON */}
               <button
                 onClick={() => setShowRegister(true)}
