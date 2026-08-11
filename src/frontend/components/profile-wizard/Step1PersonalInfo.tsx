@@ -32,6 +32,14 @@ const KVG_KOOTTAMS = ["Aandai (ஆந்தை)","Aadar (ஆடர்)","Aadhi (
 
 export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGenderChange }: { onNext: () => void; language?: 'TA' | 'EN'; initialData?: any; onGenderChange?: (gender: string) => void }) {
   const [isSaving, setIsSaving] = useState(false);
+  const [dobText, setDobText] = useState(() => {
+    const d = initialData?.profile?.dob;
+    if (d) {
+      const [y, m, day] = d.split('-');
+      if (y && m && day) return `${day}-${m}-${y}`;
+    }
+    return '';
+  });
   const [tobTime, setTobTime] = useState('');
   const [tobAmPm, setTobAmPm] = useState('AM');
   const t = formTranslations[language || 'TA'];
@@ -440,7 +448,25 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
           )}
           <div>
             <label className={labelClass}>{t.dob}</label>
-            <input type="date" {...register('dob')} className={inputClass} />
+            <input 
+              type="text" 
+              placeholder="DD-MM-YYYY" 
+              value={dobText}
+              maxLength={10}
+              className={inputClass} 
+              onChange={(e) => {
+                 let val = e.target.value.replace(/[^0-9]/g, '');
+                 if (val.length > 2) val = val.slice(0,2) + '-' + val.slice(2);
+                 if (val.length > 5) val = val.slice(0,5) + '-' + val.slice(5,9);
+                 setDobText(val);
+                 if (val.length === 10) {
+                    const [d, m, y] = val.split('-');
+                    setValue('dob', `${y}-${m}-${d}`);
+                 } else {
+                    setValue('dob', '');
+                 }
+              }}
+            />
             {age && <p className="text-sm text-primary mt-2 font-bold bg-primary/10 border border-primary/20 p-2.5 rounded-lg inline-block shadow-sm">{age.years} {language === 'TA' ? 'வயது' : 'Years'}, {age.months} {language === 'TA' ? 'மாதங்கள்' : 'Months'}, {age.days} {language === 'TA' ? 'நாட்கள்' : 'Days'}</p>}
           </div>
           <div>

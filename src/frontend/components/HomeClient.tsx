@@ -132,7 +132,7 @@ export default function HomeClient() {
             {/* LOGIN BUTTON IN NAVBAR */}
             <button
               onClick={() => { setShowLogin(true); setLoginError(''); }}
-              className="bg-white hover:bg-gray-100 text-primary px-6 py-2.5 rounded-full font-bold transition-all shadow-sm hover:shadow flex items-center gap-2 border border-primary/30"
+              className="bg-primary hover:bg-primary-light text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-sm hover:shadow flex items-center gap-2"
             >
               <LogIn className="w-4 h-4" />
               {language === 'TA' ? 'உள்நுழைக' : 'Login'}
@@ -151,7 +151,7 @@ export default function HomeClient() {
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => { setShowLogin(true); setLoginError(''); }}
-              className="bg-white text-primary px-3 py-2 rounded-full font-bold text-xs shadow-sm flex items-center gap-1 border border-primary/30"
+              className="bg-primary text-white px-3 py-2 rounded-full font-bold text-xs shadow-sm flex items-center gap-1"
             >
               {language === 'TA' ? 'உள்நுழைக' : 'Login'}
             </button>
