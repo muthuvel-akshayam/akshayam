@@ -215,7 +215,7 @@ export default function HomeClient() {
         <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
           
           {/* Left: Bride and Groom Image */}
-          <div className="w-full md:w-1/2 flex justify-center order-2 md:order-1">
+          <div className="w-full md:w-1/2 flex justify-center">
             <img 
               src="/hero-couple.png" 
               alt="Akshayam Bride and Groom" 
@@ -224,7 +224,7 @@ export default function HomeClient() {
           </div>
 
           {/* Right: Text Content */}
-          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-1 md:order-2">
+          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-xs md:text-sm mb-6 animate-pulse">
               <Sparkles className="w-4 h-4 text-accent" />
               {language === 'TA' ? '100% நம்பகமான கொங்கு திருமணத் தகவல் சேவை' : '100% Trusted Kongu Matrimonial Service'}
