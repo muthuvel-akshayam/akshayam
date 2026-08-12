@@ -54,7 +54,7 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
               {language === 'TA' ? 'சுயவிவரப் பதிவு / Create Your Profile' : 'Create Your Profile'}
             </h2>
             <p className="text-gray-600 text-sm md:text-base font-medium">
-              {language === 'TA' ? 'எங்கள் நம்பிக்கையான சமூகத்தில் இணைந்து உங்கள் சிறந்த வாழ்க்கைத்துணையை கண்டறியுங்கள்' : 'Join our trusted Kongu community to find your perfect life partner'}
+              {language === 'TA' ? 'எங்கள் நம்பிக்கையான சமூகத்தில் இணைந்து உங்கள் சிறந்த வாழ்க்கைத்துணையை கண்டறியுங்கள்' : 'Join our trusted community to find your perfect life partner'}
             </p>
           </div>
           

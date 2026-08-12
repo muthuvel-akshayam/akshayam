@@ -13,6 +13,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Caste is required' }, { status: 400 });
     }
 
+    if (caste === 'Gounder (Other)') {
+      return NextResponse.json(['Vanniyars', 'Vettuva Gounders', 'Kurumba Gounders']);
+    }
+
     const subcastes = await prisma.casteLookup.findMany({
       where: {
         caste,

@@ -164,6 +164,9 @@ export const TERM_DICTIONARY: Record<string, string> = {
   // Some common subcastes missing
   "Kongu Vellala Gounder": "கொங்கு வேளாள கவுண்டர்",
   "Vettuva Gounder": "வேட்டுவ கவுண்டர்",
+  "Vanniyars": "வன்னியர்கள்",
+  "Vettuva Gounders": "வேட்டுவ கவுண்டர்கள்",
+  "Kurumba Gounders": "குறும்ப கவுண்டர்கள்",
   "Nattu Gounder": "நாட்டு கவுண்டர்",
   "Odayar Gounder": "உடையார் கவுண்டர்",
   "Kaikolar / Sengunthar": "கைக்கோளர் / செங்குந்தர்",

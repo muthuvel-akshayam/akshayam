@@ -34,10 +34,23 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const [isSaving, setIsSaving] = useState(false);
   const [dobText, setDobText] = useState(() => {
     const d = initialData?.profile?.dob;
-    if (d) {
-      const [y, m, day] = d.split('-');
-      if (y && m && day) return `${day}-${m}-${y}`;
+    if (!d) return '';
+    if (typeof d === 'string') {
+      if (d.includes('-')) {
+        const parts = d.split('-');
+        if (parts[0].length === 4) return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        return d;
+      }
     }
+    try {
+      const dateObj = new Date(d);
+      if (!isNaN(dateObj.getTime())) {
+        const y = dateObj.getFullYear();
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        return `${day}-${m}-${y}`;
+      }
+    } catch (e) {}
     return '';
   });
   const [tobTime, setTobTime] = useState('');
