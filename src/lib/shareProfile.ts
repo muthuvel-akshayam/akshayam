@@ -1,8 +1,7 @@
 export async function shareProfile(profileId: string, name: string) {
   const shareUrl = `${window.location.origin}/profiles/${profileId}`;
   const shareData = {
-    title: `Akshayam Matrimony - ${name} (${profileId})`,
-    text: `Check out the matrimonial profile for ${name} (${profileId}) on Akshayam Matrimony.`,
+    title: `Akshayam Matrimony - ${name}`,
     url: shareUrl,
   };
 
