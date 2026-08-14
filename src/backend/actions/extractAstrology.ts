@@ -28,13 +28,24 @@ export async function extractAstrologyData(jathakamPath: string) {
     const ai = new GoogleGenAI({ apiKey });
     
     const prompt = `
-Extract the Rasi (ராசி) and Navamsam (நவாம்சம்) planetary positions from this South Indian astrology chart image. There are two 4x4 grids.
-Also extract the Dasa Balance (திசை இருப்பு) text if present.
+Extract the following details from this South Indian astrology chart (Jathakam) image:
+1. Rasi (ராசி) and Navamsam (நவாம்சம்) planetary positions. There are two 4x4 grids.
+2. Dasa Balance (திசை இருப்பு) text if present.
+3. Personal details: Date of Birth (dob), Time of Birth (tob), Place of Birth (lob), Rasi (rasi), Star (nakshatra), Padam (padam), Lagnam (lagnam), and Dosham Type (dosham).
+
 Return the result strictly as a JSON object (without markdown code blocks) with this exact structure:
 {
   "rasiGrid": { "mesham": [], "rishabham": [], "mithunam": [], "kadagam": [], "simmam": [], "kanni": [], "thulam": [], "viruchigam": [], "dhanusu": [], "magaram": [], "kumbam": [], "meenam": [] },
   "amsamGrid": { "mesham": [], "rishabham": [], "mithunam": [], "kadagam": [], "simmam": [], "kanni": [], "thulam": [], "viruchigam": [], "dhanusu": [], "magaram": [], "kumbam": [], "meenam": [] },
-  "dasaBalance": "extracted dasa balance string or null"
+  "dasaBalance": "extracted dasa balance string or null",
+  "dob": "extracted date in DD-MM-YYYY format or null",
+  "tob": "extracted time or null",
+  "lob": "extracted place of birth or null",
+  "nakshatra": "exact Tamil name of the star or null",
+  "rasi": "exact Tamil name of the rasi or null",
+  "padam": "extracted padam number or null",
+  "lagnam": "exact Tamil name of the lagnam or null",
+  "dosham": "NO / RAHU_KETU / SEVVAI / BOTH (if both present) or null"
 }
 The array for each rasi (zodiac sign) should contain the Tamil short names of planets present in that box (e.g., ["சூரி", "புத"], ["சந்"], ["லக்", "சனி"]).
 If a box is empty, return an empty array.

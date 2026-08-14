@@ -1,26 +1,33 @@
-import { toJpeg } from 'html-to-image';
+import html2canvas from "html2canvas-pro";
 import jsPDF from "jspdf";
 
 export async function downloadBioDataPdf(elementId: string, profileId: string) {
-  const element = document.getElementById(elementId);
-  if (!element) return;
+  const templateElement = document.getElementById(elementId);
+  if (!templateElement) return;
 
   try {
-    const dataUrl = await toJpeg(element, {
-      quality: 1.0,
-      pixelRatio: 2,
-      backgroundColor: '#ffffff'
+    // Capture high-res canvas using html2canvas-pro
+    const canvas = await html2canvas(templateElement, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      logging: false,
+      backgroundColor: "#ffffff",
     });
 
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    // Element dimensions: 794x1123 is roughly A4 aspect ratio (1:1.414)
-    const pdfHeight = (element.offsetHeight * pdfWidth) / element.offsetWidth;
+    const dataUrl = canvas.toDataURL("image/jpeg", 0.98);
 
-    pdf.addImage(dataUrl, "JPEG", 0, 0, pdfWidth, pdfHeight);
+    // Generate A4 PDF
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4",
+    });
+
+    pdf.addImage(dataUrl, "JPEG", 0, 0, 210, 297);
     pdf.save(`Akshayam_BioData_${profileId}.pdf`);
-  } catch (err) {
-    console.error('Error generating PDF:', err);
-    alert('Failed to generate PDF. Please try again.');
+  } catch (error) {
+    console.error("PDF Generation failed:", error);
+    alert("Failed to generate PDF. Please try again.");
   }
 }

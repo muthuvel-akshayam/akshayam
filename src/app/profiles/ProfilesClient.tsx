@@ -12,7 +12,13 @@ import { requestContact } from '@/backend/actions/matches';
 import { Heart, Download, Share2 } from 'lucide-react';
 import JathagamPDFTemplate from '@/frontend/components/pdf/JathagamPDFTemplate';
 import { downloadBioDataPdf } from '@/lib/generatePdf';
-import { shareProfile } from '@/lib/shareProfile';
+import { shareProfile, shareToWhatsApp } from '@/lib/shareProfile';
+
+const WhatsAppIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+  </svg>
+)
 
 export default function ProfilesClient({ profiles, initialShortlists = [], initialSentInterests = [], activeTab = 'matches' }: { profiles: any[], initialShortlists?: string[], initialSentInterests?: string[], activeTab?: string }) {
   const router = useRouter();
@@ -142,7 +148,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
         </div>
 
         {/* Profiles List */}
-        <div className="flex flex-col gap-5 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
           {profiles.map((match) => {
             const { profile, family, receivedRequests, sentRequests } = match;
             if (!profile) return null;
@@ -156,130 +162,113 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
             const age = calculateAge(profile.dob);
 
             return (
-              <div key={match.id} className="bg-white rounded-xl shadow-[0px_2px_15px_-3px_rgba(0,0,0,0.07)] border border-gray-200 flex flex-col md:flex-row overflow-hidden w-full transition-all hover:shadow-md">
+              <div key={match.id} className="bg-white rounded-xl shadow-[0px_2px_15px_-3px_rgba(0,0,0,0.07)] border border-gray-200 flex flex-col overflow-hidden w-full transition-all hover:shadow-md">
                 
                 {/* Image Section */}
-                <Link href={`/profiles/${match.id}`} className="w-full md:w-48 h-72 sm:h-80 md:h-auto relative overflow-hidden flex-shrink-0 cursor-pointer block group">
+                <Link href={`/profiles/${match.id}`} className="w-full aspect-[4/5] relative overflow-hidden flex-shrink-0 cursor-pointer block group">
                   {(!profile.hidePhoto || isApproved) && profile.photoUrl ? (
-                    <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-contain bg-gray-50 transition-transform duration-700 group-hover:scale-105" />
+                    <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-cover object-top bg-gray-50 transition-transform duration-700 group-hover:scale-105" />
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 transition-colors duration-300 group-hover:bg-gray-100">
                       <User className="w-16 h-16 text-gray-300 mb-2 transition-transform duration-500 group-hover:scale-110" />
                       {profile.hidePhoto && !isApproved && <span className="text-xs text-gray-500 font-medium px-2 py-1 bg-white rounded shadow-sm border border-gray-100">{language === 'TA' ? 'புகைப்படம் பாதுகாக்கப்பட்டுள்ளது' : 'Photo Protected'}</span>}
                     </div>
                   )}
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-[10px] font-bold text-gray-800 border border-gray-200 shadow-sm">
-                    ID: {match.userIndex ? `${1000 + match.userIndex}AE` : `${1000 + (parseInt(match.id.substring(0, 4), 16) % 9000)}AE`}
-                  </div>
                 </Link>
 
                 {/* Content Section */}
-                <div className="p-5 md:p-6 flex flex-col justify-between w-full">
+                <div className="p-4 flex flex-col items-center w-full">
                   
-                  <div className="grid grid-cols-3 gap-y-3 gap-x-2 text-sm">
-                    <div className="col-span-1 text-gray-500 font-bold">{language === 'TA' ? 'பெயர்' : 'Name'}</div>
-                    <div className="col-span-2 text-gray-900 font-bold text-lg leading-tight">{profile.name}</div>
+                  <div className="text-gray-900 font-bold text-lg md:text-xl leading-tight text-center">{profile.name}</div>
+                  <div className="text-green-600 font-bold text-base mt-0.5 mb-3 text-center">
+                    {match.userIndex ? `GK${1000 + match.userIndex}` : `GK${1000 + (parseInt(match.id.substring(0, 4), 16) % 9000)}`}
+                  </div>
 
-                    <div className="col-span-1 text-gray-500 font-medium">{language === 'TA' ? 'வயது & உயரம்' : 'Age & Height'}</div>
-                    <div className="col-span-2 text-gray-800 font-semibold">{age !== 'N/A' ? `${age} ${language === 'TA' ? 'வயது' : 'Years'}` : 'N/A'} • {profile.height} cm</div>
-
-                    <div className="col-span-1 text-gray-500 font-medium">{language === 'TA' ? 'ராசி & நட்சத்திரம்' : 'Rasi & Star'}</div>
-                    <div className="col-span-2 text-gray-800 font-semibold">
-                      <span className="bg-amber-50 text-amber-900 border border-amber-200/60 px-2.5 py-0.5 rounded font-bold inline-block shadow-2xs">
-                        {translateRasi(profile.rasi, language)} • {translateNakshatra(profile.nakshatra, language)}
-                      </span>
-                      {profile.poruthaNakshatram && profile.poruthaNakshatram.length > 0 && (
-                        <div className="mt-1 flex flex-wrap gap-1">
-                          <span className="text-[10px] font-bold text-primary self-center mr-1">✨ {language === 'TA' ? 'பொருத்தம்:' : 'Match:'}</span>
-                          {profile.poruthaNakshatram.slice(0, 3).map((n: string) => (
-                            <span key={n} className="bg-primary/10 text-primary px-2 py-0.5 rounded-full text-[10px] font-bold border border-primary/20">
-                              {translateNakshatra(n, language)}
-                            </span>
-                          ))}
-                          {profile.poruthaNakshatram.length > 3 && (
-                            <span className="text-[10px] font-bold text-gray-500 self-center">+{profile.poruthaNakshatram.length - 3}</span>
-                          )}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="col-span-1 text-gray-500 font-medium">{language === 'TA' ? 'திருமண நிலை' : 'Marital Status'}</div>
-                    <div className="col-span-2 text-gray-800 font-semibold">{profile.maritalStatus === 'NEVER_MARRIED' ? (language === 'TA' ? 'திருமணம் ஆகாதவர்' : 'Never Married') : profile.maritalStatus.replace('_', ' ')}</div>
-
-                    <div className="col-span-1 text-gray-500 font-medium">{language === 'TA' ? 'சமூகம்' : 'Community'}</div>
-                    <div className="col-span-2 text-gray-800 font-semibold">{profile.caste || 'N/A'} {profile.subCaste ? `(${profile.subCaste})` : ''}</div>
-
-                    <div className="col-span-1 text-gray-500 font-medium">{language === 'TA' ? 'கல்வி' : 'Education'}</div>
-                    <div className="col-span-2 text-gray-800 font-semibold line-clamp-1">{profile.educations?.[0]?.degreeName || (language === 'TA' ? 'குறிப்பிடப்படவில்லை' : 'Not Specified')}</div>
-
-                    <div className="col-span-1 text-gray-500 font-medium">{language === 'TA' ? 'இருப்பிடம்' : 'Location'}</div>
-                    <div className="col-span-2 text-gray-800 font-semibold flex items-center">
-                      {(profile.hideHouseLocation && !isApproved) ? (language === 'TA' ? 'பாதுகாக்கப்பட்ட இருப்பிடம்' : 'Protected Location') : `${profile.city}, ${profile.state}`}
-                      {profile.hideHouseLocation && !isApproved && <Lock className="w-3 h-3 ml-1.5 text-yellow-500 inline" />}
+                  <div className="flex flex-col items-center text-sm text-gray-600 space-y-1 mb-5">
+                    <div>{language === 'TA' ? 'வயது' : 'Age'} : <span className="font-semibold text-gray-800">{age !== 'N/A' ? age : 'N/A'}</span></div>
+                    <div>{language === 'TA' ? 'படிப்பு' : 'Education'} : <span className="font-semibold text-gray-800">{profile.educations?.[0]?.degreeName || (language === 'TA' ? 'குறிப்பிடப்படவில்லை' : 'Not Specified')}</span></div>
+                    <div>{language === 'TA' ? 'இராசி' : 'Rasi'} : <span className="font-semibold text-gray-800">{translateRasi(profile.rasi, language)}-{translateNakshatra(profile.nakshatra, language)}</span></div>
+                    <div>{language === 'TA' ? 'ஜாதகம்' : 'Jathakam'} : <span className="font-semibold text-gray-800">{profile.dosham === 'NO' ? (language === 'TA' ? 'சுத்த ஜாதகம்' : 'No Dosham') : (language === 'TA' ? 'தோஷம் உண்டு' : 'Dosham')}</span></div>
+                    <div className="flex items-center justify-center">
+                      {language === 'TA' ? 'ஊர்' : 'Location'} : <span className="font-semibold text-gray-800 ml-1">{(profile.hideHouseLocation && !isApproved) ? (language === 'TA' ? 'பாதுகாக்கப்பட்டது' : 'Protected') : profile.city}</span>
+                      {profile.hideHouseLocation && !isApproved && <Lock className="w-3 h-3 ml-1 text-yellow-500 inline" />}
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-5 border-t border-gray-100 flex flex-wrap items-center justify-end gap-3">
-                    <button
-                      onClick={() => shareProfile(match.id, profile.name)}
-                      className="w-10 h-[40px] rounded-full border border-gray-200 text-gray-500 hover:text-primary hover:bg-gray-100 flex items-center justify-center transition-colors shadow-sm"
-                      title={language === 'TA' ? 'பகிர' : 'Share'}
-                    >
-                      <Share2 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => downloadBioDataPdf(`pdf-template-${match.id}`, match.id)}
-                      className="w-10 h-[40px] rounded-full border border-gray-200 text-gray-500 hover:text-primary hover:bg-gray-100 flex items-center justify-center transition-colors shadow-sm"
-                      title={language === 'TA' ? 'பதிவிறக்கு' : 'Download'}
-                    >
-                      <Download className="w-4 h-4" />
-                    </button>
-                    <Link href={`/profiles/${match.id}`} className="h-[40px] px-6 py-2.5 bg-gray-100 rounded-full border border-gray-200 text-gray-700 font-bold text-sm flex items-center justify-center hover:bg-gray-200 transition-colors shadow-sm">
-                      {language === 'TA' ? 'முழு விவரம்' : 'View Profile'}
-                    </Link>
-
-                    <button 
-                      onClick={() => handleShortlist(match.id)} 
-                      disabled={loadingId === `shortlist-${match.id}`} 
-                      className={`h-[40px] w-[40px] rounded-full border flex items-center justify-center transition-colors shadow-sm disabled:opacity-50 ${shortlists.has(match.id) ? 'bg-primary/10 border-primary text-primary hover:bg-primary/20' : 'bg-gray-100 border-gray-200 text-gray-500 hover:bg-gray-200'}`}
-                      title={language === 'TA' ? 'ஷார்ட்லிஸ்ட்' : 'Shortlist'}
-                    >
-                      {loadingId === `shortlist-${match.id}` ? (
-                        <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                      ) : (
-                        <Heart className={`w-4 h-4 ${shortlists.has(match.id) ? 'fill-current text-primary' : ''}`} />
-                      )}
-                    </button>
-
-                    {!isApproved && !isPending && !theyArePending && (
-                      <button 
-                        onClick={() => handleSendInterest(match.id)} 
-                        disabled={loadingId === `interest-${match.id}` || sentInterests.has(match.id)} 
-                        className="h-[40px] px-6 py-2.5 bg-primary rounded-full text-white font-bold text-sm flex items-center justify-center hover:bg-primary/90 transition-colors shadow-sm disabled:opacity-50"
+                  <div className="w-full pt-4 border-t border-gray-100 flex flex-col gap-3">
+                    {/* Icon Actions */}
+                    <div className="flex items-center justify-center gap-3 w-full">
+                      <button
+                        onClick={() => shareToWhatsApp(match.id)}
+                        className="w-10 h-[40px] rounded-full border border-green-200 bg-green-50 text-green-600 hover:bg-green-100 flex items-center justify-center transition-colors shadow-sm"
+                        title={language === 'TA' ? 'வாட்ஸ்அப்பில் பகிர' : 'Share on WhatsApp'}
                       >
-                        {loadingId === `interest-${match.id}` ? (
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        ) : sentInterests.has(match.id) ? (
-                          language === 'TA' ? 'விருப்பம் அனுப்பப்பட்டது' : 'Interest Sent'
+                        <WhatsAppIcon className="w-5 h-5" />
+                      </button>
+                      <button
+                        onClick={() => shareProfile(match.id, profile.name)}
+                        className="w-10 h-[40px] rounded-full border border-gray-200 text-gray-500 hover:text-primary hover:bg-gray-100 flex items-center justify-center transition-colors shadow-sm"
+                        title={language === 'TA' ? 'பகிர' : 'Share'}
+                      >
+                        <Share2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => downloadBioDataPdf(`pdf-template-${match.id}`, match.id)}
+                        className="w-10 h-[40px] rounded-full border border-gray-200 text-gray-500 hover:text-primary hover:bg-gray-100 flex items-center justify-center transition-colors shadow-sm"
+                        title={language === 'TA' ? 'பதிவிறக்கு' : 'Download'}
+                      >
+                        <Download className="w-4 h-4" />
+                      </button>
+                      <button 
+                        onClick={() => handleShortlist(match.id)} 
+                        disabled={loadingId === `shortlist-${match.id}`} 
+                        className={`h-[40px] w-[40px] rounded-full border flex items-center justify-center transition-colors shadow-sm disabled:opacity-50 ${shortlists.has(match.id) ? 'bg-primary/10 border-primary text-primary hover:bg-primary/20' : 'bg-gray-100 border-gray-200 text-gray-500 hover:bg-gray-200'}`}
+                        title={language === 'TA' ? 'ஷார்ட்லிஸ்ட்' : 'Shortlist'}
+                      >
+                        {loadingId === `shortlist-${match.id}` ? (
+                          <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
                         ) : (
-                          language === 'TA' ? 'விருப்பம் அனுப்பு' : 'Send Interest'
+                          <Heart className={`w-4 h-4 ${shortlists.has(match.id) ? 'fill-current text-primary' : ''}`} />
                         )}
                       </button>
-                    )}
+                    </div>
 
-                    {isApproved ? (
-                      <span className="text-green-600 font-bold text-sm flex items-center bg-green-50 px-4 py-2 rounded-full border border-green-200 h-[40px]">
-                        <CheckCircle className="w-4 h-4 mr-2" /> {language === 'TA' ? 'விருப்பம் ஏற்கப்பட்டது' : 'Request Approved'}
-                      </span>
-                    ) : isPending ? (
-                      <span className="text-yellow-600 font-bold text-sm flex items-center bg-yellow-50 px-4 py-2 rounded-full border border-yellow-200 h-[40px]">
-                        <Clock className="w-4 h-4 mr-2" /> {language === 'TA' ? 'நிலுவையில் உள்ளது' : 'Pending'}
-                      </span>
-                    ) : theyArePending ? (
-                      <span className="text-gray-600 font-bold text-sm flex items-center bg-gray-100 px-4 py-2 rounded-full border border-gray-200 h-[40px]">
-                        <Clock className="w-4 h-4 mr-2" /> {language === 'TA' ? 'அவர்கள் விருப்பம்' : 'They Requested'}
-                      </span>
-                    ) : null}
+                    {/* Main Actions */}
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 w-full">
+                      <Link href={`/profiles/${match.id}`} className="w-full sm:flex-1 h-[40px] px-6 py-2.5 bg-gray-100 rounded-full border border-gray-200 text-gray-700 font-bold text-sm flex items-center justify-center hover:bg-gray-200 transition-colors shadow-sm">
+                        {language === 'TA' ? 'முழு விவரம்' : 'View Profile'}
+                      </Link>
+
+                      {!isApproved && !isPending && !theyArePending && (
+                        <button 
+                          onClick={() => handleSendInterest(match.id)} 
+                          disabled={loadingId === `interest-${match.id}` || sentInterests.has(match.id)} 
+                          className="w-full sm:flex-1 h-[40px] px-6 py-2.5 bg-primary rounded-full text-white font-bold text-sm flex items-center justify-center hover:bg-primary/90 transition-colors shadow-sm disabled:opacity-50"
+                        >
+                          {loadingId === `interest-${match.id}` ? (
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          ) : sentInterests.has(match.id) ? (
+                            language === 'TA' ? 'விருப்பம் அனுப்பப்பட்டது' : 'Interest Sent'
+                          ) : (
+                            language === 'TA' ? 'விருப்பம் அனுப்பு' : 'Send Interest'
+                          )}
+                        </button>
+                      )}
+
+                      {isApproved ? (
+                        <span className="w-full sm:flex-1 text-green-600 font-bold text-sm flex items-center justify-center bg-green-50 px-4 py-2 rounded-full border border-green-200 h-[40px]">
+                          <CheckCircle className="w-4 h-4 mr-2" /> {language === 'TA' ? 'விருப்பம் ஏற்கப்பட்டது' : 'Request Approved'}
+                        </span>
+                      ) : isPending ? (
+                        <span className="w-full sm:flex-1 text-yellow-600 font-bold text-sm flex items-center justify-center bg-yellow-50 px-4 py-2 rounded-full border border-yellow-200 h-[40px]">
+                          <Clock className="w-4 h-4 mr-2" /> {language === 'TA' ? 'நிலுவையில் உள்ளது' : 'Pending'}
+                        </span>
+                      ) : theyArePending ? (
+                        <span className="w-full sm:flex-1 text-gray-600 font-bold text-sm flex items-center justify-center bg-gray-100 px-4 py-2 rounded-full border border-gray-200 h-[40px]">
+                          <Clock className="w-4 h-4 mr-2" /> {language === 'TA' ? 'அவர்கள் விருப்பம்' : 'They Requested'}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -299,7 +288,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
       {/* Hidden PDF Templates */}
       <div style={{ position: 'absolute', top: 0, left: 0, zIndex: -1000, opacity: 0.01, pointerEvents: 'none' }}>
         {profiles.map((match) => (
-          match.profile && <JathagamPDFTemplate key={`pdf-${match.id}`} profile={match.profile as any} profileId={match.id} />
+          match.profile && <JathagamPDFTemplate key={`pdf-${match.id}`} profile={match.profile as any} profileId={match.id} family={(match as any).family} />
         ))}
       </div>
     </div>

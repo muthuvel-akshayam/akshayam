@@ -83,6 +83,7 @@ enum ProfileSentStatus {
 
 model User {
   id                    String            @id @default(uuid())
+  userid                String?           @unique
   email                 String?           @unique
   mobile_no             String?           @unique
   password              String?
@@ -157,11 +158,14 @@ model Profile {
   hidePhoto         Boolean @default(false)
 
   // Moderation & Approval System
-  status         ProfileStatus @default(PENDING)
-  approvedAt     DateTime?
-  approvedBy     String? // ID of the admin who approved
-  rejectedReason String? // Reason provided if status is REJECTED
-  isLive         Boolean       @default(false)
+  status           ProfileStatus @default(PENDING)
+  approvedAt       DateTime?
+  approvedBy       String? // ID of the admin who approved
+  rejectedReason   String? // Reason provided if status is REJECTED
+  isLive           Boolean       @default(false)
+  reviewerId       String?
+  displayId        String?       @unique
+  profileCreatedBy String?
 
   educations Education[]
 

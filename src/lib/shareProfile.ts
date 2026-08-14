@@ -17,3 +17,10 @@ export async function shareProfile(profileId: string, name: string) {
     alert("Profile link copied to clipboard!");
   }
 }
+
+export function shareToWhatsApp(profileId: string) {
+  const shareUrl = `${window.location.origin}/profiles/${profileId}`;
+  const text = `Please check out this profile on Akshayam Matrimony:\n${shareUrl}`;
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  window.open(whatsappUrl, '_blank');
+}

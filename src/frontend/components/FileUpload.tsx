@@ -10,10 +10,11 @@ interface FileUploadProps {
   subLabel: string;
   bucket: string;
   onUploadSuccess: (url: string) => void;
+  onFileSelect?: (file: File) => void;
   initialUrl?: string;
 }
 
-export function FileUpload({ label, subLabel, bucket, onUploadSuccess, initialUrl }: FileUploadProps) {
+export function FileUpload({ label, subLabel, bucket, onUploadSuccess, onFileSelect, initialUrl }: FileUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState(!!initialUrl);
   const [fileName, setFileName] = useState<string | undefined>(
@@ -25,6 +26,10 @@ export function FileUpload({ label, subLabel, bucket, onUploadSuccess, initialUr
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (onFileSelect) {
+      onFileSelect(file);
+    }
 
     setFileName(file.name);
     setIsUploading(true);

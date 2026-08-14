@@ -84,33 +84,33 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
     return (
       <div className="min-h-screen bg-background text-gray-900 pb-12 font-sans selection:bg-rose-200 flex flex-col justify-between">
         {/* HEADER */}
-        <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-3 px-4 sm:px-6 shadow-sm">
-          <div className="max-w-6xl mx-auto flex justify-between items-center">
-            <Link href="/" className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full font-bold text-xs hover:bg-primary-light transition-all shadow">
-              ← {language === 'TA' ? 'முகப்பு' : 'Home'}
+        <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-2 sm:py-3 px-2 sm:px-6 shadow-sm">
+          <div className="max-w-6xl mx-auto flex justify-between items-center gap-1 sm:gap-4">
+            <Link href="/" className="flex items-center gap-1 sm:gap-2 bg-primary text-white px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-[10px] sm:text-xs hover:bg-primary-light transition-all shadow whitespace-nowrap">
+              ← <span className="hidden sm:inline">{language === 'TA' ? 'முகப்பு' : 'Home'}</span>
             </Link>
-            <div className="text-center font-bold text-primary text-base md:text-lg">
+            <div className="text-center font-bold text-primary text-[11px] sm:text-base md:text-lg leading-tight mx-1 flex-1">
               {language === 'TA' ? 'என் சுயவிவரம் / My Profile' : 'My Profile Dashboard'}
             </div>
-            <div className="flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 shrink-0">
               <button
                 onClick={async () => {
                   await logoutUser();
                   window.location.href = '/';
                 }}
-                className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 shadow-sm"
+                className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold transition-all flex items-center gap-1 shadow-sm"
                 title="Logout"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">{language === 'TA' ? 'வெளியேறு' : 'Logout'}</span>
               </button>
-              <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
-  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
-  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
-    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
-  </div>
-  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
-</div>
+              <div className="flex items-center gap-1 sm:gap-1.5 cursor-pointer scale-90 sm:scale-100 origin-right" onClick={toggleLanguage} title="Translate English/Tamil">
+                <span className={`text-[10px] sm:text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>EN</span>
+                <div className="relative inline-flex h-4 sm:h-5 w-8 sm:w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+                  <span className={`inline-block h-3 sm:h-3.5 w-3 sm:w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[18px] sm:translate-x-[20px]' : 'translate-x-0.5 sm:translate-x-1'}`}></span>
+                </div>
+                <span className={`text-[10px] sm:text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+              </div>
             </div>
           </div>
         </header>
@@ -217,17 +217,17 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
     <div className="min-h-screen bg-background text-gray-900 pb-12 font-sans selection:bg-rose-200">
       
       {/* GLOBAL NAVBAR WITH LANGUAGE TOGGLE */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-3 px-4 sm:px-6 shadow-sm">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full font-bold text-xs hover:bg-primary-light transition-all shadow">
-            ← {language === 'TA' ? 'முகப்பு' : 'Home'}
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-primary/15 py-2 sm:py-3 px-2 sm:px-6 shadow-sm">
+        <div className="max-w-6xl mx-auto flex justify-between items-center gap-1 sm:gap-4">
+          <Link href="/" className="flex items-center gap-1 sm:gap-2 bg-primary text-white px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-[10px] sm:text-xs hover:bg-primary-light transition-all shadow whitespace-nowrap">
+            ← <span className="hidden sm:inline">{language === 'TA' ? 'முகப்பு' : 'Home'}</span>
           </Link>
-          <div className="text-center font-bold text-primary text-base md:text-lg">
+          <div className="text-center font-bold text-primary text-[11px] sm:text-base md:text-lg leading-tight mx-1 flex-1">
             {language === 'TA' ? 'என் சுயவிவரம் / My Profile' : 'My Profile Dashboard'}
           </div>
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             {profile.status === 'APPROVED' && (
-              <Link href="/profiles" className="text-xs font-bold text-primary hover:underline hidden sm:inline-block">
+              <Link href="/profiles" className="text-[10px] sm:text-xs font-bold text-primary hover:underline hidden sm:inline-block">
                 {language === 'TA' ? 'வரன்களைப் பார்வையிட' : 'Browse Matches'}
               </Link>
             )}
@@ -236,19 +236,19 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                 await logoutUser();
                 window.location.href = '/';
               }}
-              className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 shadow-sm"
+              className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold transition-all flex items-center gap-1 shadow-sm"
               title="Logout"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">{language === 'TA' ? 'வெளியேறு' : 'Logout'}</span>
             </button>
-            <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
-  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
-  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
-    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
-  </div>
-  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
-</div>
+            <div className="flex items-center gap-1 sm:gap-1.5 cursor-pointer scale-90 sm:scale-100 origin-right" onClick={toggleLanguage} title="Translate English/Tamil">
+              <span className={`text-[10px] sm:text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>EN</span>
+              <div className="relative inline-flex h-4 sm:h-5 w-8 sm:w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
+                <span className={`inline-block h-3 sm:h-3.5 w-3 sm:w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[18px] sm:translate-x-[20px]' : 'translate-x-0.5 sm:translate-x-1'}`}></span>
+              </div>
+              <span className={`text-[10px] sm:text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
+            </div>
           </div>
         </div>
       </header>
@@ -268,7 +268,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
               {/* Elevated Avatar */}
               <div className="w-32 h-32 md:w-40 md:h-40 bg-white p-1 rounded-full shadow-lg relative z-20 border-4 border-white mb-4">
                 {profile.photoUrl ? (
-                  <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-cover rounded-full bg-gray-100" />
+                  <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-cover object-top rounded-full bg-gray-100" />
                 ) : (
                   <div className="w-full h-full bg-gray-100 rounded-full flex items-center justify-center">
                     <User className="w-16 h-16 text-gray-400" />

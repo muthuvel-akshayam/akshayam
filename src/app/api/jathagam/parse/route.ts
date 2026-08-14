@@ -5,59 +5,58 @@ import prisma from '@/backend/prisma';
 
 export async function POST(req: Request) {
   try {
-    const { jathakamUrl, userId } = await req.json();
-
-    if (!jathakamUrl || !userId) {
-      return NextResponse.json({ error: "Missing jathakamUrl or userId" }, { status: 400 });
-    }
-
-    // Since the image might be a public URL or a supabase path, we handle it:
-    let base64Data = "";
-    let mimeType = "image/jpeg";
-
-    if (jathakamUrl.startsWith('http')) {
-      const response = await fetch(jathakamUrl);
-      const buffer = Buffer.from(await response.arrayBuffer());
-      base64Data = buffer.toString('base64');
-      mimeType = response.headers.get('content-type') || 'image/jpeg';
-    } else {
-      // It's a supabase storage path
-      const { data: fileData, error: downloadError } = await supabase.storage
-        .from('user-documents')
-        .download(jathakamUrl);
-        
-      if (downloadError || !fileData) {
-        throw new Error("Failed to download image: " + downloadError?.message);
-      }
-      
-      const buffer = Buffer.from(await fileData.arrayBuffer());
-      base64Data = buffer.toString('base64');
-      mimeType = fileData.type || 'image/jpeg';
-    }
-
+    const { imageBase64 } = await req.json();
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       throw new Error("GEMINI_API_KEY is not set.");
     }
-    
     const ai = new GoogleGenAI({ apiKey });
-    
+
     const prompt = `
-Analyze this South Indian Jathagam chart image. Extract the planet placements for both the Rasi (ராசி) and Navamsam (நவாம்சம்) charts into a structured JSON array of 12 houses (0 to 11 clockwise starting from top-left Pisces/Meena).
-Return strictly JSON with this structure:
+You are an expert Tamil Astrologer and Document OCR Parser.
+Analyze this uploaded South Indian Jathagam (Horoscope) document image thoroughly.
+
+Extract ALL text and astrological details dynamically into a JSON object strictly following this structure:
 {
-  "rasi": [{ "houseIndex": 0, "planets": ["சனி", "கேது"] }, ...],
-  "navamsam": [{ "houseIndex": 0, "planets": ["மாந்"] }, ...]
+"name": string or null,
+"fatherName": string or null,
+"motherName": string or null,
+"dateOfBirth": string or null (DD-MM-YYYY),
+"timeOfBirth": string or null (HH:MM AM/PM),
+"dayOfBirth": string or null (e.g., திங்கள் / Monday),
+"placeOfBirth": string or null,
+"rasi": string or null (e.g., சிம்மம்),
+"nakshatra": string or null (e.g., உத்திரம்),
+"padam": string or null (e.g., 1),
+"lagnam": string or null (e.g., மீனம்),
+"kulam": string or null (e.g., ஆவன் குலம் / கண்ணன் குலம்),
+"kovil": string or null,
+"dasaBalance": string or null (e.g., சூரியன் 5 வருடம், 10 மாதம்),
+"occupation": string or null,
+"monthlyIncome": string or null,
+"propertyDetails": string or null,
+"siblings": string or null,
+"nativePlace": string or null,
+"rasiChart": {
+"0": ["லக்னம்"], "1": ["பு(வ)", "செ"], "2": ["சூ"], "3": ["சு(வ)"],
+"4": [], "5": ["சந்"], "6": ["ரா"], "7": [], "8": [], "9": ["குரு(வ)"],
+"10": ["மா"], "11": ["சனி", "கே"]
+},
+"navamsamChart": {
+"0": ["சனி"], "1": [], "2": ["ரா"], "3": [], "4": [], "5": [],
+"6": ["பு(வ)", "சு(வ)", "செ"], "7": ["குரு(வ)"], "8": [], "9": ["சந்"],
+"10": ["கே"], "11": ["லக்"]
 }
-Include all 12 houses (0 to 11). If a house is empty, return an empty array for planets [].
-Ensure the response is raw JSON without markdown formatting (\`\`\`json).
+}
+Note for chart house indices: 0 = Meenam, 1 = Mesham, 2 = Rishabam, 3 = Mithunam, 4 = Kadagam, 5 = Simmam, 6 = Kanni, 7 = Thulaam, 8 = Vrischikam, 9 = Dhanusu, 10 = Magaram, 11 = Kumbam.
+Return ONLY raw JSON without markdown codeblock backticks.
 `;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-3.5-flash',
+        model: 'gemini-2.5-flash',
         contents: [
             prompt,
-            { inlineData: { data: base64Data, mimeType: mimeType } }
+            { inlineData: { data: imageBase64, mimeType: "image/jpeg" } }
         ]
     });
     
@@ -67,15 +66,9 @@ Ensure the response is raw JSON without markdown formatting (\`\`\`json).
     }
 
     // Clean up markdown if present
-    text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+    text = text.replace(/```json|```/g, "").trim();
     
     const parsedData = JSON.parse(text);
-
-    // Save the extracted JSON directly in the Prisma Profile table
-    await prisma.profile.update({
-        where: { userId },
-        data: { jathagamData: parsedData }
-    });
 
     return NextResponse.json({ success: true, jathagamData: parsedData });
 

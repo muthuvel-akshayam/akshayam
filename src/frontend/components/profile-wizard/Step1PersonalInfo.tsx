@@ -32,6 +32,7 @@ const KVG_KOOTTAMS = ["Aandai (ஆந்தை)","Aadar (ஆடர்)","Aadhi (
 
 export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGenderChange }: { onNext: () => void; language?: 'TA' | 'EN'; initialData?: any; onGenderChange?: (gender: string) => void }) {
   const [isSaving, setIsSaving] = useState(false);
+  const [isExtracting, setIsExtracting] = useState(false);
   const [dobText, setDobText] = useState(() => {
     const d = initialData?.profile?.dob;
     if (!d) return '';
@@ -295,18 +296,65 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
     }
   };
 
-  const handleJathakamUpload = async (url: string) => {
-    setValue('jathakamUrl', url, { shouldValidate: true, shouldDirty: true });
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  };
+
+  const handleJathakamFileSelect = async (file: File) => {
+    setIsExtracting(true);
     try {
-      const res = await extractAstrologyData(url);
-      if (res.success && res.data) {
-        setValue('rasiGrid', res.data.rasiGrid, { shouldDirty: true });
-        setValue('amsamGrid', res.data.amsamGrid, { shouldDirty: true });
-        setValue('dasaBalance', res.data.dasaBalance, { shouldDirty: true });
+      const base64 = await convertFileToBase64(file);
+      const base64Data = base64.split(',')[1] || base64;
+      const res = await fetch('/api/jathagam/parse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageBase64: base64Data })
+      });
+      const data = await res.json();
+      if (data.success && data.jathagamData) {
+        setValue('jathagamData', data.jathagamData, { shouldDirty: true });
+        
+        // Auto-fill newly extracted fields if present
+        const jData = data.jathagamData;
+        if (jData.name && !watch('name')) setValue('name', jData.name, { shouldDirty: true });
+        if (jData.dateOfBirth && !watch('dob')) {
+          setValue('dob', jData.dateOfBirth, { shouldDirty: true });
+          setDobText(jData.dateOfBirth);
+        }
+        if (jData.timeOfBirth && !watch('tob')) {
+          setValue('tob', jData.timeOfBirth, { shouldDirty: true });
+          const parts = jData.timeOfBirth.split(' ');
+          if (parts.length === 2) {
+             setTobTime(parts[0]);
+             setTobAmPm(parts[1].toUpperCase());
+          } else {
+             setTobTime(jData.timeOfBirth);
+          }
+        }
+        if (jData.placeOfBirth && !watch('lob')) setValue('lob', jData.placeOfBirth, { shouldDirty: true });
+        if (jData.rasi && !watch('rasi')) setValue('rasi', jData.rasi, { shouldDirty: true });
+        if (jData.nakshatra && !watch('nakshatra')) setValue('nakshatra', jData.nakshatra, { shouldDirty: true });
+        if (jData.padam && !watch('padam')) setValue('padam', jData.padam, { shouldDirty: true });
+        if (jData.lagnam && !watch('lagnam')) setValue('lagnam', jData.lagnam, { shouldDirty: true });
+        if (jData.kulam && !watch('subCaste')) setValue('subCaste', jData.kulam, { shouldDirty: true });
+        if (jData.kovil && !watch('houseLocation')) setValue('houseLocation', jData.kovil, { shouldDirty: true });
+        if (jData.dasaBalance && !watch('dasaBalance')) setValue('dasaBalance', jData.dasaBalance, { shouldDirty: true });
       }
     } catch (e) {
       console.error(e);
+      alert(language === 'TA' ? 'ஜாதகத்தை படிப்பதில் பிழை.' : 'Error extracting Jathakam data.');
+    } finally {
+      setIsExtracting(false);
     }
+  };
+
+  const handleJathakamUploadSuccess = (url: string) => {
+    setValue('jathakamUrl', url, { shouldValidate: true, shouldDirty: true });
   };
 
   const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-base sm:text-sm border py-3 px-4 bg-gray-50 text-gray-900 transition-colors";
@@ -637,13 +685,22 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         <h3 className="text-lg font-bold text-gray-900 border-b pb-2">{language === 'TA' ? 'ஆவணங்கள்' : 'Documents & Photos'}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
           {selectedReligion?.toLowerCase() === 'hindu' && (
-            <FileUpload 
-              label={t.uploadJathakam} 
-              subLabel={t.pdfJpg} 
-              bucket="user-documents" 
-              onUploadSuccess={handleJathakamUpload} 
-              initialUrl={watch('jathakamUrl')}
-            />
+            <div className="flex flex-col gap-2">
+              <FileUpload 
+                label={t.uploadJathakam} 
+                subLabel={t.pdfJpg} 
+                bucket="user-documents" 
+                onUploadSuccess={handleJathakamUploadSuccess}
+                onFileSelect={handleJathakamFileSelect}
+                initialUrl={watch('jathakamUrl')}
+              />
+              {isExtracting && (
+                <div className="mt-1 flex items-center justify-center gap-2 text-emerald-700 text-xs font-bold bg-emerald-50 py-1.5 rounded">
+                  <div className="w-3 h-3 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin"></div>
+                  {language === 'TA' ? 'ஜாதகம் படிக்கப்படுகிறது...' : 'Extracting details from Jathakam...'}
+                </div>
+              )}
+            </div>
           )}
           <div className="flex flex-col gap-2">
             <FileUpload 

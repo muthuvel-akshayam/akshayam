@@ -49,7 +49,8 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
         mobile_no: mobileNo,
         password: hashedPassword,
         email: `${mobileNo}@akshayam.local`,
-        userIndex: nextIndex
+        userIndex: nextIndex,
+        userid: `${1000 + nextIndex}ae`
       }
     });
 
