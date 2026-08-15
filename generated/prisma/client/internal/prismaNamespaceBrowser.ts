@@ -89,9 +89,10 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   status: 'status',
-  userIndex: 'userIndex',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userIndex: 'userIndex',
+  userid: 'userid'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -105,8 +106,6 @@ export const ProfileScalarFieldEnum = {
   livingCountry: 'livingCountry',
   state: 'state',
   city: 'city',
-  houseAddress: 'houseAddress',
-  houseLocation: 'houseLocation',
   religion: 'religion',
   caste: 'caste',
   subCaste: 'subCaste',
@@ -128,22 +127,27 @@ export const ProfileScalarFieldEnum = {
   poruthaNakshatram: 'poruthaNakshatram',
   dosham: 'dosham',
   jathakamUrl: 'jathakamUrl',
-  jathagamData: 'jathagamData',
-  rasiGrid: 'rasiGrid',
-  amsamGrid: 'amsamGrid',
-  dasaBalance: 'dasaBalance',
   photoUrl: 'photoUrl',
-  idProofUrl: 'idProofUrl',
   casteCertificateUrl: 'casteCertificateUrl',
   hideMobileNo: 'hideMobileNo',
   hideHouseAddress: 'hideHouseAddress',
   hideHouseLocation: 'hideHouseLocation',
-  hidePhoto: 'hidePhoto',
   status: 'status',
   approvedAt: 'approvedAt',
   approvedBy: 'approvedBy',
   rejectedReason: 'rejectedReason',
-  isLive: 'isLive'
+  isLive: 'isLive',
+  amsamGrid: 'amsamGrid',
+  dasaBalance: 'dasaBalance',
+  hidePhoto: 'hidePhoto',
+  houseAddress: 'houseAddress',
+  rasiGrid: 'rasiGrid',
+  jathagamData: 'jathagamData',
+  idProofUrl: 'idProofUrl',
+  houseLocation: 'houseLocation',
+  displayId: 'displayId',
+  profileCreatedBy: 'profileCreatedBy',
+  reviewerId: 'reviewerId'
 } as const
 
 export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
@@ -214,11 +218,11 @@ export const ExpectationsScalarFieldEnum = {
   expectedIncome: 'expectedIncome',
   expectsRentalIncome: 'expectsRentalIncome',
   expectsThottam: 'expectsThottam',
-  expectsVacantLand: 'expectsVacantLand',
   vacantLand: 'vacantLand',
   preferredDistanceRadius: 'preferredDistanceRadius',
   city: 'city',
-  comments: 'comments'
+  comments: 'comments',
+  expectsVacantLand: 'expectsVacantLand'
 } as const
 
 export type ExpectationsScalarFieldEnum = (typeof ExpectationsScalarFieldEnum)[keyof typeof ExpectationsScalarFieldEnum]

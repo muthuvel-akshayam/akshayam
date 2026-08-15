@@ -181,7 +181,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                   
                   <div className="text-gray-900 font-bold text-lg md:text-xl leading-tight text-center">{profile.name}</div>
                   <div className="text-green-600 font-bold text-base mt-0.5 mb-3 text-center">
-                    {(match as any).userid || (match.userIndex ? `AKSH${1000 + match.userIndex}` : `AKSH${match.id.substring(0, 6).toUpperCase()}`)}
+                    {(match as any).userid || (match.userIndex ? `${1000 + match.userIndex}` : `${match.id.substring(0, 6).toUpperCase()}`)}
                   </div>
 
                   <div className="flex flex-col items-center text-sm text-gray-600 space-y-1 mb-5">

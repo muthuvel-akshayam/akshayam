@@ -7,167 +7,82 @@ datasource db {
   provider = "postgresql"
 }
 
-// ==========================================
-// ENUMS
-// ==========================================
-
-enum Gender {
-  MALE
-  FEMALE
-}
-
-enum PhysicalCondition {
-  SLIM
-  AVERAGE
-  FAT
-}
-
-enum MaritalStatus {
-  NEVER_MARRIED
-  DIVORCED
-  WIDOWED
-  AWAITING_DIVORCE
-}
-
-enum FamilyStatus {
-  LOW
-  MIDDLE
-  UPPER_MIDDLE
-  HIGH
-  VIP
-}
-
-enum Habit {
-  NONE
-  OCCASIONAL
-  REGULAR
-}
-
-enum ParentLivingStatus {
-  ALIVE
-  LATE
-}
-
-enum WorkNature {
-  JOB
-  BUSINESS
-  NOT_WORKING
-}
-
-enum ApprovalStatus {
-  PENDING
-  ACCEPTED
-  REJECTED
-}
-
-enum UserRole {
-  USER
-  ADMIN
-}
-
-enum ProfileStatus {
-  PENDING
-  APPROVED
-  REJECTED
-  MATCHED_REMOVED
-}
-
-enum ProfileSentStatus {
-  SENT
-  NOT_MATCHED
-}
-
-// ==========================================
-// MODELS
-// ==========================================
-
 model User {
   id                    String            @id @default(uuid())
-  userid                String?           @unique
   email                 String?           @unique
   mobile_no             String?           @unique
   password              String?
   role                  UserRole          @default(USER)
-  status                String            @default("ACTIVE") // ACTIVE, SUSPENDED, DELETED
-  profile               Profile?
-  family                Family?
-  expectations          Expectations?
-  sentRequests          ContactApproval[] @relation("SentRequests")
-  receivedRequests      ContactApproval[] @relation("ReceivedRequests")
-  targetUserSentLogs    ProfileSentLog[]  @relation("TargetUserSentLogs")
-  recipientUserSentLogs ProfileSentLog[]  @relation("RecipientUserSentLogs")
-  shortlists            Shortlist[]       @relation("UserShortlists")
-  shortlistedBy         Shortlist[]       @relation("TargetShortlists")
-  userIndex             Int?
+  status                String            @default("ACTIVE")
   createdAt             DateTime          @default(now())
   updatedAt             DateTime          @updatedAt
+  userIndex             Int?
+  userid                String?           @unique
+  receivedRequests      ContactApproval[] @relation("ReceivedRequests")
+  sentRequests          ContactApproval[] @relation("SentRequests")
+  expectations          Expectations?
+  family                Family?
+  profile               Profile?
+  recipientUserSentLogs ProfileSentLog[]  @relation("RecipientUserSentLogs")
+  targetUserSentLogs    ProfileSentLog[]  @relation("TargetUserSentLogs")
+  shortlistedBy         Shortlist[]       @relation("TargetShortlists")
+  shortlists            Shortlist[]       @relation("UserShortlists")
 
   @@index([role, status])
 }
 
 model Profile {
-  id     String @id @default(uuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  // Personal Details
-  name          String
-  gender        Gender
-  livingCountry String
-  state         String
-  city          String
-  houseAddress  String?
-  houseLocation String?
-  religion      String
-  caste         String
-  subCaste      String?
-  koottam       String?
-  dob           DateTime
-  tob           String?
-  lob           String?
-
-  // Physical Attributes
-  height            Float // in cm
-  weight            Float // in kg
-  physicalCondition PhysicalCondition
-  skinColour        String
-  maritalStatus     MaritalStatus
-  familyStatus      FamilyStatus
-  foodHabits        Habit
-  drinkingHabits    Habit
-  smokingHabits     Habit
-
-  // Astrology & Documents
+  id                  String            @id @default(uuid())
+  userId              String            @unique
+  name                String
+  gender              Gender
+  livingCountry       String
+  state               String
+  city                String
+  religion            String
+  caste               String
+  subCaste            String?
+  koottam             String?
+  dob                 DateTime
+  tob                 String?
+  lob                 String?
+  height              Float
+  weight              Float
+  physicalCondition   PhysicalCondition
+  skinColour          String
+  maritalStatus       MaritalStatus
+  familyStatus        FamilyStatus
+  foodHabits          Habit
+  drinkingHabits      Habit
+  smokingHabits       Habit
   rasi                String?
   nakshatra           String?
   poruthaNakshatram   String[]
   dosham              String?
   jathakamUrl         String?
-  jathagamData        Json?
-  rasiGrid            Json?
+  photoUrl            String?
+  casteCertificateUrl String?
+  hideMobileNo        Boolean           @default(true)
+  hideHouseAddress    Boolean           @default(true)
+  hideHouseLocation   Boolean           @default(true)
+  status              ProfileStatus     @default(PENDING)
+  approvedAt          DateTime?
+  approvedBy          String?
+  rejectedReason      String?
+  isLive              Boolean           @default(false)
   amsamGrid           Json?
   dasaBalance         String?
-  photoUrl            String?
+  hidePhoto           Boolean           @default(false)
+  houseAddress        String?
+  rasiGrid            Json?
+  jathagamData        Json?
   idProofUrl          String?
-  casteCertificateUrl String?
-
-  // Privacy Flags
-  hideMobileNo      Boolean @default(true)
-  hideHouseAddress  Boolean @default(true)
-  hideHouseLocation Boolean @default(true)
-  hidePhoto         Boolean @default(false)
-
-  // Moderation & Approval System
-  status           ProfileStatus @default(PENDING)
-  approvedAt       DateTime?
-  approvedBy       String? // ID of the admin who approved
-  rejectedReason   String? // Reason provided if status is REJECTED
-  isLive           Boolean       @default(false)
-  reviewerId       String?
-  displayId        String?       @unique
-  profileCreatedBy String?
-
-  educations Education[]
+  houseLocation       String?
+  displayId           String?           @unique
+  profileCreatedBy    String?
+  reviewerId          String?
+  educations          Education[]
+  user                User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([status, isLive])
 }
@@ -175,81 +90,69 @@ model Profile {
 model Education {
   id          String  @id @default(uuid())
   profileId   String
-  profile     Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   level       String
   degreeName  String
   institution String
+  profile     Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
 
 model Family {
-  id     String @id @default(uuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  // Father Details
+  id                 String              @id @default(uuid())
+  userId             String              @unique
   fatherName         String?
   fatherLivingStatus ParentLivingStatus?
   fatherStatus       String?
   fatherMobile       String?
-
-  // Mother Details
   motherName         String?
   motherLivingStatus ParentLivingStatus?
   motherStatus       String?
   motherMobile       String?
-
-  siblings Sibling[]
-
-  // Career Details
-  workNature     WorkNature?
-  salary         String?
-  organisation   String?
-  designation    String?
-  workingAddress String?
-  googleLocation String?
-  rentalIncome   String?
-
-  // Property & Assets
-  houseType       String?
-  houseSqFt       String?
-  siteLand        String?
-  thottam         String?
-  vacantLand      String?
-  totalAssetValue String?
-  assetComments   String?
-  dowryDetails    String?
+  workNature         WorkNature?
+  salary             String?
+  organisation       String?
+  designation        String?
+  workingAddress     String?
+  googleLocation     String?
+  rentalIncome       String?
+  houseType          String?
+  houseSqFt          String?
+  siteLand           String?
+  thottam            String?
+  vacantLand         String?
+  totalAssetValue    String?
+  assetComments      String?
+  dowryDetails       String?
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  siblings           Sibling[]
 }
 
 model Sibling {
   id       String @id @default(uuid())
   familyId String
-  family   Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
   name     String
-  relation String // Brother / Sister
-  status   String // Married / Unmarried
+  relation String
+  status   String
+  family   Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
 }
 
 model Expectations {
-  id     String @id @default(uuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  expectedHeight   Float?
-  colourPreference String?
-  maxAgeLimit      Int?
-  dowryExpectation String?
-
-  preferredSectors   String[]
-  preferredLocations String[]
-  expectedIncome     String?
-
+  id                      String   @id @default(uuid())
+  userId                  String   @unique
+  expectedHeight          Float?
+  colourPreference        String?
+  maxAgeLimit             Int?
+  dowryExpectation        String?
+  preferredSectors        String[]
+  preferredLocations      String[]
+  expectedIncome          String?
   expectsRentalIncome     Boolean?
   expectsThottam          Boolean?
-  expectsVacantLand       Boolean?
   vacantLand              String?
   preferredDistanceRadius Int?
   city                    String?
   comments                String?
+  expectsVacantLand       Boolean?
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ContactApproval {
@@ -259,9 +162,8 @@ model ContactApproval {
   status      ApprovalStatus @default(PENDING)
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
-
-  requester User @relation("SentRequests", fields: [requesterId], references: [id], onDelete: Cascade)
-  recipient User @relation("ReceivedRequests", fields: [recipientId], references: [id], onDelete: Cascade)
+  recipient   User           @relation("ReceivedRequests", fields: [recipientId], references: [id], onDelete: Cascade)
+  requester   User           @relation("SentRequests", fields: [requesterId], references: [id], onDelete: Cascade)
 
   @@unique([requesterId, recipientId])
 }
@@ -273,9 +175,8 @@ model ProfileSentLog {
   status          ProfileSentStatus @default(SENT)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-
-  targetUser    User @relation("TargetUserSentLogs", fields: [targetUserId], references: [id], onDelete: Cascade)
-  recipientUser User @relation("RecipientUserSentLogs", fields: [recipientUserId], references: [id], onDelete: Cascade)
+  recipientUser   User              @relation("RecipientUserSentLogs", fields: [recipientUserId], references: [id], onDelete: Cascade)
+  targetUser      User              @relation("TargetUserSentLogs", fields: [targetUserId], references: [id], onDelete: Cascade)
 
   @@unique([targetUserId, recipientUserId])
 }
@@ -334,9 +235,74 @@ model Shortlist {
   userId    String
   targetId  String
   createdAt DateTime @default(now())
-
-  user      User     @relation("UserShortlists", fields: [userId], references: [id], onDelete: Cascade)
   target    User     @relation("TargetShortlists", fields: [targetId], references: [id], onDelete: Cascade)
+  user      User     @relation("UserShortlists", fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, targetId])
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum PhysicalCondition {
+  SLIM
+  AVERAGE
+  FAT
+}
+
+enum MaritalStatus {
+  NEVER_MARRIED
+  DIVORCED
+  WIDOWED
+  AWAITING_DIVORCE
+}
+
+enum FamilyStatus {
+  MIDDLE
+  UPPER_MIDDLE
+  HIGH
+  VIP
+  LOW
+}
+
+enum Habit {
+  NONE
+  OCCASIONAL
+  REGULAR
+}
+
+enum ParentLivingStatus {
+  ALIVE
+  LATE
+}
+
+enum WorkNature {
+  JOB
+  BUSINESS
+  NOT_WORKING
+}
+
+enum ApprovalStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum ProfileStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  MATCHED_REMOVED
+}
+
+enum ProfileSentStatus {
+  SENT
+  NOT_MATCHED
 }

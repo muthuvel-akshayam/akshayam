@@ -190,8 +190,8 @@ export type ContactApprovalWhereInput = {
   status?: Prisma.EnumApprovalStatusFilter<"ContactApproval"> | $Enums.ApprovalStatus
   createdAt?: Prisma.DateTimeFilter<"ContactApproval"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ContactApproval"> | Date | string
-  requester?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   recipient?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  requester?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ContactApprovalOrderByWithRelationInput = {
@@ -201,8 +201,8 @@ export type ContactApprovalOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  requester?: Prisma.UserOrderByWithRelationInput
   recipient?: Prisma.UserOrderByWithRelationInput
+  requester?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ContactApprovalWhereUniqueInput = Prisma.AtLeast<{
@@ -216,8 +216,8 @@ export type ContactApprovalWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumApprovalStatusFilter<"ContactApproval"> | $Enums.ApprovalStatus
   createdAt?: Prisma.DateTimeFilter<"ContactApproval"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ContactApproval"> | Date | string
-  requester?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   recipient?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  requester?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "requesterId_recipientId">
 
 export type ContactApprovalOrderByWithAggregationInput = {
@@ -249,8 +249,8 @@ export type ContactApprovalCreateInput = {
   status?: $Enums.ApprovalStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  requester: Prisma.UserCreateNestedOneWithoutSentRequestsInput
   recipient: Prisma.UserCreateNestedOneWithoutReceivedRequestsInput
+  requester: Prisma.UserCreateNestedOneWithoutSentRequestsInput
 }
 
 export type ContactApprovalUncheckedCreateInput = {
@@ -267,8 +267,8 @@ export type ContactApprovalUpdateInput = {
   status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  requester?: Prisma.UserUpdateOneRequiredWithoutSentRequestsNestedInput
   recipient?: Prisma.UserUpdateOneRequiredWithoutReceivedRequestsNestedInput
+  requester?: Prisma.UserUpdateOneRequiredWithoutSentRequestsNestedInput
 }
 
 export type ContactApprovalUncheckedUpdateInput = {
@@ -347,13 +347,6 @@ export type ContactApprovalMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type ContactApprovalCreateNestedManyWithoutRequesterInput = {
-  create?: Prisma.XOR<Prisma.ContactApprovalCreateWithoutRequesterInput, Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput> | Prisma.ContactApprovalCreateWithoutRequesterInput[] | Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput[]
-  connectOrCreate?: Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput | Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput[]
-  createMany?: Prisma.ContactApprovalCreateManyRequesterInputEnvelope
-  connect?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
-}
-
 export type ContactApprovalCreateNestedManyWithoutRecipientInput = {
   create?: Prisma.XOR<Prisma.ContactApprovalCreateWithoutRecipientInput, Prisma.ContactApprovalUncheckedCreateWithoutRecipientInput> | Prisma.ContactApprovalCreateWithoutRecipientInput[] | Prisma.ContactApprovalUncheckedCreateWithoutRecipientInput[]
   connectOrCreate?: Prisma.ContactApprovalCreateOrConnectWithoutRecipientInput | Prisma.ContactApprovalCreateOrConnectWithoutRecipientInput[]
@@ -361,7 +354,7 @@ export type ContactApprovalCreateNestedManyWithoutRecipientInput = {
   connect?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
 }
 
-export type ContactApprovalUncheckedCreateNestedManyWithoutRequesterInput = {
+export type ContactApprovalCreateNestedManyWithoutRequesterInput = {
   create?: Prisma.XOR<Prisma.ContactApprovalCreateWithoutRequesterInput, Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput> | Prisma.ContactApprovalCreateWithoutRequesterInput[] | Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput[]
   connectOrCreate?: Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput | Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput[]
   createMany?: Prisma.ContactApprovalCreateManyRequesterInputEnvelope
@@ -375,18 +368,11 @@ export type ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput = {
   connect?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
 }
 
-export type ContactApprovalUpdateManyWithoutRequesterNestedInput = {
+export type ContactApprovalUncheckedCreateNestedManyWithoutRequesterInput = {
   create?: Prisma.XOR<Prisma.ContactApprovalCreateWithoutRequesterInput, Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput> | Prisma.ContactApprovalCreateWithoutRequesterInput[] | Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput[]
   connectOrCreate?: Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput | Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput[]
-  upsert?: Prisma.ContactApprovalUpsertWithWhereUniqueWithoutRequesterInput | Prisma.ContactApprovalUpsertWithWhereUniqueWithoutRequesterInput[]
   createMany?: Prisma.ContactApprovalCreateManyRequesterInputEnvelope
-  set?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
-  disconnect?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
-  delete?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
   connect?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
-  update?: Prisma.ContactApprovalUpdateWithWhereUniqueWithoutRequesterInput | Prisma.ContactApprovalUpdateWithWhereUniqueWithoutRequesterInput[]
-  updateMany?: Prisma.ContactApprovalUpdateManyWithWhereWithoutRequesterInput | Prisma.ContactApprovalUpdateManyWithWhereWithoutRequesterInput[]
-  deleteMany?: Prisma.ContactApprovalScalarWhereInput | Prisma.ContactApprovalScalarWhereInput[]
 }
 
 export type ContactApprovalUpdateManyWithoutRecipientNestedInput = {
@@ -403,7 +389,7 @@ export type ContactApprovalUpdateManyWithoutRecipientNestedInput = {
   deleteMany?: Prisma.ContactApprovalScalarWhereInput | Prisma.ContactApprovalScalarWhereInput[]
 }
 
-export type ContactApprovalUncheckedUpdateManyWithoutRequesterNestedInput = {
+export type ContactApprovalUpdateManyWithoutRequesterNestedInput = {
   create?: Prisma.XOR<Prisma.ContactApprovalCreateWithoutRequesterInput, Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput> | Prisma.ContactApprovalCreateWithoutRequesterInput[] | Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput[]
   connectOrCreate?: Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput | Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput[]
   upsert?: Prisma.ContactApprovalUpsertWithWhereUniqueWithoutRequesterInput | Prisma.ContactApprovalUpsertWithWhereUniqueWithoutRequesterInput[]
@@ -431,34 +417,22 @@ export type ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput = {
   deleteMany?: Prisma.ContactApprovalScalarWhereInput | Prisma.ContactApprovalScalarWhereInput[]
 }
 
+export type ContactApprovalUncheckedUpdateManyWithoutRequesterNestedInput = {
+  create?: Prisma.XOR<Prisma.ContactApprovalCreateWithoutRequesterInput, Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput> | Prisma.ContactApprovalCreateWithoutRequesterInput[] | Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput[]
+  connectOrCreate?: Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput | Prisma.ContactApprovalCreateOrConnectWithoutRequesterInput[]
+  upsert?: Prisma.ContactApprovalUpsertWithWhereUniqueWithoutRequesterInput | Prisma.ContactApprovalUpsertWithWhereUniqueWithoutRequesterInput[]
+  createMany?: Prisma.ContactApprovalCreateManyRequesterInputEnvelope
+  set?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
+  disconnect?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
+  delete?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
+  connect?: Prisma.ContactApprovalWhereUniqueInput | Prisma.ContactApprovalWhereUniqueInput[]
+  update?: Prisma.ContactApprovalUpdateWithWhereUniqueWithoutRequesterInput | Prisma.ContactApprovalUpdateWithWhereUniqueWithoutRequesterInput[]
+  updateMany?: Prisma.ContactApprovalUpdateManyWithWhereWithoutRequesterInput | Prisma.ContactApprovalUpdateManyWithWhereWithoutRequesterInput[]
+  deleteMany?: Prisma.ContactApprovalScalarWhereInput | Prisma.ContactApprovalScalarWhereInput[]
+}
+
 export type EnumApprovalStatusFieldUpdateOperationsInput = {
   set?: $Enums.ApprovalStatus
-}
-
-export type ContactApprovalCreateWithoutRequesterInput = {
-  id?: string
-  status?: $Enums.ApprovalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  recipient: Prisma.UserCreateNestedOneWithoutReceivedRequestsInput
-}
-
-export type ContactApprovalUncheckedCreateWithoutRequesterInput = {
-  id?: string
-  recipientId: string
-  status?: $Enums.ApprovalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ContactApprovalCreateOrConnectWithoutRequesterInput = {
-  where: Prisma.ContactApprovalWhereUniqueInput
-  create: Prisma.XOR<Prisma.ContactApprovalCreateWithoutRequesterInput, Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput>
-}
-
-export type ContactApprovalCreateManyRequesterInputEnvelope = {
-  data: Prisma.ContactApprovalCreateManyRequesterInput | Prisma.ContactApprovalCreateManyRequesterInput[]
-  skipDuplicates?: boolean
 }
 
 export type ContactApprovalCreateWithoutRecipientInput = {
@@ -487,32 +461,30 @@ export type ContactApprovalCreateManyRecipientInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type ContactApprovalUpsertWithWhereUniqueWithoutRequesterInput = {
+export type ContactApprovalCreateWithoutRequesterInput = {
+  id?: string
+  status?: $Enums.ApprovalStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  recipient: Prisma.UserCreateNestedOneWithoutReceivedRequestsInput
+}
+
+export type ContactApprovalUncheckedCreateWithoutRequesterInput = {
+  id?: string
+  recipientId: string
+  status?: $Enums.ApprovalStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ContactApprovalCreateOrConnectWithoutRequesterInput = {
   where: Prisma.ContactApprovalWhereUniqueInput
-  update: Prisma.XOR<Prisma.ContactApprovalUpdateWithoutRequesterInput, Prisma.ContactApprovalUncheckedUpdateWithoutRequesterInput>
   create: Prisma.XOR<Prisma.ContactApprovalCreateWithoutRequesterInput, Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput>
 }
 
-export type ContactApprovalUpdateWithWhereUniqueWithoutRequesterInput = {
-  where: Prisma.ContactApprovalWhereUniqueInput
-  data: Prisma.XOR<Prisma.ContactApprovalUpdateWithoutRequesterInput, Prisma.ContactApprovalUncheckedUpdateWithoutRequesterInput>
-}
-
-export type ContactApprovalUpdateManyWithWhereWithoutRequesterInput = {
-  where: Prisma.ContactApprovalScalarWhereInput
-  data: Prisma.XOR<Prisma.ContactApprovalUpdateManyMutationInput, Prisma.ContactApprovalUncheckedUpdateManyWithoutRequesterInput>
-}
-
-export type ContactApprovalScalarWhereInput = {
-  AND?: Prisma.ContactApprovalScalarWhereInput | Prisma.ContactApprovalScalarWhereInput[]
-  OR?: Prisma.ContactApprovalScalarWhereInput[]
-  NOT?: Prisma.ContactApprovalScalarWhereInput | Prisma.ContactApprovalScalarWhereInput[]
-  id?: Prisma.StringFilter<"ContactApproval"> | string
-  requesterId?: Prisma.StringFilter<"ContactApproval"> | string
-  recipientId?: Prisma.StringFilter<"ContactApproval"> | string
-  status?: Prisma.EnumApprovalStatusFilter<"ContactApproval"> | $Enums.ApprovalStatus
-  createdAt?: Prisma.DateTimeFilter<"ContactApproval"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ContactApproval"> | Date | string
+export type ContactApprovalCreateManyRequesterInputEnvelope = {
+  data: Prisma.ContactApprovalCreateManyRequesterInput | Prisma.ContactApprovalCreateManyRequesterInput[]
+  skipDuplicates?: boolean
 }
 
 export type ContactApprovalUpsertWithWhereUniqueWithoutRecipientInput = {
@@ -531,12 +503,32 @@ export type ContactApprovalUpdateManyWithWhereWithoutRecipientInput = {
   data: Prisma.XOR<Prisma.ContactApprovalUpdateManyMutationInput, Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientInput>
 }
 
-export type ContactApprovalCreateManyRequesterInput = {
-  id?: string
-  recipientId: string
-  status?: $Enums.ApprovalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
+export type ContactApprovalScalarWhereInput = {
+  AND?: Prisma.ContactApprovalScalarWhereInput | Prisma.ContactApprovalScalarWhereInput[]
+  OR?: Prisma.ContactApprovalScalarWhereInput[]
+  NOT?: Prisma.ContactApprovalScalarWhereInput | Prisma.ContactApprovalScalarWhereInput[]
+  id?: Prisma.StringFilter<"ContactApproval"> | string
+  requesterId?: Prisma.StringFilter<"ContactApproval"> | string
+  recipientId?: Prisma.StringFilter<"ContactApproval"> | string
+  status?: Prisma.EnumApprovalStatusFilter<"ContactApproval"> | $Enums.ApprovalStatus
+  createdAt?: Prisma.DateTimeFilter<"ContactApproval"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ContactApproval"> | Date | string
+}
+
+export type ContactApprovalUpsertWithWhereUniqueWithoutRequesterInput = {
+  where: Prisma.ContactApprovalWhereUniqueInput
+  update: Prisma.XOR<Prisma.ContactApprovalUpdateWithoutRequesterInput, Prisma.ContactApprovalUncheckedUpdateWithoutRequesterInput>
+  create: Prisma.XOR<Prisma.ContactApprovalCreateWithoutRequesterInput, Prisma.ContactApprovalUncheckedCreateWithoutRequesterInput>
+}
+
+export type ContactApprovalUpdateWithWhereUniqueWithoutRequesterInput = {
+  where: Prisma.ContactApprovalWhereUniqueInput
+  data: Prisma.XOR<Prisma.ContactApprovalUpdateWithoutRequesterInput, Prisma.ContactApprovalUncheckedUpdateWithoutRequesterInput>
+}
+
+export type ContactApprovalUpdateManyWithWhereWithoutRequesterInput = {
+  where: Prisma.ContactApprovalScalarWhereInput
+  data: Prisma.XOR<Prisma.ContactApprovalUpdateManyMutationInput, Prisma.ContactApprovalUncheckedUpdateManyWithoutRequesterInput>
 }
 
 export type ContactApprovalCreateManyRecipientInput = {
@@ -547,28 +539,12 @@ export type ContactApprovalCreateManyRecipientInput = {
   updatedAt?: Date | string
 }
 
-export type ContactApprovalUpdateWithoutRequesterInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recipient?: Prisma.UserUpdateOneRequiredWithoutReceivedRequestsNestedInput
-}
-
-export type ContactApprovalUncheckedUpdateWithoutRequesterInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  recipientId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ContactApprovalUncheckedUpdateManyWithoutRequesterInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  recipientId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type ContactApprovalCreateManyRequesterInput = {
+  id?: string
+  recipientId: string
+  status?: $Enums.ApprovalStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ContactApprovalUpdateWithoutRecipientInput = {
@@ -595,6 +571,30 @@ export type ContactApprovalUncheckedUpdateManyWithoutRecipientInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ContactApprovalUpdateWithoutRequesterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipient?: Prisma.UserUpdateOneRequiredWithoutReceivedRequestsNestedInput
+}
+
+export type ContactApprovalUncheckedUpdateWithoutRequesterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  recipientId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ContactApprovalUncheckedUpdateManyWithoutRequesterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  recipientId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type ContactApprovalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -604,8 +604,8 @@ export type ContactApprovalSelect<ExtArgs extends runtime.Types.Extensions.Inter
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   recipient?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contactApproval"]>
 
 export type ContactApprovalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -615,8 +615,8 @@ export type ContactApprovalSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   recipient?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contactApproval"]>
 
 export type ContactApprovalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -626,8 +626,8 @@ export type ContactApprovalSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   recipient?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contactApproval"]>
 
 export type ContactApprovalSelectScalar = {
@@ -641,23 +641,23 @@ export type ContactApprovalSelectScalar = {
 
 export type ContactApprovalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requesterId" | "recipientId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["contactApproval"]>
 export type ContactApprovalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   recipient?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ContactApprovalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   recipient?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ContactApprovalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   recipient?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ContactApprovalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ContactApproval"
   objects: {
-    requester: Prisma.$UserPayload<ExtArgs>
     recipient: Prisma.$UserPayload<ExtArgs>
+    requester: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1060,8 +1060,8 @@ readonly fields: ContactApprovalFieldRefs;
  */
 export interface Prisma__ContactApprovalClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  requester<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   recipient<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  requester<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

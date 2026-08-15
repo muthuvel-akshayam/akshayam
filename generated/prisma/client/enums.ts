@@ -37,11 +37,11 @@ export type MaritalStatus = (typeof MaritalStatus)[keyof typeof MaritalStatus]
 
 
 export const FamilyStatus = {
-  LOW: 'LOW',
   MIDDLE: 'MIDDLE',
   UPPER_MIDDLE: 'UPPER_MIDDLE',
   HIGH: 'HIGH',
-  VIP: 'VIP'
+  VIP: 'VIP',
+  LOW: 'LOW'
 } as const
 
 export type FamilyStatus = (typeof FamilyStatus)[keyof typeof FamilyStatus]

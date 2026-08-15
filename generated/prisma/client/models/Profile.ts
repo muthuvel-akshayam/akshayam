@@ -44,8 +44,6 @@ export type ProfileMinAggregateOutputType = {
   livingCountry: string | null
   state: string | null
   city: string | null
-  houseAddress: string | null
-  houseLocation: string | null
   religion: string | null
   caste: string | null
   subCaste: string | null
@@ -66,19 +64,24 @@ export type ProfileMinAggregateOutputType = {
   nakshatra: string | null
   dosham: string | null
   jathakamUrl: string | null
-  dasaBalance: string | null
   photoUrl: string | null
-  idProofUrl: string | null
   casteCertificateUrl: string | null
   hideMobileNo: boolean | null
   hideHouseAddress: boolean | null
   hideHouseLocation: boolean | null
-  hidePhoto: boolean | null
   status: $Enums.ProfileStatus | null
   approvedAt: Date | null
   approvedBy: string | null
   rejectedReason: string | null
   isLive: boolean | null
+  dasaBalance: string | null
+  hidePhoto: boolean | null
+  houseAddress: string | null
+  idProofUrl: string | null
+  houseLocation: string | null
+  displayId: string | null
+  profileCreatedBy: string | null
+  reviewerId: string | null
 }
 
 export type ProfileMaxAggregateOutputType = {
@@ -89,8 +92,6 @@ export type ProfileMaxAggregateOutputType = {
   livingCountry: string | null
   state: string | null
   city: string | null
-  houseAddress: string | null
-  houseLocation: string | null
   religion: string | null
   caste: string | null
   subCaste: string | null
@@ -111,19 +112,24 @@ export type ProfileMaxAggregateOutputType = {
   nakshatra: string | null
   dosham: string | null
   jathakamUrl: string | null
-  dasaBalance: string | null
   photoUrl: string | null
-  idProofUrl: string | null
   casteCertificateUrl: string | null
   hideMobileNo: boolean | null
   hideHouseAddress: boolean | null
   hideHouseLocation: boolean | null
-  hidePhoto: boolean | null
   status: $Enums.ProfileStatus | null
   approvedAt: Date | null
   approvedBy: string | null
   rejectedReason: string | null
   isLive: boolean | null
+  dasaBalance: string | null
+  hidePhoto: boolean | null
+  houseAddress: string | null
+  idProofUrl: string | null
+  houseLocation: string | null
+  displayId: string | null
+  profileCreatedBy: string | null
+  reviewerId: string | null
 }
 
 export type ProfileCountAggregateOutputType = {
@@ -134,8 +140,6 @@ export type ProfileCountAggregateOutputType = {
   livingCountry: number
   state: number
   city: number
-  houseAddress: number
-  houseLocation: number
   religion: number
   caste: number
   subCaste: number
@@ -157,22 +161,27 @@ export type ProfileCountAggregateOutputType = {
   poruthaNakshatram: number
   dosham: number
   jathakamUrl: number
-  jathagamData: number
-  rasiGrid: number
-  amsamGrid: number
-  dasaBalance: number
   photoUrl: number
-  idProofUrl: number
   casteCertificateUrl: number
   hideMobileNo: number
   hideHouseAddress: number
   hideHouseLocation: number
-  hidePhoto: number
   status: number
   approvedAt: number
   approvedBy: number
   rejectedReason: number
   isLive: number
+  amsamGrid: number
+  dasaBalance: number
+  hidePhoto: number
+  houseAddress: number
+  rasiGrid: number
+  jathagamData: number
+  idProofUrl: number
+  houseLocation: number
+  displayId: number
+  profileCreatedBy: number
+  reviewerId: number
   _all: number
 }
 
@@ -195,8 +204,6 @@ export type ProfileMinAggregateInputType = {
   livingCountry?: true
   state?: true
   city?: true
-  houseAddress?: true
-  houseLocation?: true
   religion?: true
   caste?: true
   subCaste?: true
@@ -217,19 +224,24 @@ export type ProfileMinAggregateInputType = {
   nakshatra?: true
   dosham?: true
   jathakamUrl?: true
-  dasaBalance?: true
   photoUrl?: true
-  idProofUrl?: true
   casteCertificateUrl?: true
   hideMobileNo?: true
   hideHouseAddress?: true
   hideHouseLocation?: true
-  hidePhoto?: true
   status?: true
   approvedAt?: true
   approvedBy?: true
   rejectedReason?: true
   isLive?: true
+  dasaBalance?: true
+  hidePhoto?: true
+  houseAddress?: true
+  idProofUrl?: true
+  houseLocation?: true
+  displayId?: true
+  profileCreatedBy?: true
+  reviewerId?: true
 }
 
 export type ProfileMaxAggregateInputType = {
@@ -240,8 +252,6 @@ export type ProfileMaxAggregateInputType = {
   livingCountry?: true
   state?: true
   city?: true
-  houseAddress?: true
-  houseLocation?: true
   religion?: true
   caste?: true
   subCaste?: true
@@ -262,19 +272,24 @@ export type ProfileMaxAggregateInputType = {
   nakshatra?: true
   dosham?: true
   jathakamUrl?: true
-  dasaBalance?: true
   photoUrl?: true
-  idProofUrl?: true
   casteCertificateUrl?: true
   hideMobileNo?: true
   hideHouseAddress?: true
   hideHouseLocation?: true
-  hidePhoto?: true
   status?: true
   approvedAt?: true
   approvedBy?: true
   rejectedReason?: true
   isLive?: true
+  dasaBalance?: true
+  hidePhoto?: true
+  houseAddress?: true
+  idProofUrl?: true
+  houseLocation?: true
+  displayId?: true
+  profileCreatedBy?: true
+  reviewerId?: true
 }
 
 export type ProfileCountAggregateInputType = {
@@ -285,8 +300,6 @@ export type ProfileCountAggregateInputType = {
   livingCountry?: true
   state?: true
   city?: true
-  houseAddress?: true
-  houseLocation?: true
   religion?: true
   caste?: true
   subCaste?: true
@@ -308,22 +321,27 @@ export type ProfileCountAggregateInputType = {
   poruthaNakshatram?: true
   dosham?: true
   jathakamUrl?: true
-  jathagamData?: true
-  rasiGrid?: true
-  amsamGrid?: true
-  dasaBalance?: true
   photoUrl?: true
-  idProofUrl?: true
   casteCertificateUrl?: true
   hideMobileNo?: true
   hideHouseAddress?: true
   hideHouseLocation?: true
-  hidePhoto?: true
   status?: true
   approvedAt?: true
   approvedBy?: true
   rejectedReason?: true
   isLive?: true
+  amsamGrid?: true
+  dasaBalance?: true
+  hidePhoto?: true
+  houseAddress?: true
+  rasiGrid?: true
+  jathagamData?: true
+  idProofUrl?: true
+  houseLocation?: true
+  displayId?: true
+  profileCreatedBy?: true
+  reviewerId?: true
   _all?: true
 }
 
@@ -421,8 +439,6 @@ export type ProfileGroupByOutputType = {
   livingCountry: string
   state: string
   city: string
-  houseAddress: string | null
-  houseLocation: string | null
   religion: string
   caste: string
   subCaste: string | null
@@ -444,22 +460,27 @@ export type ProfileGroupByOutputType = {
   poruthaNakshatram: string[]
   dosham: string | null
   jathakamUrl: string | null
-  jathagamData: runtime.JsonValue | null
-  rasiGrid: runtime.JsonValue | null
-  amsamGrid: runtime.JsonValue | null
-  dasaBalance: string | null
   photoUrl: string | null
-  idProofUrl: string | null
   casteCertificateUrl: string | null
   hideMobileNo: boolean
   hideHouseAddress: boolean
   hideHouseLocation: boolean
-  hidePhoto: boolean
   status: $Enums.ProfileStatus
   approvedAt: Date | null
   approvedBy: string | null
   rejectedReason: string | null
   isLive: boolean
+  amsamGrid: runtime.JsonValue | null
+  dasaBalance: string | null
+  hidePhoto: boolean
+  houseAddress: string | null
+  rasiGrid: runtime.JsonValue | null
+  jathagamData: runtime.JsonValue | null
+  idProofUrl: string | null
+  houseLocation: string | null
+  displayId: string | null
+  profileCreatedBy: string | null
+  reviewerId: string | null
   _count: ProfileCountAggregateOutputType | null
   _avg: ProfileAvgAggregateOutputType | null
   _sum: ProfileSumAggregateOutputType | null
@@ -493,8 +514,6 @@ export type ProfileWhereInput = {
   livingCountry?: Prisma.StringFilter<"Profile"> | string
   state?: Prisma.StringFilter<"Profile"> | string
   city?: Prisma.StringFilter<"Profile"> | string
-  houseAddress?: Prisma.StringNullableFilter<"Profile"> | string | null
-  houseLocation?: Prisma.StringNullableFilter<"Profile"> | string | null
   religion?: Prisma.StringFilter<"Profile"> | string
   caste?: Prisma.StringFilter<"Profile"> | string
   subCaste?: Prisma.StringNullableFilter<"Profile"> | string | null
@@ -516,24 +535,29 @@ export type ProfileWhereInput = {
   poruthaNakshatram?: Prisma.StringNullableListFilter<"Profile">
   dosham?: Prisma.StringNullableFilter<"Profile"> | string | null
   jathakamUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
-  jathagamData?: Prisma.JsonNullableFilter<"Profile">
-  rasiGrid?: Prisma.JsonNullableFilter<"Profile">
-  amsamGrid?: Prisma.JsonNullableFilter<"Profile">
-  dasaBalance?: Prisma.StringNullableFilter<"Profile"> | string | null
   photoUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
-  idProofUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   casteCertificateUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   hideMobileNo?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseAddress?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseLocation?: Prisma.BoolFilter<"Profile"> | boolean
-  hidePhoto?: Prisma.BoolFilter<"Profile"> | boolean
   status?: Prisma.EnumProfileStatusFilter<"Profile"> | $Enums.ProfileStatus
   approvedAt?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
   approvedBy?: Prisma.StringNullableFilter<"Profile"> | string | null
   rejectedReason?: Prisma.StringNullableFilter<"Profile"> | string | null
   isLive?: Prisma.BoolFilter<"Profile"> | boolean
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  amsamGrid?: Prisma.JsonNullableFilter<"Profile">
+  dasaBalance?: Prisma.StringNullableFilter<"Profile"> | string | null
+  hidePhoto?: Prisma.BoolFilter<"Profile"> | boolean
+  houseAddress?: Prisma.StringNullableFilter<"Profile"> | string | null
+  rasiGrid?: Prisma.JsonNullableFilter<"Profile">
+  jathagamData?: Prisma.JsonNullableFilter<"Profile">
+  idProofUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
+  houseLocation?: Prisma.StringNullableFilter<"Profile"> | string | null
+  displayId?: Prisma.StringNullableFilter<"Profile"> | string | null
+  profileCreatedBy?: Prisma.StringNullableFilter<"Profile"> | string | null
+  reviewerId?: Prisma.StringNullableFilter<"Profile"> | string | null
   educations?: Prisma.EducationListRelationFilter
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ProfileOrderByWithRelationInput = {
@@ -544,8 +568,6 @@ export type ProfileOrderByWithRelationInput = {
   livingCountry?: Prisma.SortOrder
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
-  houseAddress?: Prisma.SortOrderInput | Prisma.SortOrder
-  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -567,29 +589,35 @@ export type ProfileOrderByWithRelationInput = {
   poruthaNakshatram?: Prisma.SortOrder
   dosham?: Prisma.SortOrderInput | Prisma.SortOrder
   jathakamUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  jathagamData?: Prisma.SortOrderInput | Prisma.SortOrder
-  rasiGrid?: Prisma.SortOrderInput | Prisma.SortOrder
-  amsamGrid?: Prisma.SortOrderInput | Prisma.SortOrder
-  dasaBalance?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  idProofUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  hidePhoto?: Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   isLive?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
+  amsamGrid?: Prisma.SortOrderInput | Prisma.SortOrder
+  dasaBalance?: Prisma.SortOrderInput | Prisma.SortOrder
+  hidePhoto?: Prisma.SortOrder
+  houseAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  rasiGrid?: Prisma.SortOrderInput | Prisma.SortOrder
+  jathagamData?: Prisma.SortOrderInput | Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
+  displayId?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileCreatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
   educations?: Prisma.EducationOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   userId?: string
+  displayId?: string
   AND?: Prisma.ProfileWhereInput | Prisma.ProfileWhereInput[]
   OR?: Prisma.ProfileWhereInput[]
   NOT?: Prisma.ProfileWhereInput | Prisma.ProfileWhereInput[]
@@ -598,8 +626,6 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   livingCountry?: Prisma.StringFilter<"Profile"> | string
   state?: Prisma.StringFilter<"Profile"> | string
   city?: Prisma.StringFilter<"Profile"> | string
-  houseAddress?: Prisma.StringNullableFilter<"Profile"> | string | null
-  houseLocation?: Prisma.StringNullableFilter<"Profile"> | string | null
   religion?: Prisma.StringFilter<"Profile"> | string
   caste?: Prisma.StringFilter<"Profile"> | string
   subCaste?: Prisma.StringNullableFilter<"Profile"> | string | null
@@ -621,25 +647,29 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   poruthaNakshatram?: Prisma.StringNullableListFilter<"Profile">
   dosham?: Prisma.StringNullableFilter<"Profile"> | string | null
   jathakamUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
-  jathagamData?: Prisma.JsonNullableFilter<"Profile">
-  rasiGrid?: Prisma.JsonNullableFilter<"Profile">
-  amsamGrid?: Prisma.JsonNullableFilter<"Profile">
-  dasaBalance?: Prisma.StringNullableFilter<"Profile"> | string | null
   photoUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
-  idProofUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   casteCertificateUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   hideMobileNo?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseAddress?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseLocation?: Prisma.BoolFilter<"Profile"> | boolean
-  hidePhoto?: Prisma.BoolFilter<"Profile"> | boolean
   status?: Prisma.EnumProfileStatusFilter<"Profile"> | $Enums.ProfileStatus
   approvedAt?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
   approvedBy?: Prisma.StringNullableFilter<"Profile"> | string | null
   rejectedReason?: Prisma.StringNullableFilter<"Profile"> | string | null
   isLive?: Prisma.BoolFilter<"Profile"> | boolean
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  amsamGrid?: Prisma.JsonNullableFilter<"Profile">
+  dasaBalance?: Prisma.StringNullableFilter<"Profile"> | string | null
+  hidePhoto?: Prisma.BoolFilter<"Profile"> | boolean
+  houseAddress?: Prisma.StringNullableFilter<"Profile"> | string | null
+  rasiGrid?: Prisma.JsonNullableFilter<"Profile">
+  jathagamData?: Prisma.JsonNullableFilter<"Profile">
+  idProofUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
+  houseLocation?: Prisma.StringNullableFilter<"Profile"> | string | null
+  profileCreatedBy?: Prisma.StringNullableFilter<"Profile"> | string | null
+  reviewerId?: Prisma.StringNullableFilter<"Profile"> | string | null
   educations?: Prisma.EducationListRelationFilter
-}, "id" | "userId">
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+}, "id" | "userId" | "displayId">
 
 export type ProfileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -649,8 +679,6 @@ export type ProfileOrderByWithAggregationInput = {
   livingCountry?: Prisma.SortOrder
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
-  houseAddress?: Prisma.SortOrderInput | Prisma.SortOrder
-  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -672,22 +700,27 @@ export type ProfileOrderByWithAggregationInput = {
   poruthaNakshatram?: Prisma.SortOrder
   dosham?: Prisma.SortOrderInput | Prisma.SortOrder
   jathakamUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  jathagamData?: Prisma.SortOrderInput | Prisma.SortOrder
-  rasiGrid?: Prisma.SortOrderInput | Prisma.SortOrder
-  amsamGrid?: Prisma.SortOrderInput | Prisma.SortOrder
-  dasaBalance?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  idProofUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  hidePhoto?: Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   isLive?: Prisma.SortOrder
+  amsamGrid?: Prisma.SortOrderInput | Prisma.SortOrder
+  dasaBalance?: Prisma.SortOrderInput | Prisma.SortOrder
+  hidePhoto?: Prisma.SortOrder
+  houseAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  rasiGrid?: Prisma.SortOrderInput | Prisma.SortOrder
+  jathagamData?: Prisma.SortOrderInput | Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
+  displayId?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileCreatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProfileCountOrderByAggregateInput
   _avg?: Prisma.ProfileAvgOrderByAggregateInput
   _max?: Prisma.ProfileMaxOrderByAggregateInput
@@ -706,8 +739,6 @@ export type ProfileScalarWhereWithAggregatesInput = {
   livingCountry?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   state?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   city?: Prisma.StringWithAggregatesFilter<"Profile"> | string
-  houseAddress?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
-  houseLocation?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   religion?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   caste?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   subCaste?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
@@ -729,22 +760,27 @@ export type ProfileScalarWhereWithAggregatesInput = {
   poruthaNakshatram?: Prisma.StringNullableListFilter<"Profile">
   dosham?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   jathakamUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
-  jathagamData?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
-  rasiGrid?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
-  amsamGrid?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
-  dasaBalance?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
-  idProofUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   casteCertificateUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   hideMobileNo?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
   hideHouseAddress?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
   hideHouseLocation?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
-  hidePhoto?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
   status?: Prisma.EnumProfileStatusWithAggregatesFilter<"Profile"> | $Enums.ProfileStatus
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
   approvedBy?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   rejectedReason?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   isLive?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
+  amsamGrid?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
+  dasaBalance?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  hidePhoto?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
+  houseAddress?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  rasiGrid?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
+  jathagamData?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
+  idProofUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  houseLocation?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  displayId?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  profileCreatedBy?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  reviewerId?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
 }
 
 export type ProfileCreateInput = {
@@ -754,8 +790,6 @@ export type ProfileCreateInput = {
   livingCountry: string
   state: string
   city: string
-  houseAddress?: string | null
-  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -777,24 +811,29 @@ export type ProfileCreateInput = {
   poruthaNakshatram?: Prisma.ProfileCreateporuthaNakshatramInput | string[]
   dosham?: string | null
   jathakamUrl?: string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: string | null
   photoUrl?: string | null
-  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
   rejectedReason?: string | null
   isLive?: boolean
-  user: Prisma.UserCreateNestedOneWithoutProfileInput
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: string | null
+  hidePhoto?: boolean
+  houseAddress?: string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: string | null
+  houseLocation?: string | null
+  displayId?: string | null
+  profileCreatedBy?: string | null
+  reviewerId?: string | null
   educations?: Prisma.EducationCreateNestedManyWithoutProfileInput
+  user: Prisma.UserCreateNestedOneWithoutProfileInput
 }
 
 export type ProfileUncheckedCreateInput = {
@@ -805,8 +844,6 @@ export type ProfileUncheckedCreateInput = {
   livingCountry: string
   state: string
   city: string
-  houseAddress?: string | null
-  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -828,22 +865,27 @@ export type ProfileUncheckedCreateInput = {
   poruthaNakshatram?: Prisma.ProfileCreateporuthaNakshatramInput | string[]
   dosham?: string | null
   jathakamUrl?: string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: string | null
   photoUrl?: string | null
-  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
   rejectedReason?: string | null
   isLive?: boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: string | null
+  hidePhoto?: boolean
+  houseAddress?: string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: string | null
+  houseLocation?: string | null
+  displayId?: string | null
+  profileCreatedBy?: string | null
+  reviewerId?: string | null
   educations?: Prisma.EducationUncheckedCreateNestedManyWithoutProfileInput
 }
 
@@ -854,8 +896,6 @@ export type ProfileUpdateInput = {
   livingCountry?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
-  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -877,24 +917,29 @@ export type ProfileUpdateInput = {
   poruthaNakshatram?: Prisma.ProfileUpdateporuthaNakshatramInput | string[]
   dosham?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jathakamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  user?: Prisma.UserUpdateOneRequiredWithoutProfileNestedInput
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   educations?: Prisma.EducationUpdateManyWithoutProfileNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutProfileNestedInput
 }
 
 export type ProfileUncheckedUpdateInput = {
@@ -905,8 +950,6 @@ export type ProfileUncheckedUpdateInput = {
   livingCountry?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
-  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -928,22 +971,27 @@ export type ProfileUncheckedUpdateInput = {
   poruthaNakshatram?: Prisma.ProfileUpdateporuthaNakshatramInput | string[]
   dosham?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jathakamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   educations?: Prisma.EducationUncheckedUpdateManyWithoutProfileNestedInput
 }
 
@@ -955,8 +1003,6 @@ export type ProfileCreateManyInput = {
   livingCountry: string
   state: string
   city: string
-  houseAddress?: string | null
-  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -978,22 +1024,27 @@ export type ProfileCreateManyInput = {
   poruthaNakshatram?: Prisma.ProfileCreateporuthaNakshatramInput | string[]
   dosham?: string | null
   jathakamUrl?: string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: string | null
   photoUrl?: string | null
-  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
   rejectedReason?: string | null
   isLive?: boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: string | null
+  hidePhoto?: boolean
+  houseAddress?: string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: string | null
+  houseLocation?: string | null
+  displayId?: string | null
+  profileCreatedBy?: string | null
+  reviewerId?: string | null
 }
 
 export type ProfileUpdateManyMutationInput = {
@@ -1003,8 +1054,6 @@ export type ProfileUpdateManyMutationInput = {
   livingCountry?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
-  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1026,22 +1075,27 @@ export type ProfileUpdateManyMutationInput = {
   poruthaNakshatram?: Prisma.ProfileUpdateporuthaNakshatramInput | string[]
   dosham?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jathakamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProfileUncheckedUpdateManyInput = {
@@ -1052,8 +1106,6 @@ export type ProfileUncheckedUpdateManyInput = {
   livingCountry?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
-  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1075,22 +1127,27 @@ export type ProfileUncheckedUpdateManyInput = {
   poruthaNakshatram?: Prisma.ProfileUpdateporuthaNakshatramInput | string[]
   dosham?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jathakamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProfileNullableScalarRelationFilter = {
@@ -1114,8 +1171,6 @@ export type ProfileCountOrderByAggregateInput = {
   livingCountry?: Prisma.SortOrder
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
-  houseAddress?: Prisma.SortOrder
-  houseLocation?: Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrder
@@ -1137,22 +1192,27 @@ export type ProfileCountOrderByAggregateInput = {
   poruthaNakshatram?: Prisma.SortOrder
   dosham?: Prisma.SortOrder
   jathakamUrl?: Prisma.SortOrder
-  jathagamData?: Prisma.SortOrder
-  rasiGrid?: Prisma.SortOrder
-  amsamGrid?: Prisma.SortOrder
-  dasaBalance?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
-  idProofUrl?: Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  hidePhoto?: Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   rejectedReason?: Prisma.SortOrder
   isLive?: Prisma.SortOrder
+  amsamGrid?: Prisma.SortOrder
+  dasaBalance?: Prisma.SortOrder
+  hidePhoto?: Prisma.SortOrder
+  houseAddress?: Prisma.SortOrder
+  rasiGrid?: Prisma.SortOrder
+  jathagamData?: Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrder
+  houseLocation?: Prisma.SortOrder
+  displayId?: Prisma.SortOrder
+  profileCreatedBy?: Prisma.SortOrder
+  reviewerId?: Prisma.SortOrder
 }
 
 export type ProfileAvgOrderByAggregateInput = {
@@ -1168,8 +1228,6 @@ export type ProfileMaxOrderByAggregateInput = {
   livingCountry?: Prisma.SortOrder
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
-  houseAddress?: Prisma.SortOrder
-  houseLocation?: Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrder
@@ -1190,19 +1248,24 @@ export type ProfileMaxOrderByAggregateInput = {
   nakshatra?: Prisma.SortOrder
   dosham?: Prisma.SortOrder
   jathakamUrl?: Prisma.SortOrder
-  dasaBalance?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
-  idProofUrl?: Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  hidePhoto?: Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   rejectedReason?: Prisma.SortOrder
   isLive?: Prisma.SortOrder
+  dasaBalance?: Prisma.SortOrder
+  hidePhoto?: Prisma.SortOrder
+  houseAddress?: Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrder
+  houseLocation?: Prisma.SortOrder
+  displayId?: Prisma.SortOrder
+  profileCreatedBy?: Prisma.SortOrder
+  reviewerId?: Prisma.SortOrder
 }
 
 export type ProfileMinOrderByAggregateInput = {
@@ -1213,8 +1276,6 @@ export type ProfileMinOrderByAggregateInput = {
   livingCountry?: Prisma.SortOrder
   state?: Prisma.SortOrder
   city?: Prisma.SortOrder
-  houseAddress?: Prisma.SortOrder
-  houseLocation?: Prisma.SortOrder
   religion?: Prisma.SortOrder
   caste?: Prisma.SortOrder
   subCaste?: Prisma.SortOrder
@@ -1235,19 +1296,24 @@ export type ProfileMinOrderByAggregateInput = {
   nakshatra?: Prisma.SortOrder
   dosham?: Prisma.SortOrder
   jathakamUrl?: Prisma.SortOrder
-  dasaBalance?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
-  idProofUrl?: Prisma.SortOrder
   casteCertificateUrl?: Prisma.SortOrder
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  hidePhoto?: Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   rejectedReason?: Prisma.SortOrder
   isLive?: Prisma.SortOrder
+  dasaBalance?: Prisma.SortOrder
+  hidePhoto?: Prisma.SortOrder
+  houseAddress?: Prisma.SortOrder
+  idProofUrl?: Prisma.SortOrder
+  houseLocation?: Prisma.SortOrder
+  displayId?: Prisma.SortOrder
+  profileCreatedBy?: Prisma.SortOrder
+  reviewerId?: Prisma.SortOrder
 }
 
 export type ProfileSumOrderByAggregateInput = {
@@ -1362,8 +1428,6 @@ export type ProfileCreateWithoutUserInput = {
   livingCountry: string
   state: string
   city: string
-  houseAddress?: string | null
-  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -1385,22 +1449,27 @@ export type ProfileCreateWithoutUserInput = {
   poruthaNakshatram?: Prisma.ProfileCreateporuthaNakshatramInput | string[]
   dosham?: string | null
   jathakamUrl?: string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: string | null
   photoUrl?: string | null
-  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
   rejectedReason?: string | null
   isLive?: boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: string | null
+  hidePhoto?: boolean
+  houseAddress?: string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: string | null
+  houseLocation?: string | null
+  displayId?: string | null
+  profileCreatedBy?: string | null
+  reviewerId?: string | null
   educations?: Prisma.EducationCreateNestedManyWithoutProfileInput
 }
 
@@ -1411,8 +1480,6 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   livingCountry: string
   state: string
   city: string
-  houseAddress?: string | null
-  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -1434,22 +1501,27 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   poruthaNakshatram?: Prisma.ProfileCreateporuthaNakshatramInput | string[]
   dosham?: string | null
   jathakamUrl?: string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: string | null
   photoUrl?: string | null
-  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
   rejectedReason?: string | null
   isLive?: boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: string | null
+  hidePhoto?: boolean
+  houseAddress?: string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: string | null
+  houseLocation?: string | null
+  displayId?: string | null
+  profileCreatedBy?: string | null
+  reviewerId?: string | null
   educations?: Prisma.EducationUncheckedCreateNestedManyWithoutProfileInput
 }
 
@@ -1476,8 +1548,6 @@ export type ProfileUpdateWithoutUserInput = {
   livingCountry?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
-  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1499,22 +1569,27 @@ export type ProfileUpdateWithoutUserInput = {
   poruthaNakshatram?: Prisma.ProfileUpdateporuthaNakshatramInput | string[]
   dosham?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jathakamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   educations?: Prisma.EducationUpdateManyWithoutProfileNestedInput
 }
 
@@ -1525,8 +1600,6 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
   livingCountry?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
-  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1548,22 +1621,27 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
   poruthaNakshatram?: Prisma.ProfileUpdateporuthaNakshatramInput | string[]
   dosham?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jathakamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   educations?: Prisma.EducationUncheckedUpdateManyWithoutProfileNestedInput
 }
 
@@ -1574,8 +1652,6 @@ export type ProfileCreateWithoutEducationsInput = {
   livingCountry: string
   state: string
   city: string
-  houseAddress?: string | null
-  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -1597,22 +1673,27 @@ export type ProfileCreateWithoutEducationsInput = {
   poruthaNakshatram?: Prisma.ProfileCreateporuthaNakshatramInput | string[]
   dosham?: string | null
   jathakamUrl?: string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: string | null
   photoUrl?: string | null
-  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
   rejectedReason?: string | null
   isLive?: boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: string | null
+  hidePhoto?: boolean
+  houseAddress?: string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: string | null
+  houseLocation?: string | null
+  displayId?: string | null
+  profileCreatedBy?: string | null
+  reviewerId?: string | null
   user: Prisma.UserCreateNestedOneWithoutProfileInput
 }
 
@@ -1624,8 +1705,6 @@ export type ProfileUncheckedCreateWithoutEducationsInput = {
   livingCountry: string
   state: string
   city: string
-  houseAddress?: string | null
-  houseLocation?: string | null
   religion: string
   caste: string
   subCaste?: string | null
@@ -1647,22 +1726,27 @@ export type ProfileUncheckedCreateWithoutEducationsInput = {
   poruthaNakshatram?: Prisma.ProfileCreateporuthaNakshatramInput | string[]
   dosham?: string | null
   jathakamUrl?: string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: string | null
   photoUrl?: string | null
-  idProofUrl?: string | null
   casteCertificateUrl?: string | null
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
   rejectedReason?: string | null
   isLive?: boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: string | null
+  hidePhoto?: boolean
+  houseAddress?: string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: string | null
+  houseLocation?: string | null
+  displayId?: string | null
+  profileCreatedBy?: string | null
+  reviewerId?: string | null
 }
 
 export type ProfileCreateOrConnectWithoutEducationsInput = {
@@ -1688,8 +1772,6 @@ export type ProfileUpdateWithoutEducationsInput = {
   livingCountry?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
-  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1711,22 +1793,27 @@ export type ProfileUpdateWithoutEducationsInput = {
   poruthaNakshatram?: Prisma.ProfileUpdateporuthaNakshatramInput | string[]
   dosham?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jathakamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutProfileNestedInput
 }
 
@@ -1738,8 +1825,6 @@ export type ProfileUncheckedUpdateWithoutEducationsInput = {
   livingCountry?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
-  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   religion?: Prisma.StringFieldUpdateOperationsInput | string
   caste?: Prisma.StringFieldUpdateOperationsInput | string
   subCaste?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1761,22 +1846,27 @@ export type ProfileUncheckedUpdateWithoutEducationsInput = {
   poruthaNakshatram?: Prisma.ProfileUpdateporuthaNakshatramInput | string[]
   dosham?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jathakamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   casteCertificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  amsamGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dasaBalance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidePhoto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  houseAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1818,8 +1908,6 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   livingCountry?: boolean
   state?: boolean
   city?: boolean
-  houseAddress?: boolean
-  houseLocation?: boolean
   religion?: boolean
   caste?: boolean
   subCaste?: boolean
@@ -1841,24 +1929,29 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   poruthaNakshatram?: boolean
   dosham?: boolean
   jathakamUrl?: boolean
-  jathagamData?: boolean
-  rasiGrid?: boolean
-  amsamGrid?: boolean
-  dasaBalance?: boolean
   photoUrl?: boolean
-  idProofUrl?: boolean
   casteCertificateUrl?: boolean
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: boolean
   approvedAt?: boolean
   approvedBy?: boolean
   rejectedReason?: boolean
   isLive?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  amsamGrid?: boolean
+  dasaBalance?: boolean
+  hidePhoto?: boolean
+  houseAddress?: boolean
+  rasiGrid?: boolean
+  jathagamData?: boolean
+  idProofUrl?: boolean
+  houseLocation?: boolean
+  displayId?: boolean
+  profileCreatedBy?: boolean
+  reviewerId?: boolean
   educations?: boolean | Prisma.Profile$educationsArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
@@ -1870,8 +1963,6 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   livingCountry?: boolean
   state?: boolean
   city?: boolean
-  houseAddress?: boolean
-  houseLocation?: boolean
   religion?: boolean
   caste?: boolean
   subCaste?: boolean
@@ -1893,22 +1984,27 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   poruthaNakshatram?: boolean
   dosham?: boolean
   jathakamUrl?: boolean
-  jathagamData?: boolean
-  rasiGrid?: boolean
-  amsamGrid?: boolean
-  dasaBalance?: boolean
   photoUrl?: boolean
-  idProofUrl?: boolean
   casteCertificateUrl?: boolean
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: boolean
   approvedAt?: boolean
   approvedBy?: boolean
   rejectedReason?: boolean
   isLive?: boolean
+  amsamGrid?: boolean
+  dasaBalance?: boolean
+  hidePhoto?: boolean
+  houseAddress?: boolean
+  rasiGrid?: boolean
+  jathagamData?: boolean
+  idProofUrl?: boolean
+  houseLocation?: boolean
+  displayId?: boolean
+  profileCreatedBy?: boolean
+  reviewerId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
@@ -1920,8 +2016,6 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   livingCountry?: boolean
   state?: boolean
   city?: boolean
-  houseAddress?: boolean
-  houseLocation?: boolean
   religion?: boolean
   caste?: boolean
   subCaste?: boolean
@@ -1943,22 +2037,27 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   poruthaNakshatram?: boolean
   dosham?: boolean
   jathakamUrl?: boolean
-  jathagamData?: boolean
-  rasiGrid?: boolean
-  amsamGrid?: boolean
-  dasaBalance?: boolean
   photoUrl?: boolean
-  idProofUrl?: boolean
   casteCertificateUrl?: boolean
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: boolean
   approvedAt?: boolean
   approvedBy?: boolean
   rejectedReason?: boolean
   isLive?: boolean
+  amsamGrid?: boolean
+  dasaBalance?: boolean
+  hidePhoto?: boolean
+  houseAddress?: boolean
+  rasiGrid?: boolean
+  jathagamData?: boolean
+  idProofUrl?: boolean
+  houseLocation?: boolean
+  displayId?: boolean
+  profileCreatedBy?: boolean
+  reviewerId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
@@ -1970,8 +2069,6 @@ export type ProfileSelectScalar = {
   livingCountry?: boolean
   state?: boolean
   city?: boolean
-  houseAddress?: boolean
-  houseLocation?: boolean
   religion?: boolean
   caste?: boolean
   subCaste?: boolean
@@ -1993,28 +2090,33 @@ export type ProfileSelectScalar = {
   poruthaNakshatram?: boolean
   dosham?: boolean
   jathakamUrl?: boolean
-  jathagamData?: boolean
-  rasiGrid?: boolean
-  amsamGrid?: boolean
-  dasaBalance?: boolean
   photoUrl?: boolean
-  idProofUrl?: boolean
   casteCertificateUrl?: boolean
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  hidePhoto?: boolean
   status?: boolean
   approvedAt?: boolean
   approvedBy?: boolean
   rejectedReason?: boolean
   isLive?: boolean
+  amsamGrid?: boolean
+  dasaBalance?: boolean
+  hidePhoto?: boolean
+  houseAddress?: boolean
+  rasiGrid?: boolean
+  jathagamData?: boolean
+  idProofUrl?: boolean
+  houseLocation?: boolean
+  displayId?: boolean
+  profileCreatedBy?: boolean
+  reviewerId?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "gender" | "livingCountry" | "state" | "city" | "houseAddress" | "houseLocation" | "religion" | "caste" | "subCaste" | "koottam" | "dob" | "tob" | "lob" | "height" | "weight" | "physicalCondition" | "skinColour" | "maritalStatus" | "familyStatus" | "foodHabits" | "drinkingHabits" | "smokingHabits" | "rasi" | "nakshatra" | "poruthaNakshatram" | "dosham" | "jathakamUrl" | "jathagamData" | "rasiGrid" | "amsamGrid" | "dasaBalance" | "photoUrl" | "idProofUrl" | "casteCertificateUrl" | "hideMobileNo" | "hideHouseAddress" | "hideHouseLocation" | "hidePhoto" | "status" | "approvedAt" | "approvedBy" | "rejectedReason" | "isLive", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "gender" | "livingCountry" | "state" | "city" | "religion" | "caste" | "subCaste" | "koottam" | "dob" | "tob" | "lob" | "height" | "weight" | "physicalCondition" | "skinColour" | "maritalStatus" | "familyStatus" | "foodHabits" | "drinkingHabits" | "smokingHabits" | "rasi" | "nakshatra" | "poruthaNakshatram" | "dosham" | "jathakamUrl" | "photoUrl" | "casteCertificateUrl" | "hideMobileNo" | "hideHouseAddress" | "hideHouseLocation" | "status" | "approvedAt" | "approvedBy" | "rejectedReason" | "isLive" | "amsamGrid" | "dasaBalance" | "hidePhoto" | "houseAddress" | "rasiGrid" | "jathagamData" | "idProofUrl" | "houseLocation" | "displayId" | "profileCreatedBy" | "reviewerId", ExtArgs["result"]["profile"]>
 export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   educations?: boolean | Prisma.Profile$educationsArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2027,8 +2129,8 @@ export type ProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Profile"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
     educations: Prisma.$EducationPayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2038,8 +2140,6 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     livingCountry: string
     state: string
     city: string
-    houseAddress: string | null
-    houseLocation: string | null
     religion: string
     caste: string
     subCaste: string | null
@@ -2061,22 +2161,27 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     poruthaNakshatram: string[]
     dosham: string | null
     jathakamUrl: string | null
-    jathagamData: runtime.JsonValue | null
-    rasiGrid: runtime.JsonValue | null
-    amsamGrid: runtime.JsonValue | null
-    dasaBalance: string | null
     photoUrl: string | null
-    idProofUrl: string | null
     casteCertificateUrl: string | null
     hideMobileNo: boolean
     hideHouseAddress: boolean
     hideHouseLocation: boolean
-    hidePhoto: boolean
     status: $Enums.ProfileStatus
     approvedAt: Date | null
     approvedBy: string | null
     rejectedReason: string | null
     isLive: boolean
+    amsamGrid: runtime.JsonValue | null
+    dasaBalance: string | null
+    hidePhoto: boolean
+    houseAddress: string | null
+    rasiGrid: runtime.JsonValue | null
+    jathagamData: runtime.JsonValue | null
+    idProofUrl: string | null
+    houseLocation: string | null
+    displayId: string | null
+    profileCreatedBy: string | null
+    reviewerId: string | null
   }, ExtArgs["result"]["profile"]>
   composites: {}
 }
@@ -2471,8 +2576,8 @@ readonly fields: ProfileFieldRefs;
  */
 export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   educations<T extends Prisma.Profile$educationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$educationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2509,8 +2614,6 @@ export interface ProfileFieldRefs {
   readonly livingCountry: Prisma.FieldRef<"Profile", 'String'>
   readonly state: Prisma.FieldRef<"Profile", 'String'>
   readonly city: Prisma.FieldRef<"Profile", 'String'>
-  readonly houseAddress: Prisma.FieldRef<"Profile", 'String'>
-  readonly houseLocation: Prisma.FieldRef<"Profile", 'String'>
   readonly religion: Prisma.FieldRef<"Profile", 'String'>
   readonly caste: Prisma.FieldRef<"Profile", 'String'>
   readonly subCaste: Prisma.FieldRef<"Profile", 'String'>
@@ -2532,22 +2635,27 @@ export interface ProfileFieldRefs {
   readonly poruthaNakshatram: Prisma.FieldRef<"Profile", 'String[]'>
   readonly dosham: Prisma.FieldRef<"Profile", 'String'>
   readonly jathakamUrl: Prisma.FieldRef<"Profile", 'String'>
-  readonly jathagamData: Prisma.FieldRef<"Profile", 'Json'>
-  readonly rasiGrid: Prisma.FieldRef<"Profile", 'Json'>
-  readonly amsamGrid: Prisma.FieldRef<"Profile", 'Json'>
-  readonly dasaBalance: Prisma.FieldRef<"Profile", 'String'>
   readonly photoUrl: Prisma.FieldRef<"Profile", 'String'>
-  readonly idProofUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly casteCertificateUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly hideMobileNo: Prisma.FieldRef<"Profile", 'Boolean'>
   readonly hideHouseAddress: Prisma.FieldRef<"Profile", 'Boolean'>
   readonly hideHouseLocation: Prisma.FieldRef<"Profile", 'Boolean'>
-  readonly hidePhoto: Prisma.FieldRef<"Profile", 'Boolean'>
   readonly status: Prisma.FieldRef<"Profile", 'ProfileStatus'>
   readonly approvedAt: Prisma.FieldRef<"Profile", 'DateTime'>
   readonly approvedBy: Prisma.FieldRef<"Profile", 'String'>
   readonly rejectedReason: Prisma.FieldRef<"Profile", 'String'>
   readonly isLive: Prisma.FieldRef<"Profile", 'Boolean'>
+  readonly amsamGrid: Prisma.FieldRef<"Profile", 'Json'>
+  readonly dasaBalance: Prisma.FieldRef<"Profile", 'String'>
+  readonly hidePhoto: Prisma.FieldRef<"Profile", 'Boolean'>
+  readonly houseAddress: Prisma.FieldRef<"Profile", 'String'>
+  readonly rasiGrid: Prisma.FieldRef<"Profile", 'Json'>
+  readonly jathagamData: Prisma.FieldRef<"Profile", 'Json'>
+  readonly idProofUrl: Prisma.FieldRef<"Profile", 'String'>
+  readonly houseLocation: Prisma.FieldRef<"Profile", 'String'>
+  readonly displayId: Prisma.FieldRef<"Profile", 'String'>
+  readonly profileCreatedBy: Prisma.FieldRef<"Profile", 'String'>
+  readonly reviewerId: Prisma.FieldRef<"Profile", 'String'>
 }
     
 

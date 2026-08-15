@@ -174,8 +174,8 @@ export type ShortlistWhereInput = {
   userId?: Prisma.StringFilter<"Shortlist"> | string
   targetId?: Prisma.StringFilter<"Shortlist"> | string
   createdAt?: Prisma.DateTimeFilter<"Shortlist"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   target?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ShortlistOrderByWithRelationInput = {
@@ -183,8 +183,8 @@ export type ShortlistOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   targetId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
   target?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ShortlistWhereUniqueInput = Prisma.AtLeast<{
@@ -196,8 +196,8 @@ export type ShortlistWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Shortlist"> | string
   targetId?: Prisma.StringFilter<"Shortlist"> | string
   createdAt?: Prisma.DateTimeFilter<"Shortlist"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   target?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_targetId">
 
 export type ShortlistOrderByWithAggregationInput = {
@@ -223,8 +223,8 @@ export type ShortlistScalarWhereWithAggregatesInput = {
 export type ShortlistCreateInput = {
   id?: string
   createdAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutShortlistsInput
   target: Prisma.UserCreateNestedOneWithoutShortlistedByInput
+  user: Prisma.UserCreateNestedOneWithoutShortlistsInput
 }
 
 export type ShortlistUncheckedCreateInput = {
@@ -237,8 +237,8 @@ export type ShortlistUncheckedCreateInput = {
 export type ShortlistUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutShortlistsNestedInput
   target?: Prisma.UserUpdateOneRequiredWithoutShortlistedByNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutShortlistsNestedInput
 }
 
 export type ShortlistUncheckedUpdateInput = {
@@ -303,13 +303,6 @@ export type ShortlistMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
 }
 
-export type ShortlistCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.ShortlistCreateWithoutUserInput, Prisma.ShortlistUncheckedCreateWithoutUserInput> | Prisma.ShortlistCreateWithoutUserInput[] | Prisma.ShortlistUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ShortlistCreateOrConnectWithoutUserInput | Prisma.ShortlistCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.ShortlistCreateManyUserInputEnvelope
-  connect?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
-}
-
 export type ShortlistCreateNestedManyWithoutTargetInput = {
   create?: Prisma.XOR<Prisma.ShortlistCreateWithoutTargetInput, Prisma.ShortlistUncheckedCreateWithoutTargetInput> | Prisma.ShortlistCreateWithoutTargetInput[] | Prisma.ShortlistUncheckedCreateWithoutTargetInput[]
   connectOrCreate?: Prisma.ShortlistCreateOrConnectWithoutTargetInput | Prisma.ShortlistCreateOrConnectWithoutTargetInput[]
@@ -317,7 +310,7 @@ export type ShortlistCreateNestedManyWithoutTargetInput = {
   connect?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
 }
 
-export type ShortlistUncheckedCreateNestedManyWithoutUserInput = {
+export type ShortlistCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.ShortlistCreateWithoutUserInput, Prisma.ShortlistUncheckedCreateWithoutUserInput> | Prisma.ShortlistCreateWithoutUserInput[] | Prisma.ShortlistUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.ShortlistCreateOrConnectWithoutUserInput | Prisma.ShortlistCreateOrConnectWithoutUserInput[]
   createMany?: Prisma.ShortlistCreateManyUserInputEnvelope
@@ -331,18 +324,11 @@ export type ShortlistUncheckedCreateNestedManyWithoutTargetInput = {
   connect?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
 }
 
-export type ShortlistUpdateManyWithoutUserNestedInput = {
+export type ShortlistUncheckedCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.ShortlistCreateWithoutUserInput, Prisma.ShortlistUncheckedCreateWithoutUserInput> | Prisma.ShortlistCreateWithoutUserInput[] | Prisma.ShortlistUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.ShortlistCreateOrConnectWithoutUserInput | Prisma.ShortlistCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.ShortlistUpsertWithWhereUniqueWithoutUserInput | Prisma.ShortlistUpsertWithWhereUniqueWithoutUserInput[]
   createMany?: Prisma.ShortlistCreateManyUserInputEnvelope
-  set?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
-  disconnect?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
-  delete?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
   connect?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
-  update?: Prisma.ShortlistUpdateWithWhereUniqueWithoutUserInput | Prisma.ShortlistUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.ShortlistUpdateManyWithWhereWithoutUserInput | Prisma.ShortlistUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.ShortlistScalarWhereInput | Prisma.ShortlistScalarWhereInput[]
 }
 
 export type ShortlistUpdateManyWithoutTargetNestedInput = {
@@ -359,7 +345,7 @@ export type ShortlistUpdateManyWithoutTargetNestedInput = {
   deleteMany?: Prisma.ShortlistScalarWhereInput | Prisma.ShortlistScalarWhereInput[]
 }
 
-export type ShortlistUncheckedUpdateManyWithoutUserNestedInput = {
+export type ShortlistUpdateManyWithoutUserNestedInput = {
   create?: Prisma.XOR<Prisma.ShortlistCreateWithoutUserInput, Prisma.ShortlistUncheckedCreateWithoutUserInput> | Prisma.ShortlistCreateWithoutUserInput[] | Prisma.ShortlistUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.ShortlistCreateOrConnectWithoutUserInput | Prisma.ShortlistCreateOrConnectWithoutUserInput[]
   upsert?: Prisma.ShortlistUpsertWithWhereUniqueWithoutUserInput | Prisma.ShortlistUpsertWithWhereUniqueWithoutUserInput[]
@@ -387,26 +373,18 @@ export type ShortlistUncheckedUpdateManyWithoutTargetNestedInput = {
   deleteMany?: Prisma.ShortlistScalarWhereInput | Prisma.ShortlistScalarWhereInput[]
 }
 
-export type ShortlistCreateWithoutUserInput = {
-  id?: string
-  createdAt?: Date | string
-  target: Prisma.UserCreateNestedOneWithoutShortlistedByInput
-}
-
-export type ShortlistUncheckedCreateWithoutUserInput = {
-  id?: string
-  targetId: string
-  createdAt?: Date | string
-}
-
-export type ShortlistCreateOrConnectWithoutUserInput = {
-  where: Prisma.ShortlistWhereUniqueInput
-  create: Prisma.XOR<Prisma.ShortlistCreateWithoutUserInput, Prisma.ShortlistUncheckedCreateWithoutUserInput>
-}
-
-export type ShortlistCreateManyUserInputEnvelope = {
-  data: Prisma.ShortlistCreateManyUserInput | Prisma.ShortlistCreateManyUserInput[]
-  skipDuplicates?: boolean
+export type ShortlistUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ShortlistCreateWithoutUserInput, Prisma.ShortlistUncheckedCreateWithoutUserInput> | Prisma.ShortlistCreateWithoutUserInput[] | Prisma.ShortlistUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ShortlistCreateOrConnectWithoutUserInput | Prisma.ShortlistCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ShortlistUpsertWithWhereUniqueWithoutUserInput | Prisma.ShortlistUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ShortlistCreateManyUserInputEnvelope
+  set?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
+  disconnect?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
+  delete?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
+  connect?: Prisma.ShortlistWhereUniqueInput | Prisma.ShortlistWhereUniqueInput[]
+  update?: Prisma.ShortlistUpdateWithWhereUniqueWithoutUserInput | Prisma.ShortlistUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ShortlistUpdateManyWithWhereWithoutUserInput | Prisma.ShortlistUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.ShortlistScalarWhereInput | Prisma.ShortlistScalarWhereInput[]
 }
 
 export type ShortlistCreateWithoutTargetInput = {
@@ -431,30 +409,26 @@ export type ShortlistCreateManyTargetInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type ShortlistUpsertWithWhereUniqueWithoutUserInput = {
+export type ShortlistCreateWithoutUserInput = {
+  id?: string
+  createdAt?: Date | string
+  target: Prisma.UserCreateNestedOneWithoutShortlistedByInput
+}
+
+export type ShortlistUncheckedCreateWithoutUserInput = {
+  id?: string
+  targetId: string
+  createdAt?: Date | string
+}
+
+export type ShortlistCreateOrConnectWithoutUserInput = {
   where: Prisma.ShortlistWhereUniqueInput
-  update: Prisma.XOR<Prisma.ShortlistUpdateWithoutUserInput, Prisma.ShortlistUncheckedUpdateWithoutUserInput>
   create: Prisma.XOR<Prisma.ShortlistCreateWithoutUserInput, Prisma.ShortlistUncheckedCreateWithoutUserInput>
 }
 
-export type ShortlistUpdateWithWhereUniqueWithoutUserInput = {
-  where: Prisma.ShortlistWhereUniqueInput
-  data: Prisma.XOR<Prisma.ShortlistUpdateWithoutUserInput, Prisma.ShortlistUncheckedUpdateWithoutUserInput>
-}
-
-export type ShortlistUpdateManyWithWhereWithoutUserInput = {
-  where: Prisma.ShortlistScalarWhereInput
-  data: Prisma.XOR<Prisma.ShortlistUpdateManyMutationInput, Prisma.ShortlistUncheckedUpdateManyWithoutUserInput>
-}
-
-export type ShortlistScalarWhereInput = {
-  AND?: Prisma.ShortlistScalarWhereInput | Prisma.ShortlistScalarWhereInput[]
-  OR?: Prisma.ShortlistScalarWhereInput[]
-  NOT?: Prisma.ShortlistScalarWhereInput | Prisma.ShortlistScalarWhereInput[]
-  id?: Prisma.StringFilter<"Shortlist"> | string
-  userId?: Prisma.StringFilter<"Shortlist"> | string
-  targetId?: Prisma.StringFilter<"Shortlist"> | string
-  createdAt?: Prisma.DateTimeFilter<"Shortlist"> | Date | string
+export type ShortlistCreateManyUserInputEnvelope = {
+  data: Prisma.ShortlistCreateManyUserInput | Prisma.ShortlistCreateManyUserInput[]
+  skipDuplicates?: boolean
 }
 
 export type ShortlistUpsertWithWhereUniqueWithoutTargetInput = {
@@ -473,10 +447,30 @@ export type ShortlistUpdateManyWithWhereWithoutTargetInput = {
   data: Prisma.XOR<Prisma.ShortlistUpdateManyMutationInput, Prisma.ShortlistUncheckedUpdateManyWithoutTargetInput>
 }
 
-export type ShortlistCreateManyUserInput = {
-  id?: string
-  targetId: string
-  createdAt?: Date | string
+export type ShortlistScalarWhereInput = {
+  AND?: Prisma.ShortlistScalarWhereInput | Prisma.ShortlistScalarWhereInput[]
+  OR?: Prisma.ShortlistScalarWhereInput[]
+  NOT?: Prisma.ShortlistScalarWhereInput | Prisma.ShortlistScalarWhereInput[]
+  id?: Prisma.StringFilter<"Shortlist"> | string
+  userId?: Prisma.StringFilter<"Shortlist"> | string
+  targetId?: Prisma.StringFilter<"Shortlist"> | string
+  createdAt?: Prisma.DateTimeFilter<"Shortlist"> | Date | string
+}
+
+export type ShortlistUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.ShortlistWhereUniqueInput
+  update: Prisma.XOR<Prisma.ShortlistUpdateWithoutUserInput, Prisma.ShortlistUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ShortlistCreateWithoutUserInput, Prisma.ShortlistUncheckedCreateWithoutUserInput>
+}
+
+export type ShortlistUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.ShortlistWhereUniqueInput
+  data: Prisma.XOR<Prisma.ShortlistUpdateWithoutUserInput, Prisma.ShortlistUncheckedUpdateWithoutUserInput>
+}
+
+export type ShortlistUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.ShortlistScalarWhereInput
+  data: Prisma.XOR<Prisma.ShortlistUpdateManyMutationInput, Prisma.ShortlistUncheckedUpdateManyWithoutUserInput>
 }
 
 export type ShortlistCreateManyTargetInput = {
@@ -485,22 +479,10 @@ export type ShortlistCreateManyTargetInput = {
   createdAt?: Date | string
 }
 
-export type ShortlistUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  target?: Prisma.UserUpdateOneRequiredWithoutShortlistedByNestedInput
-}
-
-export type ShortlistUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  targetId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ShortlistUncheckedUpdateManyWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  targetId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type ShortlistCreateManyUserInput = {
+  id?: string
+  targetId: string
+  createdAt?: Date | string
 }
 
 export type ShortlistUpdateWithoutTargetInput = {
@@ -521,6 +503,24 @@ export type ShortlistUncheckedUpdateManyWithoutTargetInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ShortlistUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  target?: Prisma.UserUpdateOneRequiredWithoutShortlistedByNestedInput
+}
+
+export type ShortlistUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  targetId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ShortlistUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  targetId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type ShortlistSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -528,8 +528,8 @@ export type ShortlistSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   userId?: boolean
   targetId?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   target?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shortlist"]>
 
 export type ShortlistSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -537,8 +537,8 @@ export type ShortlistSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   userId?: boolean
   targetId?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   target?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shortlist"]>
 
 export type ShortlistSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -546,8 +546,8 @@ export type ShortlistSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   userId?: boolean
   targetId?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   target?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shortlist"]>
 
 export type ShortlistSelectScalar = {
@@ -559,23 +559,23 @@ export type ShortlistSelectScalar = {
 
 export type ShortlistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "targetId" | "createdAt", ExtArgs["result"]["shortlist"]>
 export type ShortlistInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   target?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ShortlistIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   target?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ShortlistIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   target?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ShortlistPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Shortlist"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
     target: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -976,8 +976,8 @@ readonly fields: ShortlistFieldRefs;
  */
 export interface Prisma__ShortlistClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   target<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
