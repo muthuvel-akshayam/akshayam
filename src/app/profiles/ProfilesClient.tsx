@@ -199,7 +199,12 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                     {/* Icon Actions */}
                     <div className="flex items-center justify-center gap-3 w-full">
                       <button
-                        onClick={() => shareToWhatsApp(match.id)}
+                        onClick={() => {
+                          const name = profile.name || 'Profile';
+                          const edu = profile.educations?.[0]?.degreeName || 'Not Specified';
+                          const kulam = profile.koottam || profile.subCaste || 'Not Specified';
+                          shareToWhatsApp(match.id, name, edu, kulam);
+                        }}
                         className="w-10 h-[40px] rounded-full border border-green-200 bg-green-50 text-green-600 hover:bg-green-100 flex items-center justify-center transition-colors shadow-sm"
                         title={language === 'TA' ? 'வாட்ஸ்அப்பில் பகிர' : 'Share on WhatsApp'}
                       >

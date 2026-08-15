@@ -112,7 +112,12 @@ export function ProfileDetailClient({ user }: { user: any }) {
           
           <div className="flex gap-2">
             <button 
-              onClick={() => shareToWhatsApp(profile.id)}
+              onClick={() => {
+                const name = profile.name || 'Profile';
+                const edu = education || 'Not Specified';
+                const kulamStr = profile.koottam || profile.subCaste || 'Not Specified';
+                shareToWhatsApp(profile.id, name, edu, kulamStr);
+              }}
               className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-lg border border-green-200 text-green-700 hover:bg-green-100 shadow-sm transition-colors"
             >
               <WhatsAppIcon className="w-5 h-5" />
