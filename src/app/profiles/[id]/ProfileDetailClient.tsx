@@ -176,7 +176,7 @@ export function ProfileDetailClient({ user }: { user: any }) {
             <div className="bg-gray-50 p-6 flex-1 border-t border-gray-100">
               <div className="grid grid-cols-[150px_auto] gap-y-4">
                 <div className="font-semibold text-gray-700">பதிவு எண்</div>
-                <div className="font-bold text-gray-900">: {user.userIndex ? `${1000 + user.userIndex}AE` : `${1000 + (parseInt(user.id.substring(0, 4), 16) % 9000)}AE`}</div>
+                <div className="font-bold text-gray-900">: {user.userid || (user.userIndex ? `AKSH${1000 + user.userIndex}` : `AKSH${user.id.substring(0, 6).toUpperCase()}`)}</div>
                 
                 <div className="font-semibold text-gray-700">ஜாதி</div>
                 <div className="text-gray-900">: {safeStr(profile.caste)}</div>
@@ -337,7 +337,7 @@ export function ProfileDetailClient({ user }: { user: any }) {
         
         {/* Hidden PDF Template */}
         <div style={{ position: 'absolute', top: 0, left: 0, zIndex: -1000, opacity: 0.01, pointerEvents: 'none' }}>
-           <JathagamPDFTemplate profile={profile} profileId={profile.id} family={family} />
+           <JathagamPDFTemplate profile={profile} profileId={profile.id} family={family} akshayamId={user.userid} />
         </div>
       </div>
     </div>

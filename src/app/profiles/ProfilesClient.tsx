@@ -181,7 +181,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                   
                   <div className="text-gray-900 font-bold text-lg md:text-xl leading-tight text-center">{profile.name}</div>
                   <div className="text-green-600 font-bold text-base mt-0.5 mb-3 text-center">
-                    {match.userIndex ? `GK${1000 + match.userIndex}` : `GK${1000 + (parseInt(match.id.substring(0, 4), 16) % 9000)}`}
+                    {(match as any).userid || (match.userIndex ? `AKSH${1000 + match.userIndex}` : `AKSH${match.id.substring(0, 6).toUpperCase()}`)}
                   </div>
 
                   <div className="flex flex-col items-center text-sm text-gray-600 space-y-1 mb-5">
@@ -284,12 +284,12 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
         </div>
       </div>
       
-      {/* Hidden PDF Templates */}
-      <div style={{ position: 'absolute', top: 0, left: 0, zIndex: -1000, opacity: 0.01, pointerEvents: 'none' }}>
-        {profiles.map((match) => (
-          match.profile && <JathagamPDFTemplate key={`pdf-${match.id}`} profile={match.profile as any} profileId={match.id} family={(match as any).family} />
-        ))}
-      </div>
+      {/* Hidden templates for PDF generation */}
+        <div style={{ position: 'absolute', top: '-9999px', left: '-9999px', opacity: 0.01, pointerEvents: 'none', zIndex: -1000 }}>
+          {profiles.map(match => 
+            match.profile && <JathagamPDFTemplate key={`pdf-${match.id}`} profile={match.profile as any} profileId={match.id} family={(match as any).family} akshayamId={(match as any).userid} />
+          )}
+        </div>
     </div>
   );
 }

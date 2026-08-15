@@ -6,6 +6,7 @@ interface JathagamPDFTemplateProps {
   profile: any;
   profileId: string;
   family?: any;
+  akshayamId?: string;
 }
 
 const convertLegacyGrid = (gridData: any) => {
@@ -116,7 +117,7 @@ const FieldItem = ({ label, value, colSpan = 1 }: { label: string; value: string
   );
 };
 
-export default function JathagamPDFTemplate({ profile, profileId, family: familyProp }: JathagamPDFTemplateProps) {
+export default function JathagamPDFTemplate({ profile, profileId, family: familyProp, akshayamId }: JathagamPDFTemplateProps) {
   if (!profile) return null;
 
   const rasiHouses = convertLegacyGrid(profile.jathagamData?.rasiChart || profile.jathagamData?.rasiGrid || profile.rasiGrid);
@@ -154,7 +155,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
   const safeProfileId = String(profileId || "");
   const parsedHex = parseInt(safeProfileId.substring(0, 4), 16);
   const safeIdNum = isNaN(parsedHex) ? 1000 : 1000 + (parsedHex % 9000);
-  const displayId = profile.displayId || (profile.userIndex ? `AK${1000 + profile.userIndex}` : `AK${safeIdNum}`);
+  const displayId = akshayamId || profile.displayId || (profile.userIndex ? `AK${1000 + profile.userIndex}` : `AK${safeIdNum}`);
   const profileUrl = `https://www.akshayamtamilmatrimony.com/profiles/${profileId}`;
 
   // Priority Mapping Logic
