@@ -13,6 +13,8 @@ export async function downloadBioDataPdf(elementId: string, profileId: string) {
       allowTaint: true,
       logging: false,
       backgroundColor: "#ffffff",
+      windowWidth: 794,
+      windowHeight: 1123,
     });
 
     const dataUrl = canvas.toDataURL("image/jpeg", 0.98);
