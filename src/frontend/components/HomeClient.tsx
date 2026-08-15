@@ -91,8 +91,8 @@ export default function HomeClient() {
               ← {language === 'TA' ? 'முகப்புக்கு திரும்பு' : 'Back to Home'}
             </button>
             <div className="flex flex-col items-center justify-center">
-              <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-10 md:h-14 object-contain" />
-              <span className="text-[10px] sm:text-xs font-bold text-primary mt-0.5 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
+              <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-14 md:h-20 object-contain contrast-125 drop-shadow-sm" style={{ imageRendering: 'crisp-edges' }} />
+              <span className="text-xs sm:text-sm font-bold text-primary mt-1 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
             </div>
             <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
   <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
@@ -116,8 +116,8 @@ export default function HomeClient() {
       <nav className="sticky top-0 w-full z-50 transition-all duration-300 bg-background/95 backdrop-blur-md py-3 shadow-sm border-b border-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <a href="#home" className="flex flex-col items-start md:items-center">
-            <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-12 md:h-16 object-contain" />
-            <span className="text-[10px] sm:text-xs font-bold text-primary mt-0.5 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
+            <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-16 md:h-20 object-contain contrast-125 drop-shadow-sm" style={{ imageRendering: 'crisp-edges' }} />
+            <span className="text-[11px] sm:text-xs font-bold text-primary mt-1 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
           </a>
 
           <div className="hidden md:flex items-center space-x-8 text-base font-bold text-gray-800">

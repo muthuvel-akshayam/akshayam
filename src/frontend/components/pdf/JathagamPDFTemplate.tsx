@@ -138,8 +138,8 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
     : "இல்லை";
 
   const ChartCenterLogo = ({ title }: { title: string }) => (
-    <div className="flex flex-col items-center justify-center h-full w-full bg-white opacity-95">
-      <img src="/akshayam_logo.png" alt="Logo" className="w-10 opacity-80 mix-blend-multiply" />
+    <div className="flex flex-col items-center justify-center h-full w-full bg-white">
+      <img src="/akshayam_logo.png" alt="Logo" className="w-10 opacity-80" />
       <div className="font-bold text-emerald-800 text-[11px] leading-tight mt-1 tracking-tight">அக்ஷயம்</div>
       <div className="font-bold text-emerald-700 text-[9px]">{title}</div>
     </div>
@@ -220,7 +220,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
           
           {/* Center Logo & Title */}
           <div className="flex-1 flex flex-col items-center justify-end pb-1 px-2">
-            <img src="/akshayam_logo.png" alt="Logo" className="h-14 mb-1" />
+            <img src="/akshayam_logo.png" alt="Logo" className="h-16 mb-1 contrast-125 drop-shadow-sm" style={{ imageRendering: '-webkit-optimize-contrast' }} />
             <h1 className="text-[26px] font-bold text-emerald-800 font-serif leading-none tracking-tight">அக்ஷயம்</h1>
             <h2 className="text-[17px] font-bold text-red-600 tracking-wide mt-1 leading-tight">கொங்கு திருமணத் தகவல் மையம்</h2>
           </div>
