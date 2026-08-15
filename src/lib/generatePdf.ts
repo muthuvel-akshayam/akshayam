@@ -10,7 +10,6 @@ export async function downloadBioDataPdf(elementId: string, profileId: string) {
     const canvas = await html2canvas(templateElement, {
       scale: 2,
       useCORS: true,
-      allowTaint: true,
       logging: false,
       backgroundColor: "#ffffff",
       windowWidth: 794,
