@@ -6,7 +6,8 @@ interface JathagamPDFTemplateProps {
   profile: any;
   profileId: string;
   family?: any;
-  akshayamId?: string;
+  akshayamId?: string | null;
+  userIndex?: number | null;
 }
 
 const convertLegacyGrid = (gridData: any) => {
@@ -117,7 +118,7 @@ const FieldItem = ({ label, value, colSpan = 1 }: { label: string; value: string
   );
 };
 
-export default function JathagamPDFTemplate({ profile, profileId, family: familyProp, akshayamId }: JathagamPDFTemplateProps) {
+export default function JathagamPDFTemplate({ profile, profileId, family: familyProp, akshayamId, userIndex }: JathagamPDFTemplateProps) {
   if (!profile) return null;
 
   const rasiHouses = convertLegacyGrid(profile.jathagamData?.rasiChart || profile.jathagamData?.rasiGrid || profile.rasiGrid);

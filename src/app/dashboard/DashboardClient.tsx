@@ -136,7 +136,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
 
               <h2 className="text-2xl font-black text-gray-900 mt-3">{profile.name}</h2>
               <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-mono font-bold mt-1">
-                AKSHAYAM ID: {user?.userid || (profile.userIndex ? `AKSH${1000 + profile.userIndex}` : `AKSH${profile.id?.slice(0, 6).toUpperCase() || 'NEW'}`)}
+                AKSHAYAM ID: {user?.userid || (user?.userIndex ? `AKSH${1000 + user.userIndex}` : `AKSH${user?.id?.slice(0, 6).toUpperCase() || 'NEW'}`)}
               </span>
 
               {/* Status Box */}
@@ -285,7 +285,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                 {profile.name} 
               </h1>
               <span className="text-sm text-primary font-bold mt-1 uppercase tracking-wider bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
-                AKSHAYAM ID: {user?.userid || (profile.userIndex ? `AKSH${1000 + profile.userIndex}` : `AKSH${profile.id?.slice(0, 6).toUpperCase() || 'NEW'}`)}
+                AKSHAYAM ID: {user?.userid || (user?.userIndex ? `AKSH${1000 + user.userIndex}` : `AKSH${user?.id?.slice(0, 6).toUpperCase() || 'NEW'}`)}
               </span>
             </div>
 

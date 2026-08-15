@@ -287,7 +287,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
       {/* Hidden templates for PDF generation */}
         <div style={{ position: 'absolute', top: '-9999px', left: '-9999px', opacity: 0.01, pointerEvents: 'none', zIndex: -1000 }}>
           {profiles.map(match => 
-            match.profile && <JathagamPDFTemplate key={`pdf-${match.id}`} profile={match.profile as any} profileId={match.id} family={(match as any).family} akshayamId={(match as any).userid} />
+            match.profile && <JathagamPDFTemplate key={`pdf-${match.id}`} profile={match.profile as any} profileId={match.id} family={(match as any).family} akshayamId={(match as any).userid} userIndex={(match as any).userIndex} />
           )}
         </div>
     </div>
