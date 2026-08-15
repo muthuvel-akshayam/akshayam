@@ -17,14 +17,8 @@ export async function shareProfile(profileId: string, name: string) {
   }
 }
 
-export function shareToWhatsApp(profileId: string, name?: string, education?: string, kulam?: string) {
+export function shareToWhatsApp(profileId: string) {
   const shareUrl = `${window.location.origin}/profiles/${profileId}`;
-  
-  let textToShare = shareUrl;
-  if (name && education && kulam) {
-    textToShare = `பெயர் :${name} படிப்பு :${education} குலம் : ${kulam} - View profile ${shareUrl}`;
-  }
-  
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(textToShare)}`;
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareUrl)}`;
   window.open(whatsappUrl, '_blank');
 }
