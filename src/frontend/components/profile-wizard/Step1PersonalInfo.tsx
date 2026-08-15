@@ -339,8 +339,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         if (jData.placeOfBirth && !watch('lob')) setValue('lob', jData.placeOfBirth, { shouldDirty: true });
         if (jData.rasi && !watch('rasi')) setValue('rasi', jData.rasi, { shouldDirty: true });
         if (jData.nakshatra && !watch('nakshatra')) setValue('nakshatra', jData.nakshatra, { shouldDirty: true });
-        if (jData.padam && !watch('padam')) setValue('padam', jData.padam, { shouldDirty: true });
-        if (jData.lagnam && !watch('lagnam')) setValue('lagnam', jData.lagnam, { shouldDirty: true });
+
         if (jData.kulam && !watch('subCaste')) setValue('subCaste', jData.kulam, { shouldDirty: true });
         if (jData.kovil && !watch('houseLocation')) setValue('houseLocation', jData.kovil, { shouldDirty: true });
         if (jData.dasaBalance && !watch('dasaBalance')) setValue('dasaBalance', jData.dasaBalance, { shouldDirty: true });
