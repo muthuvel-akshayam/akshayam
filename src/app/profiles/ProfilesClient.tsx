@@ -180,14 +180,28 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                     {(match as any).userid || (match.userIndex ? `${1000 + match.userIndex}` : `${match.id.substring(0, 6).toUpperCase()}`)}
                   </div>
 
-                  <div className="flex flex-col items-center text-sm text-gray-600 space-y-1 mb-5">
-                    <div>{language === 'TA' ? 'வயது' : 'Age'} : <span className="font-semibold text-gray-800">{age !== 'N/A' ? age : 'N/A'}</span></div>
-                    <div>{language === 'TA' ? 'படிப்பு' : 'Education'} : <span className="font-semibold text-gray-800">{profile.educations?.[0]?.degreeName || (language === 'TA' ? 'குறிப்பிடப்படவில்லை' : 'Not Specified')}</span></div>
-                    <div>{language === 'TA' ? 'இராசி' : 'Rasi'} : <span className="font-semibold text-gray-800">{translateRasi(profile.rasi, language)}-{translateNakshatra(profile.nakshatra, language)}</span></div>
-                    <div>{language === 'TA' ? 'ஜாதகம்' : 'Jathakam'} : <span className="font-semibold text-gray-800">{profile.dosham === 'NO' ? (language === 'TA' ? 'சுத்த ஜாதகம்' : 'No Dosham') : (language === 'TA' ? 'தோஷம் உண்டு' : 'Dosham')}</span></div>
-                    <div className="flex items-center justify-center">
-                      {language === 'TA' ? 'ஊர்' : 'Location'} : <span className="font-semibold text-gray-800 ml-1">{(profile.hideHouseLocation && !isApproved) ? (language === 'TA' ? 'பாதுகாக்கப்பட்டது' : 'Protected') : profile.city}</span>
-                      {profile.hideHouseLocation && !isApproved && <Lock className="w-3 h-3 ml-1 text-yellow-500 inline" />}
+                  <div className="grid grid-cols-[max-content_auto_max-content] gap-y-1 gap-x-2 text-sm text-gray-600 mb-5 mx-auto w-fit">
+                    <div className="text-right">{language === 'TA' ? 'வயது' : 'Age'}</div>
+                    <div className="text-center">:</div>
+                    <div className="font-semibold text-gray-800 text-left">{age !== 'N/A' ? age : 'N/A'}</div>
+                    
+                    <div className="text-right">{language === 'TA' ? 'படிப்பு' : 'Education'}</div>
+                    <div className="text-center">:</div>
+                    <div className="font-semibold text-gray-800 text-left truncate max-w-[180px]" title={profile.educations?.[0]?.degreeName}>{profile.educations?.[0]?.degreeName || (language === 'TA' ? 'குறிப்பிடப்படவில்லை' : 'Not Specified')}</div>
+                    
+                    <div className="text-right">{language === 'TA' ? 'இராசி' : 'Rasi'}</div>
+                    <div className="text-center">:</div>
+                    <div className="font-semibold text-gray-800 text-left truncate max-w-[180px]" title={`${translateRasi(profile.rasi, language)}-${translateNakshatra(profile.nakshatra, language)}`}>{translateRasi(profile.rasi, language)}-{translateNakshatra(profile.nakshatra, language)}</div>
+                    
+                    <div className="text-right">{language === 'TA' ? 'ஜாதகம்' : 'Jathakam'}</div>
+                    <div className="text-center">:</div>
+                    <div className="font-semibold text-gray-800 text-left">{profile.dosham === 'NO' ? (language === 'TA' ? 'சுத்த ஜாதகம்' : 'No Dosham') : (language === 'TA' ? 'தோஷம் உண்டு' : 'Dosham')}</div>
+                    
+                    <div className="text-right">{language === 'TA' ? 'ஊர்' : 'Location'}</div>
+                    <div className="text-center">:</div>
+                    <div className="font-semibold text-gray-800 text-left flex items-center truncate max-w-[180px]" title={(profile.hideHouseLocation && !isApproved) ? (language === 'TA' ? 'பாதுகாக்கப்பட்டது' : 'Protected') : profile.city}>
+                      <span className="truncate">{(profile.hideHouseLocation && !isApproved) ? (language === 'TA' ? 'பாதுகாக்கப்பட்டது' : 'Protected') : profile.city}</span>
+                      {profile.hideHouseLocation && !isApproved && <Lock className="w-3 h-3 ml-1 text-yellow-500 inline shrink-0" />}
                     </div>
                   </div>
 
