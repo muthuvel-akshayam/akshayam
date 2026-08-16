@@ -29,10 +29,7 @@ export async function generateMetadata(
   // Format exactly as requested: பெயர் :Name படிப்பு :Edu குலம் : Kulam - View profile
   const description = `பெயர் :${name} படிப்பு :${education} குலம் : ${kulam} - View profile akshayamtamilmatrimony.com`;
 
-  const ogUrl = new URL(`https://www.akshayamtamilmatrimony.com/api/og/profile`);
-  if (profile.photoUrl) ogUrl.searchParams.set('photo', profile.photoUrl);
-  ogUrl.searchParams.set('name', name);
-  if (kulam && kulam !== 'Not Specified') ogUrl.searchParams.set('desc', `குலம்: ${kulam}`);
+  const imageUrl = profile.photoUrl || 'https://www.akshayamtamilmatrimony.com/akshayam_logo.png';
 
   return {
     title: `${name} - Akshayam Matrimony`,
@@ -44,9 +41,7 @@ export async function generateMetadata(
       siteName: 'Akshayam Matrimony',
       images: [
         {
-          url: ogUrl.toString(),
-          width: 1200,
-          height: 630,
+          url: imageUrl,
           alt: `${name}'s Profile Photo`,
         },
       ],
@@ -57,7 +52,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: `${name} - Akshayam Matrimony`,
       description: description,
-      images: [ogUrl.toString()],
+      images: [imageUrl],
     },
   }
 }
