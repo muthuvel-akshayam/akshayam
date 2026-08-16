@@ -2,6 +2,7 @@ import { getProfileById } from '@/backend/actions/matches';
 import { notFound } from 'next/navigation';
 import { ProfileDetailClient } from './ProfileDetailClient';
 import { Metadata } from 'next';
+import { headers } from 'next/headers';
 
 type Props = {
   params: Promise<{ id: string }>
@@ -29,7 +30,16 @@ export async function generateMetadata(
   // Format exactly as requested: பெயர் :Name படிப்பு :Edu குலம் : Kulam - View profile
   const description = `பெயர் :${name} படிப்பு :${education} குலம் : ${kulam} - View profile akshayamtamilmatrimony.com`;
 
-  const imageUrl = profile.photoUrl || 'https://www.akshayamtamilmatrimony.com/akshayam_logo.png';
+  let imageUrl = 'https://www.akshayamtamilmatrimony.com/akshayam_logo.png';
+  if (profile.photoUrl) {
+    const headersList = await headers();
+    const host = headersList.get('host') || 'www.akshayamtamilmatrimony.com';
+    const protocol = host.includes('localhost') ? 'http' : 'https';
+    const baseUrl = `${protocol}://${host}`;
+    
+    // Compress via Next.js image optimizer to ensure size < 300KB for WhatsApp
+    imageUrl = `${baseUrl}/_next/image?url=${encodeURIComponent(profile.photoUrl)}&w=828&q=75`;
+  }
 
   return {
     title: `${name} - Akshayam Matrimony`,
