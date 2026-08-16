@@ -153,7 +153,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
     </div>
   );
 
-  const displayId = akshayamId || profile.displayId || (userIndex ? `${1000 + userIndex}` : `${safeProfileId.substring(0, 6).toUpperCase()}`);
+  const displayId = akshayamId || profile.displayId || (userIndex ? `${1000 + userIndex}` : `${profileId.substring(0, 6).toUpperCase()}`);
   const profileUrl = `https://www.akshayamtamilmatrimony.com/profiles/${profileId}`;
 
   // Priority Mapping Logic
