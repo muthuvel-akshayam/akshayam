@@ -220,9 +220,9 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
           
           {/* Center Logo & Title */}
           <div className="flex-1 flex flex-col items-center justify-end pb-1 px-2">
-            <img src="/akshayam_logo.png" alt="Logo" className="h-16 mb-1 contrast-125 drop-shadow-sm" style={{ imageRendering: '-webkit-optimize-contrast' }} />
+            <img src="/akshayam_logo.png" alt="Logo" className="h-16 mb-1" />
             <h1 className="text-[26px] font-bold text-emerald-800 font-serif leading-none tracking-tight">அக்ஷயம்</h1>
-            <h2 className="text-[17px] font-bold text-red-600 tracking-wide mt-1 leading-tight">கொங்கு திருமணத் தகவல் மையம்</h2>
+            <h2 className="text-[17px] font-bold text-red-600 tracking-wide mt-1 leading-tight">திருமணத் தகவல் மையம்</h2>
           </div>
 
           {/* Right Temple Image */}

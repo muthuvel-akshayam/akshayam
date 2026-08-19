@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProfileWizard from './profile-wizard/ProfileWizard';
+import ProfileCarousel from './home/ProfileCarousel';
 import { useLanguage } from '@/frontend/context/LanguageContext';
 import { loginUser } from '@/backend/actions/auth';
 import { 
@@ -10,7 +11,7 @@ import {
   Info, Briefcase, Mail, ChevronRight, Lock, LogIn, Menu, X,
   FileText, TreePine, Flame, Drum, Gift, ChefHat, 
   Vegan, Milk, Cake, Salad, GlassWater, Flower, 
-  Camera, IceCream, CupSoda
+  Camera, IceCream, CupSoda, MessageCircle
 } from 'lucide-react';
 
 export default function HomeClient() {
@@ -22,6 +23,25 @@ export default function HomeClient() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, toggleLanguage } = useLanguage();
+  
+  const [featuredBrides, setFeaturedBrides] = useState<any[]>([]);
+  const [featuredGrooms, setFeaturedGrooms] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function fetchFeatured() {
+      try {
+        const res = await fetch('/api/profiles/featured');
+        const data = await res.json();
+        if (data.success) {
+          setFeaturedBrides(data.brides || []);
+          setFeaturedGrooms(data.grooms || []);
+        }
+      } catch (err) {
+        console.error('Failed to fetch featured profiles', err);
+      }
+    }
+    fetchFeatured();
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,39 +62,39 @@ export default function HomeClient() {
   };
 
   const servicesTa = [
-    { title: 'ஜாதகம் பதிவு', desc: 'உங்கள் ஜாதகத்தை பாதுகாப்பாகவும் துல்லியமாகவும் பதிவு செய்தல்.', icon: FileText },
-    { title: 'வாழை மரம்', desc: 'திருமண நிகழ்ச்சிகளுக்கான சிறந்த அலங்கார வாழை மரங்கள்.', icon: TreePine },
-    { title: 'ஐயர்', desc: 'முறைப்படி திருமண சடங்குகளை நடத்தும் அனுபவமிக்க புரோகிதர்கள்.', icon: Flame },
-    { title: 'மங்கல வாத்தியம்', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.', icon: Drum },
-    { title: 'சீர்வரிசை தட்டு', desc: 'அழகான மற்றும் பாரம்பரிய சீர்வரிசை தட்டுகள் அலங்காரம்.', icon: Gift },
-    { title: 'சமையல் கேட்டரிங்', desc: 'சுவையான மற்றும் தரமான கொங்கு பாரம்பரிய சமையல்.', icon: ChefHat },
-    { title: 'காய்கறி, காளான்', desc: 'திருமண விருந்துக்கான புதிய மற்றும் தரமான காய்கறிகள்.', icon: Vegan },
-    { title: 'பால், தயிர், நெய்', desc: 'சுத்தமான பண்ணை பால் மற்றும் நெய் விநியோகம்.', icon: Milk },
-    { title: 'பால் கோவா, பன்னீர்', desc: 'விருந்துக்கு தேவையான உயர்தர இனிப்புகள் மற்றும் பன்னீர்.', icon: Cake },
-    { title: 'இங்கிலீஷ் காய்கறிகள்', desc: 'சமையலுக்கு தேவையான ஃப்ரெஷ்ஷான ஆங்கிலக் காய்கறிகள்.', icon: Salad },
-    { title: 'தண்ணீர் 300 ml to 20 லிட்டர்', desc: 'பாதுகாப்பான மற்றும் சுத்திகரிக்கப்பட்ட குடிநீர் விநியோகம்.', icon: GlassWater },
-    { title: 'டெக்கரேஷன்', desc: 'நவீன மற்றும் பாரம்பரிய மேடை அலங்காரங்கள்.', icon: Flower },
-    { title: 'போட்டோ வீடியோ', desc: 'உங்கள் திருமண நினைவுகளை அழியாப் படங்களாக்கும் நிபுணர்கள்.', icon: Camera },
-    { title: 'ஐஸ்கிரீம், பீடா, பழங்கள்', desc: 'சிறப்பு ஐஸ்கிரீம் கவுண்டர்கள், தாம்பூலம் மற்றும் பழங்கள்.', icon: IceCream },
-    { title: 'கரும்பு ஜூஸ் மற்றும் பல', desc: 'விருந்தினர்களை உபசரிக்க சிறப்பு பானங்கள் மற்றும் தின்பண்டங்கள்.', icon: CupSoda },
+    { title: 'ஜாதக பதிவு', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.', icon: FileText, imageUrl: '/services/premium/premium_0.png' },
+    { title: 'வாழை மரம்', desc: 'திருமணத்திற்கான மங்களகரமான வாழை மரங்கள்.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
+    { title: 'ஐயர்', desc: 'திருமண சடங்குகளை சிறப்பிக்க அனுபவம் வாய்ந்த ஐயர்கள்.', icon: Flame, imageUrl: '/services/premium/premium_2.png' },
+    { title: 'மாங்கல்ய வாத்தியம்', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
+    { title: 'சீர்வரிசை தட்டு', desc: 'அழகான மற்றும் பாரம்பரிய சீர்வரிசை தட்டுகள் அலங்காரம்.', icon: Gift, imageUrl: '/services/premium/premium_4.png' },
+    { title: 'சமையல் கேட்டரிங்', desc: 'சுவையான மற்றும் தரமான பாரம்பரிய சமையல்.', icon: ChefHat, imageUrl: '/services/premium/premium_5.png' },
+    { title: 'காய்கறி, காளான்', desc: 'திருமண விருந்துக்கான புதிய மற்றும் தரமான காய்கறிகள்.', icon: Vegan, imageUrl: '/services/premium/premium_6.png' },
+    { title: 'பால், தயிர், நெய்', desc: 'சுத்தமான பண்ணை பால் மற்றும் நெய் விநியோகம்.', icon: Milk, imageUrl: '/services/premium/premium_7.png' },
+    { title: 'பால் கோவா, பன்னீர்', desc: 'விருந்துக்கு தேவையான உயர்தர இனிப்புகள் மற்றும் பன்னீர்.', icon: Cake, imageUrl: '/services/premium/premium_8.png' },
+    { title: 'இங்கிலீஷ் காய்கறிகள்', desc: 'சமையலுக்கு தேவையான ஃப்ரெஷான ஆங்கிலக் காய்கறிகள்.', icon: Salad, imageUrl: '/services/premium/premium_9.png' },
+    { title: 'தண்ணீர் 300 ml to 20 லிட்டர்', desc: 'பாதுகாப்பான மற்றும் சுத்திகரிக்கப்பட்ட குடிநீர் விநியோகம்.', icon: GlassWater, imageUrl: '/services/premium/premium_10.png' },
+    { title: 'டெக்கரேஷன்', desc: 'நவீன மற்றும் பாரம்பரிய மேடை அலங்காரங்கள்.', icon: Flower, imageUrl: '/services/premium/premium_11.png' },
+    { title: 'போட்டோ வீடியோ', desc: 'உங்கள் திருமண நினைவுகளை அழியாப் படங்களாக்கும் நிபுணர்கள்.', icon: Camera, imageUrl: '/services/premium/premium_12.png' },
+    { title: 'ஐஸ்கிரீம், பீடா, பழங்கள்', desc: 'சிறப்பு ஐஸ்கிரீம் கவுண்டர்கள், தாம்பூலம் மற்றும் பழங்கள்.', icon: IceCream, imageUrl: '/services/premium/premium_13.png' },
+    { title: 'கரும்பு ஜூஸ் மற்றும் பல', desc: 'விருந்தினர்களை உபசரிக்க சிறப்பு பானங்கள் மற்றும் தின்பண்டங்கள்.', icon: CupSoda, imageUrl: '/services/premium/premium_14.png' },
   ];
 
   const servicesEn = [
-    { title: 'Horoscope Registration', desc: 'Accurate and secure registration of horoscopes for matchmaking.', icon: FileText },
-    { title: 'Banana Tree Decor', desc: 'Traditional auspicious banana tree arrangements for weddings.', icon: TreePine },
-    { title: 'Priest / Iyer', desc: 'Experienced Vedic priests to conduct traditional rituals.', icon: Flame },
-    { title: 'Auspicious Music', desc: 'Auspicious Nadaswaram and Thavil artists for wedding ceremonies.', icon: Drum },
-    { title: 'Seer Varisai Plates', desc: 'Artistic and traditional gift plate decorations for the bride & groom.', icon: Gift },
-    { title: 'Catering Services', desc: 'Authentic Kongu style hygienic and delicious feast preparation.', icon: ChefHat },
-    { title: 'Fresh Vegetables & Mushroom', desc: 'Supply of farm-fresh vegetables and mushrooms for wedding feasts.', icon: Vegan },
-    { title: 'Milk, Curd & Ghee', desc: 'Pure dairy supplies for authentic cooking and sweets.', icon: Milk },
-    { title: 'Sweets & Paneer', desc: 'Premium quality Milk Kova, Paneer, and traditional desserts.', icon: Cake },
-    { title: 'English Vegetables', desc: 'Supply of fresh exotic and english vegetables.', icon: Salad },
-    { title: 'Water 300ml to 20L', desc: 'Safe and purified packaged drinking water supply.', icon: GlassWater },
-    { title: 'Decoration', desc: 'Grand traditional and contemporary wedding stage floral decors.', icon: Flower },
-    { title: 'Photo & Video', desc: 'Expert candid photographers to capture timeless wedding memories.', icon: Camera },
-    { title: 'Ice Cream, Beeda & Fruits', desc: 'Special dessert counters, traditional betel leaf, and fresh fruit stalls.', icon: IceCream },
-    { title: 'Sugarcane Juice & More', desc: 'Welcome drinks and snacks to treat your guests.', icon: CupSoda },
+    { title: 'Horoscope Registration', desc: 'Accurate and secure registration of horoscopes for matchmaking.', icon: FileText, imageUrl: '/services/premium/premium_0.png' },
+    { title: 'Banana Tree Decor', desc: 'Traditional auspicious banana tree arrangements for weddings.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
+    { title: 'Priest / Iyer', desc: 'Experienced Vedic priests to conduct traditional rituals.', icon: Flame, imageUrl: '/services/premium/premium_2.png' },
+    { title: 'Auspicious Music', desc: 'Auspicious Nadaswaram and Thavil artists for wedding ceremonies.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
+    { title: 'Seer Varisai Plates', desc: 'Artistic and traditional gift plate decorations for the bride & groom.', icon: Gift, imageUrl: '/services/premium/premium_4.png' },
+    { title: 'Catering Services', desc: 'Authentic, hygienic and delicious feast preparation.', icon: ChefHat, imageUrl: '/services/premium/premium_5.png' },
+    { title: 'Fresh Vegetables & Mushroom', desc: 'Supply of farm-fresh vegetables and mushrooms for wedding feasts.', icon: Vegan, imageUrl: '/services/premium/premium_6.png' },
+    { title: 'Milk, Curd & Ghee', desc: 'Pure dairy supplies for authentic cooking and sweets.', icon: Milk, imageUrl: '/services/premium/premium_7.png' },
+    { title: 'Sweets & Paneer', desc: 'Premium quality Milk Kova, Paneer, and traditional desserts.', icon: Cake, imageUrl: '/services/premium/premium_8.png' },
+    { title: 'English Vegetables', desc: 'Supply of fresh exotic and english vegetables.', icon: Salad, imageUrl: '/services/premium/premium_9.png' },
+    { title: 'Water 300ml to 20L', desc: 'Safe and purified packaged drinking water supply.', icon: GlassWater, imageUrl: '/services/premium/premium_10.png' },
+    { title: 'Decoration', desc: 'Grand traditional and contemporary wedding stage floral decors.', icon: Flower, imageUrl: '/services/premium/premium_11.png' },
+    { title: 'Photo & Video', desc: 'Expert candid photographers to capture timeless wedding memories.', icon: Camera, imageUrl: '/services/premium/premium_12.png' },
+    { title: 'Ice Cream, Beeda & Fruits', desc: 'Special dessert counters, traditional betel leaf, and fresh fruit stalls.', icon: IceCream, imageUrl: '/services/premium/premium_13.png' },
+    { title: 'Sugarcane Juice & More', desc: 'Welcome drinks and snacks to treat your guests.', icon: CupSoda, imageUrl: '/services/premium/premium_14.png' },
   ];
 
   const services = language === 'TA' ? servicesTa : servicesEn;
@@ -91,7 +111,7 @@ export default function HomeClient() {
               ← {language === 'TA' ? 'முகப்புக்கு திரும்பு' : 'Back to Home'}
             </button>
             <div className="flex flex-col items-center justify-center">
-              <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-14 md:h-20 object-contain contrast-125 drop-shadow-sm" style={{ imageRendering: 'crisp-edges' }} />
+              <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-14 md:h-20 object-contain" />
               <span className="text-xs sm:text-sm font-bold text-primary mt-1 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
             </div>
             <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
@@ -116,7 +136,7 @@ export default function HomeClient() {
       <nav className="sticky top-0 w-full z-50 transition-all duration-300 bg-background/95 backdrop-blur-md py-3 shadow-sm border-b border-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <a href="#home" className="flex flex-col items-start md:items-center">
-            <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-16 md:h-20 object-contain contrast-125 drop-shadow-sm" style={{ imageRendering: 'crisp-edges' }} />
+            <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-16 md:h-20 object-contain" />
             <span className="text-[11px] sm:text-xs font-bold text-primary mt-1 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
           </a>
 
@@ -225,24 +245,23 @@ export default function HomeClient() {
       <section id="home" className="relative w-full min-h-[85vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)]/60 to-[var(--color-background)]">
         <div className="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(var(--color-primary)_1px,transparent_1px)] [background-size:24px_24px]"></div>
         
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center gap-10 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left w-full mt-8 md:mt-12">
           
-          {/* Top: Bride and Groom Image */}
-          <div className="w-full flex justify-center px-2 sm:px-0">
-            <div className="relative w-full max-w-md md:max-w-lg rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 bg-white">
+          {/* Left: Text Content & Image */}
+          <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start">
+            
+            {/* Restored Bride and Groom Image */}
+            <div className="w-full max-w-sm mx-auto lg:mx-0 mb-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 bg-white">
               <img 
                 src="/hero-couple.png" 
                 alt="Akshayam Bride and Groom" 
                 className="w-full h-auto object-cover"
               />
             </div>
-          </div>
 
-          {/* Bottom: Text Content */}
-          <div className="w-full flex flex-col items-center text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-xs md:text-sm mb-6 animate-pulse">
               <Sparkles className="w-4 h-4 text-accent" />
-              {language === 'TA' ? '100% நம்பகமான கொங்கு திருமணத் தகவல் சேவை' : '100% Trusted Kongu Matrimonial Service'}
+              {language === 'TA' ? '100% நம்பகமான திருமணத் தகவல் சேவை' : '100% Trusted Matrimonial Service'}
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-serif font-extrabold text-primary mb-6 leading-tight drop-shadow-sm font-serif">
@@ -301,6 +320,28 @@ export default function HomeClient() {
               </a>
             </div>
           </div>
+
+          {/* Right: Featured Profiles (Carousels) */}
+          {(featuredBrides.length > 0 || featuredGrooms.length > 0) && (
+            <div className="w-full lg:w-1/2 flex flex-col gap-6 mt-8 lg:mt-0">
+              {featuredBrides.length > 0 && (
+                <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-primary/10">
+                  <ProfileCarousel 
+                    profiles={featuredBrides} 
+                    title={language === 'TA' ? 'வரவேற்கும் வரன்கள் - பெண்' : 'Featured Brides'} 
+                  />
+                </div>
+              )}
+              {featuredGrooms.length > 0 && (
+                <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-primary/10">
+                  <ProfileCarousel 
+                    profiles={featuredGrooms} 
+                    title={language === 'TA' ? 'வரவேற்கும் வரன்கள் - ஆண்' : 'Featured Grooms'} 
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -359,8 +400,14 @@ export default function HomeClient() {
                     key={idx} 
                     className="flex items-start gap-4 p-5 rounded-2xl bg-background/60 hover:bg-background border border-primary/5 hover:border-accent transition-all group shadow-sm hover:shadow-md"
                   >
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors">
-                      <srv.icon className="w-5 h-5 text-accent group-hover:text-white transition-colors" />
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                      {srv.imageUrl ? (
+                        <img src={srv.imageUrl} alt={srv.title} className="w-full h-full object-contain drop-shadow-sm rounded-xl" />
+                      ) : (
+                        <div className="w-full h-full rounded-full overflow-hidden border-2 border-primary/10 bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors shadow-sm group-hover:border-accent">
+                          <srv.icon className="w-6 h-6 sm:w-8 sm:h-8 text-accent group-hover:text-white transition-colors" />
+                        </div>
+                      )}
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors mb-1">
@@ -432,7 +479,7 @@ export default function HomeClient() {
                 <Shield className="w-8 h-8 text-accent" />
               </div>
               <h3 className="text-xl font-bold text-primary mb-3">{language === 'TA' ? 'குடும்ப மதிப்புகளுக்கு முன்னுரிமை' : 'Priority to Family Values'}</h3>
-              <p className="text-gray-600 font-medium">{language === 'TA' ? 'பாரம்பரியம் மற்றும் குடும்ப மதிப்புகளுக்கு சிறப்பு முக்கியத்துவம்.' : 'We deeply respect Kongu traditions, astrology, and cultural heritage in every match.'}</p>
+              <p className="text-gray-600 font-medium">{language === 'TA' ? 'பாரம்பரியம் மற்றும் குடும்ப மதிப்புகளுக்கு சிறப்பு முக்கியத்துவம்.' : 'We deeply respect traditions, astrology, and cultural heritage in every match.'}</p>
             </div>
           </div>
         </div>
@@ -559,6 +606,17 @@ export default function HomeClient() {
           <p className="text-gray-400 text-sm">© 2026 Akshayam Matrimony. {language === 'TA' ? 'அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.' : 'All rights reserved.'}</p>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button */}
+      <a
+        href="https://wa.me/919677613716"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white px-4 py-3 rounded-full font-bold shadow-2xl hover:scale-105 transition-all"
+      >
+        <MessageCircle className="w-6 h-6" />
+        <span className="hidden sm:inline">Chat Now</span>
+      </a>
 
 
 

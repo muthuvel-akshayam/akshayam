@@ -392,7 +392,7 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                         </div>
                       )}
                       <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
-                        {p.city || p.district || 'Kongu'}
+                        {p.city || p.district || '-'}
                       </div>
                     </div>
 

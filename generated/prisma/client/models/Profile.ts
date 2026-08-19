@@ -1395,10 +1395,6 @@ export type ProfileUpdateporuthaNakshatramInput = {
   push?: string | string[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type EnumProfileStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProfileStatus
 }
