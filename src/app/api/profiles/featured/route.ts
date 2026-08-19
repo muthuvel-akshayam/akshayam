@@ -27,7 +27,7 @@ export async function GET() {
 
     // Fallback dummy data if DB is empty for demonstration
     if (finalBrides.length === 0 && finalGrooms.length === 0) {
-      const dummyBride = {
+      const dummyBride: any = {
         id: 'dummy-bride',
         displayId: 'AK1001',
         name: 'ரம்யா',
@@ -42,7 +42,7 @@ export async function GET() {
         hidePhoto: true,
       };
       
-      const dummyGroom = {
+      const dummyGroom: any = {
         id: 'dummy-groom',
         displayId: 'AK2001',
         name: 'கார்த்திக்',
