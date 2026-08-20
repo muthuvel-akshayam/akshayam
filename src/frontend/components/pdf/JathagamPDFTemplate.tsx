@@ -98,22 +98,20 @@ const mapParentStatus = (status: string | null | undefined) => {
 
 // Strict colon-aligned row for bottom section
 const FieldRow = ({ label, value, labelWidth = "w-[120px]", valueWidth = "w-[310px]" }: { label: string; value: string | number | null | undefined; labelWidth?: string; valueWidth?: string }) => (
-  <div className="flex items-start mb-1 text-[11px] leading-tight">
-    <div className={`font-bold text-emerald-950 whitespace-nowrap ${labelWidth} flex-shrink-0`}>{label}</div>
-    <div className="font-bold text-emerald-950 text-center w-[10px] flex-shrink-0">:</div>
-    <div className={`font-bold text-gray-900 whitespace-pre-wrap break-words pl-1 ${valueWidth} flex-shrink-0`}>{value || '-'}</div>
+  <div className="flex items-start mb-1 text-[11px] leading-tight" style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '6px', fontSize: '11.5px', lineHeight: '1.4' }}>
+    <div className={`font-bold text-emerald-950 whitespace-nowrap ${labelWidth} flex-shrink-0`} style={{ fontWeight: 'bold', color: '#022c22', whiteSpace: 'nowrap', flexShrink: 0 }}>{label}</div>
+    <div className="font-bold text-emerald-950 text-center w-[10px] flex-shrink-0" style={{ fontWeight: 'bold', color: '#022c22', textAlign: 'center', width: '10px', flexShrink: 0 }}>:</div>
+    <div className={`font-bold text-gray-900 whitespace-pre-wrap break-words pl-1 ${valueWidth} flex-shrink-0`} style={{ fontWeight: 'bold', color: '#111827', whiteSpace: 'pre-wrap', wordBreak: 'break-word', paddingLeft: '4px', flexShrink: 0 }}>{value || '-'}</div>
   </div>
 );
 
-// Strict colon-aligned grid item for top section
 const FieldItem = ({ label, value, colSpan = 1 }: { label: string; value: string | number | null | undefined; colSpan?: number }) => {
   const displayValue = (value === null || value === undefined || value === '' || value === 'null' || value === '-') ? 'குறிப்பிடப்படவில்லை' : value;
-  // Total column width is 265px. 115 + 10 + 140 = 265px.
   return (
-    <div className={`flex items-start text-[12px] leading-tight text-slate-900 ${colSpan === 2 ? 'w-[540px]' : 'w-[265px]'}`}>
-      <div className="font-semibold text-slate-800 whitespace-nowrap w-[115px] flex-shrink-0">{label}</div>
-      <div className="font-bold text-center text-slate-700 w-[10px] flex-shrink-0">:</div>
-      <div className={`font-medium text-slate-900 pl-1 break-words ${colSpan === 2 ? 'w-[415px]' : 'w-[140px]'} flex-shrink-0`}>{displayValue}</div>
+    <div className={`flex items-start text-[10.5px] leading-tight text-slate-900`} style={{ display: 'flex', alignItems: 'flex-start', fontSize: '11px', lineHeight: '1.3', color: '#0f172a', width: colSpan === 2 ? '100%' : '50%', boxSizing: 'border-box', paddingRight: '8px', marginBottom: '4px' }}>
+      <div className={`font-semibold text-slate-800 whitespace-nowrap w-[100px] flex-shrink-0`} style={{ fontWeight: 600, color: '#1e293b', whiteSpace: 'nowrap', width: '100px', flexShrink: 0 }}>{label}</div>
+      <div className={`font-bold text-center text-slate-700 w-[10px] flex-shrink-0`} style={{ fontWeight: 'bold', textAlign: 'center', color: '#334155', width: '10px', flexShrink: 0 }}>:</div>
+      <div className={`font-medium text-slate-900 pl-1 break-words flex-1 flex-shrink-0`} style={{ fontWeight: 500, color: '#0f172a', paddingLeft: '4px', wordBreak: 'break-word', flex: '1 1 0%', flexShrink: 0 }}>{displayValue}</div>
     </div>
   );
 };
@@ -124,6 +122,24 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
   const rasiHouses = convertLegacyGrid(profile.jathagamData?.rasiChart || profile.jathagamData?.rasiGrid || profile.rasiGrid);
   const amsamHouses = convertLegacyGrid(profile.jathagamData?.navamsamChart || profile.jathagamData?.amsamGrid || profile.amsamGrid);
   const family = familyProp || profile.family || {};
+
+  const formatExpectations = (exp: any) => {
+    if (!exp) return "நல்ல வாழ்க்கைத்துணை";
+    if (typeof exp === 'string') return exp;
+    
+    const parts = [];
+    if (exp.maxAgeLimit) parts.push(`வயது: ${exp.maxAgeLimit} வரை`);
+    if (exp.expectedHeight) parts.push(`உயரம்: ${exp.expectedHeight} செ.மீ`);
+    if (exp.expectedIncome) parts.push(`வருமானம்: ${exp.expectedIncome}`);
+    if (exp.preferredSectors && exp.preferredSectors.length > 0) parts.push(`பணி: ${exp.preferredSectors.join(', ')}`);
+    if (exp.preferredLocations && exp.preferredLocations.length > 0) parts.push(`இடம்: ${exp.preferredLocations.join(', ')}`);
+    if (exp.dowryExpectation) parts.push(`வரதட்சணை: ${exp.dowryExpectation}`);
+    if (exp.expectsThottam) parts.push(`தோட்டம்: ஆம்`);
+    if (exp.expectsRentalIncome) parts.push(`வாடகை வருமானம்: ஆம்`);
+    if (exp.comments) parts.push(exp.comments);
+
+    return parts.length > 0 ? parts.join(' | ') : "நல்ல வாழ்க்கைத்துணை";
+  };
   
   const getDerivedTamilDay = (dateStr: any) => {
     if (!dateStr) return "-";
@@ -138,16 +154,16 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
     : "இல்லை";
 
   const ChartCenterLogo = ({ title }: { title: string }) => (
-    <div className="flex flex-col items-center justify-center h-full w-full bg-white">
-      <img src="/akshayam_logo.png" alt="Logo" className="w-10 opacity-80" />
-      <div className="font-bold text-emerald-800 text-[11px] leading-tight mt-1 tracking-tight">அக்ஷயம்</div>
-      <div className="font-bold text-emerald-700 text-[9px]">{title}</div>
+    <div className="flex flex-col items-center justify-center h-full w-full bg-white" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#ffffff' }}>
+      <img src="/akshayam_logo.png" alt="Logo" className="w-10 opacity-80" style={{ width: '40px', height: 'auto', opacity: 0.8 }} />
+      <div className="font-bold text-emerald-800 text-[11px] leading-tight mt-1 tracking-tight" style={{ fontWeight: 'bold', color: '#065f46', fontSize: '11px', lineHeight: '1.2', marginTop: '4px', letterSpacing: '-0.025em' }}>அக்ஷயம்</div>
+      <div className="font-bold text-emerald-700 text-[9px]" style={{ fontWeight: 'bold', color: '#047857', fontSize: '9px' }}>{title}</div>
     </div>
   );
 
   const PDFChartBox = ({ title, houses }: { title: "ராசி" | "நவாம்சம்", houses: any }) => (
-    <div className="w-[200px] h-[200px]">
-      <div className="w-full h-full border-[1.5px] border-emerald-800 bg-white p-[1px]">
+    <div className="text-[9px]" style={{ width: '160px', height: '160px', position: 'relative' }}>
+      <div className="w-full h-full border border-emerald-800 bg-white p-[1px]" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, border: '1px solid #065f46', backgroundColor: '#ffffff', padding: '1px', boxSizing: 'border-box' }}>
         <JathagamChart title={title} houses={houses || []} centerElement={<ChartCenterLogo title={title} />} pdfMode={true} />
       </div>
     </div>
@@ -206,55 +222,66 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
   return (
     <div 
       id={`pdf-template-${profileId}`} 
-      className="w-[794px] h-[1123px] bg-white p-6 flex flex-col justify-between overflow-hidden box-border mx-auto text-gray-900 relative"
-      style={{ width: '794px', height: '1123px', fontFamily: "'Mukta Malar', 'Latha', 'Vijaya', 'Tamil MN', 'Arial', sans-serif" }}
+      className="w-[794px] h-[1123px] bg-white box-border flex flex-col justify-between overflow-hidden font-sans text-slate-900 mx-auto relative"
+      style={{ 
+        width: '794px', 
+        height: '1123px', 
+        padding: '1.5cm',
+        boxSizing: 'border-box',
+        fontFamily: "'Mukta Malar', 'Latha', 'Vijaya', 'Tamil MN', 'Arial', sans-serif",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        backgroundColor: '#ffffff',
+        overflow: 'hidden',
+        color: '#0f172a'
+      }}
     >
-      <div className="w-full h-full flex flex-col justify-between">
+      <div className="w-full h-full flex flex-col justify-between" style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         
         {/* 1. Top Header Banner */}
-        <div className="flex justify-between items-end h-[120px] pb-2 border-b-2 border-gray-300">
+        <div className="flex justify-between items-end pb-1 border-b border-gray-300" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', paddingBottom: '4px', borderBottom: '1px solid #d1d5db' }}>
           {/* Left Couple Image */}
-          <div className="w-[240px] h-full flex items-end">
-            <img src="/hero-couple.png" alt="Couple" className="h-[140%] object-cover object-top origin-bottom" style={{ borderRadius: '0 40px 0 0' }} />
+          <div className="flex items-end" style={{ display: 'flex', alignItems: 'flex-end' }}>
+            <img src="/hero-couple.png" alt="Couple" className="object-cover rounded" style={{ height: '80px', width: 'auto', objectFit: 'cover', borderRadius: '4px' }} />
           </div>
           
           {/* Center Logo & Title */}
-          <div className="flex-1 flex flex-col items-center justify-end pb-1 px-2">
-            <img src="/akshayam_logo.png" alt="Logo" className="h-16 mb-1" />
-            <h1 className="text-[26px] font-bold text-emerald-800 font-serif leading-none tracking-tight">அக்ஷயம்</h1>
-            <h2 className="text-[17px] font-bold text-red-600 tracking-wide mt-1 leading-tight">திருமணத் தகவல் மையம்</h2>
+          <div className="flex-1 flex flex-col items-center justify-end px-2" style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', padding: '0 8px' }}>
+            <img src="/akshayam_logo.png" alt="Logo" className="mb-1" style={{ height: '56px', marginBottom: '4px' }} />
+            <h2 className="text-[13px] font-bold text-red-600 tracking-wide leading-tight" style={{ fontSize: '13px', fontWeight: 'bold', color: '#dc2626', letterSpacing: '0.025em', lineHeight: '1.25', margin: 0 }}>திருமணத் தகவல் மையம்</h2>
           </div>
 
           {/* Right Temple Image */}
-          <div className="w-[240px] h-full flex items-end justify-end">
-             <img src="/temple.jpg" alt="Temple" className="h-[120%] w-[90%] object-cover object-center origin-bottom-right shadow-sm" />
+          <div className="flex items-end justify-end" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+             <img src="/temple.jpg" alt="Temple" className="object-cover rounded shadow-sm" style={{ height: '80px', width: 'auto', objectFit: 'cover', borderRadius: '4px', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' }} />
           </div>
         </div>
 
         {/* Contact Strip */}
-        <div className="flex justify-between items-center py-2 px-6 border-b border-gray-300 bg-white h-12 overflow-hidden">
-          <div className="flex items-center gap-1.5 font-bold text-[13px] whitespace-nowrap shrink-0">
-            <span className="text-emerald-800">📞</span>
-            <span className="text-red-600 tracking-wide">96776 13716, 93452 89217</span>
+        <div className="flex justify-between items-center bg-white h-6 overflow-hidden text-[10px]" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffffff', height: '24px', overflow: 'hidden', fontSize: '10px', marginTop: '8px' }}>
+          <div className="flex items-center gap-1 font-bold whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', whiteSpace: 'nowrap', flexShrink: 0 }}>
+            <span className="text-emerald-800" style={{ color: '#065f46' }}>📞</span>
+            <span className="text-red-600 tracking-wide" style={{ color: '#dc2626', letterSpacing: '0.025em' }}>96776 13716, 93452 89217</span>
           </div>
-          <div className="flex items-center gap-1.5 font-bold text-[11px] text-emerald-800 whitespace-nowrap shrink-0">
+          <div className="flex items-center gap-1 font-bold text-emerald-800 whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', color: '#065f46', whiteSpace: 'nowrap', flexShrink: 0 }}>
             <span>🌐</span> www.akshayamtamilmatrimony.com
           </div>
-          <div className="flex items-center gap-1.5 font-bold text-[10px] text-gray-800 whitespace-nowrap shrink-0">
-            <span className="text-emerald-800">📍</span> மலைக்கோயில், மங்கலம் ரோடு, திருப்பூர் - 641 604.
+          <div className="flex items-center gap-1 font-bold text-gray-800 whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', color: '#1f2937', whiteSpace: 'nowrap', flexShrink: 0 }}>
+            <span className="text-emerald-800" style={{ color: '#065f46' }}>📍</span> மலைக்கோயில், மங்கலம் ரோடு, திருப்பூர் - 641 604.
           </div>
         </div>
 
         {/* Registration Bar */}
-        <div className="flex justify-between items-center bg-gray-50 border-b-2 border-gray-300 px-6 py-1.5 font-bold text-[13px] text-emerald-950 mt-2">
+        <div className="flex justify-between items-center bg-gray-50 border-y border-slate-300 py-0.5 mt-1 font-bold text-[10px] text-emerald-950" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', borderTop: '1px solid #cbd5e1', borderBottom: '1px solid #cbd5e1', padding: '4px 0', marginTop: '4px', marginBottom: '12px', fontWeight: 'bold', fontSize: '10px', color: '#022c22' }}>
           <div>Profile ID: {displayId}</div>
           <div>Date Reg: {new Date(profile.createdAt || Date.now()).toLocaleDateString('en-GB')} | Expiry: {new Date(new Date(profile.createdAt || Date.now()).setFullYear(new Date(profile.createdAt || Date.now()).getFullYear() + 1)).toLocaleDateString('en-GB')}</div>
         </div>
 
         {/* 2. Profile Details & Photo Grid */}
-        <div className="flex justify-between w-full gap-4 px-6 pt-2 pb-1">
+        <div className="flex justify-between w-full gap-4 pt-2 pb-1" style={{ display: 'flex', justifyContent: 'space-between', width: '100%', gap: '16px', paddingTop: '8px', paddingBottom: '8px' }}>
           {/* Left Text Columns */}
-          <div className="w-[550px] pr-2 grid grid-cols-2 gap-x-4 gap-y-0.5 leading-tight text-[11px] text-slate-900 content-start">
+          <div className="flex-1 pr-2 leading-tight text-[10.5px] text-slate-900 content-start" style={{ flex: '1', paddingRight: '12px', display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
             <FieldItem label="பெயர்" value={name} />
             <FieldItem label="குலம்" value={kulam} />
             
@@ -288,17 +315,16 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
             <FieldItem label="நட்சத்திரம்" value={nakshatra} />
             <FieldItem label="லக்னம்" value={lagnam} />
             
-            <FieldItem label="ஜாதகம்" value={dosham} />
-            <div />
+            <FieldItem label="ஜாதகம்" value={dosham} colSpan={2} />
           </div>
 
-          {/* Right Photo Column (30%) */}
-          <div className="w-[180px] flex-shrink-0 flex items-start justify-end">
-            <div className="w-full h-[240px] border-2 border-emerald-950 p-[2px] bg-white">
+          {/* Right Photo Column */}
+          <div className="flex-shrink-0 flex items-start justify-end" style={{ flexShrink: 0, display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-end' }}>
+            <div className="border border-slate-300 rounded overflow-hidden bg-white" style={{ width: '132px', height: '170px', border: '1px solid #cbd5e1', borderRadius: '4px', overflow: 'hidden', backgroundColor: '#ffffff' }}>
               {profile.photoUrl ? (
-                <img crossOrigin="anonymous" src={`/api/proxy-image?url=${encodeURIComponent(profile.photoUrl)}`} alt="Profile" className="w-full h-full object-cover object-top" />
+                <img crossOrigin="anonymous" src={`/api/proxy-image?url=${encodeURIComponent(profile.photoUrl)}`} alt="Profile" className="w-full h-full object-cover object-top" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
               ) : (
-                <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
+                <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm" style={{ width: '100%', height: '100%', backgroundColor: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', fontSize: '14px' }}>
                   Photo
                 </div>
               )}
@@ -307,87 +333,78 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
         </div>
 
         {/* 3. Astrology Charts & Center QR Code */}
-        <div className="flex items-center justify-between gap-4 my-2 w-full px-8">
+        <div className="flex items-center justify-between gap-4 my-1 w-full" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', margin: '8px 0', width: '100%' }}>
           <PDFChartBox title="ராசி" houses={rasiHouses} />
           
-          <div className="flex flex-col items-center justify-center border-2 border-[#d4af37] rounded-xl p-2 relative w-[160px] h-[160px]">
-            <div className="text-[9px] font-bold text-emerald-800 mb-1">www.akshayamtamilmatrimony.com</div>
-            <div className="bg-white p-1 rounded-md">
-              <QRCode value={profileUrl} size={110} level="M" fgColor="#004d25" />
+          <div className="flex flex-col items-center justify-center border border-[#d4af37] rounded-lg p-1.5 relative" style={{ width: '130px', height: '130px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #d4af37', borderRadius: '8px', padding: '6px', position: 'relative' }}>
+            <div className="text-[8px] font-bold text-emerald-800 mb-0.5" style={{ fontSize: '8px', fontWeight: 'bold', color: '#065f46', marginBottom: '2px', textAlign: 'center', whiteSpace: 'nowrap' }}>www.akshayamtamilmatrimony.com</div>
+            
+            <div className="bg-white p-1 rounded relative" style={{ backgroundColor: '#ffffff', padding: '4px', borderRadius: '4px', position: 'relative' }}>
+              <img src="/app_qr_code.jpg" alt="QR Code" style={{ width: '85px', height: '85px', objectFit: 'contain' }} />
             </div>
-            {/* Center Logo Overlay for QR */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-sm p-0.5">
-               <img src="/akshayam_logo.png" className="w-6 h-6 object-contain opacity-90" />
-            </div>
-            <div className="text-[9px] font-bold text-emerald-800 mt-1">www.akshayamtamilmatrimony.com</div>
+            
+            <div className="text-[8px] font-bold text-emerald-800 mt-0.5" style={{ fontSize: '8px', fontWeight: 'bold', color: '#065f46', marginTop: '2px', textAlign: 'center', whiteSpace: 'nowrap' }}>www.akshayamtamilmatrimony.com</div>
           </div>
 
           <PDFChartBox title="நவாம்சம்" houses={amsamHouses} />
         </div>
 
         {/* 4. Bottom Career & Family Details */}
-        <div className="flex px-6 py-1 gap-4">
-          <div className="flex-1 flex flex-col gap-0.5">
+        <div className="flex py-1 gap-4" style={{ display: 'flex', padding: '8px 0', gap: '16px' }}>
+          <div className="flex-1 flex flex-col gap-0.5" style={{ flex: '1', display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <FieldRow label="ஜனன கால தகவல்" value={dasaBalance} />
             <FieldRow label="படிப்பு - விவரங்கள்" value={profile.educations?.map((e: any) => e.degreeName || e.degree).filter(Boolean).join(', ') || "-"} />
             <FieldRow label="மாத வருமானம்" value={income} />
             <FieldRow label="சொத்து விவரம்" value={propertyStr} />
-            <FieldRow label="பொழுதுபோக்கு" value={profile.hobbies || "-"} />
             <FieldRow label="நட்சத்திரங்கள்" value={profile.poruthaNakshatram?.length ? profile.poruthaNakshatram.join(', ') : "Any"} />
-            <FieldRow label="எதிர்பார்ப்பு" value={profile.expectations || "நல்ல வாழ்க்கைத்துணை"} />
+            <FieldRow label="எதிர்பார்ப்பு" value={formatExpectations(profile.expectations)} />
             <FieldRow label="ராகு கேது ஜாதகம்" value={profile.dosham === 'RAHU_KETU' ? "உண்டு" : "-"} />
-            <div className="grid grid-cols-[130px_10px_1fr] mt-1 text-[11px] leading-tight">
-              <div className="font-bold text-emerald-950">தொடர்பு எண்</div>
-              <div className="font-bold text-emerald-950 text-center">:</div>
-              <div className="font-bold text-red-600">+91 {profile.user?.mobile_no || "96776 13716, 93452 89217"}</div>
+            <div className="grid grid-cols-[130px_10px_1fr] mt-1 text-[11px] leading-tight" style={{ display: 'flex', marginTop: '4px', fontSize: '11px', lineHeight: '1.2' }}>
+              <div className="font-bold text-emerald-950" style={{ fontWeight: 'bold', color: '#022c22', width: '130px' }}>தொடர்பு எண்</div>
+              <div className="font-bold text-emerald-950 text-center" style={{ fontWeight: 'bold', color: '#022c22', width: '10px', textAlign: 'center' }}>:</div>
+              <div className="font-bold text-red-600" style={{ fontWeight: 'bold', color: '#dc2626', flex: '1' }}>+91 {profile.user?.mobile_no || "96776 13716, 93452 89217"}</div>
             </div>
           </div>
-          <div className="w-[280px] flex flex-col gap-0.5 pt-5">
+          <div className="w-[280px] flex flex-col gap-0.5 pt-5" style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '2px', paddingTop: '20px' }}>
             <FieldRow label="பணியின் விவரம்" value={occupationStr} labelWidth="w-[100px]" valueWidth="w-[160px]" />
             <FieldRow label="பணியிடம்" value={family.workingAddress || profile.occupations?.[0]?.companyLocation || nativePlace} labelWidth="w-[100px]" valueWidth="w-[160px]" />
           </div>
         </div>
 
         {/* 5. Akshayam Services Footer Box */}
-        <div className="mx-6 mt-auto mb-2 min-h-[120px] flex-shrink-0 flex flex-col justify-end">
-          <div className="bg-[#fdfbf2] border-[1.5px] border-emerald-900 rounded-lg p-2.5 relative flex justify-between">
+        <div className="mt-auto flex-shrink-0 flex flex-col justify-end" style={{ marginTop: 'auto', flexShrink: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+          <div className="bg-[#fdfbf2] border border-emerald-900 rounded-t p-1.5 text-[9px] leading-tight relative flex justify-between" style={{ backgroundColor: '#fdfbf2', border: '1px solid #064e3b', borderTopLeftRadius: '4px', borderTopRightRadius: '4px', padding: '6px', fontSize: '9px', lineHeight: '1.2', position: 'relative', display: 'flex', justifyContent: 'space-between' }}>
             {/* Left List */}
-            <div className="w-[45%] flex flex-col gap-0.5 text-[10px] font-bold text-gray-800 pl-4">
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> ஜாதகம் பதிவு</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> வாழை மரம்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> ஐயர்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> மாங்கல்ய வாத்தியம்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> சீர்வரிசை தட்டு</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> சமையல் கேட்டரிங் பொருட்கள்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> காய்கறி, காயான்</div>
+            <div className="w-[45%] flex flex-col gap-0.5 font-bold text-gray-800 pl-4" style={{ width: '45%', display: 'flex', flexDirection: 'column', gap: '2px', fontWeight: 'bold', color: '#1f2937', paddingLeft: '16px' }}>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> ஜாதகம் பதிவு</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> வாழை மரம்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> ஐயர்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> மாங்கல்ய வாத்தியம்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> சீர்வரிசை தட்டு</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> சமையல் கேட்டரிங் பொருட்கள்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> காய்கறி, காயான்</div>
             </div>
             
             {/* Center Ornamental Divider */}
-            <div className="absolute top-4 bottom-4 left-1/2 border-l-[1.5px] border-emerald-800 border-dashed"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#fdfbf2] py-2">
-               <svg width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <path d="M12 0L14.5 10L24 12.5L14.5 15L12 25L9.5 15L0 12.5L9.5 10L12 0Z" fill="#065f46"/>
-                 <circle cx="12" cy="12.5" r="3" fill="#fdfbf2"/>
-               </svg>
-            </div>
+            <div className="absolute top-2 bottom-2 left-1/2 border-l border-emerald-800 border-dashed" style={{ position: 'absolute', top: '8px', bottom: '8px', left: '50%', borderLeft: '1px dashed #065f46' }}></div>
 
             {/* Right List */}
-            <div className="w-[45%] flex flex-col gap-0.5 text-[10px] font-bold text-gray-800 pr-2">
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> பால், தயிர், நெய்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> பால் கோவா, பன்னீர்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> இங்கிலிஷ் காய்கறிகள்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> தண்ணீர் 300 ml to 20 லிட்டர்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> டெக்கரேஷன்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> போட்டோ வீடியோ</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> ஐஸ்கிரீம், பீடா, பழங்கள்</div>
-               <div className="flex items-start gap-2"><span className="text-red-600 text-[10px] mt-0.5">▶</span> கரும்பு ஜூஸ் மற்றும் பல</div>
+            <div className="w-[45%] flex flex-col gap-0.5 font-bold text-gray-800 pr-2" style={{ width: '45%', display: 'flex', flexDirection: 'column', gap: '2px', fontWeight: 'bold', color: '#1f2937', paddingRight: '8px' }}>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> பால், தயிர், நெய்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> பால் கோவா, பன்னீர்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> இங்கிலிஷ் காய்கறிகள்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> தண்ணீர் 300 ml to 20 லிட்டர்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> டெக்கரேஷன்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> போட்டோ வீடியோ</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> ஐஸ்கிரீம், பீடா, பழங்கள்</div>
+               <div className="flex items-start gap-1" style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}><span className="text-red-600" style={{ color: '#dc2626' }}>▶</span> கரும்பு ஜூஸ் மற்றும் பல</div>
             </div>
           </div>
           
           {/* Bottom Dark Green Bar */}
-          <div className="bg-[#004d25] text-white text-center rounded-b-lg py-1.5 mt-[-4px] z-10 relative">
-             <div className="text-[12px] font-bold tracking-wide">காய்கறி, காய்பான் அனைத்தும் சிறந்த முறையில் செய்து தருகிறோம்.</div>
-             <div className="text-[10px] font-medium flex items-center justify-center gap-1 mt-0.5">
+          <div className="bg-[#004d25] text-white text-[9.5px] py-1 text-center font-medium rounded-b relative z-10" style={{ backgroundColor: '#004d25', color: '#ffffff', fontSize: '9.5px', padding: '4px 0', textAlign: 'center', fontWeight: 500, borderBottomLeftRadius: '4px', borderBottomRightRadius: '4px', position: 'relative', zIndex: 10 }}>
+             <div className="font-bold tracking-wide" style={{ fontWeight: 'bold', letterSpacing: '0.025em' }}>காய்கறி, காய்பான் அனைத்தும் சிறந்த முறையில் செய்து தருகிறோம்.</div>
+             <div className="flex items-center justify-center gap-1 mt-0.5" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', marginTop: '2px' }}>
                <span>🌐</span> www.akshayamtamilmatrimony.com
              </div>
           </div>
