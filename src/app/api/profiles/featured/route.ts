@@ -9,12 +9,12 @@ export async function GET() {
     const [femaleProfiles, maleProfiles] = await Promise.all([
       prisma.profile.findMany({
         where: { gender: "FEMALE" },
-        include: { educations: true },
+        include: { educations: true, user: { select: { userid: true } } },
         take: 12,
       }),
       prisma.profile.findMany({
         where: { gender: "MALE" },
-        include: { educations: true },
+        include: { educations: true, user: { select: { userid: true } } },
         take: 12,
       }),
     ]);
@@ -40,6 +40,7 @@ export async function GET() {
         city: 'கோயம்புத்தூர்',
         photoUrl: null, // will trigger lock/placeholder
         hidePhoto: true,
+        user: { userid: 'AK1001' }
       };
       
       const dummyGroom: any = {
@@ -55,10 +56,11 @@ export async function GET() {
         city: 'ஈரோடு',
         photoUrl: null,
         hidePhoto: false,
+        user: { userid: 'AK2001' }
       };
 
-      finalBrides = [dummyBride, { ...dummyBride, id: 'b2', name: 'சங்கீதா', city: 'திருப்பூர்' }, { ...dummyBride, id: 'b3', name: 'பிரியா', city: 'சேலம்' }];
-      finalGrooms = [dummyGroom, { ...dummyGroom, id: 'g2', name: 'அரவிந்த்', city: 'கரூர்' }, { ...dummyGroom, id: 'g3', name: 'சூர்யா', city: 'சென்னை' }];
+      finalBrides = [dummyBride, { ...dummyBride, id: 'b2', name: 'சங்கீதா', city: 'திருப்பூர்', user: { userid: 'AK1002' } }, { ...dummyBride, id: 'b3', name: 'பிரியா', city: 'சேலம்', user: { userid: 'AK1003' } }];
+      finalGrooms = [dummyGroom, { ...dummyGroom, id: 'g2', name: 'அரவிந்த்', city: 'கரூர்', user: { userid: 'AK2002' } }, { ...dummyGroom, id: 'g3', name: 'சூர்யா', city: 'சென்னை', user: { userid: 'AK2003' } }];
     }
 
     return NextResponse.json({

@@ -12,9 +12,10 @@ interface FileUploadProps {
   onUploadSuccess: (url: string) => void;
   onFileSelect?: (file: File) => void;
   initialUrl?: string;
+  required?: boolean;
 }
 
-export function FileUpload({ label, subLabel, bucket, onUploadSuccess, onFileSelect, initialUrl }: FileUploadProps) {
+export function FileUpload({ label, subLabel, bucket, onUploadSuccess, onFileSelect, initialUrl, required }: FileUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState(!!initialUrl);
   const [fileName, setFileName] = useState<string | undefined>(
@@ -137,7 +138,10 @@ export function FileUpload({ label, subLabel, bucket, onUploadSuccess, onFileSel
           <div className="w-10 h-10 bg-gray-100 group-hover:bg-background text-gray-400 group-hover:text-primary rounded-full flex items-center justify-center mx-auto mb-2 transition-colors">
             <Upload className="w-5 h-5" />
           </div>
-          <p className="text-xs font-bold text-gray-700">{label}</p>
+          <p className="text-xs font-bold text-gray-700">
+            {label}
+            {required && <span className="text-red-500 ml-1">*</span>}
+          </p>
           <p className="text-[10px] text-gray-400 font-medium mt-1">{subLabel}</p>
         </div>
       )}

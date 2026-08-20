@@ -26,9 +26,10 @@ export async function generateMetadata(
   
   // Use koottam, fallback to subCaste, fallback to empty
   const kulam = profile.koottam || profile.subCaste || 'Not Specified';
+  const dosham = profile.dosham || 'சுத்த ஜாதகம்';
   
-  // Format exactly as requested: பெயர் :Name படிப்பு :Edu குலம் : Kulam - View profile
-  const description = `பெயர் :${name} படிப்பு :${education} குலம் : ${kulam} - View profile akshayamtamilmatrimony.com`;
+  // Format exactly as requested: பெயர் :Name படிப்பு :Edu குலம் : Kulam தோஷம் : Dosham
+  const description = `பெயர் :${name} படிப்பு :${education} குலம் : ${kulam} தோஷம் : ${dosham}`;
 
   let imageUrl = 'https://www.akshayamtamilmatrimony.com/akshayam_logo.png';
   if (profile.photoUrl) {

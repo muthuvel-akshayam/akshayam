@@ -8,6 +8,10 @@ import Link from 'next/link';
 import { useLanguage } from '@/frontend/context/LanguageContext';
 import { translateRasi, translateNakshatra } from '@/frontend/utils/astrology';
 import { logoutUser } from '@/backend/actions/auth';
+import { shareToWhatsApp } from '@/lib/shareProfile';
+import { downloadBioDataPdf, printBioDataPdf } from '@/lib/generatePdf';
+import JathagamPDFTemplate from '@/frontend/components/pdf/JathagamPDFTemplate';
+import { Printer } from 'lucide-react';
 
 export default function DashboardClient({ user, matches = [] }: { user: any; matches?: any[] }) {
   console.log('DashboardClient user:', user);
@@ -184,23 +188,42 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
                 <Link
                   href="/profile"
-                  className="w-full sm:w-auto px-8 py-3.5 bg-primary hover:bg-primary-light text-white font-bold rounded-full shadow-md hover:shadow-lg transition-all text-sm flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 bg-primary hover:bg-primary-light text-white font-bold rounded-full shadow-md transition-all text-sm flex items-center justify-center gap-2"
                 >
-                  <span>{language === 'TA' ? 'சுயவிவரத்தை திருத்து / பார்வையிட' : 'View / Edit My Profile'}</span>
-                  <span>→</span>
+                  <span>{language === 'TA' ? 'சுயவிவரத்தை திருத்து' : 'Edit Profile'}</span>
                 </Link>
+                <button
+                  onClick={() => shareToWhatsApp(profile.id)}
+                  className="w-full sm:w-auto px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-full shadow-md transition-all text-sm flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>{language === 'TA' ? 'பகிர' : 'Share'}</span>
+                </button>
+                <button
+                  onClick={() => downloadBioDataPdf(`pdf-template-${profile.id}`, profile.id)}
+                  className="w-full sm:w-auto px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full shadow-md transition-all text-sm flex items-center justify-center gap-2"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>{language === 'TA' ? 'பதிவிறக்கு' : 'Download'}</span>
+                </button>
+                <button
+                  onClick={() => printBioDataPdf(`pdf-template-${profile.id}`)}
+                  className="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-md transition-all text-sm flex items-center justify-center gap-2"
+                >
+                  <Printer className="w-4 h-4" />
+                  <span>{language === 'TA' ? 'பிரிண்ட்' : 'Print'}</span>
+                </button>
                 <button
                   onClick={async () => {
                     await logoutUser();
                     window.location.href = '/';
                   }}
-                  className="w-full sm:w-auto px-6 py-3.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-full transition-all text-sm flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-full transition-all text-sm flex items-center justify-center gap-2"
                 >
                   <LogOut className="w-4 h-4" />
-                  <span>{language === 'TA' ? 'வெளியேறு' : 'Logout'}</span>
                 </button>
               </div>
 
@@ -291,12 +314,21 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
             </div>
 
             {/* Action Bar */}
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-100 max-w-2xl mx-auto">
-              <Link href="/profile" className="w-full sm:w-auto bg-primary hover:bg-primary-light text-white px-8 py-2.5 rounded-full font-bold flex items-center justify-center transition-all shadow-md active:scale-95 text-sm">
+            <div className="flex flex-wrap justify-center sm:justify-between items-center gap-3 pt-4 border-t border-gray-100 max-w-2xl mx-auto">
+              <Link href="/profile" className="w-full sm:w-auto bg-primary hover:bg-primary-light text-white px-6 py-2.5 rounded-full font-bold flex items-center justify-center transition-all shadow-md active:scale-95 text-sm">
                 {language === 'TA' ? 'சுயவிவரத்தைத் திருத்த' : 'Edit Profile'}
               </Link>
+              <button onClick={() => shareToWhatsApp(profile.id)} className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-full font-bold flex items-center justify-center transition-all shadow-md active:scale-95 text-sm">
+                <MessageCircle className="w-4 h-4 mr-2" /> {language === 'TA' ? 'பகிர' : 'Share'}
+              </button>
+              <button onClick={() => downloadBioDataPdf(`pdf-template-${profile.id}`, profile.id)} className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-bold flex items-center justify-center transition-all shadow-md active:scale-95 text-sm">
+                <Download className="w-4 h-4 mr-2" /> {language === 'TA' ? 'பதிவிறக்கு' : 'Download'}
+              </button>
+              <button onClick={() => printBioDataPdf(`pdf-template-${profile.id}`)} className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full font-bold flex items-center justify-center transition-all shadow-md active:scale-95 text-sm">
+                <Printer className="w-4 h-4 mr-2" /> {language === 'TA' ? 'பிரிண்ட்' : 'Print'}
+              </button>
               {profile.status === 'APPROVED' && (
-                <Link href="/profiles" className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 px-8 py-2.5 rounded-full font-bold flex items-center justify-center transition-all shadow-sm hover:shadow active:scale-95 text-sm">
+                <Link href="/profiles" className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 px-6 py-2.5 rounded-full font-bold flex items-center justify-center transition-all shadow-sm hover:shadow active:scale-95 text-sm">
                   <Star className="w-4 h-4 mr-2 text-accent" /> {language === 'TA' ? 'பொருத்தமான வரன்கள்' : 'Browse Matches'}
                 </Link>
               )}
@@ -435,9 +467,9 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                   <div className="bg-red-50 text-rose-600 p-2 rounded-lg mb-2">
                     <Calendar className="w-5 h-5" />
                   </div>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'வயது & உயரம்' : 'Age & Height'}</p>
-                  <p className="text-xs font-bold text-gray-900">{age !== 'N/A' ? `${age.years}Y ${age.months}M ${age.days}D` : 'N/A'}</p>
-                  <p className="text-xs font-semibold text-gray-600">{profile.height} cm</p>
+                  <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'வயது & உயரம்' : 'Age & Height'}</p>
+                  <p className="text-base font-bold text-gray-900">{age !== 'N/A' ? `${age.years}Y ${age.months}M ${age.days}D` : 'N/A'}</p>
+                  <p className="text-base font-semibold text-gray-600">{profile.height} cm</p>
                 </div>
 
                 {/* Religion & Caste */}
@@ -445,9 +477,9 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                   <div className="bg-yellow-50 text-red-600 p-2 rounded-lg mb-2">
                     <Activity className="w-5 h-5" />
                   </div>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'சமூகம்' : 'Community'}</p>
-                  <p className="text-xs font-bold text-gray-900 line-clamp-1" title={profile.caste}>{profile.caste || 'N/A'}</p>
-                  <p className="text-xs font-semibold text-gray-600 line-clamp-1">{profile.religion || 'N/A'}</p>
+                  <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'சமூகம்' : 'Community'}</p>
+                  <p className="text-base font-bold text-gray-900 line-clamp-1" title={profile.caste}>{profile.caste || 'N/A'}</p>
+                  <p className="text-base font-semibold text-gray-600 line-clamp-1">{profile.religion || 'N/A'}</p>
                 </div>
 
                 {/* Education */}
@@ -455,8 +487,8 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                   <div className="bg-blue-50 text-blue-600 p-2 rounded-lg mb-2">
                     <GraduationCap className="w-5 h-5" />
                   </div>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'கல்வி' : 'Education'}</p>
-                  <p className="text-xs font-bold text-gray-900 line-clamp-2">
+                  <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'கல்வி' : 'Education'}</p>
+                  <p className="text-base font-bold text-gray-900 line-clamp-2">
                     {profile.educations && profile.educations.length > 0 ? profile.educations[0].degreeName : 'N/A'}
                   </p>
                 </div>
@@ -466,8 +498,8 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                   <div className="bg-emerald-50 text-emerald-600 p-2 rounded-lg mb-2">
                     <Briefcase className="w-5 h-5" />
                   </div>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'தொழில்' : 'Profession'}</p>
-                  <p className="text-xs font-bold text-gray-900 line-clamp-2">{family?.designation || (language === 'TA' ? 'குறிப்பிடப்படவில்லை' : 'Not specified')}</p>
+                  <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'தொழில்' : 'Profession'}</p>
+                  <p className="text-base font-bold text-gray-900 line-clamp-2">{family?.designation || (language === 'TA' ? 'குறிப்பிடப்படவில்லை' : 'Not specified')}</p>
                 </div>
                 
                 {/* Location */}
@@ -475,8 +507,8 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
                   <div className="bg-yellow-50 text-yellow-500 p-2 rounded-lg mb-2">
                     <MapPin className="w-5 h-5" />
                   </div>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'தற்போதைய இருப்பிடம்' : 'Current Location'}</p>
-                  <p className="text-sm font-bold text-gray-900">
+                  <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5">{language === 'TA' ? 'தற்போதைய இருப்பிடம்' : 'Current Location'}</p>
+                  <p className="text-lg font-bold text-gray-900">
                     {profile.hideHouseLocation ? (
                       <span className="flex items-center justify-center text-gray-500"><Lock className="w-3 h-3 mr-1" /> {language === 'TA' ? 'பாதுகாக்கப்பட்ட இருப்பிடம்' : 'Protected Location'}</span>
                     ) : (
@@ -492,24 +524,24 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
               <h3 className="text-lg font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">{language === 'TA' ? 'தனிப்பட்ட விவரங்கள்' : 'Personal Details'}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'பிறந்த தேதி' : 'Date of Birth'}</span>
-                  <span className="text-sm font-bold text-gray-900">{profile.dob ? new Date(profile.dob).toLocaleDateString() : 'N/A'}</span>
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'பிறந்த தேதி' : 'Date of Birth'}</span>
+                  <span className="text-lg font-bold text-gray-900">{profile.dob ? new Date(profile.dob).toLocaleDateString() : 'N/A'}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'உடல் அமைப்பு' : 'Physical Condition'}</span>
-                  <span className="text-sm font-bold text-gray-900">{profile.physicalCondition || 'N/A'}</span>
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'உடல் அமைப்பு' : 'Physical Condition'}</span>
+                  <span className="text-lg font-bold text-gray-900">{profile.physicalCondition || 'N/A'}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'எடை' : 'Weight'}</span>
-                  <span className="text-sm font-bold text-gray-900">{profile.weight ? `${profile.weight} kg` : 'N/A'}</span>
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'எடை' : 'Weight'}</span>
+                  <span className="text-lg font-bold text-gray-900">{profile.weight ? `${profile.weight} kg` : 'N/A'}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'நிறம்' : 'Complexion'}</span>
-                  <span className="text-sm font-bold text-gray-900">{profile.skinColour || 'N/A'}</span>
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'நிறம்' : 'Complexion'}</span>
+                  <span className="text-lg font-bold text-gray-900">{profile.skinColour || 'N/A'}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'உட்பிரிவு' : 'Sub Caste'}</span>
-                  <span className="text-sm font-bold text-gray-900">{profile.subCaste || 'N/A'}</span>
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'உட்பிரிவு' : 'Sub Caste'}</span>
+                  <span className="text-lg font-bold text-gray-900">{profile.subCaste || 'N/A'}</span>
                 </div>
               </div>
             </div>
@@ -519,16 +551,16 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
               <h3 className="text-lg font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">{language === 'TA' ? 'பழக்கவழக்கங்கள்' : 'Lifestyle'}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'உணவு பழக்கம்' : 'Food Habits'}</span>
-                  <span className="text-sm font-bold text-gray-900">{profile.foodHabits || 'N/A'}</span>
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'உணவு பழக்கம்' : 'Food Habits'}</span>
+                  <span className="text-lg font-bold text-gray-900">{profile.foodHabits || 'N/A'}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'மதுப் பழக்கம்' : 'Drinking Habits'}</span>
-                  <span className="text-sm font-bold text-gray-900">{profile.drinkingHabits || 'N/A'}</span>
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'மதுப் பழக்கம்' : 'Drinking Habits'}</span>
+                  <span className="text-lg font-bold text-gray-900">{profile.drinkingHabits || 'N/A'}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'புகைப்பிடிக்கும் பழக்கம்' : 'Smoking Habits'}</span>
-                  <span className="text-sm font-bold text-gray-900">{profile.smokingHabits || 'N/A'}</span>
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'புகைப்பிடிக்கும் பழக்கம்' : 'Smoking Habits'}</span>
+                  <span className="text-lg font-bold text-gray-900">{profile.smokingHabits || 'N/A'}</span>
                 </div>
               </div>
             </div>
@@ -538,22 +570,22 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
               <h3 className="text-lg font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">{language === 'TA' ? 'தொடர்பு விவரங்கள்' : 'Contact Details'}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'அலைபேசி எண்' : 'Mobile No.'}</span>
-                  <span className="text-sm font-bold text-gray-900 flex items-center">
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'அலைபேசி எண்' : 'Mobile No.'}</span>
+                  <span className="text-lg font-bold text-gray-900 flex items-center">
                     {profile.hideMobileNo && <span title="Hidden from public" className="inline-flex items-center mr-1.5"><Lock className="w-3 h-3 text-amber-500" /></span>}
                     {user.mobile_no || 'N/A'}
                   </span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
-                  <span className="text-sm font-semibold text-gray-500">{language === 'TA' ? 'பெற்றோர் அலைபேசி' : 'Parents Mobile'}</span>
-                  <span className="text-sm font-bold text-gray-900 flex items-center">
+                  <span className="text-base font-semibold text-gray-600">{language === 'TA' ? 'பெற்றோர் அலைபேசி' : 'Parents Mobile'}</span>
+                  <span className="text-lg font-bold text-gray-900 flex items-center">
                     {profile.hideMobileNo && <span title="Hidden from public" className="inline-flex items-center mr-1.5"><Lock className="w-3 h-3 text-amber-500" /></span>}
                     {family?.fatherMobile || family?.motherMobile || 'N/A'}
                   </span>
                 </div>
                 <div className="py-2">
-                  <span className="text-sm font-semibold text-gray-500 block mb-1">{language === 'TA' ? 'வீட்டு முகவரி' : 'House Address'}</span>
-                  <p className="text-sm font-bold text-gray-900 flex items-start">
+                  <span className="text-base font-semibold text-gray-600 block mb-1">{language === 'TA' ? 'வீட்டு முகவரி' : 'House Address'}</span>
+                  <p className="text-lg font-bold text-gray-900 flex items-start">
                     {profile.hideHouseAddress && <span title="Hidden from public" className="inline-flex items-center mt-1 mr-1.5 flex-shrink-0"><Lock className="w-3 h-3 text-amber-500" /></span>}
                     <span>{profile.houseAddress || (language === 'TA' ? 'முகவரி வழங்கப்படவில்லை' : 'Address not provided')}</span>
                   </p>
@@ -818,6 +850,11 @@ export default function DashboardClient({ user, matches = [] }: { user: any; mat
             
           </div>
         </div>
+      </div>
+      
+      {/* Hidden PDF Template for Download and Print */}
+      <div style={{ position: 'absolute', top: 0, left: 0, zIndex: -1000, opacity: 0.01, pointerEvents: 'none' }}>
+        <JathagamPDFTemplate profile={profile} profileId={profile.id} family={family} akshayamId={user.userid} userIndex={user.userIndex} />
       </div>
     </div>
   );

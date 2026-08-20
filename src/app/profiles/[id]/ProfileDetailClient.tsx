@@ -30,16 +30,21 @@ export function ProfileDetailClient({ user }: { user: any }) {
     };
     const houses: {houseIndex: number, planets: string[]}[] = [];
     for (const [key, planets] of Object.entries(gridData)) {
-      const idx = houseMapping[key.toLowerCase()];
-      if (idx !== undefined) {
-        houses.push({ houseIndex: idx, planets: Array.isArray(planets) ? planets : [] });
+      let idx: number | undefined;
+      if (!isNaN(Number(key))) {
+        idx = Number(key);
+      } else {
+        idx = houseMapping[key.toLowerCase()];
+      }
+      if (idx !== undefined && Array.isArray(planets)) {
+        houses.push({ houseIndex: idx, planets: planets.map(p => String(p)) });
       }
     }
     return houses.length > 0 ? houses : null;
   };
 
-  const rasiHouses = (profile as any).jathagamData?.rasi || convertLegacyGrid(profile.rasiGrid);
-  const amsamHouses = (profile as any).jathagamData?.navamsam || convertLegacyGrid(profile.amsamGrid);
+  const rasiHouses = convertLegacyGrid((profile as any).jathagamData?.rasiChart) || convertLegacyGrid((profile as any).jathagamData?.rasi) || convertLegacyGrid(profile.rasiGrid);
+  const amsamHouses = convertLegacyGrid((profile as any).jathagamData?.navamsamChart) || convertLegacyGrid((profile as any).jathagamData?.navamsam) || convertLegacyGrid(profile.amsamGrid);
   const hasCharts = rasiHouses && amsamHouses;
 
   if (!profile) return <div>Profile not found.</div>;
@@ -75,11 +80,16 @@ export function ProfileDetailClient({ user }: { user: any }) {
         body: JSON.stringify({ jathakamUrl: profile.jathakamUrl, userId: user.id })
       });
       
-      if (!res.ok) throw new Error('Extraction failed');
+      if (!res.ok) {
+        const errText = await res.text();
+        console.error("Backend Error Response:", errText);
+        throw new Error(`Extraction failed: ${errText}`);
+      }
       
       router.refresh();
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      alert(err.message || 'Extraction failed');
     } finally {
       setIsExtracting(false);
     }
@@ -145,35 +155,35 @@ export function ProfileDetailClient({ user }: { user: any }) {
           <div className="w-full md:w-2/3 p-0 flex flex-col">
             <div className="bg-amber-100/50 p-6 flex-1">
               <div className="grid grid-cols-[150px_auto] gap-y-4">
-                <div className="font-semibold text-gray-700">பெயர்</div>
-                <div className="font-bold text-gray-900">: {profile.name}</div>
+                <div className="text-lg font-bold text-gray-700">பெயர்</div>
+                <div className="text-lg font-extrabold text-gray-900">: {profile.name}</div>
                 
-                <div className="font-semibold text-gray-700">வயது</div>
+                <div className="text-lg font-bold text-gray-700">வயது</div>
                 <div className="text-gray-900">: {age}</div>
                 
-                <div className="font-semibold text-gray-700">படிப்பு</div>
+                <div className="text-lg font-bold text-gray-700">படிப்பு</div>
                 <div className="text-gray-900">: {education}</div>
                 
-                <div className="font-semibold text-gray-700">தொழில்</div>
+                <div className="text-lg font-bold text-gray-700">தொழில்</div>
                 <div className="text-gray-900">: {profession}</div>
                 
-                <div className="font-semibold text-gray-700">வேலை செய்யும் இடம்</div>
+                <div className="text-lg font-bold text-gray-700">வேலை செய்யும் இடம்</div>
                 <div className="text-gray-900">: {safeStr(family?.city || profile.city)}</div>
               </div>
             </div>
             
             <div className="bg-gray-50 p-6 flex-1 border-t border-gray-100">
               <div className="grid grid-cols-[150px_auto] gap-y-4">
-                <div className="font-semibold text-gray-700">பதிவு எண்</div>
-                <div className="font-bold text-gray-900">: {user.userid || (user.userIndex ? `${1000 + user.userIndex}` : `${user.id.substring(0, 6).toUpperCase()}`)}</div>
+                <div className="text-lg font-bold text-gray-700">பதிவு எண்</div>
+                <div className="text-lg font-extrabold text-gray-900">: {user.userid || (user.userIndex ? `${1000 + user.userIndex}` : `${user.id.substring(0, 6).toUpperCase()}`)}</div>
                 
-                <div className="font-semibold text-gray-700">ஜாதி</div>
+                <div className="text-lg font-bold text-gray-700">ஜாதி</div>
                 <div className="text-gray-900">: {safeStr(profile.caste)}</div>
                 
-                <div className="font-semibold text-gray-700">குலம்</div>
+                <div className="text-lg font-bold text-gray-700">குலம்</div>
                 <div className="text-gray-900">: {safeStr(profile.koottam)}</div>
                 
-                <div className="font-semibold text-gray-700">திருமண நிலை</div>
+                <div className="text-lg font-bold text-gray-700">திருமண நிலை</div>
                 <div className="text-gray-900">: {safeStr(profile.maritalStatus)}</div>
               </div>
             </div>
@@ -194,80 +204,80 @@ export function ProfileDetailClient({ user }: { user: any }) {
             {/* Left Column */}
             <div className="space-y-4">
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">தந்தை பெயர்</div>
-                <div className="font-medium text-gray-900">: {safeStr(family?.fatherName)}</div>
+                <div className="text-lg font-semibold text-gray-700">தந்தை பெயர்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.fatherName)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">தந்தை தொழில்</div>
-                <div className="font-medium text-gray-900">: {safeStr(family?.fatherStatus)}</div>
+                <div className="text-lg font-semibold text-gray-700">தந்தை தொழில்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.fatherStatus)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">தாயார் பெயர்</div>
-                <div className="font-medium text-gray-900">: {safeStr(family?.motherName)}</div>
+                <div className="text-lg font-semibold text-gray-700">தாயார் பெயர்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.motherName)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">தாயார் தொழில்</div>
-                <div className="font-medium text-gray-900">: {safeStr(family?.motherStatus)}</div>
+                <div className="text-lg font-semibold text-gray-700">தாயார் தொழில்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.motherStatus)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">உடன் பிறப்பு</div>
-                <div className="font-medium text-gray-900">: {Array.isArray(family?.siblings) ? family.siblings.length : 0}</div>
+                <div className="text-lg font-semibold text-gray-700">உடன் பிறப்பு</div>
+                <div className="text-lg font-bold text-gray-900">: {Array.isArray(family?.siblings) ? family.siblings.length : 0}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">பிறந்த தேதி</div>
-                <div className="font-medium text-gray-900">: {profile.dob ? new Date(profile.dob).toLocaleDateString('en-GB') : '-'}</div>
+                <div className="text-lg font-semibold text-gray-700">பிறந்த தேதி</div>
+                <div className="text-lg font-bold text-gray-900">: {profile.dob ? new Date(profile.dob).toLocaleDateString('en-GB') : '-'}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">பிறந்த நேரம்</div>
-                <div className="font-medium text-gray-900">: {safeStr(profile.tob)}</div>
+                <div className="text-lg font-semibold text-gray-700">பிறந்த நேரம்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.tob)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">பிறந்த இடம்</div>
-                <div className="font-medium text-gray-900">: {safeStr(profile.lob)}</div>
+                <div className="text-lg font-semibold text-gray-700">பிறந்த இடம்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.lob)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">சொந்த ஊர்</div>
-                <div className="font-medium text-gray-900">: {safeStr(profile.city)}</div>
+                <div className="text-lg font-semibold text-gray-700">சொந்த ஊர்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.city)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">சொத்து விவரம்</div>
-                <div className="font-medium text-gray-900">: {safeStr(family?.totalAssetValue || family?.vacantLand || family?.houseType)}</div>
+                <div className="text-lg font-semibold text-gray-700">சொத்து விவரம்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.totalAssetValue || family?.vacantLand || family?.houseType)}</div>
               </div>
             </div>
 
             {/* Right Column */}
             <div className="space-y-4">
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">நட்சத்திரம்</div>
-                <div className="font-medium text-gray-900">: {translateNakshatra(profile.nakshatra, 'TA')}</div>
+                <div className="text-lg font-semibold text-gray-700">நட்சத்திரம்</div>
+                <div className="text-lg font-bold text-gray-900">: {translateNakshatra(profile.nakshatra, 'TA')}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">ராசி</div>
-                <div className="font-medium text-gray-900">: {translateRasi(profile.rasi, 'TA')}</div>
+                <div className="text-lg font-semibold text-gray-700">ராசி</div>
+                <div className="text-lg font-bold text-gray-900">: {translateRasi(profile.rasi, 'TA')}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">தோஷம்</div>
-                <div className="font-medium text-gray-900">: {safeStr(profile.dosham)}</div>
+                <div className="text-lg font-semibold text-gray-700">தோஷம்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.dosham)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">நிறம்</div>
-                <div className="font-medium text-gray-900">: {safeStr(profile.skinColour)}</div>
+                <div className="text-lg font-semibold text-gray-700">நிறம்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.skinColour)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">உயரம்</div>
-                <div className="font-medium text-gray-900">: {safeStr(profile.height)} cm</div>
+                <div className="text-lg font-semibold text-gray-700">உயரம்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.height)} cm</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">எடை</div>
-                <div className="font-medium text-gray-900">: {safeStr(profile.weight)} kg</div>
+                <div className="text-lg font-semibold text-gray-700">எடை</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.weight)} kg</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">மாத வருமானம்</div>
-                <div className="font-medium text-gray-900">: {safeStr(family?.salary)}</div>
+                <div className="text-lg font-semibold text-gray-700">மாத வருமானம்</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.salary)}</div>
               </div>
               <div className="grid grid-cols-[150px_auto]">
-                <div className="text-gray-600">எதிர்பார்ப்பு</div>
-                <div className="font-medium text-gray-900">: {safeStr(exp?.expectedIncome || 'Any')}</div>
+                <div className="text-lg font-semibold text-gray-700">எதிர்பார்ப்பு</div>
+                <div className="text-lg font-bold text-gray-900">: {safeStr(exp?.expectedIncome || 'Any')}</div>
               </div>
               
               <div className="mt-8 bg-white/50 p-4 rounded-lg border border-red-100 text-sm text-red-600 italic">

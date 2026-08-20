@@ -11,7 +11,7 @@ import {
   Info, Briefcase, Mail, ChevronRight, Lock, LogIn, Menu, X,
   FileText, TreePine, Flame, Drum, Gift, ChefHat, 
   Vegan, Milk, Cake, Salad, GlassWater, Flower, 
-  Camera, IceCream, CupSoda, MessageCircle
+  Camera, IceCream, CupSoda, MessageCircle, Tent
 } from 'lucide-react';
 
 export default function HomeClient() {
@@ -63,6 +63,7 @@ export default function HomeClient() {
 
   const servicesTa = [
     { title: 'ஜாதக பதிவு', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.', icon: FileText, imageUrl: '/services/premium/premium_0.png' },
+    { title: 'திருமண மண்டபம்', desc: 'விசாலமான மற்றும் அழகான திருமண மண்டபங்கள் வசதி.', icon: Tent, imageUrl: '/services/premium/premium_15.jpg' },
     { title: 'வாழை மரம்', desc: 'திருமணத்திற்கான மங்களகரமான வாழை மரங்கள்.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
     { title: 'ஐயர்', desc: 'திருமண சடங்குகளை சிறப்பிக்க அனுபவம் வாய்ந்த ஐயர்கள்.', icon: Flame, imageUrl: '/services/premium/premium_2.png' },
     { title: 'மாங்கல்ய வாத்தியம்', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
@@ -81,6 +82,7 @@ export default function HomeClient() {
 
   const servicesEn = [
     { title: 'Horoscope Registration', desc: 'Accurate and secure registration of horoscopes for matchmaking.', icon: FileText, imageUrl: '/services/premium/premium_0.png' },
+    { title: 'Kalyana Mandapam', desc: 'Spacious and beautifully decorated premium wedding halls.', icon: Tent, imageUrl: '/services/premium/premium_15.jpg' },
     { title: 'Banana Tree Decor', desc: 'Traditional auspicious banana tree arrangements for weddings.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
     { title: 'Priest / Iyer', desc: 'Experienced Vedic priests to conduct traditional rituals.', icon: Flame, imageUrl: '/services/premium/premium_2.png' },
     { title: 'Auspicious Music', desc: 'Auspicious Nadaswaram and Thavil artists for wedding ceremonies.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
@@ -328,7 +330,7 @@ export default function HomeClient() {
                 <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-primary/10">
                   <ProfileCarousel 
                     profiles={featuredBrides} 
-                    title={language === 'TA' ? 'வரவேற்கும் வரன்கள் - பெண்' : 'Featured Brides'} 
+                    title={language === 'TA' ? 'வரன்கள் - பெண்' : 'Featured Brides'} 
                   />
                 </div>
               )}
@@ -336,7 +338,7 @@ export default function HomeClient() {
                 <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-primary/10">
                   <ProfileCarousel 
                     profiles={featuredGrooms} 
-                    title={language === 'TA' ? 'வரவேற்கும் வரன்கள் - ஆண்' : 'Featured Grooms'} 
+                    title={language === 'TA' ? 'வரன்கள் - ஆண்' : 'Featured Grooms'} 
                   />
                 </div>
               )}

@@ -692,6 +692,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                 onUploadSuccess={handleJathakamUploadSuccess}
                 onFileSelect={handleJathakamFileSelect}
                 initialUrl={watch('jathakamUrl')}
+                required
               />
               {isExtracting && (
                 <div className="mt-1 flex items-center justify-center gap-2 text-emerald-700 text-xs font-bold bg-emerald-50 py-1.5 rounded">
@@ -708,6 +709,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               bucket="profile-photos" 
               onUploadSuccess={(url) => setValue('photoUrl', url, { shouldValidate: true, shouldDirty: true })} 
               initialUrl={watch('photoUrl')}
+              required
             />
             {watch('gender') === 'FEMALE' && (
               <div className="flex items-center space-x-2 bg-pink-50 p-2 rounded border border-pink-100">
@@ -724,6 +726,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
             bucket="user-documents" 
             onUploadSuccess={(url) => setValue('casteCertificateUrl', url, { shouldValidate: true, shouldDirty: true })} 
             initialUrl={watch('casteCertificateUrl')}
+            required
           />
           
         </div>

@@ -5,7 +5,31 @@ import prisma from '@/backend/prisma';
 
 export async function POST(req: Request) {
   try {
-    const { imageBase64 } = await req.json();
+    const { imageBase64, jathakamUrl, userId } = await req.json();
+    
+    let base64Data = imageBase64;
+
+    if (!base64Data && jathakamUrl) {
+      let finalUrl = jathakamUrl;
+      if (!jathakamUrl.startsWith('http')) {
+        const { data } = supabase.storage.from('user-documents').getPublicUrl(jathakamUrl);
+        if (data && data.publicUrl) {
+          finalUrl = data.publicUrl;
+        } else {
+          throw new Error("Could not generate public url for jathakamUrl");
+        }
+      }
+      
+      const imageRes = await fetch(finalUrl);
+      if (!imageRes.ok) throw new Error("Failed to fetch image from storage");
+      const arrayBuffer = await imageRes.arrayBuffer();
+      base64Data = Buffer.from(arrayBuffer).toString('base64');
+    }
+
+    if (!base64Data) {
+      throw new Error("No image data provided");
+    }
+
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       throw new Error("GEMINI_API_KEY is not set.");
@@ -52,23 +76,56 @@ Note for chart house indices: 0 = Meenam, 1 = Mesham, 2 = Rishabam, 3 = Mithunam
 Return ONLY raw JSON without markdown codeblock backticks.
 `;
 
-    const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: [
-            prompt,
-            { inlineData: { data: imageBase64, mimeType: "image/jpeg" } }
-        ]
-    });
+    let text = null;
+    let retries = 3;
+    while (retries > 0) {
+      try {
+        const response = await ai.models.generateContent({
+            model: 'gemini-3.5-flash',
+            contents: [
+                prompt,
+                { inlineData: { data: base64Data, mimeType: "image/jpeg" } }
+            ]
+        });
+        text = response.text;
+        break;
+      } catch (err: any) {
+        if (err.message?.includes('503') || err.message?.includes('UNAVAILABLE')) {
+          retries--;
+          if (retries === 0) throw err;
+          // Wait 2 seconds before retrying
+          await new Promise(r => setTimeout(r, 2000));
+        } else {
+          throw err;
+        }
+      }
+    }
     
-    let text = response.text;
     if (!text) {
         throw new Error("No response from Gemini");
     }
 
-    // Clean up markdown if present
-    text = text.replace(/```json|```/g, "").trim();
-    
-    const parsedData = JSON.parse(text);
+    // Clean up potential markdown formatting (```json ... ```)
+    let cleanText = text.trim();
+    if (cleanText.startsWith('```json')) {
+      cleanText = cleanText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+    } else if (cleanText.startsWith('```')) {
+      cleanText = cleanText.replace(/^```\s*/, '').replace(/\s*```$/, '');
+    }
+
+    const parsedData = JSON.parse(cleanText);
+
+    // Save to database if userId is provided
+    if (userId) {
+      await prisma.profile.update({
+        where: { userId },
+        data: {
+          jathagamData: parsedData,
+          rasiGrid: parsedData.rasiChart || null,
+          amsamGrid: parsedData.navamsamChart || null,
+        }
+      });
+    }
 
     return NextResponse.json({ success: true, jathagamData: parsedData });
 
