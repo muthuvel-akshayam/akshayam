@@ -192,7 +192,7 @@ export async function respondToContact(requesterId: string, status: 'ACCEPTED' |
 
 export async function fetchUserByProfileId(profileId: string) {
   return await prisma.user.findFirst({
-    where: { profileId }
+    where: { profile: { id: profileId } }
   });
 }
 
