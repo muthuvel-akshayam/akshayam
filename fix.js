@@ -1,0 +1,1 @@
+const fs = require('fs'); let f = 'src/app/profiles/[id]/ProfileDetailClient.tsx'; let content = fs.readFileSync(f, 'utf8'); content = content.replace(/text-\[15px\] sm:text-lg font- text/g, 'text-[15px] sm:text-lg font-bold text'); fs.writeFileSync(f, content);

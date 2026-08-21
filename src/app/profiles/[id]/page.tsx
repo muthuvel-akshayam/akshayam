@@ -76,5 +76,10 @@ export default async function ProfileDetailPage({ params }: Props) {
     return notFound();
   }
 
-  return <ProfileDetailClient user={profileData} />;
+  // Check if current user has shortlisted this profile
+  const { getShortlistsForUser } = await import('@/backend/actions/shortlist');
+  const shortlists = await getShortlistsForUser();
+  const isShortlisted = shortlists.includes(id);
+
+  return <ProfileDetailClient user={profileData} initialIsShortlisted={isShortlisted} />;
 }

@@ -1,22 +1,55 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { User, MapPin, Briefcase, GraduationCap, Calendar, Clock, Star, Phone, Shield, Lock, Activity, Link as LinkIcon, Download, Share2, Wand2 } from 'lucide-react';
+import { User, MapPin, Briefcase, GraduationCap, Calendar, Clock, Star, Phone, Shield, Lock, Activity, Link as LinkIcon, Download, Share2, Wand2, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { translateNakshatra, translateRasi } from '@/frontend/utils/astrology';
 import JathagamChart from '@/frontend/components/JathagamChart';
 import { supabase } from '@/backend/supabase';
 import { requestContact } from '@/backend/actions/matches';
+import { toggleShortlist } from '@/backend/actions/shortlist';
 import JathagamPDFTemplate from '@/frontend/components/pdf/JathagamPDFTemplate';
 import { shareProfile, shareToWhatsApp } from '@/lib/shareProfile';
 import { downloadBioDataPdf } from '@/lib/generatePdf';
 
-
-
-export function ProfileDetailClient({ user }: { user: any }) {
+export function ProfileDetailClient({ user, initialIsShortlisted = false }: { user: any, initialIsShortlisted?: boolean }) {
   const router = useRouter();
   const [isExtracting, setIsExtracting] = useState(false);
+  const [isShortlisted, setIsShortlisted] = useState(initialIsShortlisted);
+  const [isShortlisting, setIsShortlisting] = useState(false);
+  
+  // Calculate if interest has already been sent
+  const [interestSent, setInterestSent] = useState(() => {
+    return user.receivedRequests && user.receivedRequests.length > 0;
+  });
+  const [isSendingInterest, setIsSendingInterest] = useState(false);
+
+  const handleToggleShortlist = async () => {
+    setIsShortlisting(true);
+    try {
+      await toggleShortlist(user.id);
+      setIsShortlisted(!isShortlisted);
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsShortlisting(false);
+    }
+  };
+
+  const handleSendInterest = async () => {
+    setIsSendingInterest(true);
+    try {
+      await requestContact(user.id);
+      setInterestSent(true);
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSendingInterest(false);
+    }
+  };
   const profile = user.profile;
   const family = user.family;
   const exp = user.expectations;
@@ -108,28 +141,44 @@ export function ProfileDetailClient({ user }: { user: any }) {
     <div className="min-h-screen bg-background py-10 px-4">
       <div className="max-w-5xl mx-auto space-y-8">
         
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <button 
             onClick={() => router.back()}
-            className="text-red-600 hover:text-red-800 font-semibold flex items-center gap-2"
+            className="text-red-600 hover:text-red-800 font-semibold flex items-center gap-2 self-start sm:self-center"
           >
             &larr; Back to Profiles
           </button>
           
-          <div className="flex gap-2">
+          <div className="grid grid-cols-4 sm:flex sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+            <button
+              onClick={handleToggleShortlist}
+              disabled={isShortlisting}
+              className={`col-span-2 sm:col-span-1 justify-center flex items-center gap-2 px-2 py-2.5 sm:px-4 sm:py-2 rounded-lg font-bold transition-colors shadow-sm disabled:opacity-50 ${isShortlisted ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'}`}
+            >
+              <Heart className={`w-4 h-4 ${isShortlisted ? 'fill-current' : ''}`} />
+              <span className="text-xs sm:text-sm">{isShortlisted ? 'Shortlisted' : 'Shortlist'}</span>
+            </button>
+            <button
+              onClick={handleSendInterest}
+              disabled={isSendingInterest || interestSent}
+              className={`col-span-2 sm:col-span-1 justify-center flex items-center gap-2 px-2 py-2.5 sm:px-4 sm:py-2 rounded-lg font-bold transition-colors shadow-sm disabled:opacity-75 ${interestSent ? 'bg-green-100 text-green-700 border border-green-200 cursor-not-allowed' : 'bg-primary text-white hover:bg-primary-light'}`}
+            >
+              <Star className={`w-4 h-4 ${interestSent ? 'fill-current' : ''}`} />
+              <span className="text-xs sm:text-sm">{interestSent ? 'Interest Sent' : 'Send Interest'}</span>
+            </button>
             <button
               onClick={() => shareToWhatsApp(profile.id)}
-              className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 shadow-sm transition-colors"
+              className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 px-2 py-2.5 sm:px-4 sm:py-2 bg-white rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 shadow-sm transition-colors"
             >
               <Share2 className="w-4 h-4" />
-              <span className="text-sm font-bold">Share</span>
+              <span className="text-xs sm:text-sm">Share</span>
             </button>
             <button
               onClick={() => downloadBioDataPdf(`pdf-template-${profile.id}`, profile.id)}
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 rounded-lg text-white hover:bg-red-700 shadow-sm transition-colors"
+              className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 px-2 py-2.5 sm:px-4 sm:py-2 bg-red-600 rounded-lg text-white hover:bg-red-700 shadow-sm transition-colors"
             >
               <Download className="w-4 h-4" />
-              <span className="text-sm font-bold">Download</span>
+              <span className="text-xs sm:text-sm">Download</span>
             </button>
           </div>
         </div>
@@ -154,36 +203,36 @@ export function ProfileDetailClient({ user }: { user: any }) {
           
           <div className="w-full md:w-2/3 p-0 flex flex-col">
             <div className="bg-amber-100/50 p-6 flex-1">
-              <div className="grid grid-cols-[150px_auto] gap-y-4">
-                <div className="text-lg font-bold text-gray-700">பெயர்</div>
-                <div className="text-lg font-extrabold text-gray-900">: {profile.name}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto] gap-y-4">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">பெயர்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {profile.name}</div>
                 
-                <div className="text-lg font-bold text-gray-700">வயது</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">வயது</div>
                 <div className="text-gray-900">: {age}</div>
                 
-                <div className="text-lg font-bold text-gray-700">படிப்பு</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">படிப்பு</div>
                 <div className="text-gray-900">: {education}</div>
                 
-                <div className="text-lg font-bold text-gray-700">{family?.workNature === 'JOB' ? 'பதவி' : 'தொழில்'}</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">{family?.workNature === 'JOB' ? 'பதவி' : 'தொழில்'}</div>
                 <div className="text-gray-900">: {profession}</div>
                 
-                <div className="text-lg font-bold text-gray-700">{family?.workNature === 'JOB' ? 'வேலை செய்யும் இடம்' : 'தொழில் அலுவலகம்'}</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">{family?.workNature === 'JOB' ? 'வேலை செய்யும் இடம்' : 'தொழில் அலுவலகம்'}</div>
                 <div className="text-gray-900">: {safeStr(family?.city || profile.city)}</div>
               </div>
             </div>
             
             <div className="bg-gray-50 p-6 flex-1 border-t border-gray-100">
-              <div className="grid grid-cols-[150px_auto] gap-y-4">
-                <div className="text-lg font-bold text-gray-700">பதிவு எண்</div>
-                <div className="text-lg font-extrabold text-gray-900">: {user.userid || (user.userIndex ? `${1000 + user.userIndex}` : `${user.id.substring(0, 6).toUpperCase()}`)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto] gap-y-4">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">பதிவு எண்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {user.userid || (user.userIndex ? `${1000 + user.userIndex}` : `${user.id.substring(0, 6).toUpperCase()}`)}</div>
                 
-                <div className="text-lg font-bold text-gray-700">ஜாதி</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">ஜாதி</div>
                 <div className="text-gray-900">: {safeStr(profile.caste)}</div>
                 
-                <div className="text-lg font-bold text-gray-700">குலம்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">குலம்</div>
                 <div className="text-gray-900">: {safeStr(profile.koottam)}</div>
                 
-                <div className="text-lg font-bold text-gray-700">திருமண நிலை</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">திருமண நிலை</div>
                 <div className="text-gray-900">: {safeStr(profile.maritalStatus)}</div>
               </div>
             </div>
@@ -203,81 +252,81 @@ export function ProfileDetailClient({ user }: { user: any }) {
             
             {/* Left Column */}
             <div className="space-y-4">
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">தந்தை பெயர்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.fatherName)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">தந்தை பெயர்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(family?.fatherName)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">தந்தை தொழில்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.fatherStatus)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">தந்தை தொழில்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(family?.fatherStatus)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">தாயார் பெயர்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.motherName)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">தாயார் பெயர்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(family?.motherName)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">தாயார் தொழில்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.motherStatus)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">தாயார் தொழில்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(family?.motherStatus)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">உடன் பிறப்பு</div>
-                <div className="text-lg font-bold text-gray-900">: {Array.isArray(family?.siblings) ? family.siblings.length : 0}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">உடன் பிறப்பு</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {Array.isArray(family?.siblings) ? family.siblings.length : 0}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">பிறந்த தேதி</div>
-                <div className="text-lg font-bold text-gray-900">: {profile.dob ? new Date(profile.dob).toLocaleDateString('en-GB') : '-'}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">பிறந்த தேதி</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {profile.dob ? new Date(profile.dob).toLocaleDateString('en-GB') : '-'}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">பிறந்த நேரம்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.tob)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">பிறந்த நேரம்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(profile.tob)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">பிறந்த இடம்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.lob)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">பிறந்த இடம்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(profile.lob)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">சொந்த ஊர்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.city)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">சொந்த ஊர்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(profile.city)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">சொத்து விவரம்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.totalAssetValue || family?.vacantLand || family?.houseType)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">சொத்து விவரம்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(family?.totalAssetValue || family?.vacantLand || family?.houseType)}</div>
               </div>
             </div>
 
             {/* Right Column */}
             <div className="space-y-4">
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">நட்சத்திரம்</div>
-                <div className="text-lg font-bold text-gray-900">: {translateNakshatra(profile.nakshatra, 'TA')}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">நட்சத்திரம்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {translateNakshatra(profile.nakshatra, 'TA')}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">ராசி</div>
-                <div className="text-lg font-bold text-gray-900">: {translateRasi(profile.rasi, 'TA')}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">ராசி</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {translateRasi(profile.rasi, 'TA')}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">தோஷம்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.dosham)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">தோஷம்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(profile.dosham)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">நிறம்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.skinColour)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">நிறம்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(profile.skinColour)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">உயரம்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.height)} cm</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">உயரம்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(profile.height)} cm</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">எடை</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(profile.weight)} kg</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">எடை</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(profile.weight)} kg</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">மாத வருமானம்</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(family?.salary)}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">மாத வருமானம்</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(family?.salary)}</div>
               </div>
-              <div className="grid grid-cols-[150px_auto]">
-                <div className="text-lg font-semibold text-gray-700">எதிர்பார்ப்பு</div>
-                <div className="text-lg font-bold text-gray-900">: {safeStr(exp?.expectedIncome || 'Any')}</div>
+              <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                <div className="text-[15px] sm:text-lg font-bold text-gray-700">எதிர்பார்ப்பு</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(exp?.expectedIncome || 'Any')}</div>
               </div>
               
               <div className="mt-8 bg-white/50 p-4 rounded-lg border border-red-100 text-sm text-red-600 italic">

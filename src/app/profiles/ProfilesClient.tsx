@@ -144,7 +144,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
         </div>
 
         {/* Profiles List */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-6">
           {profiles.map((match) => {
             const { profile, family, receivedRequests, sentRequests } = match;
             if (!profile) return null;

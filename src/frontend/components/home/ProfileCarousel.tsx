@@ -71,11 +71,11 @@ export default function ProfileCarousel({ profiles, title }: ProfileCarouselProp
 
       <div 
         ref={scrollContainerRef}
-        className="flex overflow-x-auto gap-4 sm:gap-6 pb-6 snap-x snap-mandatory hide-scrollbar"
+        className="flex overflow-x-auto snap-x snap-mandatory gap-3 py-2 px-1 scrollbar-none hide-scrollbar"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {profiles.map((profile, idx) => (
-          <div key={profile.id || idx} className="w-[220px] sm:w-[260px] flex-shrink-0 snap-start">
+          <div key={profile.id || idx} className="shrink-0 w-[270px] sm:w-[280px] snap-start">
             <LandingProfileCard profile={profile} />
           </div>
         ))}

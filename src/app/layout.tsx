@@ -28,9 +28,9 @@ export default function RootLayout({
   return (
     <html
       lang="ta"
-      className={`${geistSans.variable} ${notoSerifTamil.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${notoSerifTamil.variable} h-full w-full max-w-full overflow-x-hidden antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground selection:bg-primary/20 selection:text-primary overflow-x-hidden">
+      <body className="min-h-full w-full max-w-full flex flex-col font-sans bg-background text-foreground selection:bg-primary/20 selection:text-primary overflow-x-hidden">
         <LanguageProvider>
           {children}
         </LanguageProvider>

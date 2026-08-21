@@ -220,17 +220,6 @@ export default function HomeClient() {
             </div>
 
             <div className="mt-8 space-y-4">
-              <div className="flex items-center justify-between py-2 border-t border-gray-100">
-                <span className="text-sm font-bold text-gray-600">{language === 'TA' ? 'மொழி / Language' : 'Language'}</span>
-                <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
-  <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
-  <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
-    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform shadow-sm ${language === 'TA' ? 'translate-x-[20px]' : 'translate-x-1'}`}></span>
-  </div>
-  <span className={`text-xs font-bold ${language === 'TA' ? 'text-primary' : 'text-gray-400'}`}>தமிழ்</span>
-</div>
-              </div>
-              
               <button
                 onClick={() => { setIsMobileMenuOpen(false); setShowRegister(true); }}
                 className="w-full bg-primary hover:bg-primary-light text-white px-4 py-3 h-12 rounded-xl font-bold transition-all shadow-md flex items-center justify-center gap-2"
@@ -247,13 +236,13 @@ export default function HomeClient() {
       <section id="home" className="relative w-full min-h-[85vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)]/60 to-[var(--color-background)]">
         <div className="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(var(--color-primary)_1px,transparent_1px)] [background-size:24px_24px]"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left w-full mt-8 md:mt-12">
+        <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center w-full mt-8 md:mt-12">
           
           {/* Left: Text Content & Image */}
-          <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start">
+          <div className="w-full max-w-4xl flex flex-col items-center">
             
             {/* Restored Bride and Groom Image */}
-            <div className="w-full max-w-sm mx-auto lg:mx-0 mb-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 bg-white">
+            <div className="w-full max-w-sm mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 bg-white">
               <img 
                 src="/hero-couple.png" 
                 alt="Akshayam Bride and Groom" 
@@ -322,28 +311,6 @@ export default function HomeClient() {
               </a>
             </div>
           </div>
-
-          {/* Right: Featured Profiles (Carousels) */}
-          {(featuredBrides.length > 0 || featuredGrooms.length > 0) && (
-            <div className="w-full lg:w-1/2 flex flex-col gap-6 mt-8 lg:mt-0">
-              {featuredBrides.length > 0 && (
-                <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-primary/10">
-                  <ProfileCarousel 
-                    profiles={featuredBrides} 
-                    title={language === 'TA' ? 'வரன்கள் - பெண்' : 'Featured Brides'} 
-                  />
-                </div>
-              )}
-              {featuredGrooms.length > 0 && (
-                <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-primary/10">
-                  <ProfileCarousel 
-                    profiles={featuredGrooms} 
-                    title={language === 'TA' ? 'வரன்கள் - ஆண்' : 'Featured Grooms'} 
-                  />
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </section>
 
@@ -432,6 +399,38 @@ export default function HomeClient() {
           </div>
         </div>
       </section>
+
+      {/* Featured Profiles Section */}
+      {(featuredBrides.length > 0 || featuredGrooms.length > 0) && (
+        <section id="featured-profiles" className="py-24 bg-white relative">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-serif font-serif font-extrabold text-primary mb-4">
+                {language === 'TA' ? 'பொருத்தமான வரன்கள்' : 'Featured Profiles'}
+              </h2>
+              <div className="w-24 h-1.5 bg-accent mx-auto mb-6 rounded-full"></div>
+            </div>
+            <div className="flex flex-col gap-12">
+              {featuredBrides.length > 0 && (
+                <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/10">
+                  <ProfileCarousel 
+                    profiles={featuredBrides} 
+                    title={language === 'TA' ? 'வரன்கள் - பெண்' : 'Featured Brides'} 
+                  />
+                </div>
+              )}
+              {featuredGrooms.length > 0 && (
+                <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/10">
+                  <ProfileCarousel 
+                    profiles={featuredGrooms} 
+                    title={language === 'TA' ? 'வரன்கள் - ஆண்' : 'Featured Grooms'} 
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Why Choose Us */}
       <section className="py-24 bg-white relative">

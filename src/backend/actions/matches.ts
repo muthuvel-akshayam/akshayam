@@ -190,6 +190,68 @@ export async function respondToContact(requesterId: string, status: 'ACCEPTED' |
   return { success: true };
 }
 
+export async function fetchUserByProfileId(profileId: string) {
+  return await prisma.user.findFirst({
+    where: { profileId }
+  });
+}
+
+export async function getRecentProfiles(limit: number = 10) {
+  const currentUserId = await getUserId();
+  if (!currentUserId) return [];
+
+  const currentUser = await prisma.user.findUnique({
+    where: { id: currentUserId },
+    include: { profile: true }
+  });
+
+  if (!currentUser?.profile || String(currentUser.profile.status) !== 'APPROVED') {
+    return [];
+  }
+
+  const targetGender = currentUser.profile.gender === 'MALE' ? 'FEMALE' : 'MALE';
+
+  const recentUsers = await prisma.user.findMany({
+    where: {
+      profile: {
+        gender: targetGender,
+        status: 'APPROVED',
+        isLive: true,
+      },
+      status: 'ACTIVE',
+    },
+    include: {
+      profile: { include: { educations: true } },
+      family: true,
+      expectations: true,
+      sentRequests: { where: { recipientId: currentUserId } },
+      receivedRequests: { where: { requesterId: currentUserId } }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    },
+    take: limit
+  });
+
+  // Apply privacy filters
+  return recentUsers.map(match => {
+    if (match.profile?.gender === 'FEMALE') {
+      if (match.mobile_no) match.mobile_no = 'Hidden for Safety';
+      if (match.profile.houseAddress) match.profile.houseAddress = 'Hidden for Safety';
+      if (match.family) {
+        if (match.family.fatherMobile) match.family.fatherMobile = 'Hidden for Safety';
+        if (match.family.motherMobile) match.family.motherMobile = 'Hidden for Safety';
+        if (match.family.workingAddress) match.family.workingAddress = 'Hidden for Safety';
+      }
+    }
+    if (match.profile?.hidePhoto) {
+      match.profile.photoUrl = '/static/assets/blurred-avatar.png';
+    }
+    if (match.profile) match.profile.casteCertificateUrl = null;
+    return match;
+  });
+}
+
 export async function getProfileById(targetUserId: string) {
   const currentUserId = await getUserId();
   
