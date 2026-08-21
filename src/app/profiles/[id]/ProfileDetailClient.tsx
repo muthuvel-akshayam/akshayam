@@ -122,14 +122,14 @@ export function ProfileDetailClient({ user }: { user: any }) {
               className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 shadow-sm transition-colors"
             >
               <Share2 className="w-4 h-4" />
-              <span className="text-sm font-bold hidden sm:inline">Share</span>
+              <span className="text-sm font-bold">Share</span>
             </button>
             <button
               onClick={() => downloadBioDataPdf(`pdf-template-${profile.id}`, profile.id)}
               className="flex items-center gap-2 px-4 py-2 bg-red-600 rounded-lg text-white hover:bg-red-700 shadow-sm transition-colors"
             >
               <Download className="w-4 h-4" />
-              <span className="text-sm font-bold hidden sm:inline">Download Bio-Data</span>
+              <span className="text-sm font-bold">Download</span>
             </button>
           </div>
         </div>
@@ -164,10 +164,10 @@ export function ProfileDetailClient({ user }: { user: any }) {
                 <div className="text-lg font-bold text-gray-700">படிப்பு</div>
                 <div className="text-gray-900">: {education}</div>
                 
-                <div className="text-lg font-bold text-gray-700">தொழில்</div>
+                <div className="text-lg font-bold text-gray-700">{family?.workNature === 'JOB' ? 'பதவி' : 'தொழில்'}</div>
                 <div className="text-gray-900">: {profession}</div>
                 
-                <div className="text-lg font-bold text-gray-700">வேலை செய்யும் இடம்</div>
+                <div className="text-lg font-bold text-gray-700">{family?.workNature === 'JOB' ? 'வேலை செய்யும் இடம்' : 'தொழில் அலுவலகம்'}</div>
                 <div className="text-gray-900">: {safeStr(family?.city || profile.city)}</div>
               </div>
             </div>
@@ -336,7 +336,7 @@ export function ProfileDetailClient({ user }: { user: any }) {
         
         {/* Hidden PDF Template */}
         <div style={{ position: 'absolute', top: 0, left: 0, zIndex: -1000, opacity: 0.01, pointerEvents: 'none' }}>
-           <JathagamPDFTemplate profile={profile} profileId={profile.id} family={family} akshayamId={user.userid} userIndex={user.userIndex} />
+           <JathagamPDFTemplate profile={profile} profileId={profile.id} family={family} akshayamId={user.userid} userIndex={user.userIndex} userCreatedAt={user.createdAt} />
         </div>
       </div>
     </div>
