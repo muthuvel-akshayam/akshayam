@@ -12,6 +12,10 @@ export async function generateMetadata(
   { params }: Props,
 ): Promise<Metadata> {
   const { id } = await params;
+  const headersList = await headers();
+  const host = headersList.get('x-forwarded-host') || headersList.get('host') || 'www.akshayamtamilmatrimony.com';
+  const protocol = host.includes('localhost') ? 'http' : 'https';
+  const baseUrl = `${protocol}://${host}`;
   const profileData = await getProfileById(id);
 
   if (!profileData || !profileData.profile) {
@@ -31,7 +35,7 @@ export async function generateMetadata(
   // Format exactly as requested: Name, koottam, thoosam
   const description = `பெயர் :${name} படிப்பு :${education} குலம் : ${kulam} தோஷம் : ${dosham}`;
 
-  let imageUrl = 'https://www.akshayamtamilmatrimony.com/akshayam_logo.png';
+  let imageUrl = `${baseUrl}/akshayam_logo.png`;
   if (profile.photoUrl) {
     // WhatsApp and Facebook scrapers prefer raw image URLs (JPG/PNG) over Next.js optimized WebP routes.
     // Using the direct photoUrl ensures maximum compatibility across social platforms.
@@ -44,7 +48,7 @@ export async function generateMetadata(
     openGraph: {
       title: `${name} - Akshayam Matrimony`,
       description: description,
-      url: `https://www.akshayamtamilmatrimony.com/profiles/${id}`,
+      url: `${baseUrl}/profiles/${id}`,
       siteName: 'Akshayam Matrimony',
       images: [
         {
