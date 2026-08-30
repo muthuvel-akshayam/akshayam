@@ -2,7 +2,6 @@ import { getProfileById } from '@/backend/actions/matches';
 import { notFound } from 'next/navigation';
 import { ProfileDetailClient } from './ProfileDetailClient';
 import { Metadata } from 'next';
-import { headers } from 'next/headers';
 
 type Props = {
   params: Promise<{ id: string }>
@@ -12,10 +11,10 @@ export async function generateMetadata(
   { params }: Props,
 ): Promise<Metadata> {
   const { id } = await params;
-  const headersList = await headers();
-  const host = headersList.get('x-forwarded-host') || headersList.get('host') || 'www.akshayamtamilmatrimony.com';
-  const protocol = host.includes('localhost') ? 'http' : 'https';
-  const baseUrl = `${protocol}://${host}`;
+  // Avoid using headers() which can break static generation. Use env vars instead.
+  const baseUrl = process.env.VERCEL_URL 
+    ? `https://${process.env.VERCEL_URL}` 
+    : 'https://www.akshayamtamilmatrimony.com';
   const profileData = await getProfileById(id);
 
   if (!profileData || !profileData.profile) {
