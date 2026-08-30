@@ -68,7 +68,7 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
   }
 }
 
-export async function loginUser(mobileNo: string, passwordPlain: string) {
+export async function loginUser(mobileNo: string, passwordPlain: string, rememberMe: boolean = true) {
   if (!mobileNo || !passwordPlain) {
     return { success: false, error: 'Mobile number and password are required' };
   }
@@ -89,11 +89,16 @@ export async function loginUser(mobileNo: string, passwordPlain: string) {
     }
 
     const cookieStore = await cookies();
-    cookieStore.set('auth_token', user.id, {
+    const cookieOptions: any = {
       httpOnly: true,
-      path: '/',
-      maxAge: 60 * 60 * 24 * 30
-    });
+      path: '/'
+    };
+    
+    if (rememberMe) {
+      cookieOptions.maxAge = 60 * 60 * 24 * 30; // 30 days
+    }
+    
+    cookieStore.set('auth_token', user.id, cookieOptions);
 
     return { success: true, userId: user.id };
   } catch (error: any) {

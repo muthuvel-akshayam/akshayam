@@ -78,7 +78,8 @@ export default function DashboardClient({
   };
   const age = calculateAge(profile.dob);
 
-  const isApproved = String(profile.status) === 'APPROVED';
+  const isApproved = String(user.status) === 'ACTIVE' || String(user.status) === 'APPROVED';
+  const isPending = String(user.status) === 'PENDING';
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 pb-12 font-sans selection:bg-emerald-200">
@@ -157,8 +158,18 @@ export default function DashboardClient({
               {!isApproved && (
                 <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl">
                   <p className="text-sm font-semibold text-amber-800">
-                    <ShieldCheck className="w-4 h-4 inline mr-1 text-amber-500" />
-                    {language === 'TA' ? 'நிர்வாகியின் ஒப்புதலுக்காகக் காத்திருக்கிறது.' : 'Pending Admin Approval.'}
+                    {isPending 
+                      ? (language === 'TA' ? 'நிர்வாகியின் ஒப்புதலுக்காக காத்திருக்கிறது' : 'Waiting for admin approval')
+                      : (language === 'TA' ? 'சுயவிவரம் இன்னும் சரிபார்க்கப்படவில்லை' : 'Profile not yet verified')}
+                  </p>
+                  <p className="text-xs text-amber-700 mt-1">
+                    {isPending 
+                      ? (language === 'TA' 
+                          ? 'உங்கள் கட்டண விவரங்கள் நிர்வாகியால் சரிபார்க்கப்படும் வரை காத்திருக்கவும். எங்களை தொடர்புகொள்ள: 9566466079.' 
+                          : 'Please wait while an admin verifies your payment details. Contact us at: 9566466079.')
+                      : (language === 'TA' 
+                          ? 'நிர்வாகி சரிபார்த்த பின் உங்கள் சுயவிவரம் மற்றவர்களுக்குத் தெரியும்.' 
+                          : 'Your profile will be visible to others once verified by an admin.')}
                   </p>
                 </div>
               )}

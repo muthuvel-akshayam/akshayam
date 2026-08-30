@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { savePersonalInfo } from '@/backend/actions/profile';
 import { useState, useEffect, useRef } from 'react';
 import { extractAstrologyData } from '@/backend/actions/extractAstrology';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Eye, EyeOff } from 'lucide-react';
 import { FileUpload } from '../FileUpload';
 import { rasiOptions, nakshatraByRasi } from '@/frontend/utils/astrology';
 import { formTranslations } from '@/frontend/utils/formTranslations';
@@ -33,6 +33,7 @@ const KVG_KOOTTAMS = ["Aandai (ஆந்தை)","Aadar (ஆடர்)","Aadhi (
 export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGenderChange }: { onNext: () => void; language?: 'TA' | 'EN'; initialData?: any; onGenderChange?: (gender: string) => void }) {
   const [isSaving, setIsSaving] = useState(false);
   const [isExtracting, setIsExtracting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [dobText, setDobText] = useState(() => {
     const d = initialData?.profile?.dob;
     if (!d) return '';
@@ -67,8 +68,13 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const [loadingCastes, setLoadingCastes] = useState(false);
   const [loadingSubcastes, setLoadingSubcastes] = useState(false);
   
+  const schema = initialData ? personalInfoSchema : personalInfoSchema.extend({
+    mobileNo: z.string().min(10, 'Mobile number required (min 10 digits)'),
+    password: z.string().min(6, 'Password required (min 6 chars)')
+  });
+
   const { register, control, handleSubmit, setValue, formState: { errors, isDirty }, watch } = useForm<FormValues>({
-    resolver: zodResolver(personalInfoSchema) as any,
+    resolver: zodResolver(schema) as any,
     defaultValues: {
       mobileNo: initialData?.mobile_no || '',
       email: initialData?.email || '',
@@ -357,7 +363,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   };
 
   const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-base sm:text-sm border py-3 px-4 bg-gray-50 text-gray-900 transition-colors";
-  const labelClass = "block text-sm font-semibold text-gray-700";
+  const labelClass = "block text-sm font-semibold text-gray-700 after:content-['*'] after:ml-1 after:text-red-500";
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -369,7 +375,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className={labelClass}>{t.mobileNo} <span className="text-red-500">*</span></label>
+            <label className={labelClass}>{t.mobileNo}</label>
             <input 
               type="tel" 
               {...register('mobileNo', { required: 'Mobile number required' })} 
@@ -379,13 +385,22 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
             {errors.mobileNo && <p className="text-red-500 text-xs mt-1">{errors.mobileNo.message}</p>}
           </div>
           <div>
-            <label className={labelClass}>{t.password} <span className="text-red-500">*</span></label>
-            <input 
-              type="password" 
-              {...register('password', { required: 'Password required' })} 
-              className={inputClass} 
-              placeholder={t.passwordPlaceholder} 
-            />
+            <label className={labelClass}>{t.password}</label>
+            <div className="relative">
+              <input 
+                type={showPassword ? 'text' : 'password'} 
+                {...register('password', { required: 'Password required' })} 
+                className={inputClass} 
+                placeholder={t.passwordPlaceholder} 
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
             {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
           </div>
         </div>
@@ -406,24 +421,29 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="MALE">{t.male}</option>
               <option value="FEMALE">{t.female}</option>
             </select>
+            {errors.gender && <p className="text-red-500 text-xs mt-1">{errors.gender.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.livingCountry}</label>
             <input {...register('livingCountry')} className={inputClass} placeholder={t.livingCountryPlaceholder} />
+            {errors.livingCountry && <p className="text-red-500 text-xs mt-1">{errors.livingCountry.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.state}</label>
             <input {...register('state')} className={inputClass} placeholder={t.statePlaceholder} />
+            {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.city}</label>
             <input {...register('city')} className={inputClass} placeholder={t.cityPlaceholder} />
+            {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city.message as string}</p>}
           </div>
           <div className="md:col-span-2">
             <label className={labelClass}>{t.houseAddress}</label>
             <textarea {...register('houseAddress')} className={`${inputClass} resize-none`} rows={2} placeholder={t.houseAddressPlaceholder} />
             <div className="mt-2 flex gap-2 items-center">
               <input {...register('houseLocation')} className={inputClass.replace('mt-2', '') + ' flex-1'} placeholder="https://maps.google.com/..." />
+            {errors.houseLocation && <p className="text-red-500 text-xs mt-1">{errors.houseLocation.message as string}</p>}
             </div>
           </div>
           <div>
@@ -482,6 +502,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                   );
                 })}
               </select>
+            {errors.subCaste && <p className="text-red-500 text-xs mt-1">{errors.subCaste.message as string}</p>}
             </div>
           )}
           {showKoottam && (
@@ -504,6 +525,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                   koottamRef.current = e;
                 }} />
               )}
+              {errors.koottam && <p className="text-red-500 text-xs mt-1">{errors.koottam.message as string}</p>}
             </div>
           )}
           <div>
@@ -548,6 +570,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
           <div>
             <label className={labelClass}>{t.lob}</label>
             <input {...register('lob')} className={inputClass} placeholder={t.lobPlaceholder} />
+            {errors.lob && <p className="text-red-500 text-xs mt-1">{errors.lob.message as string}</p>}
           </div>
         </div>
       </div>
@@ -592,6 +615,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                   </option>
                 ))}
               </select>
+            {errors.nakshatra && <p className="text-red-500 text-xs mt-1">{errors.nakshatra.message as string}</p>}
             </div>
             <div>
               <label className={labelClass}>{t.dosham}</label>
@@ -602,6 +626,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                 <option value="Chevvai">{language === 'TA' ? 'செவ்வாய்' : 'Chevvai'}</option>
                 <option value="Rahu Kethu Chevvai">{language === 'TA' ? 'ராகு கேது செவ்வாய்' : 'Rahu Kethu Chevvai'}</option>
               </select>
+            {errors.dosham && <p className="text-red-500 text-xs mt-1">{errors.dosham.message as string}</p>}
             </div>
 
             {/* Porutha Nakshatram Multi-Select */}
@@ -714,6 +739,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
             {watch('gender') === 'FEMALE' && (
               <div className="flex items-center space-x-2 bg-pink-50 p-2 rounded border border-pink-100">
                 <input type="checkbox" {...register('hidePhoto')} className="w-4 h-4 text-pink-600 rounded border-gray-300" id="hidePhoto" />
+            {errors.hidePhoto && <p className="text-red-500 text-xs mt-1">{errors.hidePhoto.message as string}</p>}
                 <label htmlFor="hidePhoto" className="text-xs font-medium text-gray-700">
                   {language === 'TA' ? 'புகைப்படத்தை மறை (பொது பார்வைக்கு)' : 'Hide photo from public view'}
                 </label>
@@ -739,10 +765,12 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
           <div>
             <label className={labelClass}>{t.height}</label>
             <input type="number" {...register('height', { valueAsNumber: true })} className={inputClass} placeholder={t.heightPlaceholder} />
+            {errors.height && <p className="text-red-500 text-xs mt-1">{errors.height.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.weight}</label>
             <input type="number" {...register('weight', { valueAsNumber: true })} className={inputClass} placeholder={t.weightPlaceholder} />
+            {errors.weight && <p className="text-red-500 text-xs mt-1">{errors.weight.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.physicalCondition}</label>
@@ -751,6 +779,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="AVERAGE">{t.average}</option>
               <option value="FAT">{t.fat}</option>
             </select>
+            {errors.physicalCondition && <p className="text-red-500 text-xs mt-1">{errors.physicalCondition.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.skinColour}</label>
@@ -760,6 +789,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="Wheatish">{t.wheatish}</option>
               <option value="Dark">{t.dark}</option>
             </select>
+            {errors.skinColour && <p className="text-red-500 text-xs mt-1">{errors.skinColour.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.maritalStatus}</label>
@@ -769,6 +799,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="WIDOWED">{t.widowed}</option>
               <option value="AWAITING_DIVORCE">{t.awaitingDivorce}</option>
             </select>
+            {errors.maritalStatus && <p className="text-red-500 text-xs mt-1">{errors.maritalStatus.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.familyStatus}</label>
@@ -779,6 +810,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="HIGH">{t.highClass}</option>
               <option value="VIP">{t.vip}</option>
             </select>
+            {errors.familyStatus && <p className="text-red-500 text-xs mt-1">{errors.familyStatus.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.foodHabits}</label>
@@ -787,6 +819,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="OCCASIONAL">{t.occNonVeg}</option>
               <option value="REGULAR">{t.regNonVeg}</option>
             </select>
+            {errors.foodHabits && <p className="text-red-500 text-xs mt-1">{errors.foodHabits.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.drinkingHabits}</label>
@@ -795,6 +828,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="OCCASIONAL">{t.occasional}</option>
               <option value="REGULAR">{t.regular}</option>
             </select>
+            {errors.drinkingHabits && <p className="text-red-500 text-xs mt-1">{errors.drinkingHabits.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.smokingHabits}</label>
@@ -803,6 +837,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <option value="OCCASIONAL">{t.occasional}</option>
               <option value="REGULAR">{t.regular}</option>
             </select>
+            {errors.smokingHabits && <p className="text-red-500 text-xs mt-1">{errors.smokingHabits.message as string}</p>}
           </div>
         </div>
       </div>
@@ -850,22 +885,6 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
 
       </div>
       
-      {Object.keys(errors).length > 0 && (
-        <div className="bg-red-50 border-l-4 border-red-500 p-4 my-4">
-          <div className="flex">
-            <div className="ml-3">
-              <p className="text-sm text-red-700 font-bold">
-                {language === 'TA' ? 'தயவுசெய்து பின்வரும் தவறுகளை சரிசெய்யவும்:' : 'Please fix the following errors:'}
-              </p>
-              <ul className="list-disc pl-5 mt-2 text-sm text-red-700">
-                {Object.values(errors).map((err: any, idx) => (
-                  <li key={idx}>{err.message}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      )}
 
       <div className="flex justify-end pt-4 border-t border-gray-100">
         <button type="submit" disabled={isSaving} className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 disabled:opacity-50 font-semibold shadow-md transition-all active:scale-95 cursor-pointer">

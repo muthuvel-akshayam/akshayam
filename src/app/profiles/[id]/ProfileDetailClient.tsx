@@ -13,7 +13,7 @@ import JathagamPDFTemplate from '@/frontend/components/pdf/JathagamPDFTemplate';
 import { shareProfile, shareToWhatsApp } from '@/lib/shareProfile';
 import { downloadBioDataPdf } from '@/lib/generatePdf';
 
-export function ProfileDetailClient({ user, initialIsShortlisted = false }: { user: any, initialIsShortlisted?: boolean }) {
+export function ProfileDetailClient({ user, initialIsShortlisted = false, currentUserHasProfile = false }: { user: any, initialIsShortlisted?: boolean, currentUserHasProfile?: boolean }) {
   const router = useRouter();
   const [isExtracting, setIsExtracting] = useState(false);
   const [isShortlisted, setIsShortlisted] = useState(initialIsShortlisted);
@@ -49,6 +49,14 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false }: { us
     } finally {
       setIsSendingInterest(false);
     }
+  };
+
+  const handleShareClick = () => {
+    if (!currentUserHasProfile) {
+      alert('Please sign up and create your profile to share profiles.');
+      return;
+    }
+    shareToWhatsApp(profile.id);
   };
   const profile = user.profile;
   const family = user.family;
@@ -167,7 +175,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false }: { us
               <span className="text-xs sm:text-sm">{interestSent ? 'Interest Sent' : 'Send Interest'}</span>
             </button>
             <button
-              onClick={() => shareToWhatsApp(profile.id)}
+              onClick={handleShareClick}
               className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 px-2 py-2.5 sm:px-4 sm:py-2 bg-white rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 shadow-sm transition-colors"
             >
               <Share2 className="w-4 h-4" />

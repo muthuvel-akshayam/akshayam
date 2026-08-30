@@ -5,6 +5,7 @@ import ProfileWizard from './profile-wizard/ProfileWizard';
 import ProfileCarousel from './home/ProfileCarousel';
 import { useLanguage } from '@/frontend/context/LanguageContext';
 import { loginUser } from '@/backend/actions/auth';
+import { requestPasswordReset } from '@/backend/actions/passwordReset';
 import { 
   Phone, MapPin, Heart, Shield, Compass, Users, Star, 
   CheckCircle, Sparkles, UserPlus, ArrowRight, Home as HomeIcon, 
@@ -22,6 +23,9 @@ export default function HomeClient() {
   const [loginError, setLoginError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
+  const [isRequestingReset, setIsRequestingReset] = useState(false);
+  const [resetMessage, setResetMessage] = useState({ type: '', text: '' });
   const { language, toggleLanguage } = useLanguage();
   
   const [featuredBrides, setFeaturedBrides] = useState<any[]>([]);
@@ -48,7 +52,7 @@ export default function HomeClient() {
     setIsLoggingIn(true);
     setLoginError('');
     try {
-      const res = await loginUser(loginMobile, loginPassword);
+      const res = await loginUser(loginMobile, loginPassword, rememberMe);
       if (res.success) {
         window.location.href = '/dashboard';
       } else {
@@ -58,6 +62,29 @@ export default function HomeClient() {
       setLoginError(language === 'TA' ? 'உள்நுழைவதில் பிழை. மீண்டும் முயற்சிக்கவும்.' : 'Error logging in. Please try again.');
     } finally {
       setIsLoggingIn(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!loginMobile) {
+      setResetMessage({ type: 'error', text: language === 'TA' ? 'தயவுசெய்து உங்கள் மொபைல் எண்ணை உள்ளிடவும்' : 'Please enter your mobile number first' });
+      return;
+    }
+    
+    setIsRequestingReset(true);
+    setResetMessage({ type: '', text: '' });
+    
+    try {
+      const res = await requestPasswordReset(loginMobile);
+      if (res.success) {
+        setResetMessage({ type: 'success', text: language === 'TA' ? 'கடவுச்சொல் மீட்டமைப்பு கோரிக்கை நிர்வாகிக்கு அனுப்பப்பட்டது.' : 'Password reset request sent to admin.' });
+      } else {
+        setResetMessage({ type: 'error', text: res.error || 'Failed to send request' });
+      }
+    } catch (err) {
+      setResetMessage({ type: 'error', text: language === 'TA' ? 'கோரிக்கை அனுப்புவதில் பிழை.' : 'Error sending request.' });
+    } finally {
+      setIsRequestingReset(false);
     }
   };
 
@@ -241,15 +268,6 @@ export default function HomeClient() {
           {/* Left: Text Content & Image */}
           <div className="w-full max-w-4xl flex flex-col items-center">
             
-            {/* Restored Bride and Groom Image */}
-            <div className="w-full max-w-sm mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 bg-white">
-              <img 
-                src="/hero-couple.png" 
-                alt="Akshayam Bride and Groom" 
-                className="w-full h-auto object-cover"
-              />
-            </div>
-
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-xs md:text-sm mb-6 animate-pulse">
               <Sparkles className="w-4 h-4 text-accent" />
               {language === 'TA' ? '100% நம்பகமான திருமணத் தகவல் சேவை' : '100% Trusted Matrimonial Service'}
@@ -274,6 +292,15 @@ export default function HomeClient() {
                 ? '"உங்கள் இல்லத்தின் இனிய உறவுக்கு நம்பிக்கையான துணை"' 
                 : '"A Trusted Companion for Your Family\'s Sweetest Relationships"'}
             </p>
+
+            {/* Restored Bride and Groom Image */}
+            <div className="w-full max-w-sm mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 bg-white">
+              <img 
+                src="/hero-couple.png" 
+                alt="Akshayam Bride and Groom" 
+                className="w-full h-auto object-cover"
+              />
+            </div>
 
             <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-10 max-w-2xl font-medium leading-relaxed">
               {language === 'TA'
@@ -647,8 +674,16 @@ export default function HomeClient() {
             </div>
 
             {loginError && (
-              <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs font-bold text-center">
-                {loginError}
+              <div className="p-3 mb-4 rounded-xl bg-red-50 border border-red-100 flex items-start gap-2">
+                <Info className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                <p className="text-sm text-red-600 font-medium">{loginError}</p>
+              </div>
+            )}
+            
+            {resetMessage.text && (
+              <div className={`p-3 mb-4 rounded-xl flex items-start gap-2 ${resetMessage.type === 'success' ? 'bg-emerald-50 border border-emerald-100' : 'bg-red-50 border border-red-100'}`}>
+                <Info className={`w-5 h-5 shrink-0 mt-0.5 ${resetMessage.type === 'success' ? 'text-emerald-500' : 'text-red-500'}`} />
+                <p className={`text-sm font-medium ${resetMessage.type === 'success' ? 'text-emerald-700' : 'text-red-600'}`}>{resetMessage.text}</p>
               </div>
             )}
 
@@ -671,9 +706,19 @@ export default function HomeClient() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                  {language === 'TA' ? 'கடவுச்சொல்' : 'Password'}
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-bold text-gray-700 uppercase">
+                    {language === 'TA' ? 'கடவுச்சொல்' : 'Password'}
+                  </label>
+                  <button
+                    type="button"
+                    disabled={isRequestingReset}
+                    onClick={handleForgotPassword}
+                    className="text-xs font-bold text-primary hover:underline disabled:opacity-50"
+                  >
+                    {isRequestingReset ? (language === 'TA' ? 'அனுப்புகிறது...' : 'Sending...') : (language === 'TA' ? 'மறந்துவிட்டதா?' : 'Forgot?')}
+                  </button>
+                </div>
                   <input
                   type="password"
                   required
@@ -682,6 +727,19 @@ export default function HomeClient() {
                   placeholder="••••••••"
                   className="w-full h-12 px-4 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 font-bold text-base sm:text-sm focus:bg-white focus:border-primary focus:outline-none transition-all"
                 />
+              </div>
+
+              <div className="flex items-center gap-2 mt-2">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded text-primary focus:ring-primary border-gray-300 accent-primary cursor-pointer"
+                />
+                <label htmlFor="rememberMe" className="text-xs font-bold text-gray-700 cursor-pointer select-none">
+                  {language === 'TA' ? 'உள்நுழைவு தகவலை சேமிக்கவும்' : 'Save login info'}
+                </label>
               </div>
 
               <button

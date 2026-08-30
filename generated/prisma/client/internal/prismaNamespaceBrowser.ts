@@ -63,7 +63,8 @@ export const ModelName = {
   SiteSettings: 'SiteSettings',
   AdminAuditLog: 'AdminAuditLog',
   CasteLookup: 'CasteLookup',
-  Shortlist: 'Shortlist'
+  Shortlist: 'Shortlist',
+  PasswordResetRequest: 'PasswordResetRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -89,6 +90,7 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   status: 'status',
+  paymentScreenshot: 'paymentScreenshot',
   isFeatured: 'isFeatured',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -312,6 +314,18 @@ export const ShortlistScalarFieldEnum = {
 } as const
 
 export type ShortlistScalarFieldEnum = (typeof ShortlistScalarFieldEnum)[keyof typeof ShortlistScalarFieldEnum]
+
+
+export const PasswordResetRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  status: 'status',
+  isRead: 'isRead',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PasswordResetRequestScalarFieldEnum = (typeof PasswordResetRequestScalarFieldEnum)[keyof typeof PasswordResetRequestScalarFieldEnum]
 
 
 export const SortOrder = {

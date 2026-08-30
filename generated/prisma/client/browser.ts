@@ -82,3 +82,8 @@ export type CasteLookup = Prisma.CasteLookupModel
  * 
  */
 export type Shortlist = Prisma.ShortlistModel
+/**
+ * Model PasswordResetRequest
+ * 
+ */
+export type PasswordResetRequest = Prisma.PasswordResetRequestModel

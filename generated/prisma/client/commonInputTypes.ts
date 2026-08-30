@@ -507,6 +507,23 @@ export type EnumProfileSentStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumProfileSentStatusFilter<$PrismaModel>
 }
 
+export type EnumPasswordResetStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PasswordResetStatus | Prisma.EnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PasswordResetStatus[] | Prisma.ListEnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PasswordResetStatus[] | Prisma.ListEnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPasswordResetStatusFilter<$PrismaModel> | $Enums.PasswordResetStatus
+}
+
+export type EnumPasswordResetStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PasswordResetStatus | Prisma.EnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PasswordResetStatus[] | Prisma.ListEnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PasswordResetStatus[] | Prisma.ListEnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPasswordResetStatusWithAggregatesFilter<$PrismaModel> | $Enums.PasswordResetStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPasswordResetStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPasswordResetStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -962,6 +979,23 @@ export type NestedEnumProfileSentStatusWithAggregatesFilter<$PrismaModel = never
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumProfileSentStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumProfileSentStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumPasswordResetStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PasswordResetStatus | Prisma.EnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PasswordResetStatus[] | Prisma.ListEnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PasswordResetStatus[] | Prisma.ListEnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPasswordResetStatusFilter<$PrismaModel> | $Enums.PasswordResetStatus
+}
+
+export type NestedEnumPasswordResetStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PasswordResetStatus | Prisma.EnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PasswordResetStatus[] | Prisma.ListEnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PasswordResetStatus[] | Prisma.ListEnumPasswordResetStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPasswordResetStatusWithAggregatesFilter<$PrismaModel> | $Enums.PasswordResetStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPasswordResetStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPasswordResetStatusFilter<$PrismaModel>
 }
 
 

@@ -28,18 +28,14 @@ export async function generateMetadata(
   const kulam = profile.koottam || profile.subCaste || 'Not Specified';
   const dosham = profile.dosham || 'சுத்த ஜாதகம்';
   
-  // Format exactly as requested: பெயர் :Name படிப்பு :Edu குலம் : Kulam தோஷம் : Dosham
+  // Format exactly as requested: Name, koottam, thoosam
   const description = `பெயர் :${name} படிப்பு :${education} குலம் : ${kulam} தோஷம் : ${dosham}`;
 
   let imageUrl = 'https://www.akshayamtamilmatrimony.com/akshayam_logo.png';
   if (profile.photoUrl) {
-    const headersList = await headers();
-    const host = headersList.get('host') || 'www.akshayamtamilmatrimony.com';
-    const protocol = host.includes('localhost') ? 'http' : 'https';
-    const baseUrl = `${protocol}://${host}`;
-    
-    // Compress via Next.js image optimizer to ensure size < 300KB for WhatsApp
-    imageUrl = `${baseUrl}/_next/image?url=${encodeURIComponent(profile.photoUrl)}&w=828&q=75`;
+    // WhatsApp and Facebook scrapers prefer raw image URLs (JPG/PNG) over Next.js optimized WebP routes.
+    // Using the direct photoUrl ensures maximum compatibility across social platforms.
+    imageUrl = profile.photoUrl;
   }
 
   return {
@@ -81,5 +77,17 @@ export default async function ProfileDetailPage({ params }: Props) {
   const shortlists = await getShortlistsForUser();
   const isShortlisted = shortlists.includes(id);
 
-  return <ProfileDetailClient user={profileData} initialIsShortlisted={isShortlisted} />;
+  const { getUserId } = await import('@/backend/actions/profile');
+  const currentUserId = await getUserId();
+  let currentUserHasProfile = false;
+  
+  if (currentUserId && currentUserId !== 'test-user-id') {
+    const { default: prisma } = await import('@/backend/prisma');
+    const userProfile = await prisma.profile.findUnique({ where: { userId: currentUserId } });
+    if (userProfile) {
+      currentUserHasProfile = true;
+    }
+  }
+
+  return <ProfileDetailClient user={profileData} initialIsShortlisted={isShortlisted} currentUserHasProfile={currentUserHasProfile} />;
 }

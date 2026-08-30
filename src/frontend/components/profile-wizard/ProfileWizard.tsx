@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Step1PersonalInfo } from './Step1PersonalInfo';
 import { Step2FamilyDetails } from './Step2FamilyDetails';
 import { Step3Expectations } from './Step3Expectations';
+import { Step4Payment } from './Step4Payment';
 import { useLanguage } from '@/frontend/context/LanguageContext';
 import { formTranslations } from '@/frontend/utils/formTranslations';
 
@@ -14,8 +15,8 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = language === 'TA' 
-    ? ['அடிப்படை விவரங்கள்', 'குடும்பம் & ஜாதகம்', 'எதிர்பார்ப்புகள்'] 
-    : ['Basic Details', 'Family & Astrology', 'Partner Preferences'];
+    ? ['அடிப்படை விவரங்கள்', 'குடும்பம் & ஜாதகம்', 'எதிர்பார்ப்புகள்', 'பணம் செலுத்துதல்'] 
+    : ['Basic Details', 'Family & Astrology', 'Partner Preferences', 'Payment'];
 
   const [gender, setGender] = useState(initialData?.profile?.gender || 'MALE');
 
@@ -88,21 +89,18 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
           </div>
 
           <div className="mt-8 relative">
-            {currentStep === 0 && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <Step1PersonalInfo onNext={nextStep} language={language} initialData={initialData} onGenderChange={setGender} />
-              </div>
-            )}
-            {currentStep === 1 && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <Step2FamilyDetails onNext={nextStep} onPrev={prevStep} language={language} initialData={initialData} gender={gender} />
-              </div>
-            )}
-            {currentStep === 2 && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <Step3Expectations onPrev={prevStep} language={language} initialData={initialData} gender={gender} />
-              </div>
-            )}
+            <div className={`transition-opacity duration-300 ${currentStep === 0 ? 'block opacity-100' : 'hidden opacity-0'}`}>
+              <Step1PersonalInfo onNext={nextStep} language={language} initialData={initialData} onGenderChange={setGender} />
+            </div>
+            <div className={`transition-opacity duration-300 ${currentStep === 1 ? 'block opacity-100' : 'hidden opacity-0'}`}>
+              <Step2FamilyDetails onNext={nextStep} onPrev={prevStep} language={language} initialData={initialData} gender={gender} />
+            </div>
+            <div className={`transition-opacity duration-300 ${currentStep === 2 ? 'block opacity-100' : 'hidden opacity-0'}`}>
+              <Step3Expectations onNext={nextStep} onPrev={prevStep} language={language} initialData={initialData} gender={gender} />
+            </div>
+            <div className={`transition-opacity duration-300 ${currentStep === 3 ? 'block opacity-100' : 'hidden opacity-0'}`}>
+              <Step4Payment onNext={() => window.location.href = '/dashboard'} language={language} initialData={initialData} />
+            </div>
           </div>
         </div>
       </div>

@@ -41,6 +41,7 @@ export type UserMinAggregateOutputType = {
   password: string | null
   role: $Enums.UserRole | null
   status: string | null
+  paymentScreenshot: string | null
   isFeatured: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -55,6 +56,7 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   role: $Enums.UserRole | null
   status: string | null
+  paymentScreenshot: string | null
   isFeatured: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -69,6 +71,7 @@ export type UserCountAggregateOutputType = {
   password: number
   role: number
   status: number
+  paymentScreenshot: number
   isFeatured: number
   createdAt: number
   updatedAt: number
@@ -93,6 +96,7 @@ export type UserMinAggregateInputType = {
   password?: true
   role?: true
   status?: true
+  paymentScreenshot?: true
   isFeatured?: true
   createdAt?: true
   updatedAt?: true
@@ -107,6 +111,7 @@ export type UserMaxAggregateInputType = {
   password?: true
   role?: true
   status?: true
+  paymentScreenshot?: true
   isFeatured?: true
   createdAt?: true
   updatedAt?: true
@@ -121,6 +126,7 @@ export type UserCountAggregateInputType = {
   password?: true
   role?: true
   status?: true
+  paymentScreenshot?: true
   isFeatured?: true
   createdAt?: true
   updatedAt?: true
@@ -222,6 +228,7 @@ export type UserGroupByOutputType = {
   password: string | null
   role: $Enums.UserRole
   status: string
+  paymentScreenshot: string | null
   isFeatured: boolean
   createdAt: Date
   updatedAt: Date
@@ -259,6 +266,7 @@ export type UserWhereInput = {
   password?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.StringFilter<"User"> | string
+  paymentScreenshot?: Prisma.StringNullableFilter<"User"> | string | null
   isFeatured?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -273,6 +281,7 @@ export type UserWhereInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogListRelationFilter
   shortlistedBy?: Prisma.ShortlistListRelationFilter
   shortlists?: Prisma.ShortlistListRelationFilter
+  passwordResetRequests?: Prisma.PasswordResetRequestListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -282,6 +291,7 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentScreenshot?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -296,6 +306,7 @@ export type UserOrderByWithRelationInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogOrderByRelationAggregateInput
   shortlistedBy?: Prisma.ShortlistOrderByRelationAggregateInput
   shortlists?: Prisma.ShortlistOrderByRelationAggregateInput
+  passwordResetRequests?: Prisma.PasswordResetRequestOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -309,6 +320,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.StringFilter<"User"> | string
+  paymentScreenshot?: Prisma.StringNullableFilter<"User"> | string | null
   isFeatured?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -322,6 +334,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   targetUserSentLogs?: Prisma.ProfileSentLogListRelationFilter
   shortlistedBy?: Prisma.ShortlistListRelationFilter
   shortlists?: Prisma.ShortlistListRelationFilter
+  passwordResetRequests?: Prisma.PasswordResetRequestListRelationFilter
 }, "id" | "email" | "mobile_no" | "userid">
 
 export type UserOrderByWithAggregationInput = {
@@ -331,6 +344,7 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentScreenshot?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -353,6 +367,7 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   status?: Prisma.StringWithAggregatesFilter<"User"> | string
+  paymentScreenshot?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isFeatured?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -367,6 +382,7 @@ export type UserCreateInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -381,6 +397,7 @@ export type UserCreateInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -390,6 +407,7 @@ export type UserUncheckedCreateInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -404,6 +422,7 @@ export type UserUncheckedCreateInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -413,6 +432,7 @@ export type UserUpdateInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -427,6 +447,7 @@ export type UserUpdateInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -436,6 +457,7 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -450,6 +472,7 @@ export type UserUncheckedUpdateInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -459,6 +482,7 @@ export type UserCreateManyInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -473,6 +497,7 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -487,6 +512,7 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -501,6 +527,7 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentScreenshot?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -519,6 +546,7 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentScreenshot?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -533,6 +561,7 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentScreenshot?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -703,6 +732,20 @@ export type UserUpdateOneRequiredWithoutShortlistsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShortlistsInput, Prisma.UserUpdateWithoutShortlistsInput>, Prisma.UserUncheckedUpdateWithoutShortlistsInput>
 }
 
+export type UserCreateNestedOneWithoutPasswordResetRequestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetRequestsInput, Prisma.UserUncheckedCreateWithoutPasswordResetRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPasswordResetRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetRequestsInput, Prisma.UserUncheckedCreateWithoutPasswordResetRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetRequestsInput
+  upsert?: Prisma.UserUpsertWithoutPasswordResetRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPasswordResetRequestsInput, Prisma.UserUpdateWithoutPasswordResetRequestsInput>, Prisma.UserUncheckedUpdateWithoutPasswordResetRequestsInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   email?: string | null
@@ -710,6 +753,7 @@ export type UserCreateWithoutProfileInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -723,6 +767,7 @@ export type UserCreateWithoutProfileInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -732,6 +777,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -745,6 +791,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -770,6 +817,7 @@ export type UserUpdateWithoutProfileInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -783,6 +831,7 @@ export type UserUpdateWithoutProfileInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -792,6 +841,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -805,6 +855,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFamilyInput = {
@@ -814,6 +865,7 @@ export type UserCreateWithoutFamilyInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -827,6 +879,7 @@ export type UserCreateWithoutFamilyInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFamilyInput = {
@@ -836,6 +889,7 @@ export type UserUncheckedCreateWithoutFamilyInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -849,6 +903,7 @@ export type UserUncheckedCreateWithoutFamilyInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFamilyInput = {
@@ -874,6 +929,7 @@ export type UserUpdateWithoutFamilyInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -887,6 +943,7 @@ export type UserUpdateWithoutFamilyInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFamilyInput = {
@@ -896,6 +953,7 @@ export type UserUncheckedUpdateWithoutFamilyInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -909,6 +967,7 @@ export type UserUncheckedUpdateWithoutFamilyInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutExpectationsInput = {
@@ -918,6 +977,7 @@ export type UserCreateWithoutExpectationsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -931,6 +991,7 @@ export type UserCreateWithoutExpectationsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutExpectationsInput = {
@@ -940,6 +1001,7 @@ export type UserUncheckedCreateWithoutExpectationsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -953,6 +1015,7 @@ export type UserUncheckedCreateWithoutExpectationsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutExpectationsInput = {
@@ -978,6 +1041,7 @@ export type UserUpdateWithoutExpectationsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -991,6 +1055,7 @@ export type UserUpdateWithoutExpectationsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExpectationsInput = {
@@ -1000,6 +1065,7 @@ export type UserUncheckedUpdateWithoutExpectationsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1013,6 +1079,7 @@ export type UserUncheckedUpdateWithoutExpectationsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReceivedRequestsInput = {
@@ -1022,6 +1089,7 @@ export type UserCreateWithoutReceivedRequestsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1035,6 +1103,7 @@ export type UserCreateWithoutReceivedRequestsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedRequestsInput = {
@@ -1044,6 +1113,7 @@ export type UserUncheckedCreateWithoutReceivedRequestsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1057,6 +1127,7 @@ export type UserUncheckedCreateWithoutReceivedRequestsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedRequestsInput = {
@@ -1071,6 +1142,7 @@ export type UserCreateWithoutSentRequestsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1084,6 +1156,7 @@ export type UserCreateWithoutSentRequestsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentRequestsInput = {
@@ -1093,6 +1166,7 @@ export type UserUncheckedCreateWithoutSentRequestsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1106,6 +1180,7 @@ export type UserUncheckedCreateWithoutSentRequestsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentRequestsInput = {
@@ -1131,6 +1206,7 @@ export type UserUpdateWithoutReceivedRequestsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1144,6 +1220,7 @@ export type UserUpdateWithoutReceivedRequestsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedRequestsInput = {
@@ -1153,6 +1230,7 @@ export type UserUncheckedUpdateWithoutReceivedRequestsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1166,6 +1244,7 @@ export type UserUncheckedUpdateWithoutReceivedRequestsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutSentRequestsInput = {
@@ -1186,6 +1265,7 @@ export type UserUpdateWithoutSentRequestsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1199,6 +1279,7 @@ export type UserUpdateWithoutSentRequestsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentRequestsInput = {
@@ -1208,6 +1289,7 @@ export type UserUncheckedUpdateWithoutSentRequestsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1221,6 +1303,7 @@ export type UserUncheckedUpdateWithoutSentRequestsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRecipientUserSentLogsInput = {
@@ -1230,6 +1313,7 @@ export type UserCreateWithoutRecipientUserSentLogsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1243,6 +1327,7 @@ export type UserCreateWithoutRecipientUserSentLogsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRecipientUserSentLogsInput = {
@@ -1252,6 +1337,7 @@ export type UserUncheckedCreateWithoutRecipientUserSentLogsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1265,6 +1351,7 @@ export type UserUncheckedCreateWithoutRecipientUserSentLogsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRecipientUserSentLogsInput = {
@@ -1279,6 +1366,7 @@ export type UserCreateWithoutTargetUserSentLogsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1292,6 +1380,7 @@ export type UserCreateWithoutTargetUserSentLogsInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
   shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTargetUserSentLogsInput = {
@@ -1301,6 +1390,7 @@ export type UserUncheckedCreateWithoutTargetUserSentLogsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1314,6 +1404,7 @@ export type UserUncheckedCreateWithoutTargetUserSentLogsInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
   shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
   shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTargetUserSentLogsInput = {
@@ -1339,6 +1430,7 @@ export type UserUpdateWithoutRecipientUserSentLogsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1352,6 +1444,7 @@ export type UserUpdateWithoutRecipientUserSentLogsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecipientUserSentLogsInput = {
@@ -1361,6 +1454,7 @@ export type UserUncheckedUpdateWithoutRecipientUserSentLogsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1374,6 +1468,7 @@ export type UserUncheckedUpdateWithoutRecipientUserSentLogsInput = {
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutTargetUserSentLogsInput = {
@@ -1394,6 +1489,7 @@ export type UserUpdateWithoutTargetUserSentLogsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1407,6 +1503,7 @@ export type UserUpdateWithoutTargetUserSentLogsInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
   shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTargetUserSentLogsInput = {
@@ -1416,6 +1513,7 @@ export type UserUncheckedUpdateWithoutTargetUserSentLogsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1429,6 +1527,7 @@ export type UserUncheckedUpdateWithoutTargetUserSentLogsInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
   shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
   shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShortlistedByInput = {
@@ -1438,6 +1537,7 @@ export type UserCreateWithoutShortlistedByInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1451,6 +1551,7 @@ export type UserCreateWithoutShortlistedByInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShortlistedByInput = {
@@ -1460,6 +1561,7 @@ export type UserUncheckedCreateWithoutShortlistedByInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1473,6 +1575,7 @@ export type UserUncheckedCreateWithoutShortlistedByInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShortlistedByInput = {
@@ -1487,6 +1590,7 @@ export type UserCreateWithoutShortlistsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1500,6 +1604,7 @@ export type UserCreateWithoutShortlistsInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
   targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
+  passwordResetRequests?: Prisma.PasswordResetRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShortlistsInput = {
@@ -1509,6 +1614,7 @@ export type UserUncheckedCreateWithoutShortlistsInput = {
   password?: string | null
   role?: $Enums.UserRole
   status?: string
+  paymentScreenshot?: string | null
   isFeatured?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1522,6 +1628,7 @@ export type UserUncheckedCreateWithoutShortlistsInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
   shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShortlistsInput = {
@@ -1547,6 +1654,7 @@ export type UserUpdateWithoutShortlistedByInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1560,6 +1668,7 @@ export type UserUpdateWithoutShortlistedByInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShortlistedByInput = {
@@ -1569,6 +1678,7 @@ export type UserUncheckedUpdateWithoutShortlistedByInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1582,6 +1692,7 @@ export type UserUncheckedUpdateWithoutShortlistedByInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutShortlistsInput = {
@@ -1602,6 +1713,7 @@ export type UserUpdateWithoutShortlistsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1615,6 +1727,7 @@ export type UserUpdateWithoutShortlistsInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShortlistsInput = {
@@ -1624,6 +1737,7 @@ export type UserUncheckedUpdateWithoutShortlistsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1637,6 +1751,119 @@ export type UserUncheckedUpdateWithoutShortlistsInput = {
   recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
   targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
   shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
+  passwordResetRequests?: Prisma.PasswordResetRequestUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPasswordResetRequestsInput = {
+  id?: string
+  email?: string | null
+  mobile_no?: string | null
+  password?: string | null
+  role?: $Enums.UserRole
+  status?: string
+  paymentScreenshot?: string | null
+  isFeatured?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userIndex?: number | null
+  userid?: string | null
+  receivedRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRecipientInput
+  sentRequests?: Prisma.ContactApprovalCreateNestedManyWithoutRequesterInput
+  expectations?: Prisma.ExpectationsCreateNestedOneWithoutUserInput
+  family?: Prisma.FamilyCreateNestedOneWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutRecipientUserInput
+  targetUserSentLogs?: Prisma.ProfileSentLogCreateNestedManyWithoutTargetUserInput
+  shortlistedBy?: Prisma.ShortlistCreateNestedManyWithoutTargetInput
+  shortlists?: Prisma.ShortlistCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPasswordResetRequestsInput = {
+  id?: string
+  email?: string | null
+  mobile_no?: string | null
+  password?: string | null
+  role?: $Enums.UserRole
+  status?: string
+  paymentScreenshot?: string | null
+  isFeatured?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userIndex?: number | null
+  userid?: string | null
+  receivedRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRecipientInput
+  sentRequests?: Prisma.ContactApprovalUncheckedCreateNestedManyWithoutRequesterInput
+  expectations?: Prisma.ExpectationsUncheckedCreateNestedOneWithoutUserInput
+  family?: Prisma.FamilyUncheckedCreateNestedOneWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutRecipientUserInput
+  targetUserSentLogs?: Prisma.ProfileSentLogUncheckedCreateNestedManyWithoutTargetUserInput
+  shortlistedBy?: Prisma.ShortlistUncheckedCreateNestedManyWithoutTargetInput
+  shortlists?: Prisma.ShortlistUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPasswordResetRequestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetRequestsInput, Prisma.UserUncheckedCreateWithoutPasswordResetRequestsInput>
+}
+
+export type UserUpsertWithoutPasswordResetRequestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetRequestsInput, Prisma.UserUncheckedUpdateWithoutPasswordResetRequestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetRequestsInput, Prisma.UserUncheckedCreateWithoutPasswordResetRequestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPasswordResetRequestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetRequestsInput, Prisma.UserUncheckedUpdateWithoutPasswordResetRequestsInput>
+}
+
+export type UserUpdateWithoutPasswordResetRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobile_no?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  userid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedRequests?: Prisma.ContactApprovalUpdateManyWithoutRecipientNestedInput
+  sentRequests?: Prisma.ContactApprovalUpdateManyWithoutRequesterNestedInput
+  expectations?: Prisma.ExpectationsUpdateOneWithoutUserNestedInput
+  family?: Prisma.FamilyUpdateOneWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutRecipientUserNestedInput
+  targetUserSentLogs?: Prisma.ProfileSentLogUpdateManyWithoutTargetUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUpdateManyWithoutTargetNestedInput
+  shortlists?: Prisma.ShortlistUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPasswordResetRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobile_no?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentScreenshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  userid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRecipientNestedInput
+  sentRequests?: Prisma.ContactApprovalUncheckedUpdateManyWithoutRequesterNestedInput
+  expectations?: Prisma.ExpectationsUncheckedUpdateOneWithoutUserNestedInput
+  family?: Prisma.FamilyUncheckedUpdateOneWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  recipientUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutRecipientUserNestedInput
+  targetUserSentLogs?: Prisma.ProfileSentLogUncheckedUpdateManyWithoutTargetUserNestedInput
+  shortlistedBy?: Prisma.ShortlistUncheckedUpdateManyWithoutTargetNestedInput
+  shortlists?: Prisma.ShortlistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1651,6 +1878,7 @@ export type UserCountOutputType = {
   targetUserSentLogs: number
   shortlistedBy: number
   shortlists: number
+  passwordResetRequests: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1660,6 +1888,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   targetUserSentLogs?: boolean | UserCountOutputTypeCountTargetUserSentLogsArgs
   shortlistedBy?: boolean | UserCountOutputTypeCountShortlistedByArgs
   shortlists?: boolean | UserCountOutputTypeCountShortlistsArgs
+  passwordResetRequests?: boolean | UserCountOutputTypeCountPasswordResetRequestsArgs
 }
 
 /**
@@ -1714,6 +1943,13 @@ export type UserCountOutputTypeCountShortlistsArgs<ExtArgs extends runtime.Types
   where?: Prisma.ShortlistWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPasswordResetRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PasswordResetRequestWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1722,6 +1958,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   role?: boolean
   status?: boolean
+  paymentScreenshot?: boolean
   isFeatured?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1736,6 +1973,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   targetUserSentLogs?: boolean | Prisma.User$targetUserSentLogsArgs<ExtArgs>
   shortlistedBy?: boolean | Prisma.User$shortlistedByArgs<ExtArgs>
   shortlists?: boolean | Prisma.User$shortlistsArgs<ExtArgs>
+  passwordResetRequests?: boolean | Prisma.User$passwordResetRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1746,6 +1984,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   role?: boolean
   status?: boolean
+  paymentScreenshot?: boolean
   isFeatured?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1760,6 +1999,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   role?: boolean
   status?: boolean
+  paymentScreenshot?: boolean
   isFeatured?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1774,6 +2014,7 @@ export type UserSelectScalar = {
   password?: boolean
   role?: boolean
   status?: boolean
+  paymentScreenshot?: boolean
   isFeatured?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1781,7 +2022,7 @@ export type UserSelectScalar = {
   userid?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "mobile_no" | "password" | "role" | "status" | "isFeatured" | "createdAt" | "updatedAt" | "userIndex" | "userid", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "mobile_no" | "password" | "role" | "status" | "paymentScreenshot" | "isFeatured" | "createdAt" | "updatedAt" | "userIndex" | "userid", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   receivedRequests?: boolean | Prisma.User$receivedRequestsArgs<ExtArgs>
   sentRequests?: boolean | Prisma.User$sentRequestsArgs<ExtArgs>
@@ -1792,6 +2033,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   targetUserSentLogs?: boolean | Prisma.User$targetUserSentLogsArgs<ExtArgs>
   shortlistedBy?: boolean | Prisma.User$shortlistedByArgs<ExtArgs>
   shortlists?: boolean | Prisma.User$shortlistsArgs<ExtArgs>
+  passwordResetRequests?: boolean | Prisma.User$passwordResetRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1809,6 +2051,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     targetUserSentLogs: Prisma.$ProfileSentLogPayload<ExtArgs>[]
     shortlistedBy: Prisma.$ShortlistPayload<ExtArgs>[]
     shortlists: Prisma.$ShortlistPayload<ExtArgs>[]
+    passwordResetRequests: Prisma.$PasswordResetRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1817,6 +2060,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string | null
     role: $Enums.UserRole
     status: string
+    paymentScreenshot: string | null
     isFeatured: boolean
     createdAt: Date
     updatedAt: Date
@@ -2225,6 +2469,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   targetUserSentLogs<T extends Prisma.User$targetUserSentLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$targetUserSentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileSentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shortlistedBy<T extends Prisma.User$shortlistedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shortlistedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShortlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shortlists<T extends Prisma.User$shortlistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shortlistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShortlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passwordResetRequests<T extends Prisma.User$passwordResetRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2260,6 +2505,7 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly status: Prisma.FieldRef<"User", 'String'>
+  readonly paymentScreenshot: Prisma.FieldRef<"User", 'String'>
   readonly isFeatured: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -2856,6 +3102,30 @@ export type User$shortlistsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.ShortlistScalarFieldEnum | Prisma.ShortlistScalarFieldEnum[]
+}
+
+/**
+ * User.passwordResetRequests
+ */
+export type User$passwordResetRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PasswordResetRequest
+   */
+  select?: Prisma.PasswordResetRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PasswordResetRequest
+   */
+  omit?: Prisma.PasswordResetRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PasswordResetRequestInclude<ExtArgs> | null
+  where?: Prisma.PasswordResetRequestWhereInput
+  orderBy?: Prisma.PasswordResetRequestOrderByWithRelationInput | Prisma.PasswordResetRequestOrderByWithRelationInput[]
+  cursor?: Prisma.PasswordResetRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PasswordResetRequestScalarFieldEnum | Prisma.PasswordResetRequestScalarFieldEnum[]
 }
 
 /**

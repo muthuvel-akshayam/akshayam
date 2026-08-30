@@ -12,7 +12,7 @@ import { formTranslations } from '@/frontend/utils/formTranslations';
 
 type FormValues = z.infer<typeof expectationsSchema>;
 
-export function Step3Expectations({ onPrev, language = 'TA', initialData, gender }: { onPrev: () => void, language?: 'TA' | 'EN', initialData?: any, gender?: string }) {
+export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData, gender }: { onPrev: () => void; onNext?: () => void; language?: 'TA' | 'EN'; initialData?: any; gender?: string }) {
   const [isSaving, setIsSaving] = useState(false);
   const router = useRouter();
   const t = formTranslations[language || 'TA'];
@@ -73,7 +73,8 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
 
   const onSubmit = async (data: FormValues) => {
     if (!isDirty) {
-      router.push('/dashboard');
+      if (onNext) onNext();
+      else router.push('/dashboard');
       return;
     }
     setIsSaving(true);
@@ -83,7 +84,8 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
         throw new Error(res.error || 'Failed to save expectations');
       }
       alert(language === 'TA' ? 'சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!' : 'Profile updated successfully!');
-      router.push('/dashboard');
+      if (onNext) onNext();
+      else router.push('/dashboard');
     } catch (err: any) {
       console.error(err);
       alert((language === 'TA' ? 'சேமிக்க முடியவில்லை: ' : 'Failed to save expectations: ') + (err?.message || err));
@@ -93,7 +95,7 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
   };
 
   const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-base sm:text-sm border py-3 px-4 bg-gray-50 text-gray-900 transition-colors";
-  const labelClass = "block text-sm font-semibold text-gray-700";
+  const labelClass = "block text-sm font-semibold text-gray-700 after:content-['*'] after:ml-1 after:text-red-500";
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
@@ -105,6 +107,7 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
           <div>
             <label className={labelClass}>{t.expectedHeight}</label>
             <input type="number" {...register('expectedHeight', { valueAsNumber: true })} className={inputClass} placeholder="e.g. 160" />
+            {errors.expectedHeight && <p className="text-red-500 text-xs mt-1">{errors.expectedHeight.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.colourPref}</label>
@@ -114,15 +117,18 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
               <option value="Wheatish">{t.wheatish}</option>
               <option value="Dark">{t.dark}</option>
             </select>
+            {errors.colourPreference && <p className="text-red-500 text-xs mt-1">{errors.colourPreference.message as string}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.agePref}</label>
             <input type="number" {...register('maxAgeLimit', { valueAsNumber: true })} className={inputClass} placeholder={t.agePrefPlaceholder} />
+            {errors.maxAgeLimit && <p className="text-red-500 text-xs mt-1">{errors.maxAgeLimit.message as string}</p>}
           </div>
           {gender !== 'FEMALE' && (
             <div>
               <label className={labelClass}>{t.dowryExpectation}</label>
               <input {...register('dowryExpectation')} className={inputClass} placeholder={t.dowryPlaceholder} />
+            {errors.dowryExpectation && <p className="text-red-500 text-xs mt-1">{errors.dowryExpectation.message as string}</p>}
             </div>
           )}
         </div>
@@ -239,6 +245,7 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
               <option value="Custom:">{language === 'TA' ? 'மற்றவை (Manual Entry)' : 'Other (Manual Entry)'}</option>
             </select>
           )}
+          {errors.expectedIncome && <p className="text-red-500 text-xs mt-1">{errors.expectedIncome.message as string}</p>}
         </div>
       </div>
 
@@ -292,10 +299,12 @@ export function Step3Expectations({ onPrev, language = 'TA', initialData, gender
                 <option value="250">{t.within250}</option>
                 <option value="500">{t.within500}</option>
               </select>
+            {errors.preferredDistanceRadius && <p className="text-red-500 text-xs mt-1">{errors.preferredDistanceRadius.message as string}</p>}
             </div>
             <div>
               <label className={labelClass}>{t.prefCity}</label>
               <input {...register('city')} className={inputClass} placeholder={t.prefCityPlaceholder} />
+            {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city.message as string}</p>}
             </div>
           </div>
           

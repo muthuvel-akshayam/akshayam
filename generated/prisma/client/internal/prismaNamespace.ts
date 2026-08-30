@@ -409,7 +409,8 @@ export const ModelName = {
   SiteSettings: 'SiteSettings',
   AdminAuditLog: 'AdminAuditLog',
   CasteLookup: 'CasteLookup',
-  Shortlist: 'Shortlist'
+  Shortlist: 'Shortlist',
+  PasswordResetRequest: 'PasswordResetRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "profile" | "education" | "family" | "sibling" | "expectations" | "contactApproval" | "profileSentLog" | "nakshatraCompatibility" | "siteSettings" | "adminAuditLog" | "casteLookup" | "shortlist"
+    modelProps: "user" | "profile" | "education" | "family" | "sibling" | "expectations" | "contactApproval" | "profileSentLog" | "nakshatraCompatibility" | "siteSettings" | "adminAuditLog" | "casteLookup" | "shortlist" | "passwordResetRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1391,6 +1392,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PasswordResetRequest: {
+      payload: Prisma.$PasswordResetRequestPayload<ExtArgs>
+      fields: Prisma.PasswordResetRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PasswordResetRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PasswordResetRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.PasswordResetRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PasswordResetRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+        }
+        findMany: {
+          args: Prisma.PasswordResetRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>[]
+        }
+        create: {
+          args: Prisma.PasswordResetRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+        }
+        createMany: {
+          args: Prisma.PasswordResetRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PasswordResetRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.PasswordResetRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+        }
+        update: {
+          args: Prisma.PasswordResetRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.PasswordResetRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PasswordResetRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PasswordResetRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.PasswordResetRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.PasswordResetRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePasswordResetRequest>
+        }
+        groupBy: {
+          args: Prisma.PasswordResetRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PasswordResetRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PasswordResetRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PasswordResetRequestCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1437,6 +1512,7 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   status: 'status',
+  paymentScreenshot: 'paymentScreenshot',
   isFeatured: 'isFeatured',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -1660,6 +1736,18 @@ export const ShortlistScalarFieldEnum = {
 } as const
 
 export type ShortlistScalarFieldEnum = (typeof ShortlistScalarFieldEnum)[keyof typeof ShortlistScalarFieldEnum]
+
+
+export const PasswordResetRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  status: 'status',
+  isRead: 'isRead',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PasswordResetRequestScalarFieldEnum = (typeof PasswordResetRequestScalarFieldEnum)[keyof typeof PasswordResetRequestScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1939,6 +2027,20 @@ export type EnumProfileSentStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 export type ListEnumProfileSentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProfileSentStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'PasswordResetStatus'
+ */
+export type EnumPasswordResetStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PasswordResetStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PasswordResetStatus[]'
+ */
+export type ListEnumPasswordResetStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PasswordResetStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2103,6 +2205,7 @@ export type GlobalOmitConfig = {
   adminAuditLog?: Prisma.AdminAuditLogOmit
   casteLookup?: Prisma.CasteLookupOmit
   shortlist?: Prisma.ShortlistOmit
+  passwordResetRequest?: Prisma.PasswordResetRequestOmit
 }
 
 /* Types for Logging */

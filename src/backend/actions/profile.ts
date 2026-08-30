@@ -156,3 +156,24 @@ export async function getFullProfile() {
   });
   return user;
 }
+
+export async function savePaymentScreenshot(paymentScreenshot: string) {
+  try {
+    const userId = await getUserId();
+    
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: { 
+        paymentScreenshot,
+        status: "PENDING"
+      }
+    });
+
+    revalidatePath('/profile');
+    revalidatePath('/dashboard');
+    return { success: true, user };
+  } catch (error: any) {
+    console.error('Error saving payment screenshot:', error);
+    return { success: false, error: 'Database connection failed or operation unsuccessful. Please try again.' };
+  }
+}
