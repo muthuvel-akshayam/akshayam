@@ -94,7 +94,7 @@ export default function DashboardClient({
 
         <div className="flex items-center gap-3">
           <button
-            onClick={() => shareToWhatsApp(profile.id)}
+            onClick={() => shareToWhatsApp(profile.id, profile)}
             className="hidden sm:flex items-center gap-1.5 bg-green-50 hover:bg-green-100 text-green-700 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm border border-green-200"
             title="Share Profile"
           >

@@ -207,9 +207,9 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
 
                   <div className="w-full pt-4 border-t border-gray-100 flex flex-col gap-3">
                     <div className="flex items-center justify-center gap-3 w-full">
-                      <button
-                        onClick={() => shareToWhatsApp(match.id)}
-                        className="w-10 h-[40px] rounded-full border border-gray-200 text-gray-500 hover:text-primary hover:bg-gray-100 flex items-center justify-center transition-colors shadow-sm"
+                      <button 
+                        onClick={() => shareToWhatsApp(match.id, match)}
+                        className="bg-green-50 text-green-700 hover:bg-green-100 p-2 rounded-full transition-colors flex items-center justify-center border border-green-200"
                         title={language === 'TA' ? 'பகிர' : 'Share'}
                       >
                         <Share2 className="w-4 h-4" />

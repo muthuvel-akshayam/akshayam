@@ -56,7 +56,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
       alert('Please sign up and create your profile to share profiles.');
       return;
     }
-    shareToWhatsApp(profile.id);
+    shareToWhatsApp(user.profile.id, user.profile);
   };
   const profile = user.profile;
   const family = user.family;
@@ -378,7 +378,10 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
                        View Horoscope PDF
                      </a>
                   ) : (
-                     <div className="relative w-full max-w-4xl h-72 sm:h-96 overflow-hidden rounded-lg border border-gray-300 shadow-sm cursor-zoom-in group" onClick={() => window.open(fullJathakamUrl, '_blank')}>
+                     <div className="relative w-full max-w-4xl h-72 sm:h-96 overflow-hidden rounded-lg border border-gray-300 shadow-sm cursor-zoom-in group" onClick={(e) => {
+                    e.stopPropagation();
+                    shareToWhatsApp(profile.id, profile);
+                  }}>
                        <img 
                          src={fullJathakamUrl} 
                          alt="Horoscope Charts" 
