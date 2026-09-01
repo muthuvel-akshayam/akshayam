@@ -163,7 +163,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                 {/* Image Section */}
                 <Link href={`/profiles/${match.id}`} className="w-full aspect-[4/5] relative overflow-hidden flex-shrink-0 cursor-pointer block group">
                   {(!profile.hidePhoto || isApproved) && profile.photoUrl ? (
-                    <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-cover object-top bg-gray-50 transition-transform duration-700 group-hover:scale-105" />
+                    <img src={profile.photoUrl.includes('/profile-photos/') ? profile.photoUrl.replace(/\/profile-photos\/(?!watermarked\/)/, '/profile-photos/watermarked/') : profile.photoUrl} onError={(e) => { const target = e.currentTarget; if (target.src !== profile.photoUrl) target.src = profile.photoUrl; }} alt={profile.name} className="w-full h-full object-cover object-top bg-gray-50 transition-transform duration-700 group-hover:scale-105" />
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 transition-colors duration-300 group-hover:bg-gray-100">
                       <User className="w-16 h-16 text-gray-300 mb-2 transition-transform duration-500 group-hover:scale-110" />

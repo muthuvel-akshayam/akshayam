@@ -34,7 +34,7 @@ export default function LandingProfileCard({ profile: data }: ProfileProps) {
       <div className="relative h-48 sm:h-52 w-full bg-gray-100">
         {!p.hidePhoto && p.photoUrl ? (
           <img 
-            src={p.photoUrl} 
+            src={p.photoUrl.includes('/profile-photos/') ? p.photoUrl.replace(/\/profile-photos\/(?!watermarked\/)/, '/profile-photos/watermarked/') : p.photoUrl} onError={(e) => { const target = e.currentTarget; if (target.src !== p.photoUrl) target.src = p.photoUrl; }} 
             alt={p.name} 
             className="w-full h-full object-cover rounded-t-lg object-top"
           />

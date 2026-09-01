@@ -268,16 +268,18 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
               </div>
             </button>
 
-            <button
-              type="button"
-              onClick={() => setValue('acceptsDivorced', !acceptsDivorced, { shouldValidate: true })}
-              className={`w-full flex justify-between items-center p-4 rounded-lg border transition-all ${acceptsDivorced ? 'border-red-600 bg-red-50' : 'border-gray-200 bg-white hover:border-rose-400'}`}
-            >
-              <span className="text-sm font-semibold text-gray-700">{t.acceptsDivorced}</span>
-              <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${acceptsDivorced ? 'bg-red-600 border-red-600' : 'border-gray-300'}`}>
-                {acceptsDivorced && <CheckCircle2 className="w-4 h-4 text-white" />}
-              </div>
-            </button>
+            {initialData?.profile?.maritalStatus !== 'NEVER_MARRIED' && (
+              <button
+                type="button"
+                onClick={() => setValue('acceptsDivorced', !acceptsDivorced, { shouldValidate: true })}
+                className={`w-full flex justify-between items-center p-4 rounded-lg border transition-all ${acceptsDivorced ? 'border-red-600 bg-red-50' : 'border-gray-200 bg-white hover:border-rose-400'}`}
+              >
+                <span className="text-sm font-semibold text-gray-700">{t.acceptsDivorced}</span>
+                <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${acceptsDivorced ? 'bg-red-600 border-red-600' : 'border-gray-300'}`}>
+                  {acceptsDivorced && <CheckCircle2 className="w-4 h-4 text-white" />}
+                </div>
+              </button>
+            )}
 
             <button
               type="button"

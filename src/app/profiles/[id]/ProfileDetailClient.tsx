@@ -203,7 +203,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
                 <span className="text-xs mt-1">This user has chosen to hide their photo.</span>
               </div>
             ) : profile.photoUrl && !profile.photoUrl.includes('blurred-avatar.png') ? (
-              <img src={profile.photoUrl} alt={profile.name} className="w-full h-full object-contain bg-gray-50" />
+              <img src={profile.photoUrl.includes('/profile-photos/') ? profile.photoUrl.replace(/\/profile-photos\/(?!watermarked\/)/, '/profile-photos/watermarked/') : profile.photoUrl} onError={(e) => { const target = e.currentTarget; if (target.src !== profile.photoUrl) target.src = profile.photoUrl; }} alt={profile.name} className="w-full h-full object-contain bg-gray-50" />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400">No Photo Available</div>
             )}
