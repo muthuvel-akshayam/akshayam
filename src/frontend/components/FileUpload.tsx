@@ -28,6 +28,12 @@ export function FileUpload({ label, subLabel, bucket, onUploadSuccess, onFileSel
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Client-side file size validation (10MB limit)
+    if (file.size > 10 * 1024 * 1024) {
+      alert(language === 'TA' ? 'கோப்பு அளவு 10MB-க்கு மேல் இருக்கக்கூடாது.' : 'File size must be less than 10MB.');
+      return;
+    }
+
     if (onFileSelect) {
       onFileSelect(file);
     }
@@ -95,6 +101,7 @@ export function FileUpload({ label, subLabel, bucket, onUploadSuccess, onFileSel
       <input
         ref={fileInputRef}
         type="file"
+        accept="*/*"
         onChange={handleFileChange}
         disabled={isUploading}
         className="hidden"

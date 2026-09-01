@@ -268,7 +268,7 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
               </div>
             </button>
 
-            {initialData?.profile?.maritalStatus !== 'NEVER_MARRIED' && (
+            {(initialData?.profile?.maritalStatus === 'DIVORCED' || initialData?.profile?.maritalStatus === 'WIDOWED' || initialData?.profile?.maritalStatus === 'AWAITING_DIVORCE') && (
               <button
                 type="button"
                 onClick={() => setValue('acceptsDivorced', !acceptsDivorced, { shouldValidate: true })}
