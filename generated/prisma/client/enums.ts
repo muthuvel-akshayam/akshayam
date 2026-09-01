@@ -91,6 +91,7 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const ProfileStatus = {
+  INCOMPLETE: 'INCOMPLETE',
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED',

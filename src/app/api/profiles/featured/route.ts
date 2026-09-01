@@ -8,12 +8,12 @@ export async function GET() {
     // Fetch active profiles for females and males that are marked as featured
     const [femaleProfiles, maleProfiles] = await Promise.all([
       prisma.profile.findMany({
-        where: { gender: "FEMALE" },
+        where: { gender: "FEMALE", status: "APPROVED", isLive: true },
         include: { educations: true, user: { select: { userid: true } } },
         take: 12,
       }),
       prisma.profile.findMany({
-        where: { gender: "MALE" },
+        where: { gender: "MALE", status: "APPROVED", isLive: true },
         include: { educations: true, user: { select: { userid: true } } },
         take: 12,
       }),

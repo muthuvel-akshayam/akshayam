@@ -13,7 +13,8 @@ export async function getUserId() {
 export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>) {
   const parsed = personalInfoSchema.safeParse(data);
   if (!parsed.success) {
-    throw new Error("Invalid personal info data");
+    console.error("Validation failed:", parsed.error.issues);
+    throw new Error("Validation failed: " + JSON.stringify(parsed.error.issues));
   }
 
   const { mobileNo, password, email, educations, ...profileData } = parsed.data;
@@ -64,7 +65,7 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
     return { success: true, profile };
   } catch (error: any) {
     console.error('Error saving personal info:', error);
-    return { success: false, error: 'Database connection failed or operation unsuccessful. Please try again.' };
+    return { success: false, error: error?.message || 'Database connection failed or operation unsuccessful. Please try again.' };
   }
 }
 
@@ -169,11 +170,39 @@ export async function savePaymentScreenshot(paymentScreenshot: string) {
       }
     });
 
+    await prisma.profile.updateMany({
+      where: { userId },
+      data: { status: "PENDING" }
+    });
+
     revalidatePath('/profile');
     revalidatePath('/dashboard');
     return { success: true, user };
   } catch (error: any) {
     console.error('Error saving payment screenshot:', error);
     return { success: false, error: 'Database connection failed or operation unsuccessful. Please try again.' };
+  }
+}
+
+export async function markProfileCompleted() {
+  try {
+    const userId = await getUserId();
+    
+    await prisma.user.update({
+      where: { id: userId },
+      data: { status: "PENDING" }
+    });
+
+    await prisma.profile.updateMany({
+      where: { userId },
+      data: { status: "PENDING" }
+    });
+
+    revalidatePath('/profile');
+    revalidatePath('/dashboard');
+    return { success: true };
+  } catch (error: any) {
+    console.error('Error marking profile completed:', error);
+    return { success: false, error: 'Database connection failed' };
   }
 }

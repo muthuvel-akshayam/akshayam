@@ -231,7 +231,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
       style={{ 
         width: '794px', 
         height: '1123px', 
-        padding: '1.5cm',
+        padding: '36px 48px',
         boxSizing: 'border-box',
         fontFamily: "'Mukta Malar', 'Latha', 'Vijaya', 'Tamil MN', 'Arial', sans-serif",
         display: 'flex',

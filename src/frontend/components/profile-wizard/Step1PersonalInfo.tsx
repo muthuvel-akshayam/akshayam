@@ -68,9 +68,21 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const [loadingCastes, setLoadingCastes] = useState(false);
   const [loadingSubcastes, setLoadingSubcastes] = useState(false);
   
-  const schema = initialData ? personalInfoSchema : personalInfoSchema.extend({
-    mobileNo: z.string().min(10, 'Mobile number required (min 10 digits)'),
-    password: z.string().min(6, 'Password required (min 6 chars)')
+  const schema = initialData ? personalInfoSchema : personalInfoSchema.superRefine((data, ctx) => {
+    if (!data.mobileNo || data.mobileNo.length < 10) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Mobile number required (min 10 digits)',
+        path: ['mobileNo']
+      });
+    }
+    if (!data.password || data.password.length < 6) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Password required (min 6 chars)',
+        path: ['password']
+      });
+    }
   });
 
   const { register, control, handleSubmit, setValue, formState: { errors, isDirty }, watch } = useForm<FormValues>({
@@ -112,6 +124,10 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
       hideMobileNo: profile?.hideMobileNo !== undefined ? profile?.hideMobileNo : true,
       hideHouseAddress: profile?.hideHouseAddress !== undefined ? profile?.hideHouseAddress : true,
       hideHouseLocation: profile?.hideHouseLocation !== undefined ? profile?.hideHouseLocation : true,
+      haveChildren: profile?.haveChildren ?? undefined,
+      numberOfChildren: profile?.numberOfChildren ?? undefined,
+      childrenGender: profile?.childrenGender || '',
+      childrenAge: profile?.childrenAge || '',
       educations: profile?.educations && profile.educations.length > 0 ? profile.educations.map((e: any) => ({
         level: e.level || '',
         degreeName: e.degreeName || '',
@@ -793,7 +809,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
           </div>
           <div>
             <label className={labelClass}>{t.maritalStatus}</label>
-            <select {...register('maritalStatus')} className={inputClass}>
+            <select {...register('maritalStatus', { onChange: () => setValue('haveChildren', undefined) })} className={inputClass}>
               <option value="NEVER_MARRIED">{t.neverMarried}</option>
               <option value="DIVORCED">{t.divorced}</option>
               <option value="WIDOWED">{t.widowed}</option>
@@ -801,6 +817,44 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
             </select>
             {errors.maritalStatus && <p className="text-red-500 text-xs mt-1">{errors.maritalStatus.message as string}</p>}
           </div>
+
+          {['DIVORCED', 'WIDOWED', 'AWAITING_DIVORCE'].includes(watch('maritalStatus')) && (
+            <>
+              <div className="md:col-span-2 border-t border-gray-100 mt-2"></div>
+              <div>
+                <label className={labelClass}>{t.haveChildren}</label>
+                <select {...register('haveChildren', { setValueAs: v => v === 'true' ? true : v === 'false' ? false : undefined })} className={inputClass}>
+                  <option value="">{language === 'TA' ? 'தேர்ந்தெடுக்கவும்' : 'Select'}</option>
+                  <option value="true">{t.yes}</option>
+                  <option value="false">{t.no}</option>
+                </select>
+              </div>
+
+              {watch('haveChildren') === true && (
+                <>
+                  <div>
+                    <label className={labelClass}>{t.numberOfChildren}</label>
+                    <input type="number" {...register('numberOfChildren', { valueAsNumber: true })} className={inputClass} placeholder="1" min={1} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>{t.childrenGender}</label>
+                    <select {...register('childrenGender')} className={inputClass}>
+                      <option value="">{language === 'TA' ? 'தேர்ந்தெடுக்கவும்' : 'Select'}</option>
+                      <option value="Boy">{t.boy}</option>
+                      <option value="Girl">{t.girl}</option>
+                      <option value="Both">{language === 'TA' ? 'ஆண் & பெண் (Both)' : 'Both'}</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className={labelClass}>{t.childrenAge}</label>
+                    <input type="text" {...register('childrenAge')} className={inputClass} placeholder={language === 'TA' ? 'எ.கா. 5 வயது' : 'e.g. 5 years'} />
+                  </div>
+                </>
+              )}
+              <div className="md:col-span-2 border-b border-gray-100 mb-2"></div>
+            </>
+          )}
+
           <div>
             <label className={labelClass}>{t.familyStatus}</label>
             <select {...register('familyStatus')} className={inputClass}>

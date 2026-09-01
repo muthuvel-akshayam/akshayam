@@ -11,6 +11,7 @@ import { logoutUser } from '@/backend/actions/auth';
 import { shareToWhatsApp } from '@/lib/shareProfile';
 import { downloadBioDataPdf, printBioDataPdf } from '@/lib/generatePdf';
 import ProfileCarousel from '@/frontend/components/home/ProfileCarousel';
+import JathagamPDFTemplate from '@/frontend/components/pdf/JathagamPDFTemplate';
 
 export default function DashboardClient({ 
   user, 
@@ -149,7 +150,7 @@ export default function DashboardClient({
                 <p className="text-primary font-bold text-sm mt-1">{user?.userid || profile.id.slice(0, 8).toUpperCase()}</p>
                 <div className="flex gap-2 justify-center mt-4">
                   <Link href="/profile" className="px-4 py-1.5 bg-primary text-white text-xs font-bold rounded-full">{language === 'TA' ? 'திருத்து' : 'Edit'}</Link>
-                  <button onClick={() => downloadBioDataPdf(`pdf-template-${profile.id}`, profile.id)} className="px-4 py-1.5 bg-red-600 text-white text-xs font-bold rounded-full">{language === 'TA' ? 'PDF' : 'PDF'}</button>
+                  <button onClick={() => downloadBioDataPdf(`pdf-template-${profile.id}`, profile.id)} className="px-4 py-1.5 bg-red-600 text-white text-xs font-bold rounded-full flex items-center gap-1"><Download className="w-3 h-3" />{language === 'TA' ? 'பதிவிறக்கு' : 'Download'}</button>
                   <button onClick={async () => { await logoutUser(); window.location.href = '/'; }} className="px-4 py-1.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-full flex items-center gap-1"><LogOut className="w-3 h-3"/> Logout</button>
                 </div>
               </div>
@@ -228,6 +229,20 @@ export default function DashboardClient({
         )}
 
       </main>
+      
+      {/* Hidden PDF Template for the user's own profile */}
+      <div style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>
+        {profile && (
+          <JathagamPDFTemplate 
+            profile={profile} 
+            profileId={profile.id} 
+            family={family} 
+            akshayamId={user?.userid} 
+            userIndex={user?.userIndex} 
+            userCreatedAt={user?.createdAt} 
+          />
+        )}
+      </div>
       
       {/* CSS Animation for Drawer */}
       <style dangerouslySetInnerHTML={{__html: `

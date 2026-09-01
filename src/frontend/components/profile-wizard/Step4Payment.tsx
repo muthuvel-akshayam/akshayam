@@ -3,7 +3,7 @@ import { useLanguage } from '@/frontend/context/LanguageContext';
 import { formTranslations } from '@/frontend/utils/formTranslations';
 import { FileUpload } from '../FileUpload';
 import { CheckCircle, Info } from 'lucide-react';
-import { savePaymentScreenshot } from '@/backend/actions/profile';
+import { savePaymentScreenshot, markProfileCompleted } from '@/backend/actions/profile';
 
 export function Step4Payment({ 
   onNext, 
@@ -38,6 +38,19 @@ export function Step4Payment({
     } catch (err: any) {
       console.error(err);
       alert((language === 'TA' ? 'சேமிக்க முடியவில்லை: ' : 'Failed to save payment info: ') + (err?.message || err));
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handlePayLater = async () => {
+    setIsSaving(true);
+    try {
+      await markProfileCompleted();
+      onNext();
+    } catch (err) {
+      console.error(err);
+      onNext(); // still navigate if it fails
     } finally {
       setIsSaving(false);
     }
@@ -116,11 +129,11 @@ export function Step4Payment({
             {language === 'TA' ? 'சமர்ப்பிக்கவும்' : 'Submit & Complete'}
           </button>
           <button
-            onClick={() => onNext()}
+            onClick={handlePayLater}
             disabled={isSaving}
-            className="text-xs text-gray-500 hover:text-gray-800 transition-colors mt-1"
+            className="text-xs bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900 px-4 py-1.5 rounded-md transition-colors shadow-sm font-medium mt-2"
           >
-            {language === 'TA' ? 'பிறகு செலுத்துகிறேன் (Pay Later)' : 'Pay Later / Already Paid'}
+            {language === 'TA' ? 'ஏற்கனவே செலுத்தியவர்கள் / பிறகு செலுத்துகிறேன்' : 'Already Paid / Pay Later'}
           </button>
         </div>
       </div>
