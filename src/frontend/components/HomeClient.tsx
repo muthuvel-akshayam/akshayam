@@ -12,7 +12,7 @@ import {
   Info, Briefcase, Mail, ChevronRight, Lock, LogIn, Menu, X,
   FileText, TreePine, Flame, Drum, Gift, ChefHat, 
   Vegan, Milk, Cake, Salad, GlassWater, Flower, 
-  Camera, IceCream, CupSoda, MessageCircle, Tent
+  Camera, IceCream, CupSoda, MessageCircle, Tent, Eye, EyeOff
 } from 'lucide-react';
 
 export default function HomeClient() {
@@ -25,6 +25,7 @@ export default function HomeClient() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [isRequestingReset, setIsRequestingReset] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [resetMessage, setResetMessage] = useState({ type: '', text: '' });
   const { language, toggleLanguage } = useLanguage();
   
@@ -719,14 +720,24 @@ export default function HomeClient() {
                     {isRequestingReset ? (language === 'TA' ? 'அனுப்புகிறது...' : 'Sending...') : (language === 'TA' ? 'மறந்துவிட்டதா?' : 'Forgot?')}
                   </button>
                 </div>
+                <div className="relative">
                   <input
-                  type="password"
-                  required
-                  value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full h-12 px-4 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 font-bold text-base sm:text-sm focus:bg-white focus:border-primary focus:outline-none transition-all"
-                />
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full h-12 px-4 pr-12 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 font-bold text-base sm:text-sm focus:bg-white focus:border-primary focus:outline-none transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3.5 top-3.5 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
               </div>
 
               <div className="flex items-center gap-2 mt-2">

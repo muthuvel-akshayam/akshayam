@@ -248,13 +248,13 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
         <div className="flex flex-col items-center pb-1 border-b border-gray-300" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '4px', borderBottom: '1px solid #d1d5db', width: '100%' }}>
           
           {/* Top Title Image (New Green Text) */}
-          <div className="mb-2 w-full flex justify-center" style={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
+          {/* <div className="mb-2 w-full flex justify-center" style={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
             <img src="/akshayam_title.png" alt="Akshayam Title" style={{ height: '70px', width: 'auto', objectFit: 'contain' }} />
-          </div>
+          </div> */}
 
           <div className="flex justify-between items-end w-full" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', width: '100%' }}>
             {/* Left Couple Image */}
-            <div className="flex items-end" style={{ display: 'flex', alignItems: 'flex-end' }}>
+            <div className="flex items-end w-[120px]" style={{ display: 'flex', alignItems: 'flex-end', width: '120px' }}>
               <img src="/hero-couple.png" alt="Couple" className="object-cover rounded" style={{ height: '80px', width: 'auto', objectFit: 'cover', borderRadius: '4px' }} />
             </div>
             
@@ -271,7 +271,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
         </div>
 
         {/* Contact Strip */}
-        <div className="flex justify-center items-center bg-white h-6 overflow-hidden text-[10px]" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', backgroundColor: '#ffffff', height: '24px', overflow: 'hidden', fontSize: '10px', marginTop: '8px', width: '100%' }}>
+        <div className="flex justify-center items-center bg-white py-1 text-[10px]" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', backgroundColor: '#ffffff', padding: '4px 0', fontSize: '10px', marginTop: '8px', width: '100%' }}>
           <div className="flex items-center gap-1 font-bold whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', whiteSpace: 'nowrap', flexShrink: 0 }}>
             <span className="text-emerald-800" style={{ color: '#065f46' }}>📞</span>
             <span className="text-red-600 tracking-wide" style={{ color: '#dc2626', letterSpacing: '0.025em' }}>96776 13716, 93452 89217</span>

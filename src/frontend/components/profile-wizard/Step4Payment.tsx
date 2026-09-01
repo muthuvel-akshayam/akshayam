@@ -58,8 +58,7 @@ export function Step4Payment({
                 {language === 'TA' ? 'கட்டண விவரங்கள்:' : 'Payment Details:'}
               </p>
               <p>Registration Fee: ₹999</p>
-              <p>GST (18%): ₹181</p>
-              <p className="font-bold text-lg mt-1 text-primary">Total: ₹1180</p>
+              <p className="font-bold text-lg mt-1 text-primary">Total: ₹999</p>
             </div>
           </div>
 
@@ -103,18 +102,27 @@ export function Step4Payment({
 
       <div className="flex justify-between pt-6 border-t border-gray-100">
         <div></div>
-        <button 
-          onClick={onSubmit}
-          disabled={isSaving || !screenshotUrl} 
-          className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-md transition-all active:scale-95 flex items-center gap-2"
-        >
-          {isSaving ? (
-            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          ) : (
-            <CheckCircle className="w-5 h-5" />
-          )}
-          {language === 'TA' ? 'சமர்ப்பிக்கவும்' : 'Submit & Complete'}
-        </button>
+        <div className="flex flex-col items-end gap-2">
+          <button 
+            onClick={onSubmit}
+            disabled={isSaving || !screenshotUrl} 
+            className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-md transition-all active:scale-95 flex items-center gap-2"
+          >
+            {isSaving ? (
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <CheckCircle className="w-5 h-5" />
+            )}
+            {language === 'TA' ? 'சமர்ப்பிக்கவும்' : 'Submit & Complete'}
+          </button>
+          <button
+            onClick={() => onNext()}
+            disabled={isSaving}
+            className="text-xs text-gray-500 hover:text-gray-800 transition-colors mt-1"
+          >
+            {language === 'TA' ? 'பிறகு செலுத்துகிறேன் (Pay Later)' : 'Pay Later / Already Paid'}
+          </button>
+        </div>
       </div>
     </div>
   );
