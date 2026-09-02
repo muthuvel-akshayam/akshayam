@@ -134,7 +134,7 @@ export const expectationsSchema = z.object({
   expectsRentalIncome: z.boolean().optional(),
   expectsThottam: z.boolean().optional(),
   expectsVacantLand: z.boolean().optional(),
-  preferredDistanceRadius: z.number().or(z.nan()).refine(v => !isNaN(v), { message: "Distance preference is required" }),
+  preferredDistanceRadius: z.number().or(z.nan()).transform(v => isNaN(v) ? undefined : v).optional(),
   acceptsDivorced: z.boolean().optional(),
   city: z.string().min(1, 'Preferred city is required'),
   comments: z.string().min(1, 'Comments are required'),

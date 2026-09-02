@@ -102,23 +102,37 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
           </div>
           <div>
             <label className={labelClass}>{t.fatherStatus}</label>
-            <select {...register('fatherLivingStatus')} className={inputClass}>
+            <select 
+              {...register('fatherLivingStatus', {
+                onChange: (e) => {
+                  if (e.target.value === 'LATE') {
+                    setValue('fatherStatus', '', { shouldDirty: true });
+                    setValue('fatherMobile', '', { shouldDirty: true });
+                  }
+                }
+              })} 
+              className={inputClass}
+            >
               <option value="">{t.selectStatus}</option>
               <option value="ALIVE">{t.alive}</option>
               <option value="LATE">{t.late}</option>
             </select>
             {errors.fatherLivingStatus && <p className="text-red-500 text-xs mt-1">{errors.fatherLivingStatus.message as string}</p>}
           </div>
-          <div>
-            <label className={labelClass}>{t.fatherOcc}</label>
-            <input {...register('fatherStatus')} className={inputClass} placeholder={t.fatherOccPlaceholder} />
-            {errors.fatherStatus && <p className="text-red-500 text-xs mt-1">{errors.fatherStatus.message as string}</p>}
-          </div>
-          <div>
-            <label className={labelClass}>{t.fatherMobile}</label>
-            <input type="tel" {...register('fatherMobile')} className={inputClass} placeholder={t.privacyProtectedPlaceholder} />
-            {errors.fatherMobile && <p className="text-red-500 text-xs mt-1">{errors.fatherMobile.message as string}</p>}
-          </div>
+          {watch('fatherLivingStatus') !== 'LATE' && (
+            <>
+              <div>
+                <label className={labelClass}>{t.fatherOcc}</label>
+                <input {...register('fatherStatus')} className={inputClass} placeholder={t.fatherOccPlaceholder} />
+                {errors.fatherStatus && <p className="text-red-500 text-xs mt-1">{errors.fatherStatus.message as string}</p>}
+              </div>
+              <div>
+                <label className={labelClass}>{t.fatherMobile}</label>
+                <input type="tel" {...register('fatherMobile')} className={inputClass} placeholder={t.privacyProtectedPlaceholder} />
+                {errors.fatherMobile && <p className="text-red-500 text-xs mt-1">{errors.fatherMobile.message as string}</p>}
+              </div>
+            </>
+          )}
           
           <div className="md:col-span-2"><hr className="my-2 border-gray-200" /></div>
           
@@ -129,23 +143,37 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
           </div>
           <div>
             <label className={labelClass}>{t.motherStatus}</label>
-            <select {...register('motherLivingStatus')} className={inputClass}>
+            <select 
+              {...register('motherLivingStatus', {
+                onChange: (e) => {
+                  if (e.target.value === 'LATE') {
+                    setValue('motherStatus', '', { shouldDirty: true });
+                    setValue('motherMobile', '', { shouldDirty: true });
+                  }
+                }
+              })} 
+              className={inputClass}
+            >
               <option value="">{t.selectStatus}</option>
               <option value="ALIVE">{t.alive}</option>
               <option value="LATE">{t.late}</option>
             </select>
             {errors.motherLivingStatus && <p className="text-red-500 text-xs mt-1">{errors.motherLivingStatus.message as string}</p>}
           </div>
-          <div>
-            <label className={labelClass}>{t.motherOcc}</label>
-            <input {...register('motherStatus')} className={inputClass} placeholder={t.motherOccPlaceholder} />
-            {errors.motherStatus && <p className="text-red-500 text-xs mt-1">{errors.motherStatus.message as string}</p>}
-          </div>
-          <div>
-            <label className={labelClass}>{t.motherMobile}</label>
-            <input type="tel" {...register('motherMobile')} className={inputClass} placeholder={t.privacyProtectedPlaceholder} />
-            {errors.motherMobile && <p className="text-red-500 text-xs mt-1">{errors.motherMobile.message as string}</p>}
-          </div>
+          {watch('motherLivingStatus') !== 'LATE' && (
+            <>
+              <div>
+                <label className={labelClass}>{t.motherOcc}</label>
+                <input {...register('motherStatus')} className={inputClass} placeholder={t.motherOccPlaceholder} />
+                {errors.motherStatus && <p className="text-red-500 text-xs mt-1">{errors.motherStatus.message as string}</p>}
+              </div>
+              <div>
+                <label className={labelClass}>{t.motherMobile}</label>
+                <input type="tel" {...register('motherMobile')} className={inputClass} placeholder={t.privacyProtectedPlaceholder} />
+                {errors.motherMobile && <p className="text-red-500 text-xs mt-1">{errors.motherMobile.message as string}</p>}
+              </div>
+            </>
+          )}
           
           <div className="md:col-span-2"><hr className="my-2 border-gray-200" /></div>
           
@@ -159,9 +187,9 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
 
       {/* Siblings */}
       <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 space-y-6">
-        <div className="flex items-center justify-between border-b pb-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-2 gap-3 sm:gap-0 items-start">
           <h3 className="text-lg font-bold text-gray-800">{t.siblings}</h3>
-          <button type="button" onClick={() => append({ name: '', relation: '', status: '' })} className="flex items-center space-x-1 text-sm text-red-600 font-semibold hover:text-red-700">
+          <button type="button" onClick={() => append({ name: '', relation: '', status: '' })} className="flex items-center space-x-1 text-sm text-red-600 font-semibold hover:text-red-700 shrink-0">
             <Plus className="w-4 h-4" />
             <span>{t.addSibling}</span>
           </button>
@@ -195,7 +223,7 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
                 <option value="Unmarried">{t.unmarried}</option>
               </select>
             </div>
-            <button type="button" onClick={() => remove(index)} className="absolute -top-2 -right-2 bg-red-100 text-red-600 p-1.5 rounded-full hover:bg-red-200 transition-colors opacity-0 group-hover:opacity-100">
+            <button type="button" onClick={() => remove(index)} className="absolute -top-2 -right-2 bg-red-100 text-red-600 p-1.5 rounded-full hover:bg-red-200 transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100">
               <Trash2 className="w-4 h-4" />
             </button>
           </div>

@@ -24,8 +24,9 @@ export function shareToWhatsApp(profileId: string, profileData?: any) {
     const name = profileData.name || '';
     const education = profileData.educations?.[0]?.degreeName || '';
     const kulam = profileData.koottam || profileData.subCaste || '';
+    const dosham = profileData.dosham || 'சுத்த ஜாதகம்';
     
-    const text = `பெயர் :${name}  படிப்பு :${education} குலம் : ${kulam} - மேலும் விபரங்களுக்கு லிங்க்கை கிளிக் செய்யவும்\n${shareUrl}`;
+    const text = `பெயர் :${name} படிப்பு :${education} குலம் : ${kulam} தோஷம் : ${dosham} - View profile\n${shareUrl}`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, '_blank');
   } else {

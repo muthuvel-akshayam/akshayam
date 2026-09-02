@@ -114,7 +114,8 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
           <div>
             <label className={labelClass}>{t.colourPref}</label>
             <select {...register('colourPreference')} className={inputClass}>
-              <option value="">{t.any}</option>
+              <option value="">{t.selectColour}</option>
+              <option value="Any">{t.any}</option>
               <option value="Fair">{t.fair}</option>
               <option value="Wheatish">{t.wheatish}</option>
               <option value="Dark">{t.dark}</option>

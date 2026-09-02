@@ -36,9 +36,14 @@ export async function generateMetadata(
 
   let imageUrl = `${baseUrl}/akshayam_logo.png`;
   if (profile.photoUrl) {
-    // WhatsApp and Facebook scrapers prefer raw image URLs (JPG/PNG) over Next.js optimized WebP routes.
-    // Using the direct photoUrl ensures maximum compatibility across social platforms.
-    imageUrl = profile.photoUrl;
+    imageUrl = profile.photoUrl.includes('/profile-photos/') 
+      ? profile.photoUrl.replace(/\/profile-photos\/(?!watermarked\/)/, '/profile-photos/watermarked/') 
+      : profile.photoUrl;
+      
+    // Ensure absolute URL just in case
+    if (!imageUrl.startsWith('http')) {
+      imageUrl = `${baseUrl}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+    }
   }
 
   return {

@@ -112,7 +112,7 @@ export const formTranslations = {
     regular: 'வழக்கமான (Regular)',
     
     educationDetails: 'கல்வி விவரங்கள் / Education Details',
-    addEducation: '+ கல்வி சேர்க்கவும் / Add Education',
+    addEducation: 'கல்வி சேர்க்கவும் / Add Education',
     noEducation: 'கல்வி விவரங்கள் எதுவும் சேர்க்கப்படவில்லை. பட்டனை அழுத்தவும்.',
     level: 'கல்வி நிலை / Level',
     selectLevel: 'தேர்ந்தெடுக்கவும்',
@@ -148,7 +148,7 @@ export const formTranslations = {
     motherMobile: 'தாயின் அலைபேசி / Mother Mobile',
     
     siblings: 'உடன்பிறந்தவர்கள் / Siblings',
-    addSibling: '+ உடன்பிறந்தவரை சேர்க்கவும்',
+    addSibling: 'உடன்பிறந்தவரை சேர்க்கவும்',
     noSiblings: 'உடன்பிறந்தவர்கள் சேர்க்கப்படவில்லை.',
     siblingName: 'பெயர் / Name',
     siblingNamePlaceholder: 'சகோதரர்/சகோதரியின் பெயர்',
