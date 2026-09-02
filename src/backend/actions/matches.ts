@@ -255,8 +255,13 @@ export async function getRecentProfiles(limit: number = 10) {
 export async function getProfileById(targetUserId: string) {
   const currentUserId = await getUserId();
   
-  const targetUser = await prisma.user.findUnique({
-    where: { id: targetUserId },
+  const targetUser = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { id: targetUserId },
+        { userid: targetUserId }
+      ]
+    },
     include: {
       profile: {
         include: { educations: true }
@@ -265,12 +270,12 @@ export async function getProfileById(targetUserId: string) {
         include: { siblings: true }
       },
       expectations: true,
-      sentRequests: {
+      sentRequests: currentUserId ? {
         where: { recipientId: currentUserId }
-      },
-      receivedRequests: {
+      } : undefined,
+      receivedRequests: currentUserId ? {
         where: { requesterId: currentUserId }
-      }
+      } : undefined
     }
   });
 

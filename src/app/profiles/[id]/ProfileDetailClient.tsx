@@ -56,7 +56,8 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
       alert('Please sign up and create your profile to share profiles.');
       return;
     }
-    shareToWhatsApp(user.profile.id, user.profile);
+    const shareId = user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id);
+    shareToWhatsApp(shareId, user.profile);
   };
   const profile = user.profile;
   const family = user.family;
@@ -380,7 +381,8 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
                   ) : (
                      <div className="relative w-full max-w-4xl h-72 sm:h-96 overflow-hidden rounded-lg border border-gray-300 shadow-sm cursor-zoom-in group" onClick={(e) => {
                     e.stopPropagation();
-                    shareToWhatsApp(profile.id, profile);
+                    const shareId = user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id);
+                    shareToWhatsApp(shareId, profile);
                   }}>
                        <img 
                          src={fullJathakamUrl} 
