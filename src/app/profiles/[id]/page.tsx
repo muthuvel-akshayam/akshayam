@@ -57,8 +57,13 @@ export async function generateMetadata(
     }
   }
 
-  // Now that we have the final photoUrl, we generate a guaranteed 1200x630 landscape OpenGraph image
-  const ogImageUrl = `${baseUrl}/api/og-profile?photoUrl=${encodeURIComponent(imageUrl)}`;
+  // We use Supabase's native image transformation to force the image to be a 1200x630 landscape JPEG.
+  // This guarantees WhatsApp displays the large banner layout, and fixes the 300KB size limit issue.
+  let ogImageUrl = imageUrl;
+  if (ogImageUrl.includes('.supabase.co/storage/v1/object/public/')) {
+    ogImageUrl = ogImageUrl.replace('/object/public/', '/render/image/public/');
+    ogImageUrl += '?width=1200&height=630&resize=contain';
+  }
 
   return {
     title: `${name} - Akshayam Matrimony`,
