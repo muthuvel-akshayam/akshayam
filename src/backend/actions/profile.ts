@@ -17,7 +17,17 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
     throw new Error("Validation failed: " + JSON.stringify(parsed.error.issues));
   }
 
-  const { mobileNo, password, email, educations, ...profileData } = parsed.data;
+  const { 
+    mobileNo, 
+    password, 
+    email, 
+    educations, 
+    haveChildren,
+    numberOfChildren,
+    childrenGender,
+    childrenAge,
+    ...profileData 
+  } = parsed.data;
 
   try {
     let userId = await getUserId();
@@ -122,14 +132,16 @@ export async function saveExpectations(data: z.infer<typeof expectationsSchema>)
       update: {}
     });
 
+    const { acceptsDivorced, ...expectationsData } = parsed.data;
+
     const expectations = await prisma.expectations.upsert({
       where: { userId },
       create: {
         userId,
-        ...parsed.data,
+        ...expectationsData,
       },
       update: {
-        ...parsed.data,
+        ...expectationsData,
       }
     });
 
