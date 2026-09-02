@@ -255,11 +255,16 @@ export async function getRecentProfiles(limit: number = 10) {
 export async function getProfileById(targetUserId: string) {
   const currentUserId = await getUserId();
   
+  const parsedIndex = parseInt(targetUserId, 10);
+  const possibleUserIndex = !isNaN(parsedIndex) && parsedIndex >= 1000 ? parsedIndex - 1000 : -1;
+
   const targetUser = await prisma.user.findFirst({
     where: {
       OR: [
         { id: targetUserId },
-        { userid: targetUserId }
+        { userid: targetUserId },
+        { profile: { displayId: targetUserId } },
+        ...(possibleUserIndex >= 0 ? [{ userIndex: possibleUserIndex }] : [])
       ]
     },
     include: {
