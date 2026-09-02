@@ -36,9 +36,7 @@ export async function generateMetadata(
 
   let imageUrl = `${baseUrl}/akshayam_logo.png`;
   if (profile.photoUrl) {
-    imageUrl = profile.photoUrl.includes('/profile-photos/') 
-      ? profile.photoUrl.replace(/\/profile-photos\/(?!watermarked\/)/, '/profile-photos/watermarked/') 
-      : profile.photoUrl;
+    imageUrl = profile.photoUrl;
       
     // Ensure absolute URL just in case
     if (!imageUrl.startsWith('http')) {
