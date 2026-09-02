@@ -267,7 +267,38 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
   const kulam = profile.koottam || jData.kulam || profile.subCaste || 'குறிப்பிடப்படவில்லை';
   const fatherStatus = mapParentStatus(jData.fatherName || family.fatherStatus);
   const motherStatus = mapParentStatus(jData.motherName || family.motherStatus);
-  const siblingsDisplay = jData.siblings || (siblingsCount > 0 ? siblingsText : (profile.siblings || 'இல்லை'));
+  const formatSiblings = (siblingsStr: any) => {
+    if (!siblingsStr || typeof siblingsStr !== 'string') return siblingsStr;
+    if (!siblingsStr.includes('மூத்தவர் ஆண்:')) return siblingsStr;
+    try {
+      const parts = siblingsStr.split(';');
+      const elderPart = parts[0] || '';
+      const youngerPart = parts[1] || '';
+      
+      const elderMaleMatch = elderPart.match(/ஆண்:\s*(\d+)/);
+      const elderFemaleMatch = elderPart.match(/பெண்:\s*(\d+)/);
+      const youngerMaleMatch = youngerPart.match(/ஆண்:\s*(\d+)/);
+      const youngerFemaleMatch = youngerPart.match(/பெண்:\s*(\d+)/);
+      
+      const elderMale = elderMaleMatch ? parseInt(elderMaleMatch[1]) : 0;
+      const elderFemale = elderFemaleMatch ? parseInt(elderFemaleMatch[1]) : 0;
+      const youngerMale = youngerMaleMatch ? parseInt(youngerMaleMatch[1]) : 0;
+      const youngerFemale = youngerFemaleMatch ? parseInt(youngerFemaleMatch[1]) : 0;
+      
+      const result = [];
+      if (elderMale > 0) result.push(`அண்ணன்: ${elderMale}`);
+      if (elderFemale > 0) result.push(`அக்கா: ${elderFemale}`);
+      if (youngerMale > 0) result.push(`தம்பி: ${youngerMale}`);
+      if (youngerFemale > 0) result.push(`தங்கை: ${youngerFemale}`);
+      
+      if (result.length === 0) return 'இல்லை';
+      return result.join(', ');
+    } catch (e) {
+      return siblingsStr;
+    }
+  };
+
+  const siblingsDisplay = formatSiblings(jData.siblings || (siblingsCount > 0 ? siblingsText : (profile.siblings || 'இல்லை')));
   
   let formattedOccupation = [];
   if (family.workNature) formattedOccupation.push(family.workNature);

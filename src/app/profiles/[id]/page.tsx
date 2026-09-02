@@ -57,12 +57,12 @@ export async function generateMetadata(
     }
   }
 
-  // We use Supabase's native image transformation to force the image to be a 1200x630 landscape JPEG.
-  // This guarantees WhatsApp displays the large banner layout, and fixes the 300KB size limit issue.
+  // We use Supabase's native image transformation to force the image to be a 400x400 square JPEG.
+  // This guarantees WhatsApp displays the small thumbnail layout, and fixes the 300KB size limit issue.
   let ogImageUrl = imageUrl;
   if (ogImageUrl.includes('.supabase.co/storage/v1/object/public/')) {
     ogImageUrl = ogImageUrl.replace('/object/public/', '/render/image/public/');
-    ogImageUrl += '?width=1200&height=630&resize=contain';
+    ogImageUrl += '?width=400&height=400&resize=cover';
   }
 
   return {
@@ -76,8 +76,8 @@ export async function generateMetadata(
       images: [
         {
           url: ogImageUrl,
-          width: 1200,
-          height: 630,
+          width: 400,
+          height: 400,
           alt: `${name}'s Profile Photo`,
         },
       ],
@@ -85,7 +85,7 @@ export async function generateMetadata(
       type: 'website',
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary',
       title: `${name} - Akshayam Matrimony`,
       description: description,
       images: [ogImageUrl],
