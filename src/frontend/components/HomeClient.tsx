@@ -428,23 +428,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* Overview SEO Section */}
-      <section className="py-12 bg-white relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-background rounded-3xl p-8 md:p-10 shadow-lg border border-accent/20 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-[var(--color-accent)] to-transparent opacity-60"></div>
-            {language === 'TA' ? (
-              <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
-                திருப்பூரில் சிறந்த திருமண மண்டபத்தை தேடுகிறீர்களா? புக்வெட்கோ (Bookwedgo) உங்கள் பட்ஜெட் மற்றும் விருப்பத்திற்கு ஏற்ற சிறந்த கல்யாண மண்டபங்கள் மற்றும் திருமண அரங்குகளை வழங்குகிறது. அனைத்தையும் ஒரே இடத்தில் ஒப்பிட்டு எளிதாக முன்பதிவு செய்யலாம். மேலும் அறிய <a href="https://www.bookwedgo.com/wedding/tiruppur" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-accent transition-colors font-bold border-b-2 border-primary/20 hover:border-accent inline-block mt-1">Bookwedgo Tiruppur</a> இணையதளத்தைப் பார்வையிடவும்.
-              </p>
-            ) : (
-              <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
-                Looking for the perfect marriage hall in Tiruppur? Bookwedgo offers a curated list of top wedding venues, kalyana mandapams, and banquet halls tailored to your budget and style. Compare options, check availability, and easily book your dream venue all in one place. Explore all venues at <a href="https://www.bookwedgo.com/wedding/tiruppur" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-accent transition-colors font-bold border-b-2 border-primary/20 hover:border-accent inline-block mt-1">Bookwedgo Tiruppur</a>.
-              </p>
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* Featured Profiles Section */}
       {(featuredBrides.length > 0 || featuredGrooms.length > 0) && (

@@ -65,18 +65,12 @@ export default function LandingProfileCard({ profile: data }: ProfileProps) {
       </div>
 
       {/* Action Buttons Row */}
-      <div className="px-4 pb-4 pt-2 w-full grid grid-cols-2 gap-2">
+      <div className="px-4 pb-4 pt-2 w-full">
         <Link 
           href={`/profiles/${p.userId || p.id || user?.id}`}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold py-2 px-2 rounded text-center transition-colors shadow-sm"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold py-2 px-2 rounded text-center transition-colors shadow-sm block w-full"
         >
           ப்ரோபைல்
-        </Link>
-        <Link 
-          href={`/profiles/${p.userId || p.id || user?.id}?tab=jathakam`}
-          className="bg-amber-500 hover:bg-amber-600 text-white text-xs sm:text-sm font-semibold py-2 px-2 rounded text-center transition-colors shadow-sm"
-        >
-          ஜாதகம்
         </Link>
       </div>
     </div>

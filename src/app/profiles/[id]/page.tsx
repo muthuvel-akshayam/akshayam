@@ -32,7 +32,7 @@ export async function generateMetadata(
   const dosham = profile.dosham || 'சுத்த ஜாதகம்';
   
   // Format exactly as requested: Name, koottam, thoosam
-  const description = `பெயர் :${name} படிப்பு :${education} குலம் : ${kulam} தோஷம் : ${dosham}`;
+  const description = `பெயர் : ${name} | படிப்பு : ${education} | குலம் : ${kulam} | தோஷம் : ${dosham}`;
 
   let imageUrl = `${baseUrl}/akshayam_logo.png`;
   if (profile.photoUrl) {

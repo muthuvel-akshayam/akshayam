@@ -56,7 +56,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
       alert('Please sign up and create your profile to share profiles.');
       return;
     }
-    const shareId = user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 6).toUpperCase());
+    const shareId = user.userid || user.profile?.displayId || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
     shareToWhatsApp(shareId, user.profile);
   };
   const profile = user.profile;
@@ -91,7 +91,29 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
 
   if (!profile) return <div>Profile not found.</div>;
 
-  const age = profile.dob ? Math.floor((new Date().getTime() - new Date(profile.dob).getTime()) / 3.15576e+10) : 'N/A';
+  const parseSafeDate = (d: any) => {
+    if (!d) return null;
+    let dateObj = new Date(d);
+    if (isNaN(dateObj.getTime()) && typeof d === 'string') {
+      const parts = d.split(/[-/]/);
+      if (parts.length === 3) {
+        if (parts[2].length === 4) dateObj = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+        else if (parts[0].length === 4) dateObj = new Date(`${parts[0]}-${parts[1]}-${parts[2]}`);
+      }
+    }
+    return isNaN(dateObj.getTime()) ? null : dateObj;
+  };
+
+  const birthDate = parseSafeDate(profile.dob || profile.dateOfBirth);
+  let calculatedAge: string | number = 'N/A';
+  if (birthDate) {
+    const today = new Date();
+    let years = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) years--;
+    calculatedAge = years;
+  }
+  const age = calculatedAge;
   
   // Format education safely handling arrays
   const education = Array.isArray(profile.educations) && profile.educations.length > 0 
@@ -183,7 +205,10 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
               <span className="text-xs sm:text-sm">Share</span>
             </button>
             <button
-              onClick={() => downloadBioDataPdf(`pdf-template-${profile.id}`, profile.id)}
+              onClick={() => {
+                const shareId = user.userid || user.profile?.displayId || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
+                downloadBioDataPdf(`pdf-template-${profile.id}`, shareId);
+              }}
               className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 px-2 py-2.5 sm:px-4 sm:py-2 bg-red-600 rounded-lg text-white hover:bg-red-700 shadow-sm transition-colors"
             >
               <Download className="w-4 h-4" />
@@ -242,7 +267,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
                 <div className="text-gray-900">: {safeStr(profile.koottam)}</div>
                 
                 <div className="text-[15px] sm:text-lg font-bold text-gray-700">திருமண நிலை</div>
-                <div className="text-gray-900">: {safeStr(profile.maritalStatus)}</div>
+                <div className="text-gray-900">: {safeStr(({ 'never_married': 'முதல் மணம்', 'divorced': 'விவாகரத்து ஆனவர்', 'widowed': 'துணைவரை இழந்தவர்' } as any)[profile.maritalStatus?.toLowerCase()] || profile.maritalStatus)}</div>
               </div>
             </div>
           </div>
@@ -315,11 +340,11 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
               </div>
               <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
                 <div className="text-[15px] sm:text-lg font-bold text-gray-700">தோஷம்</div>
-                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(profile.dosham)}</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(({ 'sutham': 'சுத்த ஜாதகம்', 'no_dosham': 'சுத்த ஜாதகம்', 'none': 'சுத்த ஜாதகம்', 'rahu_ketu': 'ராகு கேது தோஷம்', 'chevvai': 'செவ்வாய் தோஷம்', 'sarpa': 'சர்ப்ப தோஷம்' } as any)[profile.dosham?.toLowerCase()] || profile.dosham)}</div>
               </div>
               <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
                 <div className="text-[15px] sm:text-lg font-bold text-gray-700">நிறம்</div>
-                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(profile.skinColour)}</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(({ 'fair': 'சிகப்பு', 'wheatish': 'மாநிறம்', 'dark': 'கருப்பு' } as any)[profile.skinColour?.toLowerCase()] || profile.skinColour)}</div>
               </div>
               <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
                 <div className="text-[15px] sm:text-lg font-bold text-gray-700">உயரம்</div>
@@ -381,7 +406,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
                   ) : (
                      <div className="relative w-full max-w-4xl h-72 sm:h-96 overflow-hidden rounded-lg border border-gray-300 shadow-sm cursor-zoom-in group" onClick={(e) => {
                     e.stopPropagation();
-                    const shareId = user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 6).toUpperCase());
+                    const shareId = user.userid || user.profile?.displayId || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
                     shareToWhatsApp(shareId, profile);
                   }}>
                        <img 
