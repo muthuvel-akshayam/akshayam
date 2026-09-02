@@ -57,6 +57,8 @@ export async function generateMetadata(
       images: [
         {
           url: imageUrl,
+          width: 800,
+          height: 800,
           alt: `${name}'s Profile Photo`,
         },
       ],
