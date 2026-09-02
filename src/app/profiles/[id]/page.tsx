@@ -57,6 +57,9 @@ export async function generateMetadata(
     }
   }
 
+  // Now that we have the final photoUrl, we generate a guaranteed 1200x630 landscape OpenGraph image
+  const ogImageUrl = `${baseUrl}/api/og-profile?photoUrl=${encodeURIComponent(imageUrl)}`;
+
   return {
     title: `${name} - Akshayam Matrimony`,
     description: description,
@@ -67,9 +70,9 @@ export async function generateMetadata(
       siteName: 'Akshayam Matrimony',
       images: [
         {
-          url: imageUrl,
-          width: 800,
-          height: 600,
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
           alt: `${name}'s Profile Photo`,
         },
       ],
@@ -80,7 +83,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: `${name} - Akshayam Matrimony`,
       description: description,
-      images: [imageUrl],
+      images: [ogImageUrl],
     },
   }
 }
