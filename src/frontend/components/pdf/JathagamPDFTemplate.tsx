@@ -160,9 +160,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
 
   const ChartCenterLogo = ({ title }: { title: string }) => (
     <div className="flex flex-col items-center justify-center h-full w-full bg-white" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#ffffff' }}>
-      <img src="/akshayam_logo.png" alt="Logo" className="w-10 opacity-80" style={{ width: '40px', height: 'auto', opacity: 0.8 }} />
-      <div className="font-bold text-emerald-800 text-[11px] leading-tight mt-1 tracking-tight" style={{ fontWeight: 'bold', color: '#065f46', fontSize: '11px', lineHeight: '1.2', marginTop: '4px', letterSpacing: '-0.025em' }}>அக்ஷயம்</div>
-      <div className="font-bold text-emerald-700 text-[9px]" style={{ fontWeight: 'bold', color: '#047857', fontSize: '9px' }}>{title}</div>
+      <img src="/akshayam_logo.png" alt="Logo" className="w-10 opacity-80" style={{ width: '50px', height: 'auto', opacity: 0.9 }} />
     </div>
   );
 
