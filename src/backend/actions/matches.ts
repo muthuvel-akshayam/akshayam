@@ -262,6 +262,7 @@ export async function getProfileById(targetUserId: string) {
     where: {
       OR: [
         { id: targetUserId },
+        { id: { startsWith: targetUserId.toLowerCase() } },
         { userid: targetUserId },
         { profile: { displayId: targetUserId } },
         ...(possibleUserIndex >= 0 ? [{ userIndex: possibleUserIndex }] : [])

@@ -56,7 +56,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
       alert('Please sign up and create your profile to share profiles.');
       return;
     }
-    const shareId = user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id);
+    const shareId = user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 6).toUpperCase());
     shareToWhatsApp(shareId, user.profile);
   };
   const profile = user.profile;
@@ -381,7 +381,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
                   ) : (
                      <div className="relative w-full max-w-4xl h-72 sm:h-96 overflow-hidden rounded-lg border border-gray-300 shadow-sm cursor-zoom-in group" onClick={(e) => {
                     e.stopPropagation();
-                    const shareId = user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id);
+                    const shareId = user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 6).toUpperCase());
                     shareToWhatsApp(shareId, profile);
                   }}>
                        <img 
