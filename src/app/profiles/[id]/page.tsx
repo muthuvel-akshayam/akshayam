@@ -37,6 +37,19 @@ export async function generateMetadata(
   let imageUrl = `${baseUrl}/akshayam_logo.png`;
   if (profile.photoUrl) {
     imageUrl = profile.photoUrl;
+    
+    if (imageUrl.includes('/profile-photos/')) {
+      const watermarkedUrl = imageUrl.replace(/\/profile-photos\/(?!watermarked\/)/, '/profile-photos/watermarked/');
+      try {
+        // Perform a lightweight HEAD request to check if the watermarked image exists
+        const res = await fetch(watermarkedUrl, { method: 'HEAD', next: { revalidate: 3600 } });
+        if (res.ok) {
+          imageUrl = watermarkedUrl;
+        }
+      } catch (e) {
+        // Fallback to original image silently
+      }
+    }
       
     // Ensure absolute URL just in case
     if (!imageUrl.startsWith('http')) {
