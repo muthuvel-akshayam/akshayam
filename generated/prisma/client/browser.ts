@@ -87,3 +87,8 @@ export type Shortlist = Prisma.ShortlistModel
  * 
  */
 export type PasswordResetRequest = Prisma.PasswordResetRequestModel
+/**
+ * Model HeroCarouselItem
+ * 
+ */
+export type HeroCarouselItem = Prisma.HeroCarouselItemModel

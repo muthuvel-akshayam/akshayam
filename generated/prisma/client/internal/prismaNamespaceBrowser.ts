@@ -64,7 +64,8 @@ export const ModelName = {
   AdminAuditLog: 'AdminAuditLog',
   CasteLookup: 'CasteLookup',
   Shortlist: 'Shortlist',
-  PasswordResetRequest: 'PasswordResetRequest'
+  PasswordResetRequest: 'PasswordResetRequest',
+  HeroCarouselItem: 'HeroCarouselItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -135,10 +136,6 @@ export const ProfileScalarFieldEnum = {
   hideMobileNo: 'hideMobileNo',
   hideHouseAddress: 'hideHouseAddress',
   hideHouseLocation: 'hideHouseLocation',
-  haveChildren: 'haveChildren',
-  numberOfChildren: 'numberOfChildren',
-  childrenGender: 'childrenGender',
-  childrenAge: 'childrenAge',
   status: 'status',
   approvedAt: 'approvedAt',
   approvedBy: 'approvedBy',
@@ -225,7 +222,6 @@ export const ExpectationsScalarFieldEnum = {
   expectedIncome: 'expectedIncome',
   expectsRentalIncome: 'expectsRentalIncome',
   expectsThottam: 'expectsThottam',
-  acceptsDivorced: 'acceptsDivorced',
   vacantLand: 'vacantLand',
   preferredDistanceRadius: 'preferredDistanceRadius',
   city: 'city',
@@ -331,6 +327,19 @@ export const PasswordResetRequestScalarFieldEnum = {
 } as const
 
 export type PasswordResetRequestScalarFieldEnum = (typeof PasswordResetRequestScalarFieldEnum)[keyof typeof PasswordResetRequestScalarFieldEnum]
+
+
+export const HeroCarouselItemScalarFieldEnum = {
+  id: 'id',
+  mediaUrl: 'mediaUrl',
+  type: 'type',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HeroCarouselItemScalarFieldEnum = (typeof HeroCarouselItemScalarFieldEnum)[keyof typeof HeroCarouselItemScalarFieldEnum]
 
 
 export const SortOrder = {

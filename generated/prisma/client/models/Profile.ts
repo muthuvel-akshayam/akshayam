@@ -29,13 +29,11 @@ export type AggregateProfile = {
 export type ProfileAvgAggregateOutputType = {
   height: number | null
   weight: number | null
-  numberOfChildren: number | null
 }
 
 export type ProfileSumAggregateOutputType = {
   height: number | null
   weight: number | null
-  numberOfChildren: number | null
 }
 
 export type ProfileMinAggregateOutputType = {
@@ -71,10 +69,6 @@ export type ProfileMinAggregateOutputType = {
   hideMobileNo: boolean | null
   hideHouseAddress: boolean | null
   hideHouseLocation: boolean | null
-  haveChildren: boolean | null
-  numberOfChildren: number | null
-  childrenGender: string | null
-  childrenAge: string | null
   status: $Enums.ProfileStatus | null
   approvedAt: Date | null
   approvedBy: string | null
@@ -123,10 +117,6 @@ export type ProfileMaxAggregateOutputType = {
   hideMobileNo: boolean | null
   hideHouseAddress: boolean | null
   hideHouseLocation: boolean | null
-  haveChildren: boolean | null
-  numberOfChildren: number | null
-  childrenGender: string | null
-  childrenAge: string | null
   status: $Enums.ProfileStatus | null
   approvedAt: Date | null
   approvedBy: string | null
@@ -176,10 +166,6 @@ export type ProfileCountAggregateOutputType = {
   hideMobileNo: number
   hideHouseAddress: number
   hideHouseLocation: number
-  haveChildren: number
-  numberOfChildren: number
-  childrenGender: number
-  childrenAge: number
   status: number
   approvedAt: number
   approvedBy: number
@@ -203,13 +189,11 @@ export type ProfileCountAggregateOutputType = {
 export type ProfileAvgAggregateInputType = {
   height?: true
   weight?: true
-  numberOfChildren?: true
 }
 
 export type ProfileSumAggregateInputType = {
   height?: true
   weight?: true
-  numberOfChildren?: true
 }
 
 export type ProfileMinAggregateInputType = {
@@ -245,10 +229,6 @@ export type ProfileMinAggregateInputType = {
   hideMobileNo?: true
   hideHouseAddress?: true
   hideHouseLocation?: true
-  haveChildren?: true
-  numberOfChildren?: true
-  childrenGender?: true
-  childrenAge?: true
   status?: true
   approvedAt?: true
   approvedBy?: true
@@ -297,10 +277,6 @@ export type ProfileMaxAggregateInputType = {
   hideMobileNo?: true
   hideHouseAddress?: true
   hideHouseLocation?: true
-  haveChildren?: true
-  numberOfChildren?: true
-  childrenGender?: true
-  childrenAge?: true
   status?: true
   approvedAt?: true
   approvedBy?: true
@@ -350,10 +326,6 @@ export type ProfileCountAggregateInputType = {
   hideMobileNo?: true
   hideHouseAddress?: true
   hideHouseLocation?: true
-  haveChildren?: true
-  numberOfChildren?: true
-  childrenGender?: true
-  childrenAge?: true
   status?: true
   approvedAt?: true
   approvedBy?: true
@@ -493,10 +465,6 @@ export type ProfileGroupByOutputType = {
   hideMobileNo: boolean
   hideHouseAddress: boolean
   hideHouseLocation: boolean
-  haveChildren: boolean | null
-  numberOfChildren: number | null
-  childrenGender: string | null
-  childrenAge: string | null
   status: $Enums.ProfileStatus
   approvedAt: Date | null
   approvedBy: string | null
@@ -572,10 +540,6 @@ export type ProfileWhereInput = {
   hideMobileNo?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseAddress?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseLocation?: Prisma.BoolFilter<"Profile"> | boolean
-  haveChildren?: Prisma.BoolNullableFilter<"Profile"> | boolean | null
-  numberOfChildren?: Prisma.IntNullableFilter<"Profile"> | number | null
-  childrenGender?: Prisma.StringNullableFilter<"Profile"> | string | null
-  childrenAge?: Prisma.StringNullableFilter<"Profile"> | string | null
   status?: Prisma.EnumProfileStatusFilter<"Profile"> | $Enums.ProfileStatus
   approvedAt?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
   approvedBy?: Prisma.StringNullableFilter<"Profile"> | string | null
@@ -630,10 +594,6 @@ export type ProfileOrderByWithRelationInput = {
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  haveChildren?: Prisma.SortOrderInput | Prisma.SortOrder
-  numberOfChildren?: Prisma.SortOrderInput | Prisma.SortOrder
-  childrenGender?: Prisma.SortOrderInput | Prisma.SortOrder
-  childrenAge?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -692,10 +652,6 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   hideMobileNo?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseAddress?: Prisma.BoolFilter<"Profile"> | boolean
   hideHouseLocation?: Prisma.BoolFilter<"Profile"> | boolean
-  haveChildren?: Prisma.BoolNullableFilter<"Profile"> | boolean | null
-  numberOfChildren?: Prisma.IntNullableFilter<"Profile"> | number | null
-  childrenGender?: Prisma.StringNullableFilter<"Profile"> | string | null
-  childrenAge?: Prisma.StringNullableFilter<"Profile"> | string | null
   status?: Prisma.EnumProfileStatusFilter<"Profile"> | $Enums.ProfileStatus
   approvedAt?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
   approvedBy?: Prisma.StringNullableFilter<"Profile"> | string | null
@@ -749,10 +705,6 @@ export type ProfileOrderByWithAggregationInput = {
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  haveChildren?: Prisma.SortOrderInput | Prisma.SortOrder
-  numberOfChildren?: Prisma.SortOrderInput | Prisma.SortOrder
-  childrenGender?: Prisma.SortOrderInput | Prisma.SortOrder
-  childrenAge?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -813,10 +765,6 @@ export type ProfileScalarWhereWithAggregatesInput = {
   hideMobileNo?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
   hideHouseAddress?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
   hideHouseLocation?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
-  haveChildren?: Prisma.BoolNullableWithAggregatesFilter<"Profile"> | boolean | null
-  numberOfChildren?: Prisma.IntNullableWithAggregatesFilter<"Profile"> | number | null
-  childrenGender?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
-  childrenAge?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   status?: Prisma.EnumProfileStatusWithAggregatesFilter<"Profile"> | $Enums.ProfileStatus
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
   approvedBy?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
@@ -868,10 +816,6 @@ export type ProfileCreateInput = {
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean | null
-  numberOfChildren?: number | null
-  childrenGender?: string | null
-  childrenAge?: string | null
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
@@ -926,10 +870,6 @@ export type ProfileUncheckedCreateInput = {
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean | null
-  numberOfChildren?: number | null
-  childrenGender?: string | null
-  childrenAge?: string | null
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
@@ -982,10 +922,6 @@ export type ProfileUpdateInput = {
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1040,10 +976,6 @@ export type ProfileUncheckedUpdateInput = {
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1097,10 +1029,6 @@ export type ProfileCreateManyInput = {
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean | null
-  numberOfChildren?: number | null
-  childrenGender?: string | null
-  childrenAge?: string | null
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
@@ -1152,10 +1080,6 @@ export type ProfileUpdateManyMutationInput = {
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1208,10 +1132,6 @@ export type ProfileUncheckedUpdateManyInput = {
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1277,10 +1197,6 @@ export type ProfileCountOrderByAggregateInput = {
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  haveChildren?: Prisma.SortOrder
-  numberOfChildren?: Prisma.SortOrder
-  childrenGender?: Prisma.SortOrder
-  childrenAge?: Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
@@ -1302,7 +1218,6 @@ export type ProfileCountOrderByAggregateInput = {
 export type ProfileAvgOrderByAggregateInput = {
   height?: Prisma.SortOrder
   weight?: Prisma.SortOrder
-  numberOfChildren?: Prisma.SortOrder
 }
 
 export type ProfileMaxOrderByAggregateInput = {
@@ -1338,10 +1253,6 @@ export type ProfileMaxOrderByAggregateInput = {
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  haveChildren?: Prisma.SortOrder
-  numberOfChildren?: Prisma.SortOrder
-  childrenGender?: Prisma.SortOrder
-  childrenAge?: Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
@@ -1390,10 +1301,6 @@ export type ProfileMinOrderByAggregateInput = {
   hideMobileNo?: Prisma.SortOrder
   hideHouseAddress?: Prisma.SortOrder
   hideHouseLocation?: Prisma.SortOrder
-  haveChildren?: Prisma.SortOrder
-  numberOfChildren?: Prisma.SortOrder
-  childrenGender?: Prisma.SortOrder
-  childrenAge?: Prisma.SortOrder
   status?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
@@ -1412,7 +1319,6 @@ export type ProfileMinOrderByAggregateInput = {
 export type ProfileSumOrderByAggregateInput = {
   height?: Prisma.SortOrder
   weight?: Prisma.SortOrder
-  numberOfChildren?: Prisma.SortOrder
 }
 
 export type ProfileScalarRelationFilter = {
@@ -1489,10 +1395,6 @@ export type ProfileUpdateporuthaNakshatramInput = {
   push?: string | string[]
 }
 
-export type NullableBoolFieldUpdateOperationsInput = {
-  set?: boolean | null
-}
-
 export type EnumProfileStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProfileStatus
 }
@@ -1548,10 +1450,6 @@ export type ProfileCreateWithoutUserInput = {
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean | null
-  numberOfChildren?: number | null
-  childrenGender?: string | null
-  childrenAge?: string | null
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
@@ -1604,10 +1502,6 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean | null
-  numberOfChildren?: number | null
-  childrenGender?: string | null
-  childrenAge?: string | null
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
@@ -1676,10 +1570,6 @@ export type ProfileUpdateWithoutUserInput = {
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1732,10 +1622,6 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1788,10 +1674,6 @@ export type ProfileCreateWithoutEducationsInput = {
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean | null
-  numberOfChildren?: number | null
-  childrenGender?: string | null
-  childrenAge?: string | null
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
@@ -1845,10 +1727,6 @@ export type ProfileUncheckedCreateWithoutEducationsInput = {
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean | null
-  numberOfChildren?: number | null
-  childrenGender?: string | null
-  childrenAge?: string | null
   status?: $Enums.ProfileStatus
   approvedAt?: Date | string | null
   approvedBy?: string | null
@@ -1916,10 +1794,6 @@ export type ProfileUpdateWithoutEducationsInput = {
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1973,10 +1847,6 @@ export type ProfileUncheckedUpdateWithoutEducationsInput = {
   hideMobileNo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseAddress?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideHouseLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProfileStatusFieldUpdateOperationsInput | $Enums.ProfileStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2060,10 +1930,6 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean
-  numberOfChildren?: boolean
-  childrenGender?: boolean
-  childrenAge?: boolean
   status?: boolean
   approvedAt?: boolean
   approvedBy?: boolean
@@ -2119,10 +1985,6 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean
-  numberOfChildren?: boolean
-  childrenGender?: boolean
-  childrenAge?: boolean
   status?: boolean
   approvedAt?: boolean
   approvedBy?: boolean
@@ -2176,10 +2038,6 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean
-  numberOfChildren?: boolean
-  childrenGender?: boolean
-  childrenAge?: boolean
   status?: boolean
   approvedAt?: boolean
   approvedBy?: boolean
@@ -2233,10 +2091,6 @@ export type ProfileSelectScalar = {
   hideMobileNo?: boolean
   hideHouseAddress?: boolean
   hideHouseLocation?: boolean
-  haveChildren?: boolean
-  numberOfChildren?: boolean
-  childrenGender?: boolean
-  childrenAge?: boolean
   status?: boolean
   approvedAt?: boolean
   approvedBy?: boolean
@@ -2255,7 +2109,7 @@ export type ProfileSelectScalar = {
   reviewerId?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "gender" | "livingCountry" | "state" | "city" | "religion" | "caste" | "subCaste" | "koottam" | "dob" | "tob" | "lob" | "height" | "weight" | "physicalCondition" | "skinColour" | "maritalStatus" | "familyStatus" | "foodHabits" | "drinkingHabits" | "smokingHabits" | "rasi" | "nakshatra" | "poruthaNakshatram" | "dosham" | "jathakamUrl" | "photoUrl" | "casteCertificateUrl" | "hideMobileNo" | "hideHouseAddress" | "hideHouseLocation" | "haveChildren" | "numberOfChildren" | "childrenGender" | "childrenAge" | "status" | "approvedAt" | "approvedBy" | "rejectedReason" | "isLive" | "amsamGrid" | "dasaBalance" | "hidePhoto" | "houseAddress" | "rasiGrid" | "jathagamData" | "idProofUrl" | "houseLocation" | "displayId" | "profileCreatedBy" | "reviewerId", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "gender" | "livingCountry" | "state" | "city" | "religion" | "caste" | "subCaste" | "koottam" | "dob" | "tob" | "lob" | "height" | "weight" | "physicalCondition" | "skinColour" | "maritalStatus" | "familyStatus" | "foodHabits" | "drinkingHabits" | "smokingHabits" | "rasi" | "nakshatra" | "poruthaNakshatram" | "dosham" | "jathakamUrl" | "photoUrl" | "casteCertificateUrl" | "hideMobileNo" | "hideHouseAddress" | "hideHouseLocation" | "status" | "approvedAt" | "approvedBy" | "rejectedReason" | "isLive" | "amsamGrid" | "dasaBalance" | "hidePhoto" | "houseAddress" | "rasiGrid" | "jathagamData" | "idProofUrl" | "houseLocation" | "displayId" | "profileCreatedBy" | "reviewerId", ExtArgs["result"]["profile"]>
 export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   educations?: boolean | Prisma.Profile$educationsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -2308,10 +2162,6 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     hideMobileNo: boolean
     hideHouseAddress: boolean
     hideHouseLocation: boolean
-    haveChildren: boolean | null
-    numberOfChildren: number | null
-    childrenGender: string | null
-    childrenAge: string | null
     status: $Enums.ProfileStatus
     approvedAt: Date | null
     approvedBy: string | null
@@ -2786,10 +2636,6 @@ export interface ProfileFieldRefs {
   readonly hideMobileNo: Prisma.FieldRef<"Profile", 'Boolean'>
   readonly hideHouseAddress: Prisma.FieldRef<"Profile", 'Boolean'>
   readonly hideHouseLocation: Prisma.FieldRef<"Profile", 'Boolean'>
-  readonly haveChildren: Prisma.FieldRef<"Profile", 'Boolean'>
-  readonly numberOfChildren: Prisma.FieldRef<"Profile", 'Int'>
-  readonly childrenGender: Prisma.FieldRef<"Profile", 'String'>
-  readonly childrenAge: Prisma.FieldRef<"Profile", 'String'>
   readonly status: Prisma.FieldRef<"Profile", 'ProfileStatus'>
   readonly approvedAt: Prisma.FieldRef<"Profile", 'DateTime'>
   readonly approvedBy: Prisma.FieldRef<"Profile", 'String'>

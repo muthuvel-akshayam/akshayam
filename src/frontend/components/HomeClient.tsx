@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import ProfileWizard from './profile-wizard/ProfileWizard';
 import ProfileCarousel from './home/ProfileCarousel';
+import HeroCarousel from './HeroCarousel';
 import { useLanguage } from '@/frontend/context/LanguageContext';
 import { loginUser } from '@/backend/actions/auth';
 import { requestPasswordReset } from '@/backend/actions/passwordReset';
@@ -297,14 +298,8 @@ export default function HomeClient() {
                 : '"A Trusted Companion for Your Family\'s Sweetest Relationships"'}
             </p>
 
-            {/* Restored Bride and Groom Image */}
-            <div className="w-full max-w-sm mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 bg-white">
-              <img 
-                src="/hero-couple.png" 
-                alt="Akshayam Bride and Groom" 
-                className="w-full h-auto object-cover"
-              />
-            </div>
+            {/* Restored Bride and Groom Image / Dynamic Carousel */}
+            <HeroCarousel />
 
             <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-10 max-w-2xl font-medium leading-relaxed">
               {language === 'TA'

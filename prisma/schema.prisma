@@ -327,3 +327,13 @@ model PasswordResetRequest {
   @@index([status])
   @@index([isRead])
 }
+
+model HeroCarouselItem {
+  id        String   @id @default(uuid())
+  mediaUrl  String
+  type      String   @default("IMAGE") // IMAGE or VIDEO
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
