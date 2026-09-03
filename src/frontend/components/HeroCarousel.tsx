@@ -77,31 +77,31 @@ export default function HeroCarousel() {
     <div className="w-full max-w-sm mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 bg-white relative group">
       
       <div className="w-full h-full relative aspect-[3/4] sm:aspect-auto">
-        {items.map((item, index) => (
-          <div
-            key={item.id}
-            className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${
-              index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
-          >
-            {item.type === 'VIDEO' ? (
-              <video 
-                src={item.mediaUrl} 
-                className="w-full h-full object-cover"
-                autoPlay 
-                muted 
-                loop 
-                playsInline
-              />
-            ) : (
-              <img 
-                src={item.mediaUrl} 
-                alt={`Slide ${index + 1}`} 
-                className="w-full h-full object-cover"
-              />
-            )}
-          </div>
-        ))}
+        <div 
+          className="w-full h-full flex transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {items.map((item, index) => (
+            <div key={item.id} className="w-full h-full flex-shrink-0">
+              {item.type === 'VIDEO' ? (
+                <video 
+                  src={item.mediaUrl} 
+                  className="w-full h-full object-cover"
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline
+                />
+              ) : (
+                <img 
+                  src={item.mediaUrl} 
+                  alt={`Slide ${index + 1}`} 
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Navigation Buttons (only show if multiple items) */}
