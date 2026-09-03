@@ -215,7 +215,10 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                         <Share2 className="w-4 h-4" />
                       </button>
                       <button
-                        onClick={() => downloadBioDataPdf(`pdf-template-${match.id}`, match.id)}
+                        onClick={() => {
+                          const displayId = (match as any).userid || (match.userIndex ? `${1000 + match.userIndex}` : `${match.id.substring(0, 6).toUpperCase()}`);
+                          downloadBioDataPdf(`pdf-template-${match.id}`, `${displayId} - ${profile.name}`);
+                        }}
                         className="w-10 h-[40px] rounded-full border border-gray-200 text-gray-500 hover:text-primary hover:bg-gray-100 flex items-center justify-center transition-colors shadow-sm"
                         title={language === 'TA' ? 'பதிவிறக்கு' : 'Download'}
                       >

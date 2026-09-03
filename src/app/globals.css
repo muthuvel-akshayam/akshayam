@@ -42,3 +42,9 @@ body {
 ::-webkit-calendar-picker-indicator {
   display: none;
 }
+
+/* Hide default Edge/IE password reveal button and clear button */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}

@@ -72,7 +72,7 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
           </div>
           
           {/* Trust Indicator */}
-          <div className="bg-background border border-[#D4AF37]/40 p-4 rounded-xl mb-8 flex items-start shadow-sm">
+          <div className="bg-background border border-[#D4AF37]/40 p-4 rounded-xl mb-6 flex items-start shadow-sm">
             <div className="flex-shrink-0 mt-0.5">
               <svg className="h-5 w-5 text-[#D4AF37]" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -87,6 +87,25 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
               </p>
             </div>
           </div>
+
+          {/* Required Documents Alert */}
+          {currentStep === 0 && (
+            <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl mb-8 shadow-sm">
+              <h4 className="text-sm font-bold text-emerald-800 mb-2 flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {language === 'TA' ? 'பதிவு செய்ய தேவையானவை / Required Details' : 'Required Details'}
+              </h4>
+              <ul className="text-xs md:text-sm text-emerald-700 space-y-1.5 ml-1 list-disc list-inside font-medium">
+                <li>{language === 'TA' ? 'புகைப்படம் / Photo' : 'Photo'}</li>
+                <li>{language === 'TA' ? 'ஜாதகம் / Jathakam' : 'Jathakam'}</li>
+                <li>{language === 'TA' ? 'சாதி சான்றிதழ் / Community Certificate' : 'Community Certificate'}</li>
+                <li>{language === 'TA' ? 'வீட்டின் கூகுள் வரைபட இணைப்பு / House Google Location Link' : 'House Google Location Link'}</li>
+                <li>{language === 'TA' ? 'அலுவலகத்தின் கூகுள் வரைபட இணைப்பு / Office or Work Location Link' : 'Office or Work Location Link'}</li>
+              </ul>
+            </div>
+          )}
 
           <div className="mt-8 relative">
             <div className={`transition-opacity duration-300 ${currentStep === 0 ? 'block opacity-100' : 'hidden opacity-0'}`}>

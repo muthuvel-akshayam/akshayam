@@ -88,8 +88,9 @@ export default function DashboardClient({
       {/* GLOBAL NAVBAR WITH COMPACT WIDGET */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 py-3 px-4 sm:px-6 shadow-sm flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex flex-col items-center">
             <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-8 sm:h-10 object-contain" />
+            <span className="text-[9px] sm:text-[10px] font-bold text-primary mt-0.5 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
           </Link>
         </div>
 
@@ -150,7 +151,10 @@ export default function DashboardClient({
                 <p className="text-primary font-bold text-sm mt-1">{user?.userid || profile.id.slice(0, 8).toUpperCase()}</p>
                 <div className="flex gap-2 justify-center mt-4">
                   <Link href="/profile" className="px-4 py-1.5 bg-primary text-white text-xs font-bold rounded-full">{language === 'TA' ? 'திருத்து' : 'Edit'}</Link>
-                  <button onClick={() => downloadBioDataPdf(`pdf-template-${profile.id}`, profile.id)} className="px-4 py-1.5 bg-red-600 text-white text-xs font-bold rounded-full flex items-center gap-1"><Download className="w-3 h-3" />{language === 'TA' ? 'பதிவிறக்கு' : 'Download'}</button>
+                  <button onClick={() => {
+                    const displayId = user?.userid || profile.id.slice(0, 8).toUpperCase();
+                    downloadBioDataPdf(`pdf-template-${profile.id}`, `${displayId} - ${profile.name}`);
+                  }} className="px-4 py-1.5 bg-red-600 text-white text-xs font-bold rounded-full flex items-center gap-1"><Download className="w-3 h-3" />{language === 'TA' ? 'பதிவிறக்கு' : 'Download'}</button>
                   <button onClick={async () => { await logoutUser(); window.location.href = '/'; }} className="px-4 py-1.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-full flex items-center gap-1"><LogOut className="w-3 h-3"/> Logout</button>
                 </div>
               </div>

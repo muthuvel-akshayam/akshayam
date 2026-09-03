@@ -901,7 +901,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         <div className="flex items-center justify-between border-b pb-2">
           <h3 className="text-lg font-bold text-gray-900">{t.educationDetails}</h3>
           <button type="button" onClick={() => append({ level: '', degreeName: '', institution: '' })} className="flex items-center space-x-1 text-sm text-red-600 font-semibold hover:text-red-700">
-            <Plus className="w-4 h-4" />
+            <Plus className="w-5 h-5 flex-shrink-0" />
             <span>{t.addEducation}</span>
           </button>
         </div>
@@ -930,7 +930,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               <label className="block text-xs font-semibold text-gray-600">{t.institution}</label>
               <input {...register(`educations.${index}.institution` as const)} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-sm border p-2 text-gray-900" placeholder={t.instPlaceholder} />
             </div>
-            <button type="button" onClick={() => remove(index)} className="absolute -top-2 -right-2 bg-red-100 text-red-600 p-1.5 rounded-full hover:bg-red-200 transition-colors opacity-0 group-hover:opacity-100">
+            <button type="button" onClick={() => remove(index)} className="absolute -top-2 -right-2 bg-red-100 text-red-600 p-1.5 rounded-full hover:bg-red-200 transition-colors shadow-sm">
               <Trash2 className="w-4 h-4" />
             </button>
           </div>

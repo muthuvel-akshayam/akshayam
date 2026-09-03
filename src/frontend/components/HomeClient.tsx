@@ -90,7 +90,7 @@ export default function HomeClient() {
   };
 
   const servicesTa = [
-    { title: 'ஜாதக பதிவு', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.', icon: FileText, imageUrl: '/services/premium/premium_0.png' },
+    { title: 'ஜாதக பதிவு', desc: 'உங்கள் ஜாதகங்களை துல்லியமாக பதிவு செய்து பொருத்தமான வரன்களை கண்டறியலாம்.', icon: FileText, imageUrl: '/services/premium/premium_0.png' },
     { title: 'திருமண மண்டபம்', desc: 'விசாலமான மற்றும் அழகான திருமண மண்டபங்கள் வசதி.', icon: Tent, imageUrl: '/services/premium/premium_15.jpg' },
     { title: 'வாழை மரம்', desc: 'திருமணத்திற்கான மங்களகரமான வாழை மரங்கள்.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
     { title: 'ஐயர்', desc: 'திருமண சடங்குகளை சிறப்பிக்க அனுபவம் வாய்ந்த ஐயர்கள்.', icon: Flame, imageUrl: '/services/premium/premium_2.png' },
@@ -104,7 +104,7 @@ export default function HomeClient() {
     { title: 'தண்ணீர் 300 ml to 20 லிட்டர்', desc: 'பாதுகாப்பான மற்றும் சுத்திகரிக்கப்பட்ட குடிநீர் விநியோகம்.', icon: GlassWater, imageUrl: '/services/premium/premium_10.png' },
     { title: 'டெக்கரேஷன்', desc: 'நவீன மற்றும் பாரம்பரிய மேடை அலங்காரங்கள்.', icon: Flower, imageUrl: '/services/premium/premium_11.png' },
     { title: 'போட்டோ வீடியோ', desc: 'உங்கள் திருமண நினைவுகளை அழியாப் படங்களாக்கும் நிபுணர்கள்.', icon: Camera, imageUrl: '/services/premium/premium_12.png' },
-    { title: 'ஐஸ்கிரீம், பீடா, பழங்கள்', desc: 'சிறப்பு ஐஸ்கிரீம் கவுண்டர்கள், தாம்பூலம் மற்றும் பழங்கள்.', icon: IceCream, imageUrl: '/services/premium/premium_13.png' },
+    { title: 'ஐஸ்கிரீம், பீடா, பழங்கள்', desc: 'சிறப்பு ஐஸ்கிரீம், தாம்பூலம் மற்றும் பழங்கள்.', icon: IceCream, imageUrl: '/services/premium/premium_13.png' },
     { title: 'கரும்பு ஜூஸ் மற்றும் பல', desc: 'விருந்தினர்களை உபசரிக்க சிறப்பு பானங்கள் மற்றும் தின்பண்டங்கள்.', icon: CupSoda, imageUrl: '/services/premium/premium_14.png' },
   ];
 
@@ -136,13 +136,13 @@ export default function HomeClient() {
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <button
               onClick={() => setShowRegister(false)}
-              className="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full font-bold text-sm hover:bg-primary-light transition-all shadow-md hover:shadow-lg hover:-translate-x-0.5"
+              className="flex items-center gap-1.5 sm:gap-2 bg-primary text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm hover:bg-primary-light transition-all shadow-md hover:shadow-lg hover:-translate-x-0.5 whitespace-nowrap"
             >
-              ← {language === 'TA' ? 'முகப்புக்கு திரும்பு' : 'Back to Home'}
+              ← <span className="hidden sm:inline">{language === 'TA' ? 'முகப்புக்கு திரும்பு' : 'Back to Home'}</span>
+              <span className="sm:hidden">{language === 'TA' ? 'முகப்பு' : 'Back'}</span>
             </button>
-            <div className="flex flex-col items-center justify-center">
-              <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-14 md:h-20 object-contain" />
-              <span className="text-xs sm:text-sm font-bold text-primary mt-1 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
+            <div className="flex items-center justify-center mx-2">
+              <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-10 sm:h-12 md:h-16 object-contain" />
             </div>
             <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
   <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
@@ -165,9 +165,8 @@ export default function HomeClient() {
       {/* Navbar */}
       <nav className="sticky top-0 w-full z-50 transition-all duration-300 bg-background/95 backdrop-blur-md py-3 shadow-sm border-b border-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <a href="#home" className="flex flex-col items-start md:items-center">
-            <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-16 md:h-20 object-contain" />
-            <span className="text-[11px] sm:text-xs font-bold text-primary mt-1 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
+          <a href="#home" className="flex items-center">
+            <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-14 sm:h-16 object-contain" />
           </a>
 
           <div className="hidden md:flex items-center space-x-8 text-base font-bold text-gray-800">
@@ -268,6 +267,10 @@ export default function HomeClient() {
           
           {/* Left: Text Content & Image */}
           <div className="w-full max-w-4xl flex flex-col items-center">
+            
+            <div className="text-sm sm:text-base font-bold text-primary mb-4 whitespace-nowrap text-center">
+              ஜாதகம் முதல் பந்தி வரை
+            </div>
             
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-xs md:text-sm mb-6 animate-pulse">
               <Sparkles className="w-4 h-4 text-accent" />

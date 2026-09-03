@@ -207,7 +207,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
             <button
               onClick={() => {
                 const shareId = user.userid || user.profile?.displayId || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
-                downloadBioDataPdf(`pdf-template-${profile.id}`, shareId);
+                downloadBioDataPdf(`pdf-template-${profile.id}`, `${shareId} - ${profile.name}`);
               }}
               className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 px-2 py-2.5 sm:px-4 sm:py-2 bg-red-600 rounded-lg text-white hover:bg-red-700 shadow-sm transition-colors"
             >

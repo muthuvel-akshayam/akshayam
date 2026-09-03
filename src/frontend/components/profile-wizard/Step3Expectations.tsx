@@ -130,7 +130,11 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
           {gender !== 'FEMALE' && (
             <div>
               <label className={labelClass}>{t.dowryExpectation}</label>
-              <input {...register('dowryExpectation')} className={inputClass} placeholder={t.dowryPlaceholder} />
+              <select {...register('dowryExpectation')} className={inputClass}>
+                <option value="">தேர்ந்தெடுக்கவும் / Select</option>
+                <option value="இல்லை">இல்லை (None)</option>
+                <option value="அவர் விருப்பம்">அவர் விருப்பம் (Their Wish)</option>
+              </select>
             {errors.dowryExpectation && <p className="text-red-500 text-xs mt-1">{errors.dowryExpectation.message as string}</p>}
             </div>
           )}
