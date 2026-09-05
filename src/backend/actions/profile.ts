@@ -6,7 +6,7 @@ import { personalInfoSchema, familyDetailsSchema, expectationsSchema } from '@/b
 import { revalidatePath } from 'next/cache';
 import { getCurrentUserId, registerAuthUser } from './auth';
 
-export async function getUserId() {
+export async function getUserId(): Promise<string | null> {
   return await getCurrentUserId();
 }
 
@@ -38,6 +38,11 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
         userId = authRes.userId;
       }
     }
+    
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+
     // Create user if not exists
     await prisma.user.upsert({
       where: { id: userId },
@@ -85,11 +90,12 @@ export async function saveFamilyDetails(data: z.infer<typeof familyDetailsSchema
     throw new Error("Invalid family data");
   }
 
-  const userId = await getUserId();
-  
   const { siblings, ...familyData } = parsed.data;
   
   try {
+    const userId = await getUserId();
+    if (!userId) throw new Error("Unauthorized");
+
     const family = await prisma.family.upsert({
       where: { userId },
       create: {
@@ -124,6 +130,7 @@ export async function saveExpectations(data: z.infer<typeof expectationsSchema>)
     }
 
     const userId = await getUserId();
+    if (!userId) throw new Error("Unauthorized");
     
     // Ensure User exists for mock purposes, just in case they skipped step 1
     await prisma.user.upsert({
@@ -155,6 +162,7 @@ export async function saveExpectations(data: z.infer<typeof expectationsSchema>)
 
 export async function getFullProfile() {
   const userId = await getUserId();
+  if (!userId) return null;
   const user = await prisma.user.findUnique({
     where: { id: userId },
     include: {
@@ -173,6 +181,7 @@ export async function getFullProfile() {
 export async function savePaymentScreenshot(paymentScreenshot: string) {
   try {
     const userId = await getUserId();
+    if (!userId) throw new Error("Unauthorized");
     
     const user = await prisma.user.update({
       where: { id: userId },
@@ -199,6 +208,7 @@ export async function savePaymentScreenshot(paymentScreenshot: string) {
 export async function markProfileCompleted() {
   try {
     const userId = await getUserId();
+    if (!userId) throw new Error("Unauthorized");
     
     await prisma.user.update({
       where: { id: userId },

@@ -37,10 +37,15 @@ export default function HomeClient() {
     async function fetchFeatured() {
       try {
         const res = await fetch('/api/profiles/featured');
-        const data = await res.json();
-        if (data.success) {
-          setFeaturedBrides(data.brides || []);
-          setFeaturedGrooms(data.grooms || []);
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          const data = await res.json();
+          if (data.success) {
+            setFeaturedBrides(data.brides || []);
+            setFeaturedGrooms(data.grooms || []);
+          }
+        } else {
+          console.error("API returned non-JSON response:", res.status);
         }
       } catch (err) {
         console.error('Failed to fetch featured profiles', err);
@@ -261,15 +266,15 @@ export default function HomeClient() {
       )}
 
       {/* Hero Section */}
-      <section id="home" className="relative w-full min-h-[85vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)]/60 to-[var(--color-background)]">
+      <section id="home" className="relative w-full min-h-[70vh] flex flex-col justify-center pt-8 pb-12 sm:pt-10 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)]/60 to-[var(--color-background)]">
         <div className="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(var(--color-primary)_1px,transparent_1px)] [background-size:24px_24px]"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center w-full mt-8 md:mt-12">
+        <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center w-full">
           
           {/* Left: Text Content & Image */}
           <div className="w-full max-w-4xl flex flex-col items-center">
             
-            <div className="text-sm sm:text-base font-bold text-primary mb-4 whitespace-nowrap text-center">
+            <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-primary mb-6 whitespace-nowrap text-center tracking-wide">
               ஜாதகம் முதல் பந்தி வரை
             </div>
             

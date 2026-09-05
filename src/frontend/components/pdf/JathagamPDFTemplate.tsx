@@ -90,8 +90,10 @@ const maritalStatusMap: Record<string, string> = {
 };
 
 const doshamMap: Record<string, string> = {
-  'no_dosham': 'சுத்த ஜாதகம்', 'none': 'சுத்த ஜாதகம்',
-  'rahu_ketu': 'ராகு கேது தோஷம்', 'chevvai': 'செவ்வாய் தோஷம்', 'sarpa': 'சர்ப்ப தோஷம்'
+  'no_dosham': 'சுத்த ஜாதகம்', 'none': 'சுத்த ஜாதகம்', 'sutham': 'சுத்த ஜாதகம்', 'sutha jathagam': 'சுத்த ஜாதகம்',
+  'rahu_ketu': 'ராகு கேது தோஷம்', 'chevvai': 'செவ்வாய் தோஷம்', 'sarpa': 'சர்ப்ப தோஷம்',
+  'rahu kethu chevvai': 'ராகு கேது செவ்வாய் தோஷம்', 'rahu kethu': 'ராகு கேது தோஷம்', 'rahu ketu': 'ராகு கேது தோஷம்',
+  'kala sarpa': 'காள சர்ப்ப தோஷம்', 'kala sarpa dosham': 'காள சர்ப்ப தோஷம்'
 };
 
 const nakshatraMap: Record<string, string> = {
@@ -177,13 +179,15 @@ const FieldRow = ({ label, value, labelWidth = "120px", valueWidth = "310px" }: 
   );
 };
 
-const FieldItem = ({ label, value, colSpan = 1 }: { label: string; value: string | number | null | undefined; colSpan?: number }) => {
+const FieldItem = ({ label, value, colSpan = 1, highlightLabel = false }: { label: string; value: string | number | null | undefined; colSpan?: number; highlightLabel?: boolean }) => {
   const displayValue = (value === null || value === undefined || value === '' || value === 'null' || value === '-') ? 'குறிப்பிடப்படவில்லை' : value;
+  const labelColor = highlightLabel ? '#dc2626' : '#1e293b';
+  const labelFontWeight = highlightLabel ? 'bold' : 600;
   return (
     <div className={`flex items-start text-[10.5px] leading-tight text-slate-900`} style={{ display: 'flex', alignItems: 'flex-start', fontSize: '11px', lineHeight: '1.3', color: '#0f172a', width: colSpan === 2 ? '100%' : '50%', boxSizing: 'border-box', paddingRight: '8px', marginBottom: '4px' }}>
-      <div className={`font-semibold text-slate-800 whitespace-nowrap w-[100px] flex-shrink-0`} style={{ fontWeight: 600, color: '#1e293b', whiteSpace: 'nowrap', width: '100px', flexShrink: 0 }}>{label}</div>
+      <div className={`${highlightLabel ? 'font-bold text-red-600' : 'font-semibold text-slate-800'} whitespace-nowrap w-[100px] flex-shrink-0`} style={{ fontWeight: labelFontWeight, color: labelColor, whiteSpace: 'nowrap', width: '100px', flexShrink: 0 }}>{label}</div>
       <div className={`font-bold text-center text-slate-700 w-[10px] flex-shrink-0`} style={{ fontWeight: 'bold', textAlign: 'center', color: '#334155', width: '10px', flexShrink: 0 }}>:</div>
-      <div className={`font-medium text-slate-900 pl-1 break-words flex-1 flex-shrink-0`} style={{ fontWeight: 500, color: '#0f172a', paddingLeft: '4px', wordBreak: 'break-word', flex: '1 1 0%', flexShrink: 0 }}>{displayValue}</div>
+      <div className={`${highlightLabel ? 'font-bold text-red-600' : 'font-medium text-slate-900'} pl-1 break-words flex-1 flex-shrink-0`} style={{ fontWeight: highlightLabel ? 'bold' : 500, color: highlightLabel ? '#dc2626' : '#0f172a', paddingLeft: '4px', wordBreak: 'break-word', flex: '1 1 0%', flexShrink: 0 }}>{displayValue}</div>
     </div>
   );
 };
@@ -412,7 +416,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
           {/* Left Text Columns */}
           <div className="flex-1 pr-2 leading-tight text-[10.5px] text-slate-900 content-start" style={{ flex: '1', paddingRight: '12px', display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
             <FieldItem label="பெயர்" value={name} />
-            <FieldItem label="குலம்" value={kulam} />
+            <FieldItem label="குலம்" value={kulam} highlightLabel={true} />
             
             <FieldItem label="பாலினம்" value={profile.gender === 'MALE' ? 'ஆண்' : 'பெண்'} />
             <FieldItem label="பிறந்த தேதி" value={formatSafeDate(dob)} />
@@ -441,13 +445,13 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
             <FieldItem label="தாய் பெயர்" value={motherName} />
             <FieldItem label="தாய் நிலை" value={motherStatus} />
             
-            <FieldItem label="நட்சத்திரம்" value={nakshatra} />
+            <FieldItem label="நட்சத்திரம்" value={nakshatra} highlightLabel={true} />
             <FieldItem label="பாதம்" value={padam} />
             
-            <FieldItem label="ராசி" value={rasi} />
+            <FieldItem label="ராசி" value={rasi} highlightLabel={true} />
             <FieldItem label="லக்னம்" value={lagnam} />
             
-            <FieldItem label="ஜாதகம்" value={dosham} />
+            <FieldItem label="ஜாதகம்" value={dosham} highlightLabel={true} />
           </div>
 
           {/* Right Photo Column */}
@@ -520,7 +524,10 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
 
         {/* 5. Akshayam Services Footer Box */}
         <div className="mt-auto flex-shrink-0 flex flex-col justify-end" style={{ marginTop: 'auto', flexShrink: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-          <div className="text-center font-bold text-red-600 mb-1" style={{ fontSize: '11px', fontWeight: 'bold', color: '#dc2626', textAlign: 'center', marginBottom: '4px' }}>ஜாதகம் முதல் பந்தி வரை</div>
+          <div className="flex justify-between items-end mb-1 px-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4px', padding: '0 16px' }}>
+            <div className="font-black text-red-600" style={{ fontSize: '12px', fontWeight: 900, color: '#dc2626' }}>ஜாதகம் முதல் பந்தி வரை</div>
+            <div className="font-bold text-emerald-800" style={{ fontSize: '10px', fontWeight: 'bold', color: '#065f46' }}>www.akshayamtamilmatrimony.com</div>
+          </div>
           <div className="bg-[#fdfbf2] border border-emerald-900 rounded-t p-1.5 text-[9px] leading-tight relative flex justify-between" style={{ backgroundColor: '#fdfbf2', border: '1px solid #064e3b', borderTopLeftRadius: '4px', borderTopRightRadius: '4px', padding: '6px', fontSize: '9px', lineHeight: '1.2', position: 'relative', display: 'flex', justifyContent: 'space-between' }}>
             {/* Left List */}
             <div className="w-[45%] flex flex-col gap-0.5 font-bold text-gray-800 pl-4" style={{ width: '45%', display: 'flex', flexDirection: 'column', gap: '2px', fontWeight: 'bold', color: '#1f2937', paddingLeft: '16px' }}>

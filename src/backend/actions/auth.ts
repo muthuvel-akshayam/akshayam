@@ -113,7 +113,7 @@ export async function logoutUser() {
   return { success: true };
 }
 
-export async function getCurrentUserId(): Promise<string> {
+export async function getCurrentUserId(): Promise<string | null> {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get('auth_token')?.value;
@@ -124,5 +124,5 @@ export async function getCurrentUserId(): Promise<string> {
   } catch (e) {
     console.error('Cookie error:', e);
   }
-  return 'test-user-id';
+  return null;
 }
