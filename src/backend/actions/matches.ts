@@ -106,10 +106,10 @@ export async function getMatches(filters?: {
       expectations: true,
       // Include contact approvals to see if we have requested/received contact
       sentRequests: {
-        where: { recipientId: currentUserId }
+        where: { recipientId: currentUserId! }
       },
       receivedRequests: {
-        where: { requesterId: currentUserId }
+        where: { requesterId: currentUserId! }
       }
     },
     take: 50,
@@ -173,6 +173,7 @@ export async function requestContact(recipientId: string) {
 
 export async function respondToContact(requesterId: string, status: 'ACCEPTED' | 'REJECTED') {
   const recipientId = await getUserId();
+  if (!recipientId) return { success: false, error: 'Not authenticated' };
   
   await prisma.contactApproval.update({
     where: {
@@ -224,8 +225,8 @@ export async function getRecentProfiles(limit: number = 10) {
       profile: { include: { educations: true } },
       family: true,
       expectations: true,
-      sentRequests: { where: { recipientId: currentUserId } },
-      receivedRequests: { where: { requesterId: currentUserId } }
+      sentRequests: { where: { recipientId: currentUserId! } },
+      receivedRequests: { where: { requesterId: currentUserId! } }
     },
     orderBy: {
       createdAt: 'desc'
@@ -277,10 +278,10 @@ export async function getProfileById(targetUserId: string) {
       },
       expectations: true,
       sentRequests: currentUserId ? {
-        where: { recipientId: currentUserId }
+        where: { recipientId: currentUserId! }
       } : undefined,
       receivedRequests: currentUserId ? {
-        where: { requesterId: currentUserId }
+        where: { requesterId: currentUserId! }
       } : undefined
     }
   });
@@ -332,7 +333,7 @@ export async function getReceivedInterestsFull() {
   if (!currentUserId) return [];
 
   const requests = await prisma.contactApproval.findMany({
-    where: { recipientId: currentUserId },
+    where: { recipientId: currentUserId! },
     select: { requesterId: true }
   });
 
@@ -345,8 +346,8 @@ export async function getReceivedInterestsFull() {
       profile: { include: { educations: true } },
       family: true,
       expectations: true,
-      sentRequests: { where: { recipientId: currentUserId } },
-      receivedRequests: { where: { requesterId: currentUserId } }
+      sentRequests: { where: { recipientId: currentUserId! } },
+      receivedRequests: { where: { requesterId: currentUserId! } }
     }
   });
 
