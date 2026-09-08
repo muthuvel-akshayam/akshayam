@@ -8,8 +8,8 @@ import { z } from 'zod';
 import { savePersonalInfo } from '@/backend/actions/profile';
 import { useState, useEffect, useRef } from 'react';
 import { extractAstrologyData } from '@/backend/actions/extractAstrology';
-import { Plus, Trash2, Eye, EyeOff, CheckCircle2, Loader2 } from 'lucide-react';
-import { OtpVerificationModal } from '../auth/OtpVerificationModal';
+import { Plus, Trash2, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import PhoneOtpModal from '../auth/PhoneOtpModal';
 import { FileUpload } from '../FileUpload';
 import { rasiOptions, nakshatraByRasi } from '@/frontend/utils/astrology';
 import { formTranslations } from '@/frontend/utils/formTranslations';
@@ -318,7 +318,6 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   // OTP Verification States
   const [isPhoneVerified, setIsPhoneVerified] = useState(!!initialData?.mobile_no);
   const [showOtpModal, setShowOtpModal] = useState(false);
-  const [isSendingOtp, setIsSendingOtp] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
     if (!isPhoneVerified) {
@@ -407,42 +406,16 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-base sm:text-sm border py-3 px-4 bg-gray-50 text-gray-900 transition-colors";
   const labelClass = "block text-sm font-semibold text-gray-700 after:content-['*'] after:ml-1 after:text-red-500";
 
-  const handleSendOtp = async () => {
-    const phone = watch('mobileNo');
-    if (!phone || !/^[6-9]\d{9}$/.test(phone)) {
-      alert(language === 'TA' ? 'சரியான மொபைல் எண்ணை 10 இலக்கங்களில் உள்ளிடவும்' : 'Please enter a valid 10-digit mobile number');
-      return;
-    }
-    setIsSendingOtp(true);
-    try {
-      const res = await fetch('/api/auth/otp/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone })
-      });
-      const data = await res.json();
-      if (data.success) {
-        setShowOtpModal(true);
-      } else {
-        alert(data.message || (language === 'TA' ? 'OTP அனுப்ப முடியவில்லை' : 'Failed to send OTP'));
-      }
-    } catch (err) {
-      console.error(err);
-      alert(language === 'TA' ? 'பிணைய பிழை' : 'Network error');
-    } finally {
-      setIsSendingOtp(false);
-    }
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
-      <OtpVerificationModal 
+      <PhoneOtpModal 
         isOpen={showOtpModal}
         onClose={() => setShowOtpModal(false)}
-        phone={watch('mobileNo') || ''}
+        initialPhone={watch('mobileNo') || ''}
         language={language}
-        onSuccess={() => {
+        onSuccess={(verifiedPhone) => {
+          setValue('mobileNo', verifiedPhone, { shouldValidate: true, shouldDirty: true });
           setIsPhoneVerified(true);
           setShowOtpModal(false);
         }}
@@ -474,11 +447,17 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               {!isPhoneVerified && (
                 <button
                   type="button"
-                  onClick={handleSendOtp}
-                  disabled={isSendingOtp || !watch('mobileNo')}
+                  onClick={() => {
+                    const phone = watch('mobileNo');
+                    if (!phone || !/^[6-9]\d{9}$/.test(phone)) {
+                      alert(language === 'TA' ? 'சரியான மொபைல் எண்ணை 10 இலக்கங்களில் உள்ளிடவும்' : 'Please enter a valid 10-digit mobile number');
+                      return;
+                    }
+                    setShowOtpModal(true);
+                  }}
+                  disabled={!watch('mobileNo')}
                   className="mt-2 sm:mt-0 sm:self-end h-[50px] px-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-600/90 transition-colors disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-2"
                 >
-                  {isSendingOtp && <Loader2 className="w-4 h-4 animate-spin" />}
                   {language === 'TA' ? 'சரிபார்க்க' : 'Verify'}
                 </button>
               )}
