@@ -35,8 +35,12 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
       expectsVacantLand: exp?.expectsVacantLand || false,
       acceptsDivorced: exp?.acceptsDivorced || false,
       preferredDistanceRadius: exp?.preferredDistanceRadius || undefined,
-      city: exp?.city || '',
-      comments: exp?.comments || ''
+      city1: exp?.city ? exp.city.split(',')[0]?.trim() || '' : '',
+      city2: exp?.city ? exp.city.split(',')[1]?.trim() || '' : '',
+      city3: exp?.city ? exp.city.split(',')[2]?.trim() || '' : '',
+      comments: exp?.comments || '',
+      preferredFamilyType: exp?.preferredFamilyType || '',
+      preferredResidentArea: exp?.preferredResidentArea || ''
     }
   });
 
@@ -85,7 +89,9 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
       if (res && !res.success) {
         throw new Error(res.error || 'Failed to save expectations');
       }
-      alert(language === 'TA' ? 'சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!' : 'Profile updated successfully!');
+      alert(language === 'TA' 
+        ? 'சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!\n\nகுறிப்பு: ஜாதகம் பொருத்தம் வந்தவுடன், வரன் பற்றிய விவரங்களை நேரடியாக விசாரிக்கவும்.' 
+        : 'Profile updated successfully!\n\nNote: Once profile matched, please directly enquire details about the varan.');
       if (onNext) onNext();
       else router.push('/dashboard');
     } catch (err: any) {
@@ -138,6 +144,17 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
             {errors.dowryExpectation && <p className="text-red-500 text-xs mt-1">{errors.dowryExpectation.message as string}</p>}
             </div>
           )}
+          <div className="md:col-span-2">
+            <label className={labelClass}>{language === 'TA' ? 'எதிர்பார்க்கும் குடும்ப வகை' : 'Preferred Family Type'}</label>
+            <select {...register('preferredFamilyType')} className={inputClass}>
+              <option value="">{language === 'TA' ? 'தேர்ந்தெடுக்கவும் / Select' : 'Select'}</option>
+              <option value="Any">{language === 'TA' ? 'எதுவும் / Any' : 'Any'}</option>
+              <option value="2 girls">{language === 'TA' ? '2 பெண்கள் / 2 Girls' : '2 Girls'}</option>
+              <option value="2 boys">{language === 'TA' ? '2 பையன்கள் / 2 Boys' : '2 Boys'}</option>
+              <option value="1 boy 1 girl">{language === 'TA' ? '1 பையன் 1 பெண் / 1 Boy 1 Girl' : '1 Boy 1 Girl'}</option>
+            </select>
+            {errors.preferredFamilyType && <p className="text-red-500 text-xs mt-1">{errors.preferredFamilyType.message as string}</p>}
+          </div>
         </div>
       </div>
 
@@ -321,10 +338,30 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
               </select>
             {errors.preferredDistanceRadius && <p className="text-red-500 text-xs mt-1">{errors.preferredDistanceRadius.message as string}</p>}
             </div>
-            <div>
+            <div className="space-y-3">
               <label className={labelClass}>{t.prefCity}</label>
-              <input {...register('city')} className={inputClass} placeholder={t.prefCityPlaceholder} />
-            {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city.message as string}</p>}
+              <div>
+                <input {...register('city1')} className={inputClass} placeholder={language === 'TA' ? '1வது விருப்பமான நகரம் / 1st Preference' : '1st Preference City'} />
+                {errors.city1 && <p className="text-red-500 text-xs mt-1">{errors.city1.message as string}</p>}
+              </div>
+              <div>
+                <input {...register('city2')} className={inputClass} placeholder={language === 'TA' ? '2வது விருப்பமான நகரம் (விருப்பமிருந்தால்) / 2nd Preference' : '2nd Preference City (Optional)'} />
+              </div>
+              <div>
+                <input {...register('city3')} className={inputClass} placeholder={language === 'TA' ? '3வது விருப்பமான நகரம் (விருப்பமிருந்தால்) / 3rd Preference' : '3rd Preference City (Optional)'} />
+              </div>
+            </div>
+            <div>
+              <label className={labelClass}>{language === 'TA' ? 'எதிர்பார்க்கும் பகுதி' : 'Preferred Resident Area'}</label>
+              <select {...register('preferredResidentArea')} className={inputClass}>
+                <option value="">{language === 'TA' ? 'தேர்ந்தெடுக்கவும் / Select' : 'Select'}</option>
+                <option value="Any">{language === 'TA' ? 'எதுவும் / Any' : 'Any'}</option>
+                <option value="North">{language === 'TA' ? 'வடக்கு / North' : 'North'}</option>
+                <option value="South">{language === 'TA' ? 'தெற்கு / South' : 'South'}</option>
+                <option value="East">{language === 'TA' ? 'கிழக்கு / East' : 'East'}</option>
+                <option value="West">{language === 'TA' ? 'மேற்கு / West' : 'West'}</option>
+              </select>
+              {errors.preferredResidentArea && <p className="text-red-500 text-xs mt-1">{errors.preferredResidentArea.message as string}</p>}
             </div>
           </div>
           

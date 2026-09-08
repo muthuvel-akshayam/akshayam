@@ -16,7 +16,8 @@ export const RELIGION_OPTIONS: DropdownOption[] = [
 ];
 
 export const CASTE_OPTIONS: DropdownOption[] = [
-  { value: "Gounder", labelEn: "Gounder", labelTa: "கவுண்டர்" },
+  { value: "Kongu Vellala Gounder", labelEn: "Kongu Vellala Gounder", labelTa: "கொங்கு வேளாள கவுண்டர்" },
+  { value: "Gounder (Other)", labelEn: "Gounder (Other)", labelTa: "கவுண்டர் (மற்றவை)" },
   { value: "Vanniyar", labelEn: "Vanniyar", labelTa: "வன்னியர்" },
   { value: "Chettiar", labelEn: "Chettiar", labelTa: "செட்டியார்" },
   { value: "Mudaliar", labelEn: "Mudaliar", labelTa: "முதலியார்" },

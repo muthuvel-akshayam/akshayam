@@ -48,8 +48,7 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
 
           <div className="mb-10 text-center">
             <div className="flex flex-col items-center justify-center mb-6">
-              <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-16 md:h-20 object-contain" />
-              <span className="text-[10px] sm:text-xs font-bold text-primary mt-1 whitespace-nowrap">ஜாதகம் முதல் பந்தி வரை</span>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-primary tracking-wider font-serif">ஜாதகம் முதல் பந்தி வரை</h1>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2 font-serif">
               {language === 'TA' ? 'சுயவிவரப் பதிவு / Create Your Profile' : 'Create Your Profile'}
@@ -101,8 +100,8 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
                 <li>{language === 'TA' ? 'புகைப்படம் / Photo' : 'Photo'}</li>
                 <li>{language === 'TA' ? 'ஜாதகம் / Jathakam' : 'Jathakam'}</li>
                 <li>{language === 'TA' ? 'சாதி சான்றிதழ் / Community Certificate' : 'Community Certificate'}</li>
-                <li>{language === 'TA' ? 'வீட்டின் கூகுள் வரைபட இணைப்பு / House Google Location Link' : 'House Google Location Link'}</li>
-                <li>{language === 'TA' ? 'அலுவலகத்தின் கூகுள் வரைபட இணைப்பு / Office or Work Location Link' : 'Office or Work Location Link'}</li>
+                <li>{language === 'TA' ? 'வீட்டின் கூகுள் வரைபட இணைப்பு (விருப்பமிருந்தால்) / House Google Location Link (Optional)' : 'House Google Location Link (Optional)'}</li>
+                <li>{language === 'TA' ? 'அலுவலகத்தின் கூகுள் வரைபட இணைப்பு (விருப்பமிருந்தால்) / Office or Work Location Link (Optional)' : 'Office or Work Location Link (Optional)'}</li>
               </ul>
             </div>
           )}
@@ -123,6 +122,65 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
           </div>
         </div>
       </div>
+
+      {/* FOOTER FOR BRANDING & CONTACT */}
+      <footer className="mt-16 border-t border-primary/10 py-10 max-w-4xl mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+          <div>
+            <h3 className="text-xl font-bold text-primary font-serif mb-3">
+              {language === 'TA' ? 'அக்‌ஷயம் திருமணத் தகவல் மையம்' : 'Akshayam Matrimony'}
+            </h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              {language === 'TA' 
+                ? 'ஜாதகம் முதல் பந்தி வரை - உங்கள் திருமணத் தேவைகள் அனைத்திற்கும் ஒரு சிறந்த இடம்.' 
+                : 'From Horoscopes to Wedding Feast - The perfect place for all your wedding needs.'}
+            </p>
+          </div>
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'தொடர்புக்கு' : 'Contact Us'}</h4>
+            <div className="space-y-3 text-sm text-gray-600">
+              <p className="flex items-center gap-2 justify-center md:justify-start">
+                <span className="text-primary font-bold bg-primary/10 p-1.5 rounded-full">📞</span> 
+                <span className="font-medium">96776 13716, 93452 89217</span>
+              </p>
+              <p className="flex items-center gap-2 justify-center md:justify-start">
+                <span className="text-green-600 font-bold bg-green-50 p-1.5 rounded-full">💬</span> 
+                <span className="font-medium">95664 66079 (WhatsApp)</span>
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'முகவரி' : 'Address'}</h4>
+            <p className="text-sm text-gray-600 leading-relaxed font-medium">
+              {language === 'TA' ? (
+                <>மலைக்கோயில், மங்கலம் ரோடு,<br />திருப்பூர் - 641 663</>
+              ) : (
+                <>Malaikovil, Mangalam Road,<br />Tiruppur - 641 663</>
+              )}
+            </p>
+          </div>
+        </div>
+        <div className="mt-10 pt-8 border-t border-gray-200/60 text-center text-sm text-gray-600 space-y-3 bg-gray-50/50 p-6 rounded-2xl">
+          <p className="font-bold text-gray-800">
+            {language === 'TA' 
+              ? 'குறிப்பு: இரு வீட்டாரும் ஜாதகப் பொருத்தம் பார்த்த பின்பு நன்கு விசாரித்து சுபம் பேசி முடிக்கவும்.' 
+              : 'Note: Both families should verify the horoscopes and thoroughly inquire before finalizing the marriage.'}
+          </p>
+          <p>
+            {language === 'TA' 
+              ? 'எங்கள் சேவைகள் ஜாதகம் முதல் பந்தி வரை நீங்கள் பயன்படுத்தலாம்.' 
+              : 'You can use our services from horoscope matching to the wedding feast.'}
+          </p>
+          <p className="font-bold text-primary">
+            {language === 'TA' 
+              ? 'உங்கள் திருமண பத்திரிகையில் அக்‌ஷயம் திருமண தகவல் மையம் என்று சேர்க்க கேட்டு கொள்கிறோம்.' 
+              : 'We kindly request you to include "Akshayam Matrimony" in your wedding invitation.'}
+          </p>
+        </div>
+        <div className="mt-6 text-center text-xs text-gray-400">
+          © 2026 Akshayam Matrimony. {language === 'TA' ? 'அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.' : 'All rights reserved.'}
+        </div>
+      </footer>
     </div>
   );
 }

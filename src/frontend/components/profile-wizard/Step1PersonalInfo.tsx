@@ -8,7 +8,8 @@ import { z } from 'zod';
 import { savePersonalInfo } from '@/backend/actions/profile';
 import { useState, useEffect, useRef } from 'react';
 import { extractAstrologyData } from '@/backend/actions/extractAstrology';
-import { Plus, Trash2, Eye, EyeOff } from 'lucide-react';
+import { Plus, Trash2, Eye, EyeOff, CheckCircle2, Loader2 } from 'lucide-react';
+import { OtpVerificationModal } from '../auth/OtpVerificationModal';
 import { FileUpload } from '../FileUpload';
 import { rasiOptions, nakshatraByRasi } from '@/frontend/utils/astrology';
 import { formTranslations } from '@/frontend/utils/formTranslations';
@@ -34,6 +35,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const [isSaving, setIsSaving] = useState(false);
   const [isExtracting, setIsExtracting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [dobText, setDobText] = useState(() => {
     const d = initialData?.profile?.dob;
     if (!d) return '';
@@ -76,11 +78,24 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         path: ['mobileNo']
       });
     }
+    if (!data.whatsappProfileDeliveryNumber || data.whatsappProfileDeliveryNumber.length < 10) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'WhatsApp number required (min 10 digits)',
+        path: ['whatsappProfileDeliveryNumber']
+      });
+    }
     if (!data.password || data.password.length < 6) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'Password required (min 6 chars)',
         path: ['password']
+      });
+    } else if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: language === 'TA' ? 'கடவுச்சொற்கள் பொருந்தவில்லை' : 'Passwords do not match',
+        path: ['confirmPassword']
       });
     }
   });
@@ -89,6 +104,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
     resolver: zodResolver(schema) as any,
     defaultValues: {
       mobileNo: initialData?.mobile_no || '',
+      whatsappProfileDeliveryNumber: initialData?.whatsappProfileDeliveryNumber || '',
       email: initialData?.email || '',
       name: profile?.name || '',
       gender: profile?.gender || 'MALE',
@@ -98,7 +114,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
       houseAddress: profile?.houseAddress || '',
       houseLocation: profile?.houseLocation || '',
       religion: profile?.religion || 'Hindu',
-      caste: profile?.caste || 'Kongu Vellalar',
+      caste: profile?.caste || 'Kongu Vellala Gounder',
       subCaste: profile?.subCaste || '',
       koottam: profile?.koottam || '',
       dob: formatDob(profile?.dob),
@@ -210,7 +226,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
             const gounderOther = casteList.find(c => c.value === 'Gounder (Other)' || c === 'Gounder (Other)') || { value: 'Gounder (Other)', labelEn: 'Gounder (Other)', labelTa: 'கவுண்டர் (மற்றவை)' };
             const others = casteList.filter(c => {
               const val = typeof c === 'string' ? c : c.value;
-              return val !== 'Kongu Vellala Gounder' && val !== 'Gounder (Other)';
+              return val !== 'Kongu Vellala Gounder' && val !== 'Gounder (Other)' && val !== 'Gounder';
             });
             casteList = [kongu, gounderOther, ...others];
           }
@@ -297,8 +313,18 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
     return { years, months, days };
   };
   const age = calculateAge(dob);
+  const [dasaBalanceError, setDasaBalanceError] = useState('');
+  
+  // OTP Verification States
+  const [isPhoneVerified, setIsPhoneVerified] = useState(!!initialData?.mobile_no);
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
+    if (!isPhoneVerified) {
+      alert(language === 'TA' ? 'தயவுசெய்து உங்கள் மொபைல் எண்ணை சரிபார்க்கவும்' : 'Please verify your mobile number first');
+      return;
+    }
     if (!isDirty) {
       onNext();
       return;
@@ -381,24 +407,93 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const inputClass = "mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-rose-600 focus:ring-rose-600 text-base sm:text-sm border py-3 px-4 bg-gray-50 text-gray-900 transition-colors";
   const labelClass = "block text-sm font-semibold text-gray-700 after:content-['*'] after:ml-1 after:text-red-500";
 
+  const handleSendOtp = async () => {
+    const phone = watch('mobileNo');
+    if (!phone || !/^[6-9]\d{9}$/.test(phone)) {
+      alert(language === 'TA' ? 'சரியான மொபைல் எண்ணை 10 இலக்கங்களில் உள்ளிடவும்' : 'Please enter a valid 10-digit mobile number');
+      return;
+    }
+    setIsSendingOtp(true);
+    try {
+      const res = await fetch('/api/auth/otp/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setShowOtpModal(true);
+      } else {
+        alert(data.message || (language === 'TA' ? 'OTP அனுப்ப முடியவில்லை' : 'Failed to send OTP'));
+      }
+    } catch (err) {
+      console.error(err);
+      alert(language === 'TA' ? 'பிணைய பிழை' : 'Network error');
+    } finally {
+      setIsSendingOtp(false);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      
+      <OtpVerificationModal 
+        isOpen={showOtpModal}
+        onClose={() => setShowOtpModal(false)}
+        phone={watch('mobileNo') || ''}
+        language={language}
+        onSuccess={() => {
+          setIsPhoneVerified(true);
+          setShowOtpModal(false);
+        }}
+      />
       
       {/* Account Details (Login Credentials) */}
       <div className="bg-amber-50/70 p-6 rounded-xl shadow-sm border border-amber-200/80 space-y-6">
         <h3 className="text-lg font-bold text-amber-900 border-b border-amber-200/60 pb-2 flex items-center gap-2">
           🔒 {t.accountDetails}
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div>
             <label className={labelClass}>{t.mobileNo}</label>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <div className="relative flex-1">
+                <input 
+                  type="tel" 
+                  {...register('mobileNo', { required: 'Mobile number required' })} 
+                  className={inputClass} 
+                  placeholder={t.mobileNoPlaceholder} 
+                  disabled={isPhoneVerified && !initialData}
+                />
+                {isPhoneVerified && (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 mt-1 text-green-600 flex items-center bg-white px-1">
+                    <CheckCircle2 size={18} />
+                  </div>
+                )}
+              </div>
+              {!isPhoneVerified && (
+                <button
+                  type="button"
+                  onClick={handleSendOtp}
+                  disabled={isSendingOtp || !watch('mobileNo')}
+                  className="mt-2 sm:mt-0 sm:self-end h-[50px] px-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-600/90 transition-colors disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-2"
+                >
+                  {isSendingOtp && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {language === 'TA' ? 'சரிபார்க்க' : 'Verify'}
+                </button>
+              )}
+            </div>
+            {errors.mobileNo && <p className="text-red-500 text-xs mt-1">{errors.mobileNo.message}</p>}
+          </div>
+          <div>
+            <label className={labelClass}>{language === 'TA' ? 'வாட்ஸ்அப் எண் (வரன் அனுப்ப)' : 'WhatsApp No. (for profiles)'}</label>
             <input 
               type="tel" 
-              {...register('mobileNo', { required: 'Mobile number required' })} 
+              {...register('whatsappProfileDeliveryNumber', { required: 'WhatsApp number required' })} 
               className={inputClass} 
-              placeholder={t.mobileNoPlaceholder} 
+              placeholder={language === 'TA' ? 'எ.கா. 9876543210' : 'e.g. 9876543210'} 
             />
-            {errors.mobileNo && <p className="text-red-500 text-xs mt-1">{errors.mobileNo.message}</p>}
+            {errors.whatsappProfileDeliveryNumber && <p className="text-red-500 text-xs mt-1">{errors.whatsappProfileDeliveryNumber.message}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.password}</label>
@@ -418,6 +513,25 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
               </button>
             </div>
             {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+          </div>
+          <div>
+            <label className={labelClass}>{language === 'TA' ? 'கடவுச்சொல்லை மீண்டும் உள்ளிடவும் / Confirm Password' : 'Confirm Password'}</label>
+            <div className="relative">
+              <input 
+                type={showConfirmPassword ? 'text' : 'password'} 
+                {...register('confirmPassword', { required: 'Confirm password required' })} 
+                className={inputClass} 
+                placeholder={language === 'TA' ? 'கடவுச்சொல்லை உறுதிப்படுத்தவும் / Confirm Password' : 'Confirm Password'} 
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+              >
+                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+            {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
           </div>
         </div>
       </div>
@@ -458,7 +572,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
             <label className={labelClass}>{t.houseAddress}</label>
             <textarea {...register('houseAddress')} className={`${inputClass} resize-none`} rows={2} placeholder={t.houseAddressPlaceholder} />
             <div className="mt-2 flex gap-2 items-center">
-              <input {...register('houseLocation')} className={inputClass.replace('mt-2', '') + ' flex-1'} placeholder="https://maps.google.com/..." />
+              <input {...register('houseLocation')} className={inputClass.replace('mt-2', '') + ' flex-1'} placeholder="https://maps.google.com/... (Optional)" />
             {errors.houseLocation && <p className="text-red-500 text-xs mt-1">{errors.houseLocation.message as string}</p>}
             </div>
           </div>
@@ -565,7 +679,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                  }
               }}
             />
-            {age && <p className="text-sm text-primary mt-2 font-bold bg-primary/10 border border-primary/20 p-2.5 rounded-lg inline-block shadow-sm">{age.years} {language === 'TA' ? 'வயது' : 'Years'}, {age.months} {language === 'TA' ? 'மாதங்கள்' : 'Months'}, {age.days} {language === 'TA' ? 'நாட்கள்' : 'Days'}</p>}
+            {age && <p className="text-sm text-primary mt-2 font-bold bg-red-600/10 border border-primary/20 p-2.5 rounded-lg inline-block shadow-sm">{age.years} {language === 'TA' ? 'வயது' : 'Years'}, {age.months} {language === 'TA' ? 'மாதங்கள்' : 'Months'}, {age.days} {language === 'TA' ? 'நாட்கள்' : 'Days'}</p>}
           </div>
           <div>
             <label className={labelClass}>{t.tob}</label>
@@ -674,12 +788,12 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                   {selectedPoruthaNaks.map((val) => {
                     const found = allUniqueNakshatras.find(n => n.value === val);
                     return (
-                      <span key={val} className="inline-flex items-center gap-1.5 bg-primary text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm animate-in zoom-in-95 duration-150">
+                      <span key={val} className="inline-flex items-center gap-1.5 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm animate-in zoom-in-95 duration-150">
                         {found ? (language === 'TA' ? found.ta : found.en) : val}
                         <button
                           type="button"
                           onClick={() => togglePoruthaNakshatra(val)}
-                          className="hover:bg-primary-light rounded-full w-4 h-4 inline-flex items-center justify-center font-bold"
+                          className="hover:bg-red-600-light rounded-full w-4 h-4 inline-flex items-center justify-center font-bold"
                           title="Remove"
                         >
                           ×
@@ -700,7 +814,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                       onClick={() => togglePoruthaNakshatra(item.value)}
                       className={`flex items-center gap-2.5 p-2.5 rounded-lg cursor-pointer text-xs font-bold transition-all select-none border ${
                         isChecked
-                          ? 'bg-primary/10 border-primary text-primary shadow-2xs font-extrabold'
+                          ? 'bg-red-600/10 border-primary text-primary shadow-2xs font-extrabold'
                           : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-100/70'
                       }`}
                     >

@@ -64,6 +64,7 @@ export const ModelName = {
   AdminAuditLog: 'AdminAuditLog',
   CasteLookup: 'CasteLookup',
   Shortlist: 'Shortlist',
+  OtpVerification: 'OtpVerification',
   PasswordResetRequest: 'PasswordResetRequest',
   HeroCarouselItem: 'HeroCarouselItem'
 } as const
@@ -88,11 +89,13 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   mobile_no: 'mobile_no',
+  whatsappProfileDeliveryNumber: 'whatsappProfileDeliveryNumber',
   password: 'password',
   role: 'role',
   status: 'status',
   paymentScreenshot: 'paymentScreenshot',
   isFeatured: 'isFeatured',
+  phoneVerified: 'phoneVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userIndex: 'userIndex',
@@ -226,7 +229,9 @@ export const ExpectationsScalarFieldEnum = {
   preferredDistanceRadius: 'preferredDistanceRadius',
   city: 'city',
   comments: 'comments',
-  expectsVacantLand: 'expectsVacantLand'
+  expectsVacantLand: 'expectsVacantLand',
+  preferredFamilyType: 'preferredFamilyType',
+  preferredResidentArea: 'preferredResidentArea'
 } as const
 
 export type ExpectationsScalarFieldEnum = (typeof ExpectationsScalarFieldEnum)[keyof typeof ExpectationsScalarFieldEnum]
@@ -315,6 +320,18 @@ export const ShortlistScalarFieldEnum = {
 } as const
 
 export type ShortlistScalarFieldEnum = (typeof ShortlistScalarFieldEnum)[keyof typeof ShortlistScalarFieldEnum]
+
+
+export const OtpVerificationScalarFieldEnum = {
+  id: 'id',
+  phone: 'phone',
+  otp: 'otp',
+  expiresAt: 'expiresAt',
+  verified: 'verified',
+  createdAt: 'createdAt'
+} as const
+
+export type OtpVerificationScalarFieldEnum = (typeof OtpVerificationScalarFieldEnum)[keyof typeof OtpVerificationScalarFieldEnum]
 
 
 export const PasswordResetRequestScalarFieldEnum = {

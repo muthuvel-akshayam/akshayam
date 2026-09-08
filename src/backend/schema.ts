@@ -11,7 +11,9 @@ import {
 
 export const personalInfoSchema = z.object({
   mobileNo: z.string().optional(),
+  whatsappProfileDeliveryNumber: z.string().min(10, 'WhatsApp number is required'),
   password: z.string().optional(),
+  confirmPassword: z.string().optional(),
   email: z.string().optional(),
   name: z.string().min(1, 'Name is required'),
   gender: z.nativeEnum(Gender, { message: 'Gender is required' }),
@@ -19,7 +21,7 @@ export const personalInfoSchema = z.object({
   state: z.string().min(1, 'State is required'),
   city: z.string().min(1, 'City is required'),
   houseAddress: z.string().min(1, 'House address is required'),
-  houseLocation: z.string().min(1, 'House location is required'),
+  houseLocation: z.string().optional(),
   religion: z.string().min(1, 'Religion is required'),
   caste: z.string().min(1, 'Caste is required'),
   subCaste: z.string().optional(),
@@ -116,7 +118,7 @@ export const familyDetailsSchema = z.object({
     if (!data.salary) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Salary is required', path: ['salary'] });
     if (!data.organisation) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Organisation is required', path: ['organisation'] });
     if (!data.workingAddress) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Working address is required', path: ['workingAddress'] });
-    if (!data.googleLocation) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Google location is required', path: ['googleLocation'] });
+
     if (data.workNature === 'JOB' && !data.designation) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Designation is required', path: ['designation'] });
     }
@@ -136,6 +138,11 @@ export const expectationsSchema = z.object({
   expectsVacantLand: z.boolean().optional(),
   preferredDistanceRadius: z.number().or(z.nan()).transform(v => isNaN(v) ? undefined : v).optional(),
   acceptsDivorced: z.boolean().optional(),
-  city: z.string().min(1, 'Preferred city is required'),
+  preferredFamilyType: z.string().optional(),
+  preferredResidentArea: z.string().optional(),
+  city: z.string().optional(),
+  city1: z.string().min(1, 'Preferred city 1 is required'),
+  city2: z.string().optional(),
+  city3: z.string().optional(),
   comments: z.string().min(1, 'Comments are required'),
 });

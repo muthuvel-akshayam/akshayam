@@ -14,7 +14,7 @@ export async function getMatches(filters?: {
 
   // Get current user's profile to exclude them, and determine opposite gender matching
   const currentUser = await prisma.user.findUnique({
-    where: { id: currentUserId },
+    where: { id: currentUserId! },
     include: { profile: true }
   });
 
@@ -89,7 +89,7 @@ export async function getMatches(filters?: {
   }
 
   const whereClause: Prisma.UserWhereInput = {
-    id: { not: currentUserId },
+    id: { not: currentUserId! },
     status: 'ACTIVE',
     profile: {
       is: profileWhere
@@ -201,7 +201,7 @@ export async function getRecentProfiles(limit: number = 10) {
   if (!currentUserId) return [];
 
   const currentUser = await prisma.user.findUnique({
-    where: { id: currentUserId },
+    where: { id: currentUserId! },
     include: { profile: true }
   });
 

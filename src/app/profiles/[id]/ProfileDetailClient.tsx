@@ -362,6 +362,18 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
                 <div className="text-[15px] sm:text-lg font-bold text-gray-700">எதிர்பார்ப்பு</div>
                 <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(exp?.expectedIncome || 'Any')}</div>
               </div>
+              {exp?.preferredFamilyType && (
+                <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                  <div className="text-[15px] sm:text-lg font-bold text-gray-700">குடும்ப வகை எதிர்பார்ப்பு</div>
+                  <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(exp.preferredFamilyType)}</div>
+                </div>
+              )}
+              {exp?.preferredResidentArea && (
+                <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto]">
+                  <div className="text-[15px] sm:text-lg font-bold text-gray-700">பகுதி எதிர்பார்ப்பு</div>
+                  <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {safeStr(exp.preferredResidentArea)}</div>
+                </div>
+              )}
               
               <div className="mt-8 bg-white/50 p-4 rounded-lg border border-red-100 text-sm text-red-600 italic">
                 குறிப்பு: மொபைல் எண் மற்றும் முகவரி விவரங்கள் மறைக்கப்பட்டுள்ளன. மேலும் விவரங்களுக்கு நிர்வாகியைத் தொடர்பு கொள்ளவும். (Contact Admin for contact details).

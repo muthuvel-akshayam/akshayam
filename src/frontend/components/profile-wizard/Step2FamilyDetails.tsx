@@ -281,7 +281,7 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
             {errors.workingAddress && <p className="text-red-500 text-xs mt-1">{errors.workingAddress.message as string}</p>}
               </div>
               <div>
-                <label className={labelClass}>{t.googleLocation} <span className="text-xs font-normal text-gray-500">{t.masked}</span></label>
+                <label className="block text-sm font-semibold text-gray-700">{t.googleLocation} <span className="text-xs font-normal text-gray-500">{t.masked}</span></label>
                 <div className="mt-1 flex gap-2">
                   <input {...register('googleLocation')} className={inputClass.replace('mt-2', '') + ' flex-1'} placeholder="https://maps.google.com/..." />
             {errors.googleLocation && <p className="text-red-500 text-xs mt-1">{errors.googleLocation.message as string}</p>}

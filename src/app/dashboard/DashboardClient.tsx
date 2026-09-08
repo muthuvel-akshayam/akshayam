@@ -205,8 +205,13 @@ export default function DashboardClient({
       )}
 
       {/* MAIN CAROUSEL CONTENT */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-12">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 space-y-12 flex-1">
         
+        {/* DESKTOP BRANDING BANNER */}
+        <div className="hidden md:flex flex-col items-center justify-center py-4 mb-2">
+          <h1 className="text-3xl lg:text-5xl font-black text-primary tracking-wider font-serif">ஜாதகம் முதல் பந்தி வரை</h1>
+        </div>
+
         {/* CAROUSEL 1: MATCHING PROFILES */}
         <section>
           <ProfileCarousel 
@@ -233,6 +238,67 @@ export default function DashboardClient({
         )}
 
       </main>
+
+      {/* FOOTER FOR BRANDING & CONTACT */}
+      <footer className="mt-16 bg-white border-t border-gray-200 py-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+              <h3 className="text-xl font-bold text-primary font-serif mb-3">
+                {language === 'TA' ? 'அக்‌ஷயம் திருமணத் தகவல் மையம்' : 'Akshayam Matrimony'}
+              </h3>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                {language === 'TA' 
+                  ? 'ஜாதகம் முதல் பந்தி வரை - உங்கள் திருமணத் தேவைகள் அனைத்திற்கும் ஒரு சிறந்த இடம்.' 
+                  : 'From Horoscopes to Wedding Feast - The perfect place for all your wedding needs.'}
+              </p>
+            </div>
+            <div className="flex flex-col items-center md:items-start">
+              <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'தொடர்புக்கு' : 'Contact Us'}</h4>
+              <div className="space-y-3 text-sm text-gray-600">
+                <p className="flex items-center gap-2 justify-center md:justify-start">
+                  <span className="text-primary font-bold bg-primary/10 p-1.5 rounded-full">📞</span> 
+                  <span className="font-medium">96776 13716, 93452 89217</span>
+                </p>
+                <p className="flex items-center gap-2 justify-center md:justify-start">
+                  <span className="text-green-600 font-bold bg-green-50 p-1.5 rounded-full">💬</span> 
+                  <span className="font-medium">95664 66079 (WhatsApp)</span>
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center md:items-start">
+              <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'முகவரி' : 'Address'}</h4>
+              <p className="text-sm text-gray-600 leading-relaxed font-medium">
+                {language === 'TA' ? (
+                  <>மலைக்கோயில், மங்கலம் ரோடு,<br />திருப்பூர் - 641 663</>
+                ) : (
+                  <>Malaikovil, Mangalam Road,<br />Tiruppur - 641 663</>
+                )}
+              </p>
+            </div>
+          </div>
+          <div className="mt-10 pt-8 border-t border-gray-100 text-center text-sm text-gray-600 space-y-3 bg-gray-50/50 p-6 rounded-2xl">
+            <p className="font-bold text-gray-800">
+              {language === 'TA' 
+                ? 'குறிப்பு: இரு வீட்டாரும் ஜாதகப் பொருத்தம் பார்த்த பின்பு நன்கு விசாரித்து சுபம் பேசி முடிக்கவும்.' 
+                : 'Note: Both families should verify the horoscopes and thoroughly inquire before finalizing the marriage.'}
+            </p>
+            <p>
+              {language === 'TA' 
+                ? 'எங்கள் சேவைகள் ஜாதகம் முதல் பந்தி வரை நீங்கள் பயன்படுத்தலாம்.' 
+                : 'You can use our services from horoscope matching to the wedding feast.'}
+            </p>
+            <p className="font-bold text-primary">
+              {language === 'TA' 
+                ? 'உங்கள் திருமண பத்திரிகையில் அக்‌ஷயம் திருமண தகவல் மையம் என்று சேர்க்க கேட்டு கொள்கிறோம்.' 
+                : 'We kindly request you to include "Akshayam Matrimony" in your wedding invitation.'}
+            </p>
+          </div>
+          <div className="mt-6 text-center text-xs text-gray-400">
+            © 2026 Akshayam Matrimony. {language === 'TA' ? 'அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.' : 'All rights reserved.'}
+          </div>
+        </div>
+      </footer>
       
       {/* Hidden PDF Template for the user's own profile */}
       <div style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>

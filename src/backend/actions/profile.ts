@@ -26,6 +26,7 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
     numberOfChildren,
     childrenGender,
     childrenAge,
+    whatsappProfileDeliveryNumber,
     ...profileData 
   } = parsed.data;
 
@@ -49,10 +50,12 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
       create: { 
         id: userId, 
         mobile_no: mobileNo || undefined, 
+        whatsappProfileDeliveryNumber: whatsappProfileDeliveryNumber || undefined,
         email: email || (mobileNo ? `${mobileNo}@akshayam.local` : `test-${userId}@example.com`) 
       },
       update: {
-        mobile_no: mobileNo || undefined
+        mobile_no: mobileNo || undefined,
+        whatsappProfileDeliveryNumber: whatsappProfileDeliveryNumber || undefined
       }
     });
 
@@ -139,7 +142,15 @@ export async function saveExpectations(data: z.infer<typeof expectationsSchema>)
       update: {}
     });
 
-    const { acceptsDivorced, ...expectationsData } = parsed.data;
+    const { acceptsDivorced, city1, city2, city3, ...restData } = parsed.data;
+    
+    // Combine cities into a single comma-separated string
+    const combinedCity = [city1, city2, city3].filter(Boolean).join(', ');
+
+    const expectationsData = {
+      ...restData,
+      city: combinedCity,
+    };
 
     const expectations = await prisma.expectations.upsert({
       where: { userId },

@@ -15,6 +15,7 @@ export function Step4Payment({
   initialData?: any; 
 }) {
   const [isSaving, setIsSaving] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [screenshotUrl, setScreenshotUrl] = useState<string | null>(initialData?.user?.paymentScreenshot || null);
   const t = formTranslations[language];
 
@@ -34,7 +35,7 @@ export function Step4Payment({
       if (res && !res.success) {
         throw new Error(res.error || 'Failed to save payment info');
       }
-      onNext();
+      setShowSuccessDialog(true);
     } catch (err: any) {
       console.error(err);
       alert((language === 'TA' ? 'சேமிக்க முடியவில்லை: ' : 'Failed to save payment info: ') + (err?.message || err));
@@ -47,7 +48,7 @@ export function Step4Payment({
     setIsSaving(true);
     try {
       await markProfileCompleted();
-      onNext();
+      setShowSuccessDialog(true);
     } catch (err) {
       console.error(err);
       onNext(); // still navigate if it fails
@@ -137,6 +138,30 @@ export function Step4Payment({
           </button>
         </div>
       </div>
+
+      {showSuccessDialog && (
+        <div className="fixed inset-0 bg-black/60 z-[9999] flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl p-8 max-w-sm w-full text-center space-y-4 animate-in zoom-in-95">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+              <CheckCircle className="w-8 h-8 text-green-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900">
+              {language === 'TA' ? 'பதிவு வெற்றிகரமானது!' : 'Registration Successful!'}
+            </h3>
+            <p className="text-sm text-gray-600 leading-relaxed font-medium">
+              {language === 'TA' 
+                ? 'ஜாதகம் பொருந்திய பிறகு வரனைப் பற்றி நேரடியாக விசாரிக்கவும்.' 
+                : 'Once profile matched enquiry details directly about varan.'}
+            </p>
+            <button
+              onClick={() => onNext()}
+              className="mt-6 w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors shadow-md"
+            >
+              {language === 'TA' ? 'தொடரவும்' : 'Continue'}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
