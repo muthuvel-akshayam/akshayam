@@ -170,8 +170,8 @@ export default function DashboardClient({
                   <p className="text-xs text-amber-700 mt-1">
                     {isPending 
                       ? (language === 'TA' 
-                          ? 'உங்கள் கட்டண விவரங்கள் நிர்வாகியால் சரிபார்க்கப்படும் வரை காத்திருக்கவும். எங்களை தொடர்புகொள்ள: 9566466079.' 
-                          : 'Please wait while an admin verifies your payment details. Contact us at: 9566466079.')
+                          ? 'உங்கள் கட்டண விவரங்கள் நிர்வாகியால் சரிபார்க்கப்படும் வரை காத்திருக்கவும். எங்களை தொடர்புகொள்ள: 9677613716.' 
+                          : 'Please wait while an admin verifies your payment details. Contact us at: 9677613716.')
                       : (language === 'TA' 
                           ? 'நிர்வாகி சரிபார்த்த பின் உங்கள் சுயவிவரம் மற்றவர்களுக்குத் தெரியும்.' 
                           : 'Your profile will be visible to others once verified by an admin.')}
@@ -262,7 +262,7 @@ export default function DashboardClient({
                 </p>
                 <p className="flex items-center gap-2 justify-center md:justify-start">
                   <span className="text-green-600 font-bold bg-green-50 p-1.5 rounded-full">💬</span> 
-                  <span className="font-medium">95664 66079 (WhatsApp)</span>
+                  <span className="font-medium">96776 13716 (WhatsApp)</span>
                 </p>
               </div>
             </div>
@@ -279,9 +279,15 @@ export default function DashboardClient({
           </div>
           <div className="mt-10 pt-8 border-t border-gray-100 text-center text-sm text-gray-600 space-y-3 bg-gray-50/50 p-6 rounded-2xl">
             <p className="font-bold text-gray-800">
-              {language === 'TA' 
-                ? 'குறிப்பு: இரு வீட்டாரும் ஜாதகப் பொருத்தம் பார்த்த பின்பு நன்கு விசாரித்து சுபம் பேசி முடிக்கவும்.' 
-                : 'Note: Both families should verify the horoscopes and thoroughly inquire before finalizing the marriage.'}
+              {language === 'TA' ? (
+                <>
+                  <span className="text-red-600">குறிப்பு:</span> இரு வீட்டாரும் ஜாதகப் பொருத்தம் பார்த்த பின்பு நன்கு விசாரித்து சுபம் பேசி முடிக்கவும்.
+                </>
+              ) : (
+                <>
+                  <span className="text-red-600">Note:</span> Both families should verify the horoscopes and thoroughly inquire before finalizing the marriage.
+                </>
+              )}
             </p>
             <p>
               {language === 'TA' 

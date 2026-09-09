@@ -145,7 +145,7 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
               </p>
               <p className="flex items-center gap-2 justify-center md:justify-start">
                 <span className="text-green-600 font-bold bg-green-50 p-1.5 rounded-full">💬</span> 
-                <span className="font-medium">95664 66079 (WhatsApp)</span>
+                <span className="font-medium">96776 13716 (WhatsApp)</span>
               </p>
             </div>
           </div>
@@ -162,9 +162,15 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
         </div>
         <div className="mt-10 pt-8 border-t border-gray-200/60 text-center text-sm text-gray-600 space-y-3 bg-gray-50/50 p-6 rounded-2xl">
           <p className="font-bold text-gray-800">
-            {language === 'TA' 
-              ? 'குறிப்பு: இரு வீட்டாரும் ஜாதகப் பொருத்தம் பார்த்த பின்பு நன்கு விசாரித்து சுபம் பேசி முடிக்கவும்.' 
-              : 'Note: Both families should verify the horoscopes and thoroughly inquire before finalizing the marriage.'}
+            {language === 'TA' ? (
+              <>
+                <span className="text-red-600">குறிப்பு:</span> இரு வீட்டாரும் ஜாதகப் பொருத்தம் பார்த்த பின்பு நன்கு விசாரித்து சுபம் பேசி முடிக்கவும்.
+              </>
+            ) : (
+              <>
+                <span className="text-red-600">Note:</span> Both families should verify the horoscopes and thoroughly inquire before finalizing the marriage.
+              </>
+            )}
           </p>
           <p>
             {language === 'TA' 
