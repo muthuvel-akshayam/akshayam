@@ -64,9 +64,7 @@ export const ModelName = {
   AdminAuditLog: 'AdminAuditLog',
   CasteLookup: 'CasteLookup',
   Shortlist: 'Shortlist',
-  OtpVerification: 'OtpVerification',
-  PasswordResetRequest: 'PasswordResetRequest',
-  HeroCarouselItem: 'HeroCarouselItem'
+  PasswordResetRequest: 'PasswordResetRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -89,17 +87,16 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   mobile_no: 'mobile_no',
-  whatsappProfileDeliveryNumber: 'whatsappProfileDeliveryNumber',
   password: 'password',
   role: 'role',
   status: 'status',
-  paymentScreenshot: 'paymentScreenshot',
-  isFeatured: 'isFeatured',
-  phoneVerified: 'phoneVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userIndex: 'userIndex',
-  userid: 'userid'
+  isFeatured: 'isFeatured',
+  userid: 'userid',
+  paymentScreenshot: 'paymentScreenshot',
+  whatsappProfileDeliveryNumber: 'whatsappProfileDeliveryNumber'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -151,10 +148,16 @@ export const ProfileScalarFieldEnum = {
   rasiGrid: 'rasiGrid',
   jathagamData: 'jathagamData',
   idProofUrl: 'idProofUrl',
-  houseLocation: 'houseLocation',
   displayId: 'displayId',
+  houseLocation: 'houseLocation',
   profileCreatedBy: 'profileCreatedBy',
-  reviewerId: 'reviewerId'
+  reviewerId: 'reviewerId',
+  childrenAge: 'childrenAge',
+  childrenGender: 'childrenGender',
+  haveChildren: 'haveChildren',
+  numberOfChildren: 'numberOfChildren',
+  yearOfDivorce: 'yearOfDivorce',
+  yearOfMarriage: 'yearOfMarriage'
 } as const
 
 export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
@@ -230,8 +233,7 @@ export const ExpectationsScalarFieldEnum = {
   city: 'city',
   comments: 'comments',
   expectsVacantLand: 'expectsVacantLand',
-  preferredFamilyType: 'preferredFamilyType',
-  preferredResidentArea: 'preferredResidentArea'
+  acceptsDivorced: 'acceptsDivorced'
 } as const
 
 export type ExpectationsScalarFieldEnum = (typeof ExpectationsScalarFieldEnum)[keyof typeof ExpectationsScalarFieldEnum]
@@ -322,18 +324,6 @@ export const ShortlistScalarFieldEnum = {
 export type ShortlistScalarFieldEnum = (typeof ShortlistScalarFieldEnum)[keyof typeof ShortlistScalarFieldEnum]
 
 
-export const OtpVerificationScalarFieldEnum = {
-  id: 'id',
-  phone: 'phone',
-  otp: 'otp',
-  expiresAt: 'expiresAt',
-  verified: 'verified',
-  createdAt: 'createdAt'
-} as const
-
-export type OtpVerificationScalarFieldEnum = (typeof OtpVerificationScalarFieldEnum)[keyof typeof OtpVerificationScalarFieldEnum]
-
-
 export const PasswordResetRequestScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -344,19 +334,6 @@ export const PasswordResetRequestScalarFieldEnum = {
 } as const
 
 export type PasswordResetRequestScalarFieldEnum = (typeof PasswordResetRequestScalarFieldEnum)[keyof typeof PasswordResetRequestScalarFieldEnum]
-
-
-export const HeroCarouselItemScalarFieldEnum = {
-  id: 'id',
-  mediaUrl: 'mediaUrl',
-  type: 'type',
-  order: 'order',
-  isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type HeroCarouselItemScalarFieldEnum = (typeof HeroCarouselItemScalarFieldEnum)[keyof typeof HeroCarouselItemScalarFieldEnum]
 
 
 export const SortOrder = {

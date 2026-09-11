@@ -83,17 +83,7 @@ export type CasteLookup = Prisma.CasteLookupModel
  */
 export type Shortlist = Prisma.ShortlistModel
 /**
- * Model OtpVerification
- * 
- */
-export type OtpVerification = Prisma.OtpVerificationModel
-/**
  * Model PasswordResetRequest
  * 
  */
 export type PasswordResetRequest = Prisma.PasswordResetRequestModel
-/**
- * Model HeroCarouselItem
- * 
- */
-export type HeroCarouselItem = Prisma.HeroCarouselItemModel

@@ -270,8 +270,12 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
   const kulam = profile.koottam || jData.kulam || profile.subCaste || 'குறிப்பிடப்படவில்லை';
   const fatherName = family.fatherName || jData.fatherName || '-';
   const motherName = family.motherName || jData.motherName || '-';
-  const fatherStatus = mapParentStatus(family.fatherStatus || jData.fatherStatus);
-  const motherStatus = mapParentStatus(family.motherStatus || jData.motherStatus);
+  const fatherStatus = mapParentStatus(family.fatherLivingStatus || family.fatherStatus || jData.fatherStatus);
+  const motherStatus = mapParentStatus(family.motherLivingStatus || family.motherStatus || jData.motherStatus);
+  const isFatherLate = family.fatherLivingStatus === 'LATE' || fatherStatus === 'இல்லை' || fatherStatus === 'மறைந்தவர்';
+  const isMotherLate = family.motherLivingStatus === 'LATE' || motherStatus === 'இல்லை' || motherStatus === 'மறைந்தவர்';
+  const fatherNameDisplay = isFatherLate ? `${fatherName !== '-' ? fatherName : ''} (மறைந்தவர்)`.trim() : fatherName;
+  const motherNameDisplay = isMotherLate ? `${motherName !== '-' ? motherName : ''} (மறைந்தவர்)`.trim() : motherName;
   const formatSiblings = (siblingsStr: any) => {
     if (!siblingsStr || typeof siblingsStr !== 'string') return siblingsStr;
     if (!siblingsStr.includes('மூத்தவர் ஆண்:')) return siblingsStr;
@@ -395,13 +399,13 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
         <div className="flex justify-center items-center bg-white py-1 text-[10px]" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', backgroundColor: '#ffffff', padding: '4px 0', fontSize: '10px', marginTop: '8px', width: '100%' }}>
           <div className="flex items-center gap-1 font-bold whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', whiteSpace: 'nowrap', flexShrink: 0 }}>
             <span className="text-emerald-800" style={{ color: '#065f46' }}>📞</span>
-            <span className="text-red-600 tracking-wide" style={{ color: '#dc2626', letterSpacing: '0.025em' }}>96776 13716, 93452 89217</span>
+            <span className="text-red-600 tracking-wide" style={{ color: '#dc2626', letterSpacing: '0.025em' }}>93452 89217</span>
           </div>
           <div className="flex items-center gap-1 font-bold text-emerald-800 whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', color: '#065f46', whiteSpace: 'nowrap', flexShrink: 0 }}>
             <span>🌐</span> www.akshayamtamilmatrimony.com
           </div>
           <div className="flex items-center gap-1 font-bold text-gray-800 whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', color: '#1f2937', whiteSpace: 'nowrap', flexShrink: 0 }}>
-            <span className="text-emerald-800" style={{ color: '#065f46' }}>📍</span> மலைக்கோயில், மங்கலம் ரோடு, திருப்பூர் - 641 604.
+            <span className="text-emerald-800" style={{ color: '#065f46' }}>📍</span> அருள்மிகு குழந்தை வேலாயுதசுவாமி திருக்கோயில், மலைக்கோயில், மங்கலம் ரோடு, திருப்பூர் - 641 604.
           </div>
         </div>
 
@@ -439,11 +443,8 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
             <FieldItem label="எடை" value={`${profile.weight} கிலோ`} />
             <FieldItem label="உடன் பிறந்தோர்" value={siblingsDisplay} />
             
-            <FieldItem label="தந்தை பெயர்" value={fatherName} />
-            <FieldItem label="தந்தை நிலை" value={fatherStatus} />
-            
-            <FieldItem label="தாய் பெயர்" value={motherName} />
-            <FieldItem label="தாய் நிலை" value={motherStatus} />
+            <FieldItem label="தந்தை பெயர்" value={fatherNameDisplay} />
+            <FieldItem label="தாய் பெயர்" value={motherNameDisplay} />
             
             <FieldItem label="நட்சத்திரம்" value={nakshatra} highlightLabel={true} />
             <FieldItem label="பாதம்" value={padam} />
@@ -479,8 +480,8 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
             
             <div className="flex flex-col items-center justify-center text-center w-full" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', width: '100%' }}>
                <div className="font-bold text-emerald-800" style={{ fontSize: '8.5px', fontWeight: 'bold', color: '#065f46', lineHeight: '1.2', letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>www.akshayamtamilmatrimony.com</div>
-               <div className="font-bold text-red-600" style={{ fontSize: '9px', fontWeight: 'bold', color: '#dc2626', lineHeight: '1.2', letterSpacing: '0.01em', marginTop: '2px', whiteSpace: 'nowrap' }}>📞 96776 13716, 93452 89217</div>
-               <div className="font-semibold text-gray-800" style={{ fontSize: '7.5px', fontWeight: 600, color: '#1f2937', lineHeight: '1.2', marginTop: '2px', wordBreak: 'break-word', padding: '0 2px' }}>மலைக்கோயில், மங்கலம் ரோடு, திருப்பூர் - 641 604.</div>
+               <div className="font-bold text-red-600" style={{ fontSize: '9px', fontWeight: 'bold', color: '#dc2626', lineHeight: '1.2', letterSpacing: '0.01em', marginTop: '2px', whiteSpace: 'nowrap' }}>📞 93452 89217</div>
+               <div className="font-semibold text-gray-800" style={{ fontSize: '7.5px', fontWeight: 600, color: '#1f2937', lineHeight: '1.2', marginTop: '2px', wordBreak: 'break-word', padding: '0 2px' }}>அருள்மிகு குழந்தை வேலாயுதசுவாமி திருக்கோயில், மலைக்கோயில், மங்கலம் ரோடு, திருப்பூர் - 641 604.</div>
             </div>
           </div>
 
@@ -513,7 +514,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
             <div className="grid grid-cols-[130px_10px_1fr] mt-1 text-[11px] leading-tight" style={{ display: 'flex', marginTop: '4px', fontSize: '11px', lineHeight: '1.2' }}>
               <div className="font-bold text-emerald-950" style={{ fontWeight: 'bold', color: '#022c22', width: '130px' }}>தொடர்பு எண்</div>
               <div className="font-bold text-emerald-950 text-center" style={{ fontWeight: 'bold', color: '#022c22', width: '10px', textAlign: 'center' }}>:</div>
-              <div className="font-bold text-red-600" style={{ fontWeight: 'bold', color: '#dc2626', flex: '1' }}>+91 {profile.user?.mobile_no || "96776 13716, 93452 89217"}</div>
+              <div className="font-bold text-red-600" style={{ fontWeight: 'bold', color: '#dc2626', flex: '1' }}>+91 {profile.user?.mobile_no || "93452 89217"}</div>
             </div>
           </div>
           <div className="w-[280px] flex flex-col gap-0.5 pt-5" style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '2px', paddingTop: '20px' }}>

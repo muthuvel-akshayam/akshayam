@@ -410,9 +410,7 @@ export const ModelName = {
   AdminAuditLog: 'AdminAuditLog',
   CasteLookup: 'CasteLookup',
   Shortlist: 'Shortlist',
-  OtpVerification: 'OtpVerification',
-  PasswordResetRequest: 'PasswordResetRequest',
-  HeroCarouselItem: 'HeroCarouselItem'
+  PasswordResetRequest: 'PasswordResetRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -428,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "profile" | "education" | "family" | "sibling" | "expectations" | "contactApproval" | "profileSentLog" | "nakshatraCompatibility" | "siteSettings" | "adminAuditLog" | "casteLookup" | "shortlist" | "otpVerification" | "passwordResetRequest" | "heroCarouselItem"
+    modelProps: "user" | "profile" | "education" | "family" | "sibling" | "expectations" | "contactApproval" | "profileSentLog" | "nakshatraCompatibility" | "siteSettings" | "adminAuditLog" | "casteLookup" | "shortlist" | "passwordResetRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1394,80 +1392,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    OtpVerification: {
-      payload: Prisma.$OtpVerificationPayload<ExtArgs>
-      fields: Prisma.OtpVerificationFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.OtpVerificationFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.OtpVerificationFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload>
-        }
-        findFirst: {
-          args: Prisma.OtpVerificationFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.OtpVerificationFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload>
-        }
-        findMany: {
-          args: Prisma.OtpVerificationFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload>[]
-        }
-        create: {
-          args: Prisma.OtpVerificationCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload>
-        }
-        createMany: {
-          args: Prisma.OtpVerificationCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.OtpVerificationCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload>[]
-        }
-        delete: {
-          args: Prisma.OtpVerificationDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload>
-        }
-        update: {
-          args: Prisma.OtpVerificationUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload>
-        }
-        deleteMany: {
-          args: Prisma.OtpVerificationDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.OtpVerificationUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.OtpVerificationUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload>[]
-        }
-        upsert: {
-          args: Prisma.OtpVerificationUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpVerificationPayload>
-        }
-        aggregate: {
-          args: Prisma.OtpVerificationAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateOtpVerification>
-        }
-        groupBy: {
-          args: Prisma.OtpVerificationGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.OtpVerificationGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.OtpVerificationCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.OtpVerificationCountAggregateOutputType> | number
-        }
-      }
-    }
     PasswordResetRequest: {
       payload: Prisma.$PasswordResetRequestPayload<ExtArgs>
       fields: Prisma.PasswordResetRequestFieldRefs
@@ -1542,80 +1466,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    HeroCarouselItem: {
-      payload: Prisma.$HeroCarouselItemPayload<ExtArgs>
-      fields: Prisma.HeroCarouselItemFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.HeroCarouselItemFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.HeroCarouselItemFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
-        }
-        findFirst: {
-          args: Prisma.HeroCarouselItemFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.HeroCarouselItemFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
-        }
-        findMany: {
-          args: Prisma.HeroCarouselItemFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>[]
-        }
-        create: {
-          args: Prisma.HeroCarouselItemCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
-        }
-        createMany: {
-          args: Prisma.HeroCarouselItemCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.HeroCarouselItemCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>[]
-        }
-        delete: {
-          args: Prisma.HeroCarouselItemDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
-        }
-        update: {
-          args: Prisma.HeroCarouselItemUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
-        }
-        deleteMany: {
-          args: Prisma.HeroCarouselItemDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.HeroCarouselItemUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.HeroCarouselItemUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>[]
-        }
-        upsert: {
-          args: Prisma.HeroCarouselItemUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
-        }
-        aggregate: {
-          args: Prisma.HeroCarouselItemAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateHeroCarouselItem>
-        }
-        groupBy: {
-          args: Prisma.HeroCarouselItemGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.HeroCarouselItemGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.HeroCarouselItemCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.HeroCarouselItemCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -1659,17 +1509,16 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   mobile_no: 'mobile_no',
-  whatsappProfileDeliveryNumber: 'whatsappProfileDeliveryNumber',
   password: 'password',
   role: 'role',
   status: 'status',
-  paymentScreenshot: 'paymentScreenshot',
-  isFeatured: 'isFeatured',
-  phoneVerified: 'phoneVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userIndex: 'userIndex',
-  userid: 'userid'
+  isFeatured: 'isFeatured',
+  userid: 'userid',
+  paymentScreenshot: 'paymentScreenshot',
+  whatsappProfileDeliveryNumber: 'whatsappProfileDeliveryNumber'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1721,10 +1570,16 @@ export const ProfileScalarFieldEnum = {
   rasiGrid: 'rasiGrid',
   jathagamData: 'jathagamData',
   idProofUrl: 'idProofUrl',
-  houseLocation: 'houseLocation',
   displayId: 'displayId',
+  houseLocation: 'houseLocation',
   profileCreatedBy: 'profileCreatedBy',
-  reviewerId: 'reviewerId'
+  reviewerId: 'reviewerId',
+  childrenAge: 'childrenAge',
+  childrenGender: 'childrenGender',
+  haveChildren: 'haveChildren',
+  numberOfChildren: 'numberOfChildren',
+  yearOfDivorce: 'yearOfDivorce',
+  yearOfMarriage: 'yearOfMarriage'
 } as const
 
 export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
@@ -1800,8 +1655,7 @@ export const ExpectationsScalarFieldEnum = {
   city: 'city',
   comments: 'comments',
   expectsVacantLand: 'expectsVacantLand',
-  preferredFamilyType: 'preferredFamilyType',
-  preferredResidentArea: 'preferredResidentArea'
+  acceptsDivorced: 'acceptsDivorced'
 } as const
 
 export type ExpectationsScalarFieldEnum = (typeof ExpectationsScalarFieldEnum)[keyof typeof ExpectationsScalarFieldEnum]
@@ -1892,18 +1746,6 @@ export const ShortlistScalarFieldEnum = {
 export type ShortlistScalarFieldEnum = (typeof ShortlistScalarFieldEnum)[keyof typeof ShortlistScalarFieldEnum]
 
 
-export const OtpVerificationScalarFieldEnum = {
-  id: 'id',
-  phone: 'phone',
-  otp: 'otp',
-  expiresAt: 'expiresAt',
-  verified: 'verified',
-  createdAt: 'createdAt'
-} as const
-
-export type OtpVerificationScalarFieldEnum = (typeof OtpVerificationScalarFieldEnum)[keyof typeof OtpVerificationScalarFieldEnum]
-
-
 export const PasswordResetRequestScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -1914,19 +1756,6 @@ export const PasswordResetRequestScalarFieldEnum = {
 } as const
 
 export type PasswordResetRequestScalarFieldEnum = (typeof PasswordResetRequestScalarFieldEnum)[keyof typeof PasswordResetRequestScalarFieldEnum]
-
-
-export const HeroCarouselItemScalarFieldEnum = {
-  id: 'id',
-  mediaUrl: 'mediaUrl',
-  type: 'type',
-  order: 'order',
-  isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type HeroCarouselItemScalarFieldEnum = (typeof HeroCarouselItemScalarFieldEnum)[keyof typeof HeroCarouselItemScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2005,13 +1834,6 @@ export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 
 
 /**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -2036,6 +1858,13 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -2384,9 +2213,7 @@ export type GlobalOmitConfig = {
   adminAuditLog?: Prisma.AdminAuditLogOmit
   casteLookup?: Prisma.CasteLookupOmit
   shortlist?: Prisma.ShortlistOmit
-  otpVerification?: Prisma.OtpVerificationOmit
   passwordResetRequest?: Prisma.PasswordResetRequestOmit
-  heroCarouselItem?: Prisma.HeroCarouselItemOmit
 }
 
 /* Types for Logging */

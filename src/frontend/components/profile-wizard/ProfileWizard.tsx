@@ -141,11 +141,11 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
             <div className="space-y-3 text-sm text-gray-600">
               <p className="flex items-center gap-2 justify-center md:justify-start">
                 <span className="text-primary font-bold bg-primary/10 p-1.5 rounded-full">📞</span> 
-                <span className="font-medium">96776 13716, 93452 89217</span>
+                <span className="font-medium">93452 89217</span>
               </p>
               <p className="flex items-center gap-2 justify-center md:justify-start">
                 <span className="text-green-600 font-bold bg-green-50 p-1.5 rounded-full">💬</span> 
-                <span className="font-medium">96776 13716 (WhatsApp)</span>
+                <span className="font-medium">93452 89217 (WhatsApp)</span>
               </p>
             </div>
           </div>
@@ -153,9 +153,9 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
             <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'முகவரி' : 'Address'}</h4>
             <p className="text-sm text-gray-600 leading-relaxed font-medium">
               {language === 'TA' ? (
-                <>மலைக்கோயில், மங்கலம் ரோடு,<br />திருப்பூர் - 641 663</>
+                <>அருள்மிகு குழந்தை வேலாயுதசுவாமி திருக்கோயில்,<br />மலைக்கோயில், மங்கலம் ரோடு,<br />திருப்பூர் - 641 663</>
               ) : (
-                <>Malaikovil, Mangalam Road,<br />Tiruppur - 641 663</>
+                <>Arulmigu Kuzhandhai Velayudhaswamy Thirukovil,<br />Malaikovil, Mangalam Road,<br />Tiruppur - 641 663</>
               )}
             </p>
           </div>

@@ -60,6 +60,8 @@ export const personalInfoSchema = z.object({
   hideHouseAddress: z.boolean().default(true),
   hideHouseLocation: z.boolean().default(true),
   hidePhoto: z.boolean().default(false),
+  yearOfMarriage: z.string().optional(),
+  yearOfDivorce: z.string().optional(),
   educations: z.array(z.object({
     level: z.string().min(1, 'Education level is required'),
     degreeName: z.string().min(1, 'Degree is required'),
@@ -73,6 +75,14 @@ export const personalInfoSchema = z.object({
     if (!data.jathakamUrl) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Jathakam is required', path: ['jathakamUrl'] });
   }
   if (['DIVORCED', 'WIDOWED', 'AWAITING_DIVORCE'].includes(data.maritalStatus)) {
+    if (!data.yearOfMarriage) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Year of marriage is required', path: ['yearOfMarriage'] });
+    }
+    if (data.maritalStatus === 'DIVORCED') {
+      if (!data.yearOfDivorce) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Year of divorce is required', path: ['yearOfDivorce'] });
+      }
+    }
     if (data.haveChildren === undefined) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'This field is required', path: ['haveChildren'] });
     }
@@ -87,26 +97,26 @@ export const personalInfoSchema = z.object({
 export const familyDetailsSchema = z.object({
   fatherName: z.string().min(1, 'Father name is required'),
   fatherLivingStatus: z.nativeEnum(ParentLivingStatus, { message: 'Status is required' }),
-  fatherStatus: z.string().min(1, 'Father occupation is required'),
-  fatherMobile: z.string().min(10, 'Mobile is required'),
+  fatherStatus: z.string().optional(),
+  fatherMobile: z.string().optional(),
   motherName: z.string().min(1, 'Mother name is required'),
   motherLivingStatus: z.nativeEnum(ParentLivingStatus, { message: 'Status is required' }),
-  motherStatus: z.string().min(1, 'Mother occupation is required'),
-  motherMobile: z.string().min(10, 'Mobile is required'),
+  motherStatus: z.string().optional(),
+  motherMobile: z.string().optional(),
   workNature: z.nativeEnum(WorkNature, { message: 'Work nature is required' }),
   salary: z.string().optional(),
   organisation: z.string().optional(),
   designation: z.string().optional(),
   workingAddress: z.string().optional(),
   googleLocation: z.string().optional(),
-  rentalIncome: z.string().min(1, 'Rental income is required'),
-  houseType: z.string().min(1, 'House type is required'),
-  houseSqFt: z.string().min(1, 'Sq.ft is required'),
-  siteLand: z.string().min(1, 'Site land is required'),
-  thottam: z.string().min(1, 'Thottam is required'),
-  vacantLand: z.string().min(1, 'Vacant land is required'),
-  totalAssetValue: z.string().min(1, 'Total asset value is required'),
-  assetComments: z.string().min(1, 'Asset comments are required'),
+  rentalIncome: z.string().optional(),
+  houseType: z.string().optional(),
+  houseSqFt: z.string().optional(),
+  siteLand: z.string().optional(),
+  thottam: z.string().optional(),
+  vacantLand: z.string().optional(),
+  totalAssetValue: z.string().optional(),
+  assetComments: z.string().optional(),
   dowryDetails: z.string().optional(),
   siblings: z.array(z.object({
     name: z.string().min(1, 'Name is required'),
@@ -122,6 +132,15 @@ export const familyDetailsSchema = z.object({
     if (data.workNature === 'JOB' && !data.designation) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Designation is required', path: ['designation'] });
     }
+  }
+  if (data.fatherLivingStatus === 'ALIVE') {
+    if (!data.fatherStatus) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Father occupation is required', path: ['fatherStatus'] });
+    if (!data.fatherMobile || data.fatherMobile.length < 10) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Mobile is required', path: ['fatherMobile'] });
+  }
+
+  if (data.motherLivingStatus === 'ALIVE') {
+    if (!data.motherStatus) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Mother occupation is required', path: ['motherStatus'] });
+    if (!data.motherMobile || data.motherMobile.length < 10) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Mobile is required', path: ['motherMobile'] });
   }
 });
 

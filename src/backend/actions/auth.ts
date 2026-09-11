@@ -64,7 +64,7 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
     return { success: true, userId: newUser.id };
   } catch (error: any) {
     console.error('Error in registerAuthUser:', error);
-    return { success: false, error: 'Database connection failed. Please try again.' };
+    return { success: false, error: error.message || 'Database connection failed. Please try again.' };
   }
 }
 

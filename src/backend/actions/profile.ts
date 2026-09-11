@@ -20,12 +20,9 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
   const { 
     mobileNo, 
     password, 
+    confirmPassword,
     email, 
     educations, 
-    haveChildren,
-    numberOfChildren,
-    childrenGender,
-    childrenAge,
     whatsappProfileDeliveryNumber,
     ...profileData 
   } = parsed.data;
@@ -37,11 +34,14 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
       const authRes = await registerAuthUser(mobileNo, password);
       if (authRes.success && authRes.userId) {
         userId = authRes.userId;
+      } else {
+        console.error("Auth failed:", authRes);
+        throw new Error("Auth Error: " + (authRes.error || "Unknown authentication error"));
       }
     }
     
     if (!userId) {
-      throw new Error("Unauthorized");
+      throw new Error("Unauthorized - Missing user ID");
     }
 
     // Create user if not exists
@@ -121,7 +121,7 @@ export async function saveFamilyDetails(data: z.infer<typeof familyDetailsSchema
     return { success: true, family };
   } catch (error: any) {
     console.error('Error saving family details:', error);
-    return { success: false, error: 'Database connection failed or operation unsuccessful. Please try again.' };
+    return { success: false, error: error?.message || 'Database connection failed or operation unsuccessful. Please try again.' };
   }
 }
 
@@ -142,7 +142,7 @@ export async function saveExpectations(data: z.infer<typeof expectationsSchema>)
       update: {}
     });
 
-    const { acceptsDivorced, city1, city2, city3, ...restData } = parsed.data;
+    const { preferredFamilyType, preferredResidentArea, city1, city2, city3, ...restData } = parsed.data;
     
     // Combine cities into a single comma-separated string
     const combinedCity = [city1, city2, city3].filter(Boolean).join(', ');
@@ -167,7 +167,7 @@ export async function saveExpectations(data: z.infer<typeof expectationsSchema>)
     return { success: true, expectations };
   } catch (error: any) {
     console.error('Error saving expectations:', error);
-    return { success: false, error: 'Database connection failed or operation unsuccessful. Please try again.' };
+    return { success: false, error: error?.message || 'Database connection failed or operation unsuccessful. Please try again.' };
   }
 }
 

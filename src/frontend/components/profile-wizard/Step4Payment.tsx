@@ -99,7 +99,7 @@ export function Step4Payment({
             <FileUpload
               label={language === 'TA' ? 'ஸ்கிரீன்ஷாட்' : 'Screenshot'}
               subLabel="JPEG, PNG (Max 5MB)"
-              bucket="photos"
+              bucket="user-documents"
               onUploadSuccess={handleUploadSuccess}
               initialUrl={screenshotUrl || undefined}
               required={true}

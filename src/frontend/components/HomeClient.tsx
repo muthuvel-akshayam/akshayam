@@ -96,13 +96,13 @@ export default function HomeClient() {
   };
 
   const servicesTa = [
-    { title: 'ஜாதக பதிவு', desc: 'உங்கள் ஜாதகங்களை துல்லியமாக பதிவு செய்து பொருத்தமான வரன்களை கண்டறியலாம்.', icon: FileText, imageUrl: '/services/premium/premium_0.png' },
+    { title: 'ஜாதக பதிவு', desc: 'உங்கள் ஜாதகங்களை துல்லியமாக பதிவு செய்து பொருத்தமான வரன்களை கண்டறியலாம்.', icon: FileText, imageUrl: '/services/premium/premium_0.jpg' },
     { title: 'திருமண மண்டபம்', desc: 'விசாலமான மற்றும் அழகான திருமண மண்டபங்கள் வசதி.', icon: Tent, imageUrl: '/services/premium/premium_15.jpg' },
     { title: 'வாழை மரம்', desc: 'திருமணத்திற்கான மங்களகரமான வாழை மரங்கள்.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
-    { title: 'ஐயர்', desc: 'திருமண சடங்குகளை சிறப்பிக்க அனுபவம் வாய்ந்த ஐயர்கள்.', icon: Flame, imageUrl: '/services/premium/premium_2.png' },
+    { title: 'ஐயர்', desc: 'திருமண சடங்குகளை சிறப்பிக்க அனுபவம் வாய்ந்த ஐயர்கள்.', icon: Flame, imageUrl: '/services/premium/premium_2.jpg' },
     { title: 'மாங்கல்ய வாத்தியம்', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
     { title: 'சீர்வரிசை தட்டு', desc: 'அழகான மற்றும் பாரம்பரிய சீர்வரிசை தட்டுகள் அலங்காரம்.', icon: Gift, imageUrl: '/services/premium/premium_4.png' },
-    { title: 'சமையல் கேட்டரிங்', desc: 'சுவையான மற்றும் தரமான பாரம்பரிய சமையல்.', icon: ChefHat, imageUrl: '/services/premium/premium_5.png' },
+    { title: 'சமையல் கேட்டரிங்', desc: 'சுவையான மற்றும் தரமான பாரம்பரிய சமையல்.', icon: ChefHat, imageUrl: '/services/premium/premium_5.jpg' },
     { title: 'காய்கறி, காளான்', desc: 'திருமண விருந்துக்கான புதிய மற்றும் தரமான காய்கறிகள்.', icon: Vegan, imageUrl: '/services/premium/premium_6.png' },
     { title: 'பால், தயிர், நெய்', desc: 'சுத்தமான பண்ணை பால் மற்றும் நெய் விநியோகம்.', icon: Milk, imageUrl: '/services/premium/premium_7.png' },
     { title: 'பால் கோவா, பன்னீர்', desc: 'விருந்துக்கு தேவையான உயர்தர இனிப்புகள் மற்றும் பன்னீர்.', icon: Cake, imageUrl: '/services/premium/premium_8.png' },
@@ -115,13 +115,13 @@ export default function HomeClient() {
   ];
 
   const servicesEn = [
-    { title: 'Horoscope Registration', desc: 'Accurate and secure registration of horoscopes for matchmaking.', icon: FileText, imageUrl: '/services/premium/premium_0.png' },
+    { title: 'Horoscope Registration', desc: 'Accurate and secure registration of horoscopes for matchmaking.', icon: FileText, imageUrl: '/services/premium/premium_0.jpg' },
     { title: 'Kalyana Mandapam', desc: 'Spacious and beautifully decorated premium wedding halls.', icon: Tent, imageUrl: '/services/premium/premium_15.jpg' },
     { title: 'Banana Tree Decor', desc: 'Traditional auspicious banana tree arrangements for weddings.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
-    { title: 'Priest / Iyer', desc: 'Experienced Vedic priests to conduct traditional rituals.', icon: Flame, imageUrl: '/services/premium/premium_2.png' },
+    { title: 'Priest / Iyer', desc: 'Experienced Vedic priests to conduct traditional rituals.', icon: Flame, imageUrl: '/services/premium/premium_2.jpg' },
     { title: 'Auspicious Music', desc: 'Auspicious Nadaswaram and Thavil artists for wedding ceremonies.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
     { title: 'Seer Varisai Plates', desc: 'Artistic and traditional gift plate decorations for the bride & groom.', icon: Gift, imageUrl: '/services/premium/premium_4.png' },
-    { title: 'Catering Services', desc: 'Authentic, hygienic and delicious feast preparation.', icon: ChefHat, imageUrl: '/services/premium/premium_5.png' },
+    { title: 'Catering Services', desc: 'Authentic, hygienic and delicious feast preparation.', icon: ChefHat, imageUrl: '/services/premium/premium_5.jpg' },
     { title: 'Fresh Vegetables & Mushroom', desc: 'Supply of farm-fresh vegetables and mushrooms for wedding feasts.', icon: Vegan, imageUrl: '/services/premium/premium_6.png' },
     { title: 'Milk, Curd & Ghee', desc: 'Pure dairy supplies for authentic cooking and sweets.', icon: Milk, imageUrl: '/services/premium/premium_7.png' },
     { title: 'Sweets & Paneer', desc: 'Premium quality Milk Kova, Paneer, and traditional desserts.', icon: Cake, imageUrl: '/services/premium/premium_8.png' },
@@ -324,7 +324,7 @@ export default function HomeClient() {
               </button>
 
               <a
-                href="tel:9677613716"
+                href="tel:9345289217"
                 className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-primary border-2 border-primary px-8 py-5 rounded-full font-bold text-lg transition-all shadow-md hover:shadow-lg"
               >
                 <Phone className="w-5 h-5 text-primary" />
@@ -333,10 +333,6 @@ export default function HomeClient() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-4 text-primary text-base font-bold">
-              <a href="tel:9677613716" className="hover:text-accent transition-colors flex items-center gap-2 bg-white/80 px-4 py-2 rounded-xl shadow-sm border border-primary/10">
-                <Phone className="w-4 h-4 text-accent" /> 96776 13716
-              </a>
-              <span className="text-accent opacity-50 hidden sm:inline">|</span>
               <a href="tel:9345289217" className="hover:text-accent transition-colors flex items-center gap-2 bg-white/80 px-4 py-2 rounded-xl shadow-sm border border-primary/10">
                 <Phone className="w-4 h-4 text-accent" /> 93452 89217
               </a>
@@ -561,10 +557,6 @@ export default function HomeClient() {
                 </div>
               </div>
               <div className="space-y-6">
-                <a href="tel:9677613716" className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-background transition-colors group border border-gray-100">
-                  <span className="text-xl font-bold text-gray-800">96776 13716</span>
-                  <Phone className="w-5 h-5 text-accent group-hover:text-primary transition-colors" />
-                </a>
                 <a href="tel:9345289217" className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-background transition-colors group border border-gray-100">
                   <span className="text-xl font-bold text-gray-800">93452 89217</span>
                   <Phone className="w-5 h-5 text-accent group-hover:text-primary transition-colors" />
@@ -586,12 +578,14 @@ export default function HomeClient() {
                 <address className="not-italic text-lg font-semibold text-gray-800 leading-relaxed text-center">
                   {language === 'TA' ? (
                     <>
+                      அருள்மிகு குழந்தை வேலாயுதசுவாமி திருக்கோயில்,<br />
                       மலைக்கோயில்,<br />
                       மங்கலம் ரோடு,<br />
                       திருப்பூர் - 641 663
                     </>
                   ) : (
                     <>
+                      Arulmigu Kuzhandhai Velayudhaswamy Thirukovil,<br />
                       Malaikovil,<br />
                       Mangalam Road,<br />
                       Tiruppur - 641 663
@@ -640,18 +634,7 @@ export default function HomeClient() {
         </div>
       </footer>
 
-      {/* Floating WhatsApp Button */}
-      <a
-        href="https://wa.me/919677613716"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white px-4 py-3 rounded-full font-bold shadow-2xl hover:scale-105 transition-all"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="w-6 h-6" viewBox="0 0 16 16">
-          <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
-        </svg>
-        <span className="hidden sm:inline">Chat Now</span>
-      </a>
+
 
 
 

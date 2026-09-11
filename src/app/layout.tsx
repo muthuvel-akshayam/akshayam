@@ -14,6 +14,7 @@ const notoSerifTamil = Noto_Serif_Tamil({
 });
 
 import { LanguageProvider } from "@/frontend/context/LanguageContext";
+import WhatsAppButton from "@/frontend/components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "அக்‌ஷயம் | Akshayam Matrimony",
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className="min-h-full w-full max-w-full flex flex-col font-sans bg-background text-foreground selection:bg-primary/20 selection:text-primary overflow-x-hidden">
         <LanguageProvider>
           {children}
+          <WhatsAppButton />
         </LanguageProvider>
       </body>
     </html>

@@ -255,6 +255,7 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
               <option value="BUSINESS">{t.business}</option>
               <option value="NOT_WORKING">{t.notWorking}</option>
             </select>
+            {errors.workNature && <p className="text-red-500 text-xs mt-1">{errors.workNature.message as string}</p>}
           </div>
           {watch('workNature') && watch('workNature') !== 'NOT_WORKING' && (
             <>
@@ -365,6 +366,7 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
           <div className="md:col-span-2">
             <label className={labelClass}>{t.assetComments}</label>
             <textarea {...register('assetComments')} className={inputClass} rows={3} placeholder={t.assetCommentsPlaceholder} />
+            {errors.assetComments && <p className="text-red-500 text-xs mt-1">{errors.assetComments.message as string}</p>}
           </div>
           {gender === 'FEMALE' && (
             <div className="md:col-span-2">

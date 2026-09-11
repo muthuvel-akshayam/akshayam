@@ -149,8 +149,9 @@ export default function DashboardClient({
                 </div>
                 <h3 className="text-xl font-extrabold text-gray-900">{profile.name}</h3>
                 <p className="text-primary font-bold text-sm mt-1">{user?.userid || profile.id.slice(0, 8).toUpperCase()}</p>
-                <div className="flex gap-2 justify-center mt-4">
+                <div className="flex flex-wrap gap-2 justify-center mt-4">
                   <Link href="/profile" className="px-4 py-1.5 bg-primary text-white text-xs font-bold rounded-full">{language === 'TA' ? 'திருத்து' : 'Edit'}</Link>
+                  <button onClick={() => shareToWhatsApp(profile.id, profile)} className="px-4 py-1.5 bg-green-600 text-white text-xs font-bold rounded-full flex items-center gap-1"><Share2 className="w-3 h-3" />{language === 'TA' ? 'பகிர்வு' : 'Share'}</button>
                   <button onClick={() => {
                     const displayId = user?.userid || profile.id.slice(0, 8).toUpperCase();
                     downloadBioDataPdf(`pdf-template-${profile.id}`, `${displayId} - ${profile.name}`);
@@ -170,8 +171,8 @@ export default function DashboardClient({
                   <p className="text-xs text-amber-700 mt-1">
                     {isPending 
                       ? (language === 'TA' 
-                          ? 'உங்கள் கட்டண விவரங்கள் நிர்வாகியால் சரிபார்க்கப்படும் வரை காத்திருக்கவும். எங்களை தொடர்புகொள்ள: 9677613716.' 
-                          : 'Please wait while an admin verifies your payment details. Contact us at: 9677613716.')
+                          ? 'உங்கள் கட்டண விவரங்கள் நிர்வாகியால் சரிபார்க்கப்படும் வரை காத்திருக்கவும். எங்களை தொடர்புகொள்ள: 9345289217.' 
+                          : 'Please wait while an admin verifies your payment details. Contact us at: 9345289217.')
                       : (language === 'TA' 
                           ? 'நிர்வாகி சரிபார்த்த பின் உங்கள் சுயவிவரம் மற்றவர்களுக்குத் தெரியும்.' 
                           : 'Your profile will be visible to others once verified by an admin.')}
@@ -258,11 +259,11 @@ export default function DashboardClient({
               <div className="space-y-3 text-sm text-gray-600">
                 <p className="flex items-center gap-2 justify-center md:justify-start">
                   <span className="text-primary font-bold bg-primary/10 p-1.5 rounded-full">📞</span> 
-                  <span className="font-medium">96776 13716, 93452 89217</span>
+                  <span className="font-medium">93452 89217</span>
                 </p>
                 <p className="flex items-center gap-2 justify-center md:justify-start">
                   <span className="text-green-600 font-bold bg-green-50 p-1.5 rounded-full">💬</span> 
-                  <span className="font-medium">96776 13716 (WhatsApp)</span>
+                  <span className="font-medium">93452 89217 (WhatsApp)</span>
                 </p>
               </div>
             </div>
@@ -270,9 +271,9 @@ export default function DashboardClient({
               <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'முகவரி' : 'Address'}</h4>
               <p className="text-sm text-gray-600 leading-relaxed font-medium">
                 {language === 'TA' ? (
-                  <>மலைக்கோயில், மங்கலம் ரோடு,<br />திருப்பூர் - 641 663</>
+                  <>அருள்மிகு குழந்தை வேலாயுதசுவாமி திருக்கோயில்,<br />மலைக்கோயில், மங்கலம் ரோடு,<br />திருப்பூர் - 641 663</>
                 ) : (
-                  <>Malaikovil, Mangalam Road,<br />Tiruppur - 641 663</>
+                  <>Arulmigu Kuzhandhai Velayudhaswamy Thirukovil,<br />Malaikovil, Mangalam Road,<br />Tiruppur - 641 663</>
                 )}
               </p>
             </div>

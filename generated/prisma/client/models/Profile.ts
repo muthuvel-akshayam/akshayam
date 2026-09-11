@@ -29,11 +29,13 @@ export type AggregateProfile = {
 export type ProfileAvgAggregateOutputType = {
   height: number | null
   weight: number | null
+  numberOfChildren: number | null
 }
 
 export type ProfileSumAggregateOutputType = {
   height: number | null
   weight: number | null
+  numberOfChildren: number | null
 }
 
 export type ProfileMinAggregateOutputType = {
@@ -78,10 +80,16 @@ export type ProfileMinAggregateOutputType = {
   hidePhoto: boolean | null
   houseAddress: string | null
   idProofUrl: string | null
-  houseLocation: string | null
   displayId: string | null
+  houseLocation: string | null
   profileCreatedBy: string | null
   reviewerId: string | null
+  childrenAge: string | null
+  childrenGender: string | null
+  haveChildren: boolean | null
+  numberOfChildren: number | null
+  yearOfDivorce: string | null
+  yearOfMarriage: string | null
 }
 
 export type ProfileMaxAggregateOutputType = {
@@ -126,10 +134,16 @@ export type ProfileMaxAggregateOutputType = {
   hidePhoto: boolean | null
   houseAddress: string | null
   idProofUrl: string | null
-  houseLocation: string | null
   displayId: string | null
+  houseLocation: string | null
   profileCreatedBy: string | null
   reviewerId: string | null
+  childrenAge: string | null
+  childrenGender: string | null
+  haveChildren: boolean | null
+  numberOfChildren: number | null
+  yearOfDivorce: string | null
+  yearOfMarriage: string | null
 }
 
 export type ProfileCountAggregateOutputType = {
@@ -178,10 +192,16 @@ export type ProfileCountAggregateOutputType = {
   rasiGrid: number
   jathagamData: number
   idProofUrl: number
-  houseLocation: number
   displayId: number
+  houseLocation: number
   profileCreatedBy: number
   reviewerId: number
+  childrenAge: number
+  childrenGender: number
+  haveChildren: number
+  numberOfChildren: number
+  yearOfDivorce: number
+  yearOfMarriage: number
   _all: number
 }
 
@@ -189,11 +209,13 @@ export type ProfileCountAggregateOutputType = {
 export type ProfileAvgAggregateInputType = {
   height?: true
   weight?: true
+  numberOfChildren?: true
 }
 
 export type ProfileSumAggregateInputType = {
   height?: true
   weight?: true
+  numberOfChildren?: true
 }
 
 export type ProfileMinAggregateInputType = {
@@ -238,10 +260,16 @@ export type ProfileMinAggregateInputType = {
   hidePhoto?: true
   houseAddress?: true
   idProofUrl?: true
-  houseLocation?: true
   displayId?: true
+  houseLocation?: true
   profileCreatedBy?: true
   reviewerId?: true
+  childrenAge?: true
+  childrenGender?: true
+  haveChildren?: true
+  numberOfChildren?: true
+  yearOfDivorce?: true
+  yearOfMarriage?: true
 }
 
 export type ProfileMaxAggregateInputType = {
@@ -286,10 +314,16 @@ export type ProfileMaxAggregateInputType = {
   hidePhoto?: true
   houseAddress?: true
   idProofUrl?: true
-  houseLocation?: true
   displayId?: true
+  houseLocation?: true
   profileCreatedBy?: true
   reviewerId?: true
+  childrenAge?: true
+  childrenGender?: true
+  haveChildren?: true
+  numberOfChildren?: true
+  yearOfDivorce?: true
+  yearOfMarriage?: true
 }
 
 export type ProfileCountAggregateInputType = {
@@ -338,10 +372,16 @@ export type ProfileCountAggregateInputType = {
   rasiGrid?: true
   jathagamData?: true
   idProofUrl?: true
-  houseLocation?: true
   displayId?: true
+  houseLocation?: true
   profileCreatedBy?: true
   reviewerId?: true
+  childrenAge?: true
+  childrenGender?: true
+  haveChildren?: true
+  numberOfChildren?: true
+  yearOfDivorce?: true
+  yearOfMarriage?: true
   _all?: true
 }
 
@@ -477,10 +517,16 @@ export type ProfileGroupByOutputType = {
   rasiGrid: runtime.JsonValue | null
   jathagamData: runtime.JsonValue | null
   idProofUrl: string | null
-  houseLocation: string | null
   displayId: string | null
+  houseLocation: string | null
   profileCreatedBy: string | null
   reviewerId: string | null
+  childrenAge: string | null
+  childrenGender: string | null
+  haveChildren: boolean | null
+  numberOfChildren: number | null
+  yearOfDivorce: string | null
+  yearOfMarriage: string | null
   _count: ProfileCountAggregateOutputType | null
   _avg: ProfileAvgAggregateOutputType | null
   _sum: ProfileSumAggregateOutputType | null
@@ -552,10 +598,16 @@ export type ProfileWhereInput = {
   rasiGrid?: Prisma.JsonNullableFilter<"Profile">
   jathagamData?: Prisma.JsonNullableFilter<"Profile">
   idProofUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
-  houseLocation?: Prisma.StringNullableFilter<"Profile"> | string | null
   displayId?: Prisma.StringNullableFilter<"Profile"> | string | null
+  houseLocation?: Prisma.StringNullableFilter<"Profile"> | string | null
   profileCreatedBy?: Prisma.StringNullableFilter<"Profile"> | string | null
   reviewerId?: Prisma.StringNullableFilter<"Profile"> | string | null
+  childrenAge?: Prisma.StringNullableFilter<"Profile"> | string | null
+  childrenGender?: Prisma.StringNullableFilter<"Profile"> | string | null
+  haveChildren?: Prisma.BoolNullableFilter<"Profile"> | boolean | null
+  numberOfChildren?: Prisma.IntNullableFilter<"Profile"> | number | null
+  yearOfDivorce?: Prisma.StringNullableFilter<"Profile"> | string | null
+  yearOfMarriage?: Prisma.StringNullableFilter<"Profile"> | string | null
   educations?: Prisma.EducationListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -606,10 +658,16 @@ export type ProfileOrderByWithRelationInput = {
   rasiGrid?: Prisma.SortOrderInput | Prisma.SortOrder
   jathagamData?: Prisma.SortOrderInput | Prisma.SortOrder
   idProofUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   displayId?: Prisma.SortOrderInput | Prisma.SortOrder
+  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   profileCreatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  childrenAge?: Prisma.SortOrderInput | Prisma.SortOrder
+  childrenGender?: Prisma.SortOrderInput | Prisma.SortOrder
+  haveChildren?: Prisma.SortOrderInput | Prisma.SortOrder
+  numberOfChildren?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearOfDivorce?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearOfMarriage?: Prisma.SortOrderInput | Prisma.SortOrder
   educations?: Prisma.EducationOrderByRelationAggregateInput
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -667,6 +725,12 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   houseLocation?: Prisma.StringNullableFilter<"Profile"> | string | null
   profileCreatedBy?: Prisma.StringNullableFilter<"Profile"> | string | null
   reviewerId?: Prisma.StringNullableFilter<"Profile"> | string | null
+  childrenAge?: Prisma.StringNullableFilter<"Profile"> | string | null
+  childrenGender?: Prisma.StringNullableFilter<"Profile"> | string | null
+  haveChildren?: Prisma.BoolNullableFilter<"Profile"> | boolean | null
+  numberOfChildren?: Prisma.IntNullableFilter<"Profile"> | number | null
+  yearOfDivorce?: Prisma.StringNullableFilter<"Profile"> | string | null
+  yearOfMarriage?: Prisma.StringNullableFilter<"Profile"> | string | null
   educations?: Prisma.EducationListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId" | "displayId">
@@ -717,10 +781,16 @@ export type ProfileOrderByWithAggregationInput = {
   rasiGrid?: Prisma.SortOrderInput | Prisma.SortOrder
   jathagamData?: Prisma.SortOrderInput | Prisma.SortOrder
   idProofUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   displayId?: Prisma.SortOrderInput | Prisma.SortOrder
+  houseLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   profileCreatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  childrenAge?: Prisma.SortOrderInput | Prisma.SortOrder
+  childrenGender?: Prisma.SortOrderInput | Prisma.SortOrder
+  haveChildren?: Prisma.SortOrderInput | Prisma.SortOrder
+  numberOfChildren?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearOfDivorce?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearOfMarriage?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProfileCountOrderByAggregateInput
   _avg?: Prisma.ProfileAvgOrderByAggregateInput
   _max?: Prisma.ProfileMaxOrderByAggregateInput
@@ -777,10 +847,16 @@ export type ProfileScalarWhereWithAggregatesInput = {
   rasiGrid?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
   jathagamData?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
   idProofUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
-  houseLocation?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   displayId?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  houseLocation?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   profileCreatedBy?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   reviewerId?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  childrenAge?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  childrenGender?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  haveChildren?: Prisma.BoolNullableWithAggregatesFilter<"Profile"> | boolean | null
+  numberOfChildren?: Prisma.IntNullableWithAggregatesFilter<"Profile"> | number | null
+  yearOfDivorce?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  yearOfMarriage?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
 }
 
 export type ProfileCreateInput = {
@@ -828,10 +904,16 @@ export type ProfileCreateInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: string | null
-  houseLocation?: string | null
   displayId?: string | null
+  houseLocation?: string | null
   profileCreatedBy?: string | null
   reviewerId?: string | null
+  childrenAge?: string | null
+  childrenGender?: string | null
+  haveChildren?: boolean | null
+  numberOfChildren?: number | null
+  yearOfDivorce?: string | null
+  yearOfMarriage?: string | null
   educations?: Prisma.EducationCreateNestedManyWithoutProfileInput
   user: Prisma.UserCreateNestedOneWithoutProfileInput
 }
@@ -882,10 +964,16 @@ export type ProfileUncheckedCreateInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: string | null
-  houseLocation?: string | null
   displayId?: string | null
+  houseLocation?: string | null
   profileCreatedBy?: string | null
   reviewerId?: string | null
+  childrenAge?: string | null
+  childrenGender?: string | null
+  haveChildren?: boolean | null
+  numberOfChildren?: number | null
+  yearOfDivorce?: string | null
+  yearOfMarriage?: string | null
   educations?: Prisma.EducationUncheckedCreateNestedManyWithoutProfileInput
 }
 
@@ -934,10 +1022,16 @@ export type ProfileUpdateInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearOfDivorce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfMarriage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   educations?: Prisma.EducationUpdateManyWithoutProfileNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutProfileNestedInput
 }
@@ -988,10 +1082,16 @@ export type ProfileUncheckedUpdateInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearOfDivorce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfMarriage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   educations?: Prisma.EducationUncheckedUpdateManyWithoutProfileNestedInput
 }
 
@@ -1041,10 +1141,16 @@ export type ProfileCreateManyInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: string | null
-  houseLocation?: string | null
   displayId?: string | null
+  houseLocation?: string | null
   profileCreatedBy?: string | null
   reviewerId?: string | null
+  childrenAge?: string | null
+  childrenGender?: string | null
+  haveChildren?: boolean | null
+  numberOfChildren?: number | null
+  yearOfDivorce?: string | null
+  yearOfMarriage?: string | null
 }
 
 export type ProfileUpdateManyMutationInput = {
@@ -1092,10 +1198,16 @@ export type ProfileUpdateManyMutationInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearOfDivorce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfMarriage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProfileUncheckedUpdateManyInput = {
@@ -1144,10 +1256,16 @@ export type ProfileUncheckedUpdateManyInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearOfDivorce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfMarriage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProfileNullableScalarRelationFilter = {
@@ -1209,15 +1327,22 @@ export type ProfileCountOrderByAggregateInput = {
   rasiGrid?: Prisma.SortOrder
   jathagamData?: Prisma.SortOrder
   idProofUrl?: Prisma.SortOrder
-  houseLocation?: Prisma.SortOrder
   displayId?: Prisma.SortOrder
+  houseLocation?: Prisma.SortOrder
   profileCreatedBy?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrder
+  childrenAge?: Prisma.SortOrder
+  childrenGender?: Prisma.SortOrder
+  haveChildren?: Prisma.SortOrder
+  numberOfChildren?: Prisma.SortOrder
+  yearOfDivorce?: Prisma.SortOrder
+  yearOfMarriage?: Prisma.SortOrder
 }
 
 export type ProfileAvgOrderByAggregateInput = {
   height?: Prisma.SortOrder
   weight?: Prisma.SortOrder
+  numberOfChildren?: Prisma.SortOrder
 }
 
 export type ProfileMaxOrderByAggregateInput = {
@@ -1262,10 +1387,16 @@ export type ProfileMaxOrderByAggregateInput = {
   hidePhoto?: Prisma.SortOrder
   houseAddress?: Prisma.SortOrder
   idProofUrl?: Prisma.SortOrder
-  houseLocation?: Prisma.SortOrder
   displayId?: Prisma.SortOrder
+  houseLocation?: Prisma.SortOrder
   profileCreatedBy?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrder
+  childrenAge?: Prisma.SortOrder
+  childrenGender?: Prisma.SortOrder
+  haveChildren?: Prisma.SortOrder
+  numberOfChildren?: Prisma.SortOrder
+  yearOfDivorce?: Prisma.SortOrder
+  yearOfMarriage?: Prisma.SortOrder
 }
 
 export type ProfileMinOrderByAggregateInput = {
@@ -1310,15 +1441,22 @@ export type ProfileMinOrderByAggregateInput = {
   hidePhoto?: Prisma.SortOrder
   houseAddress?: Prisma.SortOrder
   idProofUrl?: Prisma.SortOrder
-  houseLocation?: Prisma.SortOrder
   displayId?: Prisma.SortOrder
+  houseLocation?: Prisma.SortOrder
   profileCreatedBy?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrder
+  childrenAge?: Prisma.SortOrder
+  childrenGender?: Prisma.SortOrder
+  haveChildren?: Prisma.SortOrder
+  numberOfChildren?: Prisma.SortOrder
+  yearOfDivorce?: Prisma.SortOrder
+  yearOfMarriage?: Prisma.SortOrder
 }
 
 export type ProfileSumOrderByAggregateInput = {
   height?: Prisma.SortOrder
   weight?: Prisma.SortOrder
+  numberOfChildren?: Prisma.SortOrder
 }
 
 export type ProfileScalarRelationFilter = {
@@ -1403,6 +1541,10 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
 export type ProfileCreateNestedOneWithoutEducationsInput = {
   create?: Prisma.XOR<Prisma.ProfileCreateWithoutEducationsInput, Prisma.ProfileUncheckedCreateWithoutEducationsInput>
   connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutEducationsInput
@@ -1462,10 +1604,16 @@ export type ProfileCreateWithoutUserInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: string | null
-  houseLocation?: string | null
   displayId?: string | null
+  houseLocation?: string | null
   profileCreatedBy?: string | null
   reviewerId?: string | null
+  childrenAge?: string | null
+  childrenGender?: string | null
+  haveChildren?: boolean | null
+  numberOfChildren?: number | null
+  yearOfDivorce?: string | null
+  yearOfMarriage?: string | null
   educations?: Prisma.EducationCreateNestedManyWithoutProfileInput
 }
 
@@ -1514,10 +1662,16 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: string | null
-  houseLocation?: string | null
   displayId?: string | null
+  houseLocation?: string | null
   profileCreatedBy?: string | null
   reviewerId?: string | null
+  childrenAge?: string | null
+  childrenGender?: string | null
+  haveChildren?: boolean | null
+  numberOfChildren?: number | null
+  yearOfDivorce?: string | null
+  yearOfMarriage?: string | null
   educations?: Prisma.EducationUncheckedCreateNestedManyWithoutProfileInput
 }
 
@@ -1582,10 +1736,16 @@ export type ProfileUpdateWithoutUserInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearOfDivorce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfMarriage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   educations?: Prisma.EducationUpdateManyWithoutProfileNestedInput
 }
 
@@ -1634,10 +1794,16 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearOfDivorce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfMarriage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   educations?: Prisma.EducationUncheckedUpdateManyWithoutProfileNestedInput
 }
 
@@ -1686,10 +1852,16 @@ export type ProfileCreateWithoutEducationsInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: string | null
-  houseLocation?: string | null
   displayId?: string | null
+  houseLocation?: string | null
   profileCreatedBy?: string | null
   reviewerId?: string | null
+  childrenAge?: string | null
+  childrenGender?: string | null
+  haveChildren?: boolean | null
+  numberOfChildren?: number | null
+  yearOfDivorce?: string | null
+  yearOfMarriage?: string | null
   user: Prisma.UserCreateNestedOneWithoutProfileInput
 }
 
@@ -1739,10 +1911,16 @@ export type ProfileUncheckedCreateWithoutEducationsInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: string | null
-  houseLocation?: string | null
   displayId?: string | null
+  houseLocation?: string | null
   profileCreatedBy?: string | null
   reviewerId?: string | null
+  childrenAge?: string | null
+  childrenGender?: string | null
+  haveChildren?: boolean | null
+  numberOfChildren?: number | null
+  yearOfDivorce?: string | null
+  yearOfMarriage?: string | null
 }
 
 export type ProfileCreateOrConnectWithoutEducationsInput = {
@@ -1806,10 +1984,16 @@ export type ProfileUpdateWithoutEducationsInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearOfDivorce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfMarriage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutProfileNestedInput
 }
 
@@ -1859,10 +2043,16 @@ export type ProfileUncheckedUpdateWithoutEducationsInput = {
   rasiGrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jathagamData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   idProofUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  houseLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileCreatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenAge?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childrenGender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  haveChildren?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  numberOfChildren?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearOfDivorce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfMarriage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1942,10 +2132,16 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   rasiGrid?: boolean
   jathagamData?: boolean
   idProofUrl?: boolean
-  houseLocation?: boolean
   displayId?: boolean
+  houseLocation?: boolean
   profileCreatedBy?: boolean
   reviewerId?: boolean
+  childrenAge?: boolean
+  childrenGender?: boolean
+  haveChildren?: boolean
+  numberOfChildren?: boolean
+  yearOfDivorce?: boolean
+  yearOfMarriage?: boolean
   educations?: boolean | Prisma.Profile$educationsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
@@ -1997,10 +2193,16 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   rasiGrid?: boolean
   jathagamData?: boolean
   idProofUrl?: boolean
-  houseLocation?: boolean
   displayId?: boolean
+  houseLocation?: boolean
   profileCreatedBy?: boolean
   reviewerId?: boolean
+  childrenAge?: boolean
+  childrenGender?: boolean
+  haveChildren?: boolean
+  numberOfChildren?: boolean
+  yearOfDivorce?: boolean
+  yearOfMarriage?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
@@ -2050,10 +2252,16 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   rasiGrid?: boolean
   jathagamData?: boolean
   idProofUrl?: boolean
-  houseLocation?: boolean
   displayId?: boolean
+  houseLocation?: boolean
   profileCreatedBy?: boolean
   reviewerId?: boolean
+  childrenAge?: boolean
+  childrenGender?: boolean
+  haveChildren?: boolean
+  numberOfChildren?: boolean
+  yearOfDivorce?: boolean
+  yearOfMarriage?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
@@ -2103,13 +2311,19 @@ export type ProfileSelectScalar = {
   rasiGrid?: boolean
   jathagamData?: boolean
   idProofUrl?: boolean
-  houseLocation?: boolean
   displayId?: boolean
+  houseLocation?: boolean
   profileCreatedBy?: boolean
   reviewerId?: boolean
+  childrenAge?: boolean
+  childrenGender?: boolean
+  haveChildren?: boolean
+  numberOfChildren?: boolean
+  yearOfDivorce?: boolean
+  yearOfMarriage?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "gender" | "livingCountry" | "state" | "city" | "religion" | "caste" | "subCaste" | "koottam" | "dob" | "tob" | "lob" | "height" | "weight" | "physicalCondition" | "skinColour" | "maritalStatus" | "familyStatus" | "foodHabits" | "drinkingHabits" | "smokingHabits" | "rasi" | "nakshatra" | "poruthaNakshatram" | "dosham" | "jathakamUrl" | "photoUrl" | "casteCertificateUrl" | "hideMobileNo" | "hideHouseAddress" | "hideHouseLocation" | "status" | "approvedAt" | "approvedBy" | "rejectedReason" | "isLive" | "amsamGrid" | "dasaBalance" | "hidePhoto" | "houseAddress" | "rasiGrid" | "jathagamData" | "idProofUrl" | "houseLocation" | "displayId" | "profileCreatedBy" | "reviewerId", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "gender" | "livingCountry" | "state" | "city" | "religion" | "caste" | "subCaste" | "koottam" | "dob" | "tob" | "lob" | "height" | "weight" | "physicalCondition" | "skinColour" | "maritalStatus" | "familyStatus" | "foodHabits" | "drinkingHabits" | "smokingHabits" | "rasi" | "nakshatra" | "poruthaNakshatram" | "dosham" | "jathakamUrl" | "photoUrl" | "casteCertificateUrl" | "hideMobileNo" | "hideHouseAddress" | "hideHouseLocation" | "status" | "approvedAt" | "approvedBy" | "rejectedReason" | "isLive" | "amsamGrid" | "dasaBalance" | "hidePhoto" | "houseAddress" | "rasiGrid" | "jathagamData" | "idProofUrl" | "displayId" | "houseLocation" | "profileCreatedBy" | "reviewerId" | "childrenAge" | "childrenGender" | "haveChildren" | "numberOfChildren" | "yearOfDivorce" | "yearOfMarriage", ExtArgs["result"]["profile"]>
 export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   educations?: boolean | Prisma.Profile$educationsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -2174,10 +2388,16 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     rasiGrid: runtime.JsonValue | null
     jathagamData: runtime.JsonValue | null
     idProofUrl: string | null
-    houseLocation: string | null
     displayId: string | null
+    houseLocation: string | null
     profileCreatedBy: string | null
     reviewerId: string | null
+    childrenAge: string | null
+    childrenGender: string | null
+    haveChildren: boolean | null
+    numberOfChildren: number | null
+    yearOfDivorce: string | null
+    yearOfMarriage: string | null
   }, ExtArgs["result"]["profile"]>
   composites: {}
 }
@@ -2648,10 +2868,16 @@ export interface ProfileFieldRefs {
   readonly rasiGrid: Prisma.FieldRef<"Profile", 'Json'>
   readonly jathagamData: Prisma.FieldRef<"Profile", 'Json'>
   readonly idProofUrl: Prisma.FieldRef<"Profile", 'String'>
-  readonly houseLocation: Prisma.FieldRef<"Profile", 'String'>
   readonly displayId: Prisma.FieldRef<"Profile", 'String'>
+  readonly houseLocation: Prisma.FieldRef<"Profile", 'String'>
   readonly profileCreatedBy: Prisma.FieldRef<"Profile", 'String'>
   readonly reviewerId: Prisma.FieldRef<"Profile", 'String'>
+  readonly childrenAge: Prisma.FieldRef<"Profile", 'String'>
+  readonly childrenGender: Prisma.FieldRef<"Profile", 'String'>
+  readonly haveChildren: Prisma.FieldRef<"Profile", 'Boolean'>
+  readonly numberOfChildren: Prisma.FieldRef<"Profile", 'Int'>
+  readonly yearOfDivorce: Prisma.FieldRef<"Profile", 'String'>
+  readonly yearOfMarriage: Prisma.FieldRef<"Profile", 'String'>
 }
     
 
