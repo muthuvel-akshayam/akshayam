@@ -117,6 +117,7 @@ export default function HomeClient() {
   const servicesTa = [
     { title: 'ஜாதக பதிவு', desc: 'உங்கள் ஜாதகங்களை துல்லியமாக பதிவு செய்து பொருத்தமான வரன்களை கண்டறியலாம்.', icon: FileText, imageUrl: '/services/premium/jathagam.jpg' },
     { title: 'திருமண மண்டபம்', desc: 'விசாலமான மற்றும் அழகான திருமண மண்டபங்கள் வசதி.', icon: Tent, imageUrl: '/services/premium/mandapam.jpg' },
+      { title: 'அழைப்பிதழ்', desc: 'அழகான மற்றும் புதுமையான திருமண அழைப்பிதழ்கள்.', icon: MailOpen, imageUrl: '/services/premium/invitation.jpg' },
     { title: 'வாழை மரம்', desc: 'திருமணத்திற்கான மங்களகரமான வாழை மரங்கள்.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
     { title: 'ஐயர்', desc: 'திருமண சடங்குகளை சிறப்பிக்க அனுபவம் வாய்ந்த ஐயர்கள்.', icon: Flame, imageUrl: '/services/premium/iyer.jpg' },
     { title: 'மாங்கல்ய வாத்தியம்', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
@@ -136,6 +137,7 @@ export default function HomeClient() {
   const servicesEn = [
     { title: 'Horoscope Registration', desc: 'Accurate and secure registration of horoscopes for matchmaking.', icon: FileText, imageUrl: '/services/premium/jathagam.jpg' },
     { title: 'Kalyana Mandapam', desc: 'Spacious and beautifully decorated premium wedding halls.', icon: Tent, imageUrl: '/services/premium/mandapam.jpg' },
+      { title: 'Wedding Invitation', desc: 'Beautiful and creative wedding invitations.', icon: MailOpen, imageUrl: '/services/premium/invitation.jpg' },
     { title: 'Banana Tree Decor', desc: 'Traditional auspicious banana tree arrangements for weddings.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
     { title: 'Priest / Iyer', desc: 'Experienced Vedic priests to conduct traditional rituals.', icon: Flame, imageUrl: '/services/premium/iyer.jpg' },
     { title: 'Auspicious Music', desc: 'Auspicious Nadaswaram and Thavil artists for wedding ceremonies.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
