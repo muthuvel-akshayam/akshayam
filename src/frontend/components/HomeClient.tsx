@@ -135,7 +135,7 @@ export default function HomeClient() {
 
   const servicesEn = [
     { title: 'Horoscope Registration', desc: 'Accurate and secure registration of horoscopes for matchmaking.', icon: FileText, imageUrl: '/services/premium/jathagam.jpg' },
-    { title: 'Kalyana Mandapam', desc: 'Spacious and beautifully decorated premium wedding halls.', icon: Tent, imageUrl: '/services/premium/premium_15.jpg' },
+    { title: 'Kalyana Mandapam', desc: 'Spacious and beautifully decorated premium wedding halls.', icon: Tent, imageUrl: '/services/premium/mandapam.jpg' },
     { title: 'Banana Tree Decor', desc: 'Traditional auspicious banana tree arrangements for weddings.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
     { title: 'Priest / Iyer', desc: 'Experienced Vedic priests to conduct traditional rituals.', icon: Flame, imageUrl: '/services/premium/premium_2.jpg' },
     { title: 'Auspicious Music', desc: 'Auspicious Nadaswaram and Thavil artists for wedding ceremonies.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
