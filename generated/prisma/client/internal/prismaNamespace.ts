@@ -1804,6 +1804,7 @@ export const ExpectationsScalarFieldEnum = {
   preferredDistanceRadius: 'preferredDistanceRadius',
   city: 'city',
   comments: 'comments',
+  referredBy: 'referredBy',
   expectsVacantLand: 'expectsVacantLand',
   acceptsDivorced: 'acceptsDivorced'
 } as const

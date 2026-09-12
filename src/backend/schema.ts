@@ -116,7 +116,8 @@ export const familyDetailsSchema = z.object({
   thottam: z.string().optional(),
   vacantLand: z.string().optional(),
   totalAssetValue: z.string().optional(),
-  assetComments: z.string().optional(),
+  assetcomments: z.string().optional(),
+  referredBy: z.string().optional(),
   dowryDetails: z.string().optional(),
   siblings: z.array(z.object({
     name: z.string().min(1, 'Name is required'),

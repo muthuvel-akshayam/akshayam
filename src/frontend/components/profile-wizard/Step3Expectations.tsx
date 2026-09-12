@@ -38,6 +38,7 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
       city1: exp?.city ? exp.city.split(',')[0]?.trim() || '' : '',
       city2: exp?.city ? exp.city.split(',')[1]?.trim() || '' : '',
       city3: exp?.city ? exp.city.split(',')[2]?.trim() || '' : '',
+      referredBy: exp?.referredBy || '',
       comments: exp?.comments || '',
       preferredFamilyType: exp?.preferredFamilyType || '',
       preferredResidentArea: exp?.preferredResidentArea || ''
@@ -372,6 +373,11 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
           </div>
           
           <div className="md:col-span-2">
+              <label className={labelClass}>{t.referredBy}</label>
+              <input type="text" {...register('referredBy')} className={inputClass} placeholder={t.referredByPlaceholder} />
+            </div>
+            
+            <div className="md:col-span-2">
             <label className={labelClass}>{t.otherComments}</label>
             <textarea {...register('comments')} className={inputClass} rows={4} placeholder={t.otherCommentsPlaceholder} />
           </div>

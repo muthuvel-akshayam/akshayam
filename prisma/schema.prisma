@@ -161,6 +161,7 @@ model Expectations {
   preferredDistanceRadius Int?
   city                    String?
   comments                String?
+    referredBy              String?
   expectsVacantLand       Boolean?
   acceptsDivorced         Boolean?
   user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)

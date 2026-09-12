@@ -237,7 +237,9 @@ export const formTranslations = {
     within500: '500 கி.மீ-க்குள் (Within 500 kms)',
     prefCity: 'விருப்பமான நகரம் / Preferred City',
     prefCityPlaceholder: 'எ.கா. கோயம்புத்தூர்',
-    otherComments: 'மற்ற எதிர்பார்ப்புகள் / Other Comments',
+    referredBy: 'யார் மூலம் தெரிந்து கொண்டீர்கள்? / Who referred you?',
+      referredByPlaceholder: 'எ.கா. சமூக வலைத்தளம், நண்பர்கள் மூலம் / e.g. Social media, word of mouth',
+      otherComments: 'மற்ற கருத்துக்கள் / எதிர்பார்ப்புகள் / Other Comments',
     otherCommentsPlaceholder: 'குடும்ப பின்னணி, கல்வி போன்ற கூடுதல் எதிர்பார்ப்புகளை இங்கே குறிப்பிடலாம்...',
     
     completeReg: 'பதிவை முடிக்கவும் / Complete Registration',
@@ -481,7 +483,9 @@ export const formTranslations = {
     within500: 'Within 500 kms',
     prefCity: 'Preferred City',
     prefCityPlaceholder: 'e.g. Coimbatore',
-    otherComments: 'Other Comments / Expectations',
+    referredBy: 'Who referred you?',
+      referredByPlaceholder: 'e.g. Social media, word of mouth',
+      otherComments: 'Other Comments / Expectations',
     otherCommentsPlaceholder: 'Any specific requirements regarding family background, education, etc.',
     
     completeReg: 'Complete Registration',
