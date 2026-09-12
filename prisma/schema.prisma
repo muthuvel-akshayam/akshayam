@@ -160,6 +160,9 @@ model Expectations {
   vacantLand              String?
   preferredDistanceRadius Int?
   city                    String?
+  preferredResidentArea   String[]
+  residentAreaComments    String?
+  preferredFamilyType     String?
   comments                String?
     referredBy              String?
   expectsVacantLand       Boolean?

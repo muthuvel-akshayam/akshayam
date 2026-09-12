@@ -51,6 +51,8 @@ export type ExpectationsMinAggregateOutputType = {
   vacantLand: string | null
   preferredDistanceRadius: number | null
   city: string | null
+  residentAreaComments: string | null
+  preferredFamilyType: string | null
   comments: string | null
   referredBy: string | null
   expectsVacantLand: boolean | null
@@ -70,6 +72,8 @@ export type ExpectationsMaxAggregateOutputType = {
   vacantLand: string | null
   preferredDistanceRadius: number | null
   city: string | null
+  residentAreaComments: string | null
+  preferredFamilyType: string | null
   comments: string | null
   referredBy: string | null
   expectsVacantLand: boolean | null
@@ -91,6 +95,9 @@ export type ExpectationsCountAggregateOutputType = {
   vacantLand: number
   preferredDistanceRadius: number
   city: number
+  preferredResidentArea: number
+  residentAreaComments: number
+  preferredFamilyType: number
   comments: number
   referredBy: number
   expectsVacantLand: number
@@ -124,6 +131,8 @@ export type ExpectationsMinAggregateInputType = {
   vacantLand?: true
   preferredDistanceRadius?: true
   city?: true
+  residentAreaComments?: true
+  preferredFamilyType?: true
   comments?: true
   referredBy?: true
   expectsVacantLand?: true
@@ -143,6 +152,8 @@ export type ExpectationsMaxAggregateInputType = {
   vacantLand?: true
   preferredDistanceRadius?: true
   city?: true
+  residentAreaComments?: true
+  preferredFamilyType?: true
   comments?: true
   referredBy?: true
   expectsVacantLand?: true
@@ -164,6 +175,9 @@ export type ExpectationsCountAggregateInputType = {
   vacantLand?: true
   preferredDistanceRadius?: true
   city?: true
+  preferredResidentArea?: true
+  residentAreaComments?: true
+  preferredFamilyType?: true
   comments?: true
   referredBy?: true
   expectsVacantLand?: true
@@ -272,6 +286,9 @@ export type ExpectationsGroupByOutputType = {
   vacantLand: string | null
   preferredDistanceRadius: number | null
   city: string | null
+  preferredResidentArea: string[]
+  residentAreaComments: string | null
+  preferredFamilyType: string | null
   comments: string | null
   referredBy: string | null
   expectsVacantLand: boolean | null
@@ -316,6 +333,9 @@ export type ExpectationsWhereInput = {
   vacantLand?: Prisma.StringNullableFilter<"Expectations"> | string | null
   preferredDistanceRadius?: Prisma.IntNullableFilter<"Expectations"> | number | null
   city?: Prisma.StringNullableFilter<"Expectations"> | string | null
+  preferredResidentArea?: Prisma.StringNullableListFilter<"Expectations">
+  residentAreaComments?: Prisma.StringNullableFilter<"Expectations"> | string | null
+  preferredFamilyType?: Prisma.StringNullableFilter<"Expectations"> | string | null
   comments?: Prisma.StringNullableFilter<"Expectations"> | string | null
   referredBy?: Prisma.StringNullableFilter<"Expectations"> | string | null
   expectsVacantLand?: Prisma.BoolNullableFilter<"Expectations"> | boolean | null
@@ -338,6 +358,9 @@ export type ExpectationsOrderByWithRelationInput = {
   vacantLand?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredDistanceRadius?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferredResidentArea?: Prisma.SortOrder
+  residentAreaComments?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferredFamilyType?: Prisma.SortOrderInput | Prisma.SortOrder
   comments?: Prisma.SortOrderInput | Prisma.SortOrder
   referredBy?: Prisma.SortOrderInput | Prisma.SortOrder
   expectsVacantLand?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -363,6 +386,9 @@ export type ExpectationsWhereUniqueInput = Prisma.AtLeast<{
   vacantLand?: Prisma.StringNullableFilter<"Expectations"> | string | null
   preferredDistanceRadius?: Prisma.IntNullableFilter<"Expectations"> | number | null
   city?: Prisma.StringNullableFilter<"Expectations"> | string | null
+  preferredResidentArea?: Prisma.StringNullableListFilter<"Expectations">
+  residentAreaComments?: Prisma.StringNullableFilter<"Expectations"> | string | null
+  preferredFamilyType?: Prisma.StringNullableFilter<"Expectations"> | string | null
   comments?: Prisma.StringNullableFilter<"Expectations"> | string | null
   referredBy?: Prisma.StringNullableFilter<"Expectations"> | string | null
   expectsVacantLand?: Prisma.BoolNullableFilter<"Expectations"> | boolean | null
@@ -385,6 +411,9 @@ export type ExpectationsOrderByWithAggregationInput = {
   vacantLand?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredDistanceRadius?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferredResidentArea?: Prisma.SortOrder
+  residentAreaComments?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferredFamilyType?: Prisma.SortOrderInput | Prisma.SortOrder
   comments?: Prisma.SortOrderInput | Prisma.SortOrder
   referredBy?: Prisma.SortOrderInput | Prisma.SortOrder
   expectsVacantLand?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -414,6 +443,9 @@ export type ExpectationsScalarWhereWithAggregatesInput = {
   vacantLand?: Prisma.StringNullableWithAggregatesFilter<"Expectations"> | string | null
   preferredDistanceRadius?: Prisma.IntNullableWithAggregatesFilter<"Expectations"> | number | null
   city?: Prisma.StringNullableWithAggregatesFilter<"Expectations"> | string | null
+  preferredResidentArea?: Prisma.StringNullableListFilter<"Expectations">
+  residentAreaComments?: Prisma.StringNullableWithAggregatesFilter<"Expectations"> | string | null
+  preferredFamilyType?: Prisma.StringNullableWithAggregatesFilter<"Expectations"> | string | null
   comments?: Prisma.StringNullableWithAggregatesFilter<"Expectations"> | string | null
   referredBy?: Prisma.StringNullableWithAggregatesFilter<"Expectations"> | string | null
   expectsVacantLand?: Prisma.BoolNullableWithAggregatesFilter<"Expectations"> | boolean | null
@@ -434,6 +466,9 @@ export type ExpectationsCreateInput = {
   vacantLand?: string | null
   preferredDistanceRadius?: number | null
   city?: string | null
+  preferredResidentArea?: Prisma.ExpectationsCreatepreferredResidentAreaInput | string[]
+  residentAreaComments?: string | null
+  preferredFamilyType?: string | null
   comments?: string | null
   referredBy?: string | null
   expectsVacantLand?: boolean | null
@@ -456,6 +491,9 @@ export type ExpectationsUncheckedCreateInput = {
   vacantLand?: string | null
   preferredDistanceRadius?: number | null
   city?: string | null
+  preferredResidentArea?: Prisma.ExpectationsCreatepreferredResidentAreaInput | string[]
+  residentAreaComments?: string | null
+  preferredFamilyType?: string | null
   comments?: string | null
   referredBy?: string | null
   expectsVacantLand?: boolean | null
@@ -476,6 +514,9 @@ export type ExpectationsUpdateInput = {
   vacantLand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredDistanceRadius?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredResidentArea?: Prisma.ExpectationsUpdatepreferredResidentAreaInput | string[]
+  residentAreaComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredFamilyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectsVacantLand?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -498,6 +539,9 @@ export type ExpectationsUncheckedUpdateInput = {
   vacantLand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredDistanceRadius?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredResidentArea?: Prisma.ExpectationsUpdatepreferredResidentAreaInput | string[]
+  residentAreaComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredFamilyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectsVacantLand?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -519,6 +563,9 @@ export type ExpectationsCreateManyInput = {
   vacantLand?: string | null
   preferredDistanceRadius?: number | null
   city?: string | null
+  preferredResidentArea?: Prisma.ExpectationsCreatepreferredResidentAreaInput | string[]
+  residentAreaComments?: string | null
+  preferredFamilyType?: string | null
   comments?: string | null
   referredBy?: string | null
   expectsVacantLand?: boolean | null
@@ -539,6 +586,9 @@ export type ExpectationsUpdateManyMutationInput = {
   vacantLand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredDistanceRadius?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredResidentArea?: Prisma.ExpectationsUpdatepreferredResidentAreaInput | string[]
+  residentAreaComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredFamilyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectsVacantLand?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -560,6 +610,9 @@ export type ExpectationsUncheckedUpdateManyInput = {
   vacantLand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredDistanceRadius?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredResidentArea?: Prisma.ExpectationsUpdatepreferredResidentAreaInput | string[]
+  residentAreaComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredFamilyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectsVacantLand?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -586,6 +639,9 @@ export type ExpectationsCountOrderByAggregateInput = {
   vacantLand?: Prisma.SortOrder
   preferredDistanceRadius?: Prisma.SortOrder
   city?: Prisma.SortOrder
+  preferredResidentArea?: Prisma.SortOrder
+  residentAreaComments?: Prisma.SortOrder
+  preferredFamilyType?: Prisma.SortOrder
   comments?: Prisma.SortOrder
   referredBy?: Prisma.SortOrder
   expectsVacantLand?: Prisma.SortOrder
@@ -611,6 +667,8 @@ export type ExpectationsMaxOrderByAggregateInput = {
   vacantLand?: Prisma.SortOrder
   preferredDistanceRadius?: Prisma.SortOrder
   city?: Prisma.SortOrder
+  residentAreaComments?: Prisma.SortOrder
+  preferredFamilyType?: Prisma.SortOrder
   comments?: Prisma.SortOrder
   referredBy?: Prisma.SortOrder
   expectsVacantLand?: Prisma.SortOrder
@@ -630,6 +688,8 @@ export type ExpectationsMinOrderByAggregateInput = {
   vacantLand?: Prisma.SortOrder
   preferredDistanceRadius?: Prisma.SortOrder
   city?: Prisma.SortOrder
+  residentAreaComments?: Prisma.SortOrder
+  preferredFamilyType?: Prisma.SortOrder
   comments?: Prisma.SortOrder
   referredBy?: Prisma.SortOrder
   expectsVacantLand?: Prisma.SortOrder
@@ -682,6 +742,10 @@ export type ExpectationsCreatepreferredLocationsInput = {
   set: string[]
 }
 
+export type ExpectationsCreatepreferredResidentAreaInput = {
+  set: string[]
+}
+
 export type NullableFloatFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -700,6 +764,11 @@ export type ExpectationsUpdatepreferredLocationsInput = {
   push?: string | string[]
 }
 
+export type ExpectationsUpdatepreferredResidentAreaInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type ExpectationsCreateWithoutUserInput = {
   id?: string
   expectedHeight?: number | null
@@ -714,6 +783,9 @@ export type ExpectationsCreateWithoutUserInput = {
   vacantLand?: string | null
   preferredDistanceRadius?: number | null
   city?: string | null
+  preferredResidentArea?: Prisma.ExpectationsCreatepreferredResidentAreaInput | string[]
+  residentAreaComments?: string | null
+  preferredFamilyType?: string | null
   comments?: string | null
   referredBy?: string | null
   expectsVacantLand?: boolean | null
@@ -734,6 +806,9 @@ export type ExpectationsUncheckedCreateWithoutUserInput = {
   vacantLand?: string | null
   preferredDistanceRadius?: number | null
   city?: string | null
+  preferredResidentArea?: Prisma.ExpectationsCreatepreferredResidentAreaInput | string[]
+  residentAreaComments?: string | null
+  preferredFamilyType?: string | null
   comments?: string | null
   referredBy?: string | null
   expectsVacantLand?: boolean | null
@@ -770,6 +845,9 @@ export type ExpectationsUpdateWithoutUserInput = {
   vacantLand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredDistanceRadius?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredResidentArea?: Prisma.ExpectationsUpdatepreferredResidentAreaInput | string[]
+  residentAreaComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredFamilyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectsVacantLand?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -790,6 +868,9 @@ export type ExpectationsUncheckedUpdateWithoutUserInput = {
   vacantLand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredDistanceRadius?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredResidentArea?: Prisma.ExpectationsUpdatepreferredResidentAreaInput | string[]
+  residentAreaComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredFamilyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectsVacantLand?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -813,6 +894,9 @@ export type ExpectationsSelect<ExtArgs extends runtime.Types.Extensions.Internal
   vacantLand?: boolean
   preferredDistanceRadius?: boolean
   city?: boolean
+  preferredResidentArea?: boolean
+  residentAreaComments?: boolean
+  preferredFamilyType?: boolean
   comments?: boolean
   referredBy?: boolean
   expectsVacantLand?: boolean
@@ -835,6 +919,9 @@ export type ExpectationsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   vacantLand?: boolean
   preferredDistanceRadius?: boolean
   city?: boolean
+  preferredResidentArea?: boolean
+  residentAreaComments?: boolean
+  preferredFamilyType?: boolean
   comments?: boolean
   referredBy?: boolean
   expectsVacantLand?: boolean
@@ -857,6 +944,9 @@ export type ExpectationsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   vacantLand?: boolean
   preferredDistanceRadius?: boolean
   city?: boolean
+  preferredResidentArea?: boolean
+  residentAreaComments?: boolean
+  preferredFamilyType?: boolean
   comments?: boolean
   referredBy?: boolean
   expectsVacantLand?: boolean
@@ -879,13 +969,16 @@ export type ExpectationsSelectScalar = {
   vacantLand?: boolean
   preferredDistanceRadius?: boolean
   city?: boolean
+  preferredResidentArea?: boolean
+  residentAreaComments?: boolean
+  preferredFamilyType?: boolean
   comments?: boolean
   referredBy?: boolean
   expectsVacantLand?: boolean
   acceptsDivorced?: boolean
 }
 
-export type ExpectationsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "expectedHeight" | "colourPreference" | "maxAgeLimit" | "dowryExpectation" | "preferredSectors" | "preferredLocations" | "expectedIncome" | "expectsRentalIncome" | "expectsThottam" | "vacantLand" | "preferredDistanceRadius" | "city" | "comments" | "referredBy" | "expectsVacantLand" | "acceptsDivorced", ExtArgs["result"]["expectations"]>
+export type ExpectationsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "expectedHeight" | "colourPreference" | "maxAgeLimit" | "dowryExpectation" | "preferredSectors" | "preferredLocations" | "expectedIncome" | "expectsRentalIncome" | "expectsThottam" | "vacantLand" | "preferredDistanceRadius" | "city" | "preferredResidentArea" | "residentAreaComments" | "preferredFamilyType" | "comments" | "referredBy" | "expectsVacantLand" | "acceptsDivorced", ExtArgs["result"]["expectations"]>
 export type ExpectationsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -916,6 +1009,9 @@ export type $ExpectationsPayload<ExtArgs extends runtime.Types.Extensions.Intern
     vacantLand: string | null
     preferredDistanceRadius: number | null
     city: string | null
+    preferredResidentArea: string[]
+    residentAreaComments: string | null
+    preferredFamilyType: string | null
     comments: string | null
     referredBy: string | null
     expectsVacantLand: boolean | null
@@ -1358,6 +1454,9 @@ export interface ExpectationsFieldRefs {
   readonly vacantLand: Prisma.FieldRef<"Expectations", 'String'>
   readonly preferredDistanceRadius: Prisma.FieldRef<"Expectations", 'Int'>
   readonly city: Prisma.FieldRef<"Expectations", 'String'>
+  readonly preferredResidentArea: Prisma.FieldRef<"Expectations", 'String[]'>
+  readonly residentAreaComments: Prisma.FieldRef<"Expectations", 'String'>
+  readonly preferredFamilyType: Prisma.FieldRef<"Expectations", 'String'>
   readonly comments: Prisma.FieldRef<"Expectations", 'String'>
   readonly referredBy: Prisma.FieldRef<"Expectations", 'String'>
   readonly expectsVacantLand: Prisma.FieldRef<"Expectations", 'Boolean'>

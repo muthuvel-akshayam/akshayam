@@ -142,7 +142,7 @@ export async function saveExpectations(data: z.infer<typeof expectationsSchema>)
       update: {}
     });
 
-    const { preferredFamilyType, preferredResidentArea, city1, city2, city3, ...restData } = parsed.data;
+    const { city1, city2, city3, ...restData } = parsed.data;
     
     // Combine cities into a single comma-separated string
     const combinedCity = [city1, city2, city3].filter(Boolean).join(', ');

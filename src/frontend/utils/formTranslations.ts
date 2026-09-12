@@ -239,6 +239,8 @@ export const formTranslations = {
     prefCityPlaceholder: 'எ.கா. கோயம்புத்தூர்',
     referredBy: 'யார் மூலம் தெரிந்து கொண்டீர்கள்? / Who referred you?',
       referredByPlaceholder: 'எ.கா. சமூக வலைத்தளம், நண்பர்கள் மூலம் / e.g. Social media, word of mouth',
+      residentAreaComments: 'கூடுதல் குறிப்புகள் / Additional Comments',
+      residentAreaCommentsPlaceholder: 'எ.கா. குறிப்பான பகுதி / e.g. Specific area details',
       otherComments: 'மற்ற கருத்துக்கள் / எதிர்பார்ப்புகள் / Other Comments',
     otherCommentsPlaceholder: 'குடும்ப பின்னணி, கல்வி போன்ற கூடுதல் எதிர்பார்ப்புகளை இங்கே குறிப்பிடலாம்...',
     
@@ -485,6 +487,8 @@ export const formTranslations = {
     prefCityPlaceholder: 'e.g. Coimbatore',
     referredBy: 'Who referred you?',
       referredByPlaceholder: 'e.g. Social media, word of mouth',
+      residentAreaComments: 'Additional Comments',
+      residentAreaCommentsPlaceholder: 'e.g. Specific area details',
       otherComments: 'Other Comments / Expectations',
     otherCommentsPlaceholder: 'Any specific requirements regarding family background, education, etc.',
     

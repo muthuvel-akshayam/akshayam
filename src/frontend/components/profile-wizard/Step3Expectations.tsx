@@ -41,12 +41,14 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
       referredBy: exp?.referredBy || '',
       comments: exp?.comments || '',
       preferredFamilyType: exp?.preferredFamilyType || '',
-      preferredResidentArea: exp?.preferredResidentArea || ''
+      preferredResidentArea: exp?.preferredResidentArea || [],
+      residentAreaComments: exp?.residentAreaComments || ''
     }
   });
 
   const preferredSectors = watch('preferredSectors') || [];
   const preferredLocations = watch('preferredLocations') || [];
+  const preferredResidentArea = watch('preferredResidentArea') || [];
   const expectsRentalIncome = watch('expectsRentalIncome');
   const expectsThottam = watch('expectsThottam');
   const expectsVacantLand = watch('expectsVacantLand');
@@ -360,15 +362,35 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
             </div>
             <div>
               <label className={labelClass}>{language === 'TA' ? 'எதிர்பார்க்கும் பகுதி' : 'Preferred Resident Area'}</label>
-              <select {...register('preferredResidentArea')} className={inputClass}>
-                <option value="">{language === 'TA' ? 'தேர்ந்தெடுக்கவும் / Select' : 'Select'}</option>
-                <option value="Any">{language === 'TA' ? 'எதுவும் / Any' : 'Any'}</option>
-                <option value="North">{language === 'TA' ? 'வடக்கு / North' : 'North'}</option>
-                <option value="South">{language === 'TA' ? 'தெற்கு / South' : 'South'}</option>
-                <option value="East">{language === 'TA' ? 'கிழக்கு / East' : 'East'}</option>
-                <option value="West">{language === 'TA' ? 'மேற்கு / West' : 'West'}</option>
-              </select>
-              {errors.preferredResidentArea && <p className="text-red-500 text-xs mt-1">{errors.preferredResidentArea.message as string}</p>}
+              <div className="flex flex-wrap gap-2">
+                  {['Any', 'North', 'South', 'East', 'West'].map(area => {
+                    const label = area === 'Any' ? (language === 'TA' ? 'எதுவும் / Any' : 'Any')
+                                : area === 'North' ? (language === 'TA' ? 'வடக்கு / North' : 'North')
+                                : area === 'South' ? (language === 'TA' ? 'தெற்கு / South' : 'South')
+                                : area === 'East' ? (language === 'TA' ? 'கிழக்கு / East' : 'East')
+                                : (language === 'TA' ? 'மேற்கு / West' : 'West');
+                    return (
+                      <button
+                        key={area}
+                        type="button"
+                        onClick={() => toggleResidentArea(area)}
+                        className={`px-4 py-2 text-sm font-medium rounded-full border transition-all ${
+                          preferredResidentArea.includes(area)
+                            ? 'bg-red-600 text-white border-red-600 shadow-md'
+                            : 'bg-white text-gray-700 border-gray-300 hover:border-red-500 hover:bg-red-50'
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+                </div>
+                {errors.preferredResidentArea && <p className="text-red-500 text-xs mt-1">{errors.preferredResidentArea.message as string}</p>}
+                
+                <div className="mt-4">
+                  <label className={labelClass}>{language === 'TA' ? 'கூடுதல் குறிப்புகள் / Additional Comments' : 'Additional Comments'}</label>
+                  <input type="text" {...register('residentAreaComments')} className={inputClass} placeholder={language === 'TA' ? 'எ.கா. குறிப்பான பகுதி / e.g. Specific area details' : 'e.g. Specific area details'} />
+                </div></p>}
             </div>
           </div>
           
