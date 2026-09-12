@@ -9,6 +9,7 @@ const communities = [
   { id: 3, nameEn: 'Ragu Kethu', nameTa: 'ராகு கேது', link: 'https://chat.whatsapp.com/BkHVrV9Dl3pDgO8wrTU3lP' },
   { id: 4, nameEn: 'Ragu Kethu Sevvai', nameTa: 'ராகு கேது செவ்வாய்', link: 'https://chat.whatsapp.com/H8uhM7xTcQiB5pEBiYQn5R' },
   { id: 5, nameEn: 'IT Velai', nameTa: 'ஐடி வேலை', link: 'https://chat.whatsapp.com/HfoCo21VyVjDCFQW9wHUpI' },
+  { id: 6, nameEn: 'Doctor', nameTa: 'டாக்டர்', link: 'https://chat.whatsapp.com/IIxAc4CNqs14lPvo4st18C' },
 ];
 
 
