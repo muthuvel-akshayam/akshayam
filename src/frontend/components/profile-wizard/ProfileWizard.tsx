@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Phone } from 'lucide-react';
 import { Step1PersonalInfo } from './Step1PersonalInfo';
 import { Step2FamilyDetails } from './Step2FamilyDetails';
@@ -23,12 +23,14 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
 
   const nextStep = () => {
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const prevStep = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentStep]);
 
   return (
     <div className="min-h-screen bg-background py-10 px-4 sm:px-6 lg:px-8 font-sans selection:bg-primary/20">
