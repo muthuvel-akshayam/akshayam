@@ -77,6 +77,12 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
     }
   };
 
+  const onError = (errors: any) => {
+    console.error("Form validation errors:", errors);
+    const fields = Object.keys(errors).join(', ');
+    alert("Validation Error: Please fill all required fields correctly.\n\nMissing/Invalid fields: " + fields);
+  };
+
   const onSubmit = async (data: FormValues) => {
     if (!isDirty) {
       if (onNext) onNext();
@@ -106,7 +112,7 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
   const labelClass = "block text-sm font-semibold text-gray-700 after:content-['*'] after:ml-1 after:text-red-500";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+    <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
       
       {/* Basic Expectations */}
       <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-6">

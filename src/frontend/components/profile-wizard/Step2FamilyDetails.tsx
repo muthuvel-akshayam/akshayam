@@ -56,6 +56,12 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
     name: "siblings"
   });
 
+  const onError = (errors: any) => {
+    console.error("Form validation errors:", errors);
+    const fields = Object.keys(errors).join(', ');
+    alert("Validation Error: Please fill all required fields correctly.\n\nMissing/Invalid fields: " + fields);
+  };
+
   const onSubmit = async (data: FormValues) => {
     if (!isDirty) {
       onNext();
@@ -80,7 +86,7 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
   const labelClass = "block text-sm font-semibold text-gray-700 after:content-['*'] after:ml-1 after:text-red-500";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+    <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
       
       {/* Notice Banner */}
       <div className="bg-red-50 border border-red-100 p-4 rounded-lg flex items-start space-x-3">

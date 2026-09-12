@@ -321,6 +321,12 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const [isPhoneVerified, setIsPhoneVerified] = useState(!!initialData?.mobile_no);
   const [showOtpModal, setShowOtpModal] = useState(false);
 
+  const onError = (errors: any) => {
+    console.error("Form validation errors:", errors);
+    const fields = Object.keys(errors).join(', ');
+    alert("Validation Error: Please fill all required fields correctly.\n\nMissing/Invalid fields: " + fields);
+  };
+
   const onSubmit = async (data: FormValues) => {
     // Disabled OTP check for testing
     if (!isPhoneVerified) {
@@ -410,7 +416,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const labelClass = "block text-sm font-semibold text-gray-700 after:content-['*'] after:ml-1 after:text-red-500";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
       <Fast2SmsOtpModal 
         isOpen={showOtpModal}
