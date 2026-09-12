@@ -69,7 +69,7 @@ export default function Fast2SmsOtpModal({ isOpen, onClose, onSuccess, initialPh
       if (data.success) {
         setStep("otp");
         setSuccess(data.message);
-        setCountdown(30);
+        setCountdown(60);
       } else {
         setError(data.message);
       }
