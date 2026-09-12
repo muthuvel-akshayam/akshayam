@@ -821,60 +821,6 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         </div>
       )}
       
-      {/* Documents & Photos */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-6">
-        <h3 className="text-lg font-bold text-gray-900 border-b pb-2">{language === 'TA' ? 'ஆவணங்கள்' : 'Documents & Photos'}</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
-          {selectedReligion?.toLowerCase() === 'hindu' && (
-            <div className="flex flex-col gap-2">
-              <FileUpload 
-                label={t.uploadJathakam} 
-                subLabel={t.pdfJpg} 
-                bucket="user-documents" 
-                onUploadSuccess={handleJathakamUploadSuccess}
-                onFileSelect={handleJathakamFileSelect}
-                initialUrl={watch('jathakamUrl')}
-                required
-              />
-              {isExtracting && (
-                <div className="mt-1 flex items-center justify-center gap-2 text-emerald-700 text-xs font-bold bg-emerald-50 py-1.5 rounded">
-                  <div className="w-3 h-3 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin"></div>
-                  {language === 'TA' ? 'ஜாதகம் படிக்கப்படுகிறது...' : 'Extracting details from Jathakam...'}
-                </div>
-              )}
-            </div>
-          )}
-          <div className="flex flex-col gap-2">
-            <FileUpload 
-              label={t.uploadPhoto} 
-              subLabel={t.clearFace} 
-              bucket="profile-photos" 
-              onUploadSuccess={(url) => setValue('photoUrl', url, { shouldValidate: true, shouldDirty: true })} 
-              initialUrl={watch('photoUrl')}
-              required
-            />
-            {watch('gender') === 'FEMALE' && (
-              <div className="flex items-center space-x-2 bg-pink-50 p-2 rounded border border-pink-100">
-                <input type="checkbox" {...register('hidePhoto')} className="w-4 h-4 text-pink-600 rounded border-gray-300" id="hidePhoto" />
-            {errors.hidePhoto && <p className="text-red-500 text-xs mt-1">{errors.hidePhoto.message as string}</p>}
-                <label htmlFor="hidePhoto" className="text-xs font-medium text-gray-700">
-                  {language === 'TA' ? 'புகைப்படத்தை மறை (பொது பார்வைக்கு)' : 'Hide photo from public view'}
-                </label>
-              </div>
-            )}
-          </div>
-          <FileUpload 
-            label={t.casteCert} 
-            subLabel={t.optional} 
-            bucket="user-documents" 
-            onUploadSuccess={(url) => setValue('casteCertificateUrl', url, { shouldValidate: true, shouldDirty: true })} 
-            initialUrl={watch('casteCertificateUrl')}
-            required
-          />
-          
-        </div>
-      </div>
-
       {/* Section 3: Physical Attributes & Lifestyle */}
       <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-6">
         <h3 className="text-lg font-bold text-gray-900 border-b pb-2">{t.physicalLifestyle}</h3>
@@ -1054,6 +1000,61 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
 
       </div>
       
+
+      
+      {/* Documents & Photos */}
+      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-6">
+        <h3 className="text-lg font-bold text-gray-900 border-b pb-2">{language === 'TA' ? 'ஆவணங்கள்' : 'Documents & Photos'}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+          {selectedReligion?.toLowerCase() === 'hindu' && (
+            <div className="flex flex-col gap-2">
+              <FileUpload 
+                label={t.uploadJathakam} 
+                subLabel={t.pdfJpg} 
+                bucket="user-documents" 
+                onUploadSuccess={handleJathakamUploadSuccess}
+                onFileSelect={handleJathakamFileSelect}
+                initialUrl={watch('jathakamUrl')}
+                required
+              />
+              {isExtracting && (
+                <div className="mt-1 flex items-center justify-center gap-2 text-emerald-700 text-xs font-bold bg-emerald-50 py-1.5 rounded">
+                  <div className="w-3 h-3 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin"></div>
+                  {language === 'TA' ? 'ஜாதகம் படிக்கப்படுகிறது...' : 'Extracting details from Jathakam...'}
+                </div>
+              )}
+            </div>
+          )}
+          <div className="flex flex-col gap-2">
+            <FileUpload 
+              label={t.uploadPhoto} 
+              subLabel={t.clearFace} 
+              bucket="profile-photos" 
+              onUploadSuccess={(url) => setValue('photoUrl', url, { shouldValidate: true, shouldDirty: true })} 
+              initialUrl={watch('photoUrl')}
+              required
+            />
+            {watch('gender') === 'FEMALE' && (
+              <div className="flex items-center space-x-2 bg-pink-50 p-2 rounded border border-pink-100">
+                <input type="checkbox" {...register('hidePhoto')} className="w-4 h-4 text-pink-600 rounded border-gray-300" id="hidePhoto" />
+            {errors.hidePhoto && <p className="text-red-500 text-xs mt-1">{errors.hidePhoto.message as string}</p>}
+                <label htmlFor="hidePhoto" className="text-xs font-medium text-gray-700">
+                  {language === 'TA' ? 'புகைப்படத்தை மறை (பொது பார்வைக்கு)' : 'Hide photo from public view'}
+                </label>
+              </div>
+            )}
+          </div>
+          <FileUpload 
+            label={t.casteCert} 
+            subLabel={t.optional} 
+            bucket="user-documents" 
+            onUploadSuccess={(url) => setValue('casteCertificateUrl', url, { shouldValidate: true, shouldDirty: true })} 
+            initialUrl={watch('casteCertificateUrl')}
+            required
+          />
+          
+        </div>
+      </div>
 
       <div className="flex justify-end pt-4 border-t border-gray-100">
         <button type="submit" disabled={isSaving} className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 disabled:opacity-50 font-semibold shadow-md transition-all active:scale-95 cursor-pointer">
