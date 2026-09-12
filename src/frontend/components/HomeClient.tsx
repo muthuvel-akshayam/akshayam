@@ -140,7 +140,7 @@ export default function HomeClient() {
     { title: 'Priest / Iyer', desc: 'Experienced Vedic priests to conduct traditional rituals.', icon: Flame, imageUrl: '/services/premium/premium_2.jpg' },
     { title: 'Auspicious Music', desc: 'Auspicious Nadaswaram and Thavil artists for wedding ceremonies.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
     { title: 'Seer Varisai Plates', desc: 'Artistic and traditional gift plate decorations for the bride & groom.', icon: Gift, imageUrl: '/services/premium/premium_4.png' },
-    { title: 'Catering Services', desc: 'Authentic, hygienic and delicious feast preparation.', icon: ChefHat, imageUrl: '/services/premium/premium_5.jpg' },
+    { title: 'Catering Services', desc: 'Authentic, hygienic and delicious feast preparation.', icon: ChefHat, imageUrl: '/services/premium/catering.jpg' },
     { title: 'Fresh Vegetables & Mushroom', desc: 'Supply of farm-fresh vegetables and mushrooms for wedding feasts.', icon: Vegan, imageUrl: '/services/premium/premium_6.png' },
     { title: 'Milk, Curd & Ghee', desc: 'Pure dairy supplies for authentic cooking and sweets.', icon: Milk, imageUrl: '/services/premium/premium_7.png' },
     { title: 'Sweets & Paneer', desc: 'Premium quality Milk Kova, Paneer, and traditional desserts.', icon: Cake, imageUrl: '/services/premium/premium_8.png' },
