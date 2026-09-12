@@ -116,8 +116,7 @@ export const familyDetailsSchema = z.object({
   thottam: z.string().optional(),
   vacantLand: z.string().optional(),
   totalAssetValue: z.string().optional(),
-  assetcomments: z.string().optional(),
-  referredBy: z.string().optional(),
+  assetComments: z.string().optional(),
   dowryDetails: z.string().optional(),
   siblings: z.array(z.object({
     name: z.string().min(1, 'Name is required'),
@@ -164,5 +163,6 @@ export const expectationsSchema = z.object({
   city1: z.string().min(1, 'Preferred city 1 is required'),
   city2: z.string().optional(),
   city3: z.string().optional(),
+  referredBy: z.string().optional(),
   comments: z.string().min(1, 'Comments are required'),
 });
