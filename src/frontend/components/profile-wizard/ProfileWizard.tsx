@@ -126,7 +126,7 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
 
       {/* FOOTER FOR BRANDING & CONTACT */}
       <footer className="mt-16 border-t border-primary/10 py-10 max-w-4xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
           <div>
             <h3 className="text-xl font-bold text-primary font-serif mb-3">
               {language === 'TA' ? 'அக்‌ஷயம் திருமணத் தகவல் மையம்' : 'Akshayam Matrimony'}
@@ -136,19 +136,6 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
                 ? 'ஜாதகம் முதல் பந்தி வரை - உங்கள் திருமணத் தேவைகள் அனைத்திற்கும் ஒரு சிறந்த இடம்.' 
                 : 'From Horoscopes to Wedding Feast - The perfect place for all your wedding needs.'}
             </p>
-          </div>
-          <div className="flex flex-col items-center md:items-start">
-            <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'தொடர்புக்கு' : 'Contact Us'}</h4>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-3 justify-center md:justify-start bg-white px-4 py-2 rounded-full shadow-sm w-fit border border-gray-100 mx-auto md:mx-0">
-                <Phone className="w-4 h-4 text-orange-500" />
-                <span className="font-bold text-[#004d40] text-base tracking-wide">96776 13716</span>
-              </div>
-              <div className="flex items-center gap-3 justify-center md:justify-start bg-white px-4 py-2 rounded-full shadow-sm w-fit border border-gray-100 mx-auto md:mx-0">
-                <Phone className="w-4 h-4 text-orange-500" />
-                <span className="font-bold text-[#004d40] text-base tracking-wide">93452 89217</span>
-              </div>
-            </div>
           </div>
           <div className="flex flex-col items-center md:items-start">
             <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'முகவரி' : 'Address'}</h4>
