@@ -15,6 +15,7 @@ const notoSerifTamil = Noto_Serif_Tamil({
 
 import { LanguageProvider } from "@/frontend/context/LanguageContext";
 import WhatsAppButton from "@/frontend/components/WhatsAppButton";
+import ScrollToTop from "@/frontend/components/ScrollToTop";
 
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default function RootLayout({
     >
       <body className="min-h-full w-full max-w-full flex flex-col font-sans bg-background text-foreground selection:bg-primary/20 selection:text-primary overflow-x-hidden">
         <LanguageProvider>
+          <ScrollToTop />
           {children}
           <WhatsAppButton />
           
