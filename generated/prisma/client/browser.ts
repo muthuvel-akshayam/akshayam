@@ -92,3 +92,8 @@ export type PasswordResetRequest = Prisma.PasswordResetRequestModel
  * 
  */
 export type OtpVerification = Prisma.OtpVerificationModel
+/**
+ * Model HeroCarouselItem
+ * 
+ */
+export type HeroCarouselItem = Prisma.HeroCarouselItemModel

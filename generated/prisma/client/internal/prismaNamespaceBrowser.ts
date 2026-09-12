@@ -65,7 +65,8 @@ export const ModelName = {
   CasteLookup: 'CasteLookup',
   Shortlist: 'Shortlist',
   PasswordResetRequest: 'PasswordResetRequest',
-  OtpVerification: 'OtpVerification'
+  OtpVerification: 'OtpVerification',
+  HeroCarouselItem: 'HeroCarouselItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -347,6 +348,19 @@ export const OtpVerificationScalarFieldEnum = {
 } as const
 
 export type OtpVerificationScalarFieldEnum = (typeof OtpVerificationScalarFieldEnum)[keyof typeof OtpVerificationScalarFieldEnum]
+
+
+export const HeroCarouselItemScalarFieldEnum = {
+  id: 'id',
+  mediaUrl: 'mediaUrl',
+  type: 'type',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HeroCarouselItemScalarFieldEnum = (typeof HeroCarouselItemScalarFieldEnum)[keyof typeof HeroCarouselItemScalarFieldEnum]
 
 
 export const SortOrder = {

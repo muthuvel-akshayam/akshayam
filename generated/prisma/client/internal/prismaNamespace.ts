@@ -411,7 +411,8 @@ export const ModelName = {
   CasteLookup: 'CasteLookup',
   Shortlist: 'Shortlist',
   PasswordResetRequest: 'PasswordResetRequest',
-  OtpVerification: 'OtpVerification'
+  OtpVerification: 'OtpVerification',
+  HeroCarouselItem: 'HeroCarouselItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -427,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "profile" | "education" | "family" | "sibling" | "expectations" | "contactApproval" | "profileSentLog" | "nakshatraCompatibility" | "siteSettings" | "adminAuditLog" | "casteLookup" | "shortlist" | "passwordResetRequest" | "otpVerification"
+    modelProps: "user" | "profile" | "education" | "family" | "sibling" | "expectations" | "contactApproval" | "profileSentLog" | "nakshatraCompatibility" | "siteSettings" | "adminAuditLog" | "casteLookup" | "shortlist" | "passwordResetRequest" | "otpVerification" | "heroCarouselItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1541,6 +1542,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    HeroCarouselItem: {
+      payload: Prisma.$HeroCarouselItemPayload<ExtArgs>
+      fields: Prisma.HeroCarouselItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HeroCarouselItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HeroCarouselItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
+        }
+        findFirst: {
+          args: Prisma.HeroCarouselItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HeroCarouselItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
+        }
+        findMany: {
+          args: Prisma.HeroCarouselItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>[]
+        }
+        create: {
+          args: Prisma.HeroCarouselItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
+        }
+        createMany: {
+          args: Prisma.HeroCarouselItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.HeroCarouselItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>[]
+        }
+        delete: {
+          args: Prisma.HeroCarouselItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
+        }
+        update: {
+          args: Prisma.HeroCarouselItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.HeroCarouselItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HeroCarouselItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.HeroCarouselItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.HeroCarouselItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HeroCarouselItemPayload>
+        }
+        aggregate: {
+          args: Prisma.HeroCarouselItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHeroCarouselItem>
+        }
+        groupBy: {
+          args: Prisma.HeroCarouselItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HeroCarouselItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.HeroCarouselItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HeroCarouselItemCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1843,6 +1918,19 @@ export const OtpVerificationScalarFieldEnum = {
 } as const
 
 export type OtpVerificationScalarFieldEnum = (typeof OtpVerificationScalarFieldEnum)[keyof typeof OtpVerificationScalarFieldEnum]
+
+
+export const HeroCarouselItemScalarFieldEnum = {
+  id: 'id',
+  mediaUrl: 'mediaUrl',
+  type: 'type',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HeroCarouselItemScalarFieldEnum = (typeof HeroCarouselItemScalarFieldEnum)[keyof typeof HeroCarouselItemScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2302,6 +2390,7 @@ export type GlobalOmitConfig = {
   shortlist?: Prisma.ShortlistOmit
   passwordResetRequest?: Prisma.PasswordResetRequestOmit
   otpVerification?: Prisma.OtpVerificationOmit
+  heroCarouselItem?: Prisma.HeroCarouselItemOmit
 }
 
 /* Types for Logging */
