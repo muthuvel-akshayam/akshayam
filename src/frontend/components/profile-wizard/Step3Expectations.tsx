@@ -79,6 +79,13 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
       setValue('preferredLocations', [...preferredLocations, loc], { shouldValidate: true, shouldDirty: true });
     }
   };
+  const toggleResidentArea = (area: string) => {
+    if (preferredResidentArea.includes(area)) {
+      setValue('preferredResidentArea', preferredResidentArea.filter((a: string) => a !== area), { shouldValidate: true, shouldDirty: true });
+    } else {
+      setValue('preferredResidentArea', [...preferredResidentArea, area], { shouldValidate: true, shouldDirty: true });
+    }
+  };
 
   const onError = (errors: any) => {
     console.error("Form validation errors:", errors);
