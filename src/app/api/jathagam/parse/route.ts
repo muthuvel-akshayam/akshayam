@@ -73,6 +73,7 @@ Extract ALL text and astrological details dynamically into a JSON object strictl
 }
 }
 Note for chart house indices: 0 = Meenam, 1 = Mesham, 2 = Rishabam, 3 = Mithunam, 4 = Kadagam, 5 = Simmam, 6 = Kanni, 7 = Thulaam, 8 = Vrischikam, 9 = Dhanusu, 10 = Magaram, 11 = Kumbam.
+IMPORTANT: You MUST extract every single planet text from all 12 boxes (rasi and navamsam) EXACTLY as they appear in the image. Map them strictly to these 0-11 indexes based on the box position. Do NOT return empty arrays for boxes that contain planets or Tamil characters. Be very thorough!
 Return ONLY raw JSON without markdown codeblock backticks.
 `;
 
