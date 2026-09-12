@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import { Phone } from 'lucide-react';
 import { Step1PersonalInfo } from './Step1PersonalInfo';
 import { Step2FamilyDetails } from './Step2FamilyDetails';
 import { Step3Expectations } from './Step3Expectations';
@@ -138,15 +139,15 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
           </div>
           <div className="flex flex-col items-center md:items-start">
             <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'தொடர்புக்கு' : 'Contact Us'}</h4>
-            <div className="space-y-3 text-sm text-gray-600">
-              <p className="flex items-center gap-2 justify-center md:justify-start">
-                <span className="text-primary font-bold bg-primary/10 p-1.5 rounded-full">📞</span> 
-                <span className="font-medium">93452 89217</span>
-              </p>
-              <p className="flex items-center gap-2 justify-center md:justify-start">
-                <span className="text-green-600 font-bold bg-green-50 p-1.5 rounded-full">💬</span> 
-                <span className="font-medium">93452 89217 (WhatsApp)</span>
-              </p>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-center gap-3 justify-center md:justify-start bg-white px-4 py-2 rounded-full shadow-sm w-fit border border-gray-100 mx-auto md:mx-0">
+                <Phone className="w-4 h-4 text-orange-500" />
+                <span className="font-bold text-[#004d40] text-base tracking-wide">96776 13716</span>
+              </div>
+              <div className="flex items-center gap-3 justify-center md:justify-start bg-white px-4 py-2 rounded-full shadow-sm w-fit border border-gray-100 mx-auto md:mx-0">
+                <Phone className="w-4 h-4 text-orange-500" />
+                <span className="font-bold text-[#004d40] text-base tracking-wide">93452 89217</span>
+              </div>
             </div>
           </div>
           <div className="flex flex-col items-center md:items-start">
