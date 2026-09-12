@@ -89,9 +89,9 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
             ? "flex flex-col items-center justify-start leading-tight"
             : "relative p-1 flex flex-col items-center justify-start content-start overflow-hidden";
           
-          const cellStyle = pdfMode 
+          const cellStyle = (pdfMode 
             ? { position: 'absolute' as any, ...posMap[houseIndex], backgroundColor: '#fdfbf2', border: '1px solid #5a0001', display: 'flex', flexDirection: 'column' as any, alignItems: 'center', justifyContent: 'flex-start', padding: '2px', lineHeight: '1.2', boxSizing: 'border-box' } 
-            : { border: '1px solid #5a0001', backgroundColor: '#fdfbf2', boxSizing: 'border-box' };
+            : { border: '1px solid #5a0001', backgroundColor: '#fdfbf2', boxSizing: 'border-box' }) as React.CSSProperties;
             
           return (
             <div key={houseIndex} className={cellClasses} style={cellStyle}>
