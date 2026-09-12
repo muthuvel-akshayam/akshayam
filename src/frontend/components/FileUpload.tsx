@@ -203,9 +203,7 @@ export function FileUpload({ label, subLabel, bucket, onUploadSuccess, onFileSel
               <p className="text-sm text-gray-500">{subLabel}</p>
             </div>
             
-            <button className="mt-2 px-4 py-1.5 rounded-full bg-white border border-gray-200 text-sm font-medium hover:bg-gray-50 shadow-sm transition-all">
-              {language === 'TA' ? 'கோப்பை தேர்ந்தெடுக்கவும்' : 'Select File'}
-            </button>
+            
           </>
         )}
       </div>
