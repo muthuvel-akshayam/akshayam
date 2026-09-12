@@ -14,7 +14,7 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
   const parsed = personalInfoSchema.safeParse(data);
   if (!parsed.success) {
     console.error("Validation failed:", parsed.error.issues);
-    throw new Error("Validation failed: " + JSON.stringify(parsed.error.issues));
+    return { success: false, error: "Validation failed: " + JSON.stringify(parsed.error.issues) };
   }
 
   const { 
@@ -36,12 +36,12 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
         userId = authRes.userId;
       } else {
         console.error("Auth failed:", authRes);
-        throw new Error("Auth Error: " + (authRes.error || "Unknown authentication error"));
+        return { success: false, error: "Auth Error: " + (authRes.error || "Unknown authentication error") };
       }
     }
     
     if (!userId) {
-      throw new Error("Unauthorized - Missing user ID");
+      return { success: false, error: "Unauthorized" };
     }
 
     // Create user if not exists
@@ -90,14 +90,14 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
 export async function saveFamilyDetails(data: z.infer<typeof familyDetailsSchema>) {
   const parsed = familyDetailsSchema.safeParse(data);
   if (!parsed.success) {
-    throw new Error("Invalid family data");
+    return { success: false, error: "Invalid family data" };
   }
 
   const { siblings, ...familyData } = parsed.data;
   
   try {
     const userId = await getUserId();
-    if (!userId) throw new Error("Unauthorized");
+    if (!userId) return { success: false, error: "Unauthorized" };
 
     const family = await prisma.family.upsert({
       where: { userId },
@@ -129,11 +129,11 @@ export async function saveExpectations(data: z.infer<typeof expectationsSchema>)
   try {
     const parsed = expectationsSchema.safeParse(data);
     if (!parsed.success) {
-      throw new Error("Invalid expectations data: " + JSON.stringify(parsed.error.issues));
+      return { success: false, error: "Invalid expectations data: " + JSON.stringify(parsed.error.issues) };
     }
 
     const userId = await getUserId();
-    if (!userId) throw new Error("Unauthorized");
+    if (!userId) return { success: false, error: "Unauthorized" };
     
     // Ensure User exists for mock purposes, just in case they skipped step 1
     await prisma.user.upsert({
@@ -192,7 +192,7 @@ export async function getFullProfile() {
 export async function savePaymentScreenshot(paymentScreenshot: string) {
   try {
     const userId = await getUserId();
-    if (!userId) throw new Error("Unauthorized");
+    if (!userId) return { success: false, error: "Unauthorized" };
     
     const user = await prisma.user.update({
       where: { id: userId },
@@ -219,7 +219,7 @@ export async function savePaymentScreenshot(paymentScreenshot: string) {
 export async function markProfileCompleted() {
   try {
     const userId = await getUserId();
-    if (!userId) throw new Error("Unauthorized");
+    if (!userId) return { success: false, error: "Unauthorized" };
     
     await prisma.user.update({
       where: { id: userId },
