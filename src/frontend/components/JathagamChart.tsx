@@ -95,10 +95,7 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
             
           return (
             <div key={houseIndex} className={cellClasses} style={cellStyle}>
-              {/* Rasi Label at the top center */}
-              <div className="w-full text-center mb-1 font-bold text-[#5a0001]" style={pdfMode ? { fontSize: '7.5px', marginBottom: '2px', letterSpacing: '-0.02em', borderBottom: planets.length > 0 ? '0.5px dotted rgba(90,0,1,0.2)' : 'none', paddingBottom: '1px' } : { fontSize: '10px', borderBottom: planets.length > 0 ? '1px dotted rgba(90,0,1,0.2)' : 'none', paddingBottom: '2px', marginBottom: '4px' }}>
-                {rasiName}
-              </div>
+
 
               {/* Planets */}
               <div className="flex flex-wrap gap-0.5 sm:gap-1 items-center justify-center w-full" style={pdfMode ? { display: 'flex', flexWrap: 'wrap', gap: '2px', justifyContent: 'center', width: '100%' } : {}}>

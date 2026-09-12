@@ -12,7 +12,10 @@ interface JathagamPDFTemplateProps {
 }
 
 const convertLegacyGrid = (gridData: any) => {
-  if (!gridData || typeof gridData !== 'object') return [];
+    if (!gridData || typeof gridData !== 'object') return [];
+    if (Array.isArray(gridData)) {
+      return gridData.filter(h => h && typeof h.houseIndex === 'number' && Array.isArray(h.planets));
+    }
   const houseMapping: Record<string, number> = {
     'meenam': 0, 'mesham': 1, 'rishabham': 2, 'mithunam': 3,
     'kadagam': 4, 'simmam': 5, 'kanni': 6, 'thulam': 7,

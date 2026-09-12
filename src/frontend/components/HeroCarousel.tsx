@@ -17,7 +17,7 @@ export default function HeroCarousel() {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await fetch('/api/carousel');
+        const response = await fetch('/api/carousel', { cache: 'no-store' });
         const data = await response.json();
         if (data.success && data.data.length > 0) {
           setItems(data.data);
