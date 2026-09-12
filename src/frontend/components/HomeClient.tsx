@@ -9,14 +9,14 @@ import { useLanguage } from '@/frontend/context/LanguageContext';
 import { loginUser } from '@/backend/actions/auth';
 import { requestPasswordReset, resetPasswordDirectly } from '@/backend/actions/passwordReset';
 import Fast2SmsOtpModal from './auth/Fast2SmsOtpModal';
-import { 
+import {  
   Phone, MapPin, Heart, Shield, Compass, Users, Star, 
   CheckCircle, Sparkles, UserPlus, ArrowRight, Home as HomeIcon, 
   Info, Briefcase, Mail, ChevronRight, Lock, LogIn, Menu, X,
   FileText, TreePine, Flame, Drum, Gift, ChefHat, 
   Vegan, Milk, Cake, Salad, GlassWater, Flower, 
   Camera, IceCream, CupSoda, MessageCircle, Tent, Eye, EyeOff
-} from 'lucide-react';
+, MailOpen } from 'lucide-react';
 
 export default function HomeClient() {
   const [showRegister, setShowRegister] = useState(false);
@@ -116,12 +116,12 @@ export default function HomeClient() {
 
   const servicesTa = [
     { title: 'ஜாதக பதிவு', desc: 'உங்கள் ஜாதகங்களை துல்லியமாக பதிவு செய்து பொருத்தமான வரன்களை கண்டறியலாம்.', icon: FileText, imageUrl: '/services/premium/jathagam.jpg' },
-    { title: 'திருமண மண்டபம்', desc: 'விசாலமான மற்றும் அழகான திருமண மண்டபங்கள் வசதி.', icon: Tent, imageUrl: '/services/premium/premium_15.jpg' },
+    { title: 'திருமண மண்டபம்', desc: 'விசாலமான மற்றும் அழகான திருமண மண்டபங்கள் வசதி.', icon: Tent, imageUrl: '/services/premium/mandapam.jpg' },
     { title: 'வாழை மரம்', desc: 'திருமணத்திற்கான மங்களகரமான வாழை மரங்கள்.', icon: TreePine, imageUrl: '/services/premium/premium_1.png' },
-    { title: 'ஐயர்', desc: 'திருமண சடங்குகளை சிறப்பிக்க அனுபவம் வாய்ந்த ஐயர்கள்.', icon: Flame, imageUrl: '/services/premium/premium_2.jpg' },
+    { title: 'ஐயர்', desc: 'திருமண சடங்குகளை சிறப்பிக்க அனுபவம் வாய்ந்த ஐயர்கள்.', icon: Flame, imageUrl: '/services/premium/iyer.jpg' },
     { title: 'மாங்கல்ய வாத்தியம்', desc: 'மங்களகரமான நாதஸ்வரம் மற்றும் மேள தாளங்கள்.', icon: Drum, imageUrl: '/services/premium/premium_3.png' },
     { title: 'சீர்வரிசை தட்டு', desc: 'அழகான மற்றும் பாரம்பரிய சீர்வரிசை தட்டுகள் அலங்காரம்.', icon: Gift, imageUrl: '/services/premium/premium_4.png' },
-    { title: 'சமையல் கேட்டரிங்', desc: 'சுவையான மற்றும் தரமான பாரம்பரிய சமையல்.', icon: ChefHat, imageUrl: '/services/premium/premium_5.jpg' },
+    { title: 'சமையல் கேட்டரிங்', desc: 'சுவையான மற்றும் தரமான பாரம்பரிய சமையல்.', icon: ChefHat, imageUrl: '/services/premium/catering.jpg' },
     { title: 'காய்கறி, காளான்', desc: 'திருமண விருந்துக்கான புதிய மற்றும் தரமான காய்கறிகள்.', icon: Vegan, imageUrl: '/services/premium/premium_6.png' },
     { title: 'பால், தயிர், நெய்', desc: 'சுத்தமான பண்ணை பால் மற்றும் நெய் விநியோகம்.', icon: Milk, imageUrl: '/services/premium/premium_7.png' },
     { title: 'பால் கோவா, பன்னீர்', desc: 'விருந்துக்கு தேவையான உயர்தர இனிப்புகள் மற்றும் பன்னீர்.', icon: Cake, imageUrl: '/services/premium/premium_8.png' },
