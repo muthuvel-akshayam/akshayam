@@ -39,7 +39,7 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
     : "w-full max-w-[340px] aspect-square grid grid-cols-4 grid-rows-4 overflow-hidden shadow-md mx-auto text-[10px] sm:text-xs";
 
   // Thick maroon border for the whole container, cream background
-  const containerStyle = pdfMode 
+  const containerStyle: React.CSSProperties = pdfMode 
     ? { position: 'relative' as any, width: '100%', height: '100%', backgroundColor: '#fdfbf2', overflow: 'hidden', border: '2px solid #5a0001', boxSizing: 'border-box' } 
     : { backgroundColor: '#fdfbf2', border: '3px solid #5a0001', boxSizing: 'border-box' };
 
@@ -65,7 +65,7 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
       {sequence.map((item, idx) => {
         if (item === 'CENTER') {
           return (
-            <div key="center" className="col-span-2 row-span-2 flex flex-col items-center justify-center border-[#5a0001]" style={pdfMode ? { position: 'absolute', ...posMap['CENTER'], backgroundColor: '#fdfbf2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #5a0001', boxSizing: 'border-box' } : { border: '1.5px solid #5a0001', backgroundColor: '#fdfbf2' }}>
+            <div key="center" className="col-span-2 row-span-2 flex flex-col items-center justify-center border-[#5a0001]" style={(pdfMode ? { position: 'absolute', ...posMap['CENTER'], backgroundColor: '#fdfbf2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #5a0001', boxSizing: 'border-box' } : { border: '1.5px solid #5a0001', backgroundColor: '#fdfbf2' }) as React.CSSProperties}>
               {centerElement || (
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex items-center justify-center gap-2 mb-1">
