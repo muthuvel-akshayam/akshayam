@@ -90,7 +90,7 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
           {/* Required Documents Alert */}
           {currentStep === 0 && (
             <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl mb-8 shadow-sm">
-              <h4 className="text-sm font-bold text-emerald-800 mb-2 flex items-center gap-2">
+              <h4 className="text-sm font-bold text-red-600 mb-2 flex items-center gap-2">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -100,8 +100,8 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
                 <li>{language === 'TA' ? 'புகைப்படம் / Photo' : 'Photo'}</li>
                 <li>{language === 'TA' ? 'ஜாதகம் / Jathakam' : 'Jathakam'}</li>
                 <li>{language === 'TA' ? 'சாதி சான்றிதழ் / Community Certificate' : 'Community Certificate'}</li>
-                <li>{language === 'TA' ? 'வீட்டின் கூகுள் வரைபட இணைப்பு (விருப்பமிருந்தால்) / House Google Location Link (Optional)' : 'House Google Location Link (Optional)'}</li>
-                <li>{language === 'TA' ? 'அலுவலகத்தின் கூகுள் வரைபட இணைப்பு (விருப்பமிருந்தால்) / Office or Work Location Link (Optional)' : 'Office or Work Location Link (Optional)'}</li>
+                <li>{language === 'TA' ? 'வீட்டின் கூகுள் இருப்பிட இணைப்பு (விருப்பமிருந்தால்) / House Google Location Link (Optional)' : 'House Google Location Link (Optional)'}</li>
+                <li>{language === 'TA' ? 'அலுவலகத்தின் கூகுள் இருப்பிட இணைப்பு (விருப்பமிருந்தால்) / Office or Work Location Link (Optional)' : 'Office or Work Location Link (Optional)'}</li>
               </ul>
             </div>
           )}

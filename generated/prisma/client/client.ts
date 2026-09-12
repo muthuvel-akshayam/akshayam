@@ -111,3 +111,8 @@ export type Shortlist = Prisma.ShortlistModel
  * 
  */
 export type PasswordResetRequest = Prisma.PasswordResetRequestModel
+/**
+ * Model OtpVerification
+ * 
+ */
+export type OtpVerification = Prisma.OtpVerificationModel

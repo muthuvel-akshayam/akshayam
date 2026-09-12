@@ -164,3 +164,48 @@ export async function resolvePasswordResetRequest(requestId: string, userId: str
     return { success: false, error: 'Failed to reset password' };
   }
 }
+
+/**
+ * Reset password directly using OTP verified mobile number.
+ */
+export async function resetPasswordDirectly(mobileNo: string, newPasswordPlain: string) {
+  if (!mobileNo) {
+    return { success: false, error: 'Mobile number is required' };
+  }
+  if (!newPasswordPlain) {
+    return { success: false, error: 'New password is required' };
+  }
+
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { mobile_no: mobileNo },
+          { email: mobileNo }
+        ]
+      }
+    });
+
+    if (!user) {
+      return { success: false, error: 'User not found' };
+    }
+
+    const hashedPassword = hashPassword(newPasswordPlain);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { password: hashedPassword }
+    });
+
+    // Optionally resolve any pending admin requests if they existed
+    await prisma.passwordResetRequest.updateMany({
+      where: { userId: user.id, status: 'PENDING' },
+      data: { status: 'RESOLVED', isRead: true }
+    });
+
+    return { success: true, message: 'Password updated successfully' };
+  } catch (error: any) {
+    console.error('Error resetting password directly:', error);
+    return { success: false, error: 'Failed to reset password. Please try again later.' };
+  }
+}

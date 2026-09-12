@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import ProfileWizard from './profile-wizard/ProfileWizard';
 import ProfileCarousel from './home/ProfileCarousel';
+import WhatsAppCommunities from './home/WhatsAppCommunities';
 import HeroCarousel from './HeroCarousel';
 import { useLanguage } from '@/frontend/context/LanguageContext';
 import { loginUser } from '@/backend/actions/auth';
-import { requestPasswordReset } from '@/backend/actions/passwordReset';
+import { requestPasswordReset, resetPasswordDirectly } from '@/backend/actions/passwordReset';
+import Fast2SmsOtpModal from './auth/Fast2SmsOtpModal';
 import { 
   Phone, MapPin, Heart, Shield, Compass, Users, Star, 
   CheckCircle, Sparkles, UserPlus, ArrowRight, Home as HomeIcon, 
@@ -28,6 +30,12 @@ export default function HomeClient() {
   const [isRequestingReset, setIsRequestingReset] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [resetMessage, setResetMessage] = useState({ type: '', text: '' });
+  const [showForgotOtpModal, setShowForgotOtpModal] = useState(false);
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
   const { language, toggleLanguage } = useLanguage();
   
   const [featuredBrides, setFeaturedBrides] = useState<any[]>([]);
@@ -77,19 +85,30 @@ export default function HomeClient() {
       setResetMessage({ type: 'error', text: language === 'TA' ? 'தயவுசெய்து உங்கள் மொபைல் எண்ணை உள்ளிடவும்' : 'Please enter your mobile number first' });
       return;
     }
-    
-    setIsRequestingReset(true);
     setResetMessage({ type: '', text: '' });
-    
+    setShowForgotOtpModal(true);
+  };
+
+  const handleResetPasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword !== confirmNewPassword) {
+      setResetMessage({ type: 'error', text: language === 'TA' ? 'கடவுச்சொற்கள் பொருந்தவில்லை' : 'Passwords do not match' });
+      return;
+    }
+    setIsRequestingReset(true);
     try {
-      const res = await requestPasswordReset(loginMobile);
+      const res = await resetPasswordDirectly(loginMobile, newPassword);
       if (res.success) {
-        setResetMessage({ type: 'success', text: language === 'TA' ? 'கடவுச்சொல் மீட்டமைப்பு கோரிக்கை நிர்வாகிக்கு அனுப்பப்பட்டது.' : 'Password reset request sent to admin.' });
+        setResetMessage({ type: 'success', text: language === 'TA' ? 'கடவுச்சொல் வெற்றிகரமாக மாற்றப்பட்டது. தயவுசெய்து உள்நுழையவும்.' : 'Password reset successfully. Please login.' });
+        setIsResettingPassword(false);
+        setNewPassword('');
+        setConfirmNewPassword('');
+        setLoginPassword('');
       } else {
-        setResetMessage({ type: 'error', text: res.error || 'Failed to send request' });
+        setResetMessage({ type: 'error', text: res.error || 'Failed to reset password' });
       }
     } catch (err) {
-      setResetMessage({ type: 'error', text: language === 'TA' ? 'கோரிக்கை அனுப்புவதில் பிழை.' : 'Error sending request.' });
+      setResetMessage({ type: 'error', text: 'Error resetting password.' });
     } finally {
       setIsRequestingReset(false);
     }
@@ -460,6 +479,9 @@ export default function HomeClient() {
         </section>
       )}
 
+      {/* WhatsApp Communities Section */}
+      <WhatsAppCommunities />
+
       {/* Why Choose Us */}
       <section className="py-24 bg-white relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -638,6 +660,19 @@ export default function HomeClient() {
 
 
 
+      {/* Forgot Password OTP Modal */}
+      <Fast2SmsOtpModal
+        isOpen={showForgotOtpModal}
+        onClose={() => setShowForgotOtpModal(false)}
+        initialPhone={loginMobile}
+        language={language}
+        onSuccess={(phone) => {
+          setShowForgotOtpModal(false);
+          setIsResettingPassword(true);
+          setResetMessage({ type: 'success', text: language === 'TA' ? 'OTP சரிபார்க்கப்பட்டது. புதிய கடவுச்சொல்லை உள்ளிடவும்.' : 'OTP Verified. Enter new password.' });
+        }}
+      />
+      
       {/* LOGIN MODAL */}
       {showLogin && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
@@ -675,7 +710,9 @@ export default function HomeClient() {
               </div>
             )}
 
-            <form onSubmit={handleLogin} className="space-y-4">
+            
+            {!isResettingPassword ? (
+              <form onSubmit={handleLogin} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                   {language === 'TA' ? 'மொபைல் எண்' : 'Mobile Number'}
@@ -755,6 +792,73 @@ export default function HomeClient() {
                 )}
               </button>
             </form>
+            ) : (
+              <form onSubmit={handleResetPasswordSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                    {language === 'TA' ? 'புதிய கடவுச்சொல்' : 'New Password'}
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showNewPassword ? "text" : "password"}
+                      required
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full h-12 px-4 pr-12 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 font-bold text-base sm:text-sm focus:bg-white focus:border-primary focus:outline-none transition-all"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      className="absolute right-3.5 top-3.5 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+                      tabIndex={-1}
+                    >
+                      {showNewPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                    {language === 'TA' ? 'கடவுச்சொல்லை உறுதிப்படுத்தவும்' : 'Confirm Password'}
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showConfirmNewPassword ? "text" : "password"}
+                      required
+                      value={confirmNewPassword}
+                      onChange={(e) => setConfirmNewPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full h-12 px-4 pr-12 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 font-bold text-base sm:text-sm focus:bg-white focus:border-primary focus:outline-none transition-all"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}
+                      className="absolute right-3.5 top-3.5 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+                      tabIndex={-1}
+                    >
+                      {showConfirmNewPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isRequestingReset || !newPassword || !confirmNewPassword}
+                  className="w-full mt-2 bg-primary hover:bg-primary-light disabled:opacity-50 text-white font-bold h-12 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 text-sm flex items-center justify-center gap-2"
+                >
+                  {isRequestingReset ? (language === 'TA' ? 'மாற்றுகிறது...' : 'Resetting...') : (language === 'TA' ? 'கடவுச்சொல்லை மாற்று' : 'Set New Password')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsResettingPassword(false);
+                    setResetMessage({ type: '', text: '' });
+                  }}
+                  className="w-full mt-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold h-12 rounded-xl transition-all text-sm flex items-center justify-center gap-2"
+                >
+                  {language === 'TA' ? 'ரத்து செய்' : 'Cancel'}
+                </button>
+              </form>
+            )}
 
             <div className="mt-6 pt-4 border-t border-gray-100 text-center">
               <p className="text-xs text-gray-500">

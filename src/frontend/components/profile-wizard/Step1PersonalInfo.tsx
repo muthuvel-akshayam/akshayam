@@ -9,7 +9,7 @@ import { savePersonalInfo } from '@/backend/actions/profile';
 import { useState, useEffect, useRef } from 'react';
 import { extractAstrologyData } from '@/backend/actions/extractAstrology';
 import { Plus, Trash2, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
-import PhoneOtpModal from '../auth/PhoneOtpModal';
+import Fast2SmsOtpModal from '../auth/Fast2SmsOtpModal';
 import { FileUpload } from '../FileUpload';
 import { rasiOptions, nakshatraByRasi } from '@/frontend/utils/astrology';
 import { formTranslations } from '@/frontend/utils/formTranslations';
@@ -318,15 +318,15 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const [dasaBalanceError, setDasaBalanceError] = useState('');
   
   // OTP Verification States
-  const [isPhoneVerified, setIsPhoneVerified] = useState(true); // Forced true for testing
+  const [isPhoneVerified, setIsPhoneVerified] = useState(!!initialData?.mobile_no);
   const [showOtpModal, setShowOtpModal] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
     // Disabled OTP check for testing
-    // if (!isPhoneVerified) {
-    //   alert(language === 'TA' ? 'தயவுசெய்து உங்கள் மொபைல் எண்ணை சரிபார்க்கவும்' : 'Please verify your mobile number first');
-    //   return;
-    // }
+    if (!isPhoneVerified) {
+      alert(language === 'TA' ? 'தயவுசெய்து உங்கள் மொபைல் எண்ணை சரிபார்க்கவும்' : 'Please verify your mobile number first');
+      return;
+    }
     if (!isDirty) {
       onNext();
       return;
@@ -412,7 +412,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
-      <PhoneOtpModal 
+      <Fast2SmsOtpModal 
         isOpen={showOtpModal}
         onClose={() => setShowOtpModal(false)}
         initialPhone={watch('mobileNo') || ''}
