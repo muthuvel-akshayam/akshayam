@@ -336,7 +336,7 @@ export function Step2FamilyDetails({ onNext, onPrev, language = 'TA', initialDat
             <label className={labelClass}>{t.vacantLand}</label>
             {(!["", "No Vacant Land", "Residential Plot (in City / Town)", "Agricultural Land (under 5 Acres)", "Agricultural Land (above 5 Acres)", "Commercial Land / Industrial Plot"].includes(watch('vacantLand') || "") && watch('vacantLand') !== undefined) ? (
               <div className="flex gap-2">
-                <input {...register('vacantLand')} className={inputClass} placeholder={language === 'TA' ? 'விவரங்களை உள்ளிடவும்' : 'Enter details manually'} autoFocus />
+                <input {...register('vacantLand')} className={inputClass} placeholder={language === 'TA' ? 'விவரங்களை உள்ளிடவும்' : 'Enter details manually'} />
             {errors.vacantLand && <p className="text-red-500 text-xs mt-1">{errors.vacantLand.message as string}</p>}
                 <button type="button" onClick={() => setValue('vacantLand', '', { shouldDirty: true })} className="mt-2 px-3 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300 transition-colors">
                   ✕
