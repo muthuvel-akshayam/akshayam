@@ -169,6 +169,14 @@ export default function HomeClient() {
             <div className="flex items-center justify-center mx-2">
               <img src="/akshayam_logo.png" alt="Akshayam Logo" className="h-10 sm:h-12 md:h-16 object-contain" />
             </div>
+            <div className="hidden lg:flex items-center gap-3 mr-4 text-sm font-bold text-gray-700 bg-green-50 px-4 py-1.5 rounded-full border border-green-100">
+              <Phone className="w-4 h-4 text-green-600" />
+              <div className="flex items-center gap-2">
+                <a href="tel:+919677613716" className="hover:text-green-700 transition-colors">9677613716</a>
+                <span className="text-gray-300">|</span>
+                <a href="tel:+919345289217" className="hover:text-green-700 transition-colors">9345289217</a>
+              </div>
+            </div>
             <div className="flex items-center gap-2 cursor-pointer" onClick={toggleLanguage} title="Translate English/Tamil">
   <span className={`text-xs font-bold ${language !== 'TA' ? 'text-primary' : 'text-gray-400'}`}>English</span>
   <div className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-primary transition-colors shadow-inner">
@@ -270,6 +278,20 @@ export default function HomeClient() {
               <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">{language === 'TA' ? 'சேவைகள்' : 'Services'}</a>
               <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">{language === 'TA' ? 'தொடர்புக்கு' : 'Contact'}</a>
             </div>
+            
+            <div className="mt-auto mb-8 border-t border-gray-100 pt-6">
+              <div className="text-xs text-gray-500 font-bold mb-3 uppercase tracking-wider">{language === 'TA' ? 'எங்களை தொடர்பு கொள்ள' : 'Contact Us'}</div>
+              <div className="flex flex-col gap-3">
+                <a href="tel:+919677613716" className="flex items-center gap-3 text-gray-800 font-bold bg-green-50 p-3 rounded-xl hover:bg-green-100 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-green-200 flex items-center justify-center text-green-700"><Phone className="w-4 h-4" /></div>
+                  +91 9677613716
+                </a>
+                <a href="tel:+919345289217" className="flex items-center gap-3 text-gray-800 font-bold bg-green-50 p-3 rounded-xl hover:bg-green-100 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-green-200 flex items-center justify-center text-green-700"><Phone className="w-4 h-4" /></div>
+                  +91 9345289217
+                </a>
+              </div>
+            </div>
 
             <div className="mt-8 space-y-4">
               <button
@@ -352,6 +374,9 @@ export default function HomeClient() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-4 text-primary text-base font-bold">
+              <a href="tel:9677613716" className="hover:text-accent transition-colors flex items-center gap-2 bg-white/80 px-4 py-2 rounded-xl shadow-sm border border-primary/10">
+                <Phone className="w-4 h-4 text-accent" /> 96776 13716
+              </a>
               <a href="tel:9345289217" className="hover:text-accent transition-colors flex items-center gap-2 bg-white/80 px-4 py-2 rounded-xl shadow-sm border border-primary/10">
                 <Phone className="w-4 h-4 text-accent" /> 93452 89217
               </a>
@@ -578,7 +603,11 @@ export default function HomeClient() {
                   <h3 className="text-xl font-bold text-primary">{language === 'TA' ? 'தொலைபேசி எண்கள்' : 'Phone Numbers'}</h3>
                 </div>
               </div>
-              <div className="space-y-6">
+              <div className="space-y-4">
+                <a href="tel:9677613716" className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-background transition-colors group border border-gray-100">
+                  <span className="text-xl font-bold text-gray-800">96776 13716</span>
+                  <Phone className="w-5 h-5 text-accent group-hover:text-primary transition-colors" />
+                </a>
                 <a href="tel:9345289217" className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-background transition-colors group border border-gray-100">
                   <span className="text-xl font-bold text-gray-800">93452 89217</span>
                   <Phone className="w-5 h-5 text-accent group-hover:text-primary transition-colors" />
@@ -651,6 +680,20 @@ export default function HomeClient() {
               ? '"நம்பிக்கையுடன் உறவுகளை இணைக்கும் உங்கள் குடும்பத்தின் முதல் தேர்வு."'
               : '"The first choice of families for uniting lives with trust and blessing."'}
           </p>
+          <div className="mt-8 mb-8 flex flex-col md:flex-row items-center justify-center gap-6">
+            <div className="flex items-center gap-3 bg-white/10 px-6 py-3 rounded-full hover:bg-white/20 transition-colors">
+              <Phone className="w-5 h-5 text-accent" />
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 text-white font-bold tracking-wider">
+                <a href="tel:+919677613716" className="hover:text-accent transition-colors">+91 9677613716</a>
+                <span className="hidden sm:inline text-white/40">|</span>
+                <a href="tel:+919345289217" className="hover:text-accent transition-colors">+91 9345289217</a>
+              </div>
+            </div>
+            <a href="mailto:support@akshayammatrimony.com" className="flex items-center gap-3 bg-white/10 px-6 py-3 rounded-full hover:bg-white/20 transition-colors text-white font-bold">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              support@akshayammatrimony.com
+            </a>
+          </div>
           <div className="w-full h-px bg-white/10 my-8"></div>
           <p className="text-gray-400 text-sm">© 2026 Akshayam Matrimony. {language === 'TA' ? 'அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.' : 'All rights reserved.'}</p>
         </div>

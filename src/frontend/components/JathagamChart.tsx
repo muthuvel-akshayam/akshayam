@@ -19,11 +19,29 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
     return houses.find(h => h.houseIndex === index)?.planets || [];
   };
 
-  const containerClasses = pdfMode 
-    ? "bg-white overflow-hidden" 
-    : "w-full max-w-[340px] aspect-square grid grid-cols-4 grid-rows-4 bg-white border border-rose-200/60 rounded-xl overflow-hidden shadow-md mx-auto text-[10px] sm:text-xs";
+  const rasiNames: Record<number, string> = {
+    0: '12. மீனம்',
+    1: '1. மேஷம்',
+    2: '2. ரிஷபம்',
+    3: '3. மிதுனம்',
+    4: '4. கடகம்',
+    5: '5. சிம்மம்',
+    6: '6. கன்னி',
+    7: '7. துலாம்',
+    8: '8. விருச்சிகம்',
+    9: '9. தனுசு',
+    10: '10. மகரம்',
+    11: '11. கும்பம்'
+  };
 
-  const containerStyle = pdfMode ? { position: 'relative' as any, width: '100%', height: '100%', backgroundColor: '#ffffff', overflow: 'hidden' } : {};
+  const containerClasses = pdfMode 
+    ? "overflow-hidden" 
+    : "w-full max-w-[340px] aspect-square grid grid-cols-4 grid-rows-4 overflow-hidden shadow-md mx-auto text-[10px] sm:text-xs";
+
+  // Thick maroon border for the whole container, cream background
+  const containerStyle = pdfMode 
+    ? { position: 'relative' as any, width: '100%', height: '100%', backgroundColor: '#fdfbf2', overflow: 'hidden', border: '2px solid #5a0001', boxSizing: 'border-box' } 
+    : { backgroundColor: '#fdfbf2', border: '3px solid #5a0001', boxSizing: 'border-box' };
 
   // Absolute positioning map for 4x4 South Indian Chart
   const posMap: Record<number | string, { top: string, left: string, width: string, height: string }> = {
@@ -47,38 +65,53 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
       {sequence.map((item, idx) => {
         if (item === 'CENTER') {
           return (
-            <div key="center" className="col-span-2 row-span-2 bg-gradient-to-br from-rose-50 to-orange-50 flex flex-col items-center justify-center border-[0.5px] border-rose-200/60" style={pdfMode ? { position: 'absolute', ...posMap['CENTER'], backgroundColor: '#fff7ed', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '0.5px solid rgba(254, 205, 211, 0.6)', boxSizing: 'border-box' } : {}}>
+            <div key="center" className="col-span-2 row-span-2 flex flex-col items-center justify-center border-[#5a0001]" style={pdfMode ? { position: 'absolute', ...posMap['CENTER'], backgroundColor: '#fdfbf2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #5a0001', boxSizing: 'border-box' } : { border: '1.5px solid #5a0001', backgroundColor: '#fdfbf2' }}>
               {centerElement || (
-                <>
-                  <span className="font-bold text-rose-900 tracking-wide text-lg md:text-xl">
-                    {title}
-                  </span>
-                  <span className="text-[10px] text-rose-400 font-bold tracking-widest uppercase mt-1 opacity-80">Chart</span>
-                </>
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <span className="text-[#5a0001] text-xs md:text-sm">✤</span>
+                    <span className="font-bold text-[#5a0001] tracking-wide text-lg md:text-2xl" style={{ textShadow: '0.5px 0.5px 0px rgba(0,0,0,0.1)' }}>
+                      ஜாதகம்
+                    </span>
+                    <span className="text-[#5a0001] text-xs md:text-sm">✤</span>
+                  </div>
+                  <span className="text-[10px] md:text-xs text-[#5a0001] font-bold tracking-widest mt-1 opacity-90 border-t border-[#5a0001] pt-1 px-4">{title}</span>
+                </div>
               )}
             </div>
           );
         } else {
           const houseIndex = item as number;
           const planets = getPlanetsForHouse(houseIndex);
+          const rasiName = rasiNames[houseIndex];
           
           const cellClasses = pdfMode
-            ? "bg-white border-[0.5px] border-emerald-800/40 flex flex-col items-center justify-center p-0.5 leading-tight"
-            : "relative bg-white border-[0.5px] border-rose-200/60 aspect-square p-1 flex flex-wrap gap-0.5 sm:gap-1 items-start justify-center content-start hover:bg-rose-50/50 transition-colors duration-300 overflow-hidden";
+            ? "flex flex-col items-center justify-start leading-tight"
+            : "relative p-1 flex flex-col items-center justify-start content-start overflow-hidden";
           
-          const cellStyle = pdfMode ? { position: 'absolute' as any, ...posMap[houseIndex], backgroundColor: '#ffffff', border: '0.5px solid rgba(6, 95, 70, 0.4)', display: 'flex', flexDirection: 'column' as any, alignItems: 'center', justifyItems: 'center', padding: '2px', lineHeight: '1.2', boxSizing: 'border-box' } : {};
+          const cellStyle = pdfMode 
+            ? { position: 'absolute' as any, ...posMap[houseIndex], backgroundColor: '#fdfbf2', border: '1px solid #5a0001', display: 'flex', flexDirection: 'column' as any, alignItems: 'center', justifyContent: 'flex-start', padding: '2px', lineHeight: '1.2', boxSizing: 'border-box' } 
+            : { border: '1px solid #5a0001', backgroundColor: '#fdfbf2', boxSizing: 'border-box' };
             
           return (
             <div key={houseIndex} className={cellClasses} style={cellStyle}>
-              {planets.map((planet, pIdx) => (
-                <span 
-                  key={pIdx} 
-                  className={pdfMode ? "font-bold text-[10px] leading-tight truncate max-w-full" : "text-emerald-800 font-bold text-[10px] sm:text-[11px] leading-tight truncate max-w-full"}
-                  style={pdfMode ? { display: 'block', fontSize: '10px', color: '#1f2937', fontWeight: 'bold', textAlign: 'center', letterSpacing: '-0.025em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', width: '100%' } : {}}
-                >
-                  {planet}
-                </span>
-              ))}
+              {/* Rasi Label at the top center */}
+              <div className="w-full text-center mb-1 font-bold text-[#5a0001]" style={pdfMode ? { fontSize: '7.5px', marginBottom: '2px', letterSpacing: '-0.02em', borderBottom: planets.length > 0 ? '0.5px dotted rgba(90,0,1,0.2)' : 'none', paddingBottom: '1px' } : { fontSize: '10px', borderBottom: planets.length > 0 ? '1px dotted rgba(90,0,1,0.2)' : 'none', paddingBottom: '2px', marginBottom: '4px' }}>
+                {rasiName}
+              </div>
+
+              {/* Planets */}
+              <div className="flex flex-wrap gap-0.5 sm:gap-1 items-center justify-center w-full" style={pdfMode ? { display: 'flex', flexWrap: 'wrap', gap: '2px', justifyContent: 'center', width: '100%' } : {}}>
+                {planets.map((planet, pIdx) => (
+                  <span 
+                    key={pIdx} 
+                    className={pdfMode ? "font-bold text-[8.5px] leading-tight truncate" : "text-[#1f2937] font-bold text-[10px] sm:text-[11px] leading-tight truncate"}
+                    style={pdfMode ? { fontSize: '8.5px', color: '#1f2937', fontWeight: 'bold', textAlign: 'center', letterSpacing: '-0.02em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } : {}}
+                  >
+                    {planet}
+                  </span>
+                ))}
+              </div>
             </div>
           );
         }
