@@ -1070,3 +1070,4 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
     </form>
   );
 }
+
