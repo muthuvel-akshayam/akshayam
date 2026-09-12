@@ -528,10 +528,10 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
 
         {/* 5. Akshayam Services Footer Box */}
         <div className="mt-auto flex-shrink-0 flex flex-col justify-end" style={{ marginTop: 'auto', flexShrink: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-          <div className="flex justify-between items-end mb-1 px-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4px', padding: '0 16px' }}>
-            <div className="font-black text-red-600" style={{ fontSize: '12px', fontWeight: 900, color: '#dc2626' }}>ஜாதகம் முதல் பந்தி வரை</div>
-            <div className="font-bold text-emerald-800" style={{ fontSize: '10px', fontWeight: 'bold', color: '#065f46' }}>www.akshayamtamilmatrimony.com</div>
-          </div>
+          <div className="relative mb-1 px-4 w-full" style={{ position: 'relative', marginBottom: '4px', padding: '0 16px', width: '100%', textAlign: 'center' }}>
+              <div className="font-black text-red-600" style={{ fontSize: '12px', fontWeight: 900, color: '#dc2626', position: 'absolute', left: '16px', bottom: '0' }}>ஜாதகம் முதல் பந்தி வரை</div>
+              <div className="font-bold text-emerald-800 inline-block" style={{ fontSize: '13px', fontWeight: 'bold', color: '#065f46', display: 'inline-block' }}>www.akshayamtamilmatrimony.com</div>
+            </div>
           <div className="bg-[#fdfbf2] border border-emerald-900 rounded-t p-1.5 text-[9px] leading-tight relative flex justify-between" style={{ backgroundColor: '#fdfbf2', border: '1px solid #064e3b', borderTopLeftRadius: '4px', borderTopRightRadius: '4px', padding: '6px', fontSize: '9px', lineHeight: '1.2', position: 'relative', display: 'flex', justifyContent: 'space-between' }}>
             {/* Left List */}
             <div className="w-[45%] flex flex-col gap-0.5 font-bold text-gray-800 pl-4" style={{ width: '45%', display: 'flex', flexDirection: 'column', gap: '2px', fontWeight: 'bold', color: '#1f2937', paddingLeft: '16px' }}>
