@@ -40,8 +40,8 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
 
   // Thick maroon border for the whole container, cream background
   const containerStyle: React.CSSProperties = pdfMode 
-    ? { position: 'relative' as any, width: '100%', height: '100%', backgroundColor: '#fdfbf2', overflow: 'hidden', border: '2px solid #5a0001', boxSizing: 'border-box' } 
-    : { backgroundColor: '#fdfbf2', border: '3px solid #5a0001', boxSizing: 'border-box' };
+    ? { position: 'relative' as any, width: '100%', height: '100%', backgroundColor: 'transparent', overflow: 'hidden', border: '2px solid #5a0001', boxSizing: 'border-box' } 
+    : { backgroundColor: 'transparent', border: '3px solid #5a0001', boxSizing: 'border-box' };
 
   // Absolute positioning map for 4x4 South Indian Chart
   const posMap: Record<number | string, { top: string, left: string, width: string, height: string }> = {
@@ -65,7 +65,7 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
       {sequence.map((item, idx) => {
         if (item === 'CENTER') {
           return (
-            <div key="center" className="col-span-2 row-span-2 flex flex-col items-center justify-center border-[#5a0001]" style={(pdfMode ? { position: 'absolute', ...posMap['CENTER'], backgroundColor: '#fdfbf2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #5a0001', boxSizing: 'border-box' } : { border: '1.5px solid #5a0001', backgroundColor: '#fdfbf2' }) as React.CSSProperties}>
+            <div key="center" className="col-span-2 row-span-2 flex flex-col items-center justify-center border-[#5a0001]" style={(pdfMode ? { position: 'absolute', ...posMap['CENTER'], backgroundColor: 'transparent', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #5a0001', boxSizing: 'border-box' } : { border: '1.5px solid #5a0001', backgroundColor: 'transparent' }) as React.CSSProperties}>
               {centerElement || (
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex items-center justify-center gap-2 mb-1">
@@ -90,8 +90,8 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
             : "relative p-1 flex flex-col items-center justify-start content-start overflow-hidden";
           
           const cellStyle = (pdfMode 
-            ? { position: 'absolute' as any, ...posMap[houseIndex], backgroundColor: '#fdfbf2', border: '1px solid #5a0001', display: 'flex', flexDirection: 'column' as any, alignItems: 'center', justifyContent: 'flex-start', padding: '2px', lineHeight: '1.2', boxSizing: 'border-box' } 
-            : { border: '1px solid #5a0001', backgroundColor: '#fdfbf2', boxSizing: 'border-box' }) as React.CSSProperties;
+            ? { position: 'absolute' as any, ...posMap[houseIndex], backgroundColor: 'transparent', border: '1px solid #5a0001', display: 'flex', flexDirection: 'column' as any, alignItems: 'center', justifyContent: 'flex-start', padding: '2px', lineHeight: '1.2', boxSizing: 'border-box' } 
+            : { border: '1px solid #5a0001', backgroundColor: 'transparent', boxSizing: 'border-box' }) as React.CSSProperties;
             
           return (
             <div key={houseIndex} className={cellClasses} style={cellStyle}>
