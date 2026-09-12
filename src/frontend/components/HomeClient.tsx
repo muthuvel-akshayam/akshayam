@@ -784,7 +784,7 @@ export default function HomeClient() {
                     onClick={handleForgotPassword}
                     className="text-xs font-bold text-primary hover:underline disabled:opacity-50"
                   >
-                    {isRequestingReset ? (language === 'TA' ? 'அனுப்புகிறது...' : 'Sending...') : (language === 'TA' ? 'மறந்துவிட்டதா?' : 'Forgot?')}
+                    {isRequestingReset ? (language === 'TA' ? 'அனுப்புகிறது...' : 'Sending...') : (language === 'TA' ? 'கடவுச்சொல் மறந்துவிட்டதா?' : 'Forgot Password?')}
                   </button>
                 </div>
                 <div className="relative">
