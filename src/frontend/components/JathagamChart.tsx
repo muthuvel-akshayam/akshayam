@@ -105,8 +105,8 @@ export const JathagamChart: React.FC<JathagamChartProps> = ({ title, houses, cen
                 {planets.map((planet, pIdx) => (
                   <span 
                     key={pIdx} 
-                    className={pdfMode ? "font-bold text-[8.5px] leading-tight truncate" : "text-[#1f2937] font-bold text-[10px] sm:text-[11px] leading-tight truncate"}
-                    style={pdfMode ? { fontSize: '8.5px', color: '#1f2937', fontWeight: 'bold', textAlign: 'center', letterSpacing: '-0.02em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } : {}}
+                    className={pdfMode ? "font-bold text-[7.5px] leading-[1]" : "text-[#1f2937] font-bold text-[9px] sm:text-[10px] leading-tight break-words text-center"}
+                    style={pdfMode ? { fontSize: '7.5px', color: '#1f2937', fontWeight: 'bold', textAlign: 'center', letterSpacing: '-0.02em', wordBreak: 'break-word', whiteSpace: 'normal', lineHeight: '1' } : { whiteSpace: 'normal', wordBreak: 'break-word' }}
                   >
                     {planet}
                   </span>

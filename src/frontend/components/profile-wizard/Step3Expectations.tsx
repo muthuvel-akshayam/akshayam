@@ -390,7 +390,7 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
                 <div className="mt-4">
                   <label className={labelClass}>{language === 'TA' ? 'கூடுதல் குறிப்புகள் / Additional Comments' : 'Additional Comments'}</label>
                   <input type="text" {...register('residentAreaComments')} className={inputClass} placeholder={language === 'TA' ? 'எ.கா. குறிப்பான பகுதி / e.g. Specific area details' : 'e.g. Specific area details'} />
-                </div></p>}
+                </div>
             </div>
           </div>
           
