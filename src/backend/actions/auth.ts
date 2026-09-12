@@ -41,18 +41,36 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
       orderBy: { userIndex: 'desc' },
       select: { userIndex: true }
     });
-    const nextIndex = (maxUser?.userIndex || 0) + 1;
+    let nextIndex = (maxUser?.userIndex || 0) + 1;
 
-    // Create new user
-    const newUser = await prisma.user.create({
-      data: {
-        mobile_no: mobileNo,
-        password: hashedPassword,
-        email: `${mobileNo}@akshayam.local`,
-        userIndex: nextIndex,
-        userid: `${1000 + nextIndex}ae`
+    let newUser = null;
+    let attempts = 0;
+    
+    while (!newUser && attempts < 10) {
+      try {
+        newUser = await prisma.user.create({
+          data: {
+            mobile_no: mobileNo,
+            password: hashedPassword,
+            email: `${mobileNo}@akshayam.local`,
+            userIndex: nextIndex,
+            userid: `${1000 + nextIndex}ae`
+          }
+        });
+      } catch (e: any) {
+        if (e.code === 'P2002') {
+          // Unique constraint failed (likely on userid), try next index
+          nextIndex++;
+          attempts++;
+        } else {
+          throw e;
+        }
       }
-    });
+    }
+
+    if (!newUser) {
+      return { success: false, error: 'Failed to generate a unique ID. Please try again.' };
+    }
 
     const cookieStore = await cookies();
     cookieStore.set('auth_token', newUser.id, {
