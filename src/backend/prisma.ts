@@ -10,7 +10,7 @@ const prismaClientSingleton = () => {
   if (!connectionString) {
     console.warn("DATABASE_URL is not set");
   }
-  const pool = new pg.Pool({ connectionString })
+  const pool = new pg.Pool({ connectionString, max: 3 })
   const adapter = new PrismaPg(pool)
   return new PrismaClient({ adapter })
 }
