@@ -346,8 +346,14 @@ export default function HomeClient() {
                 : '"A Trusted Companion for Your Family\'s Sweetest Relationships"'}
             </p>
 
-            {/* Restored Bride and Groom Image / Dynamic Carousel */}
-            <HeroCarousel />
+            {/* Launch Poster */}
+            <div className="w-full max-w-md sm:max-w-xl mx-auto my-6 sm:my-10 overflow-hidden rounded-2xl shadow-2xl border-4 border-accent/40 relative group">
+              <img 
+                src="/poster.jpg" 
+                alt="Akshayam Matrimony Launch Poster" 
+                className="w-full h-auto object-contain transform group-hover:scale-[1.02] transition-transform duration-500"
+              />
+            </div>
 
             <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-10 max-w-2xl font-medium leading-relaxed">
               {language === 'TA'
