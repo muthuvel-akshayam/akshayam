@@ -399,15 +399,15 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
         </div>
 
         {/* Contact Strip */}
-        <div className="flex justify-center items-center bg-white py-1 text-[10px]" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', backgroundColor: '#ffffff', padding: '4px 0', fontSize: '10px', marginTop: '8px', width: '100%' }}>
-          <div className="flex items-center gap-1 font-bold whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', whiteSpace: 'nowrap', flexShrink: 0 }}>
+        <div className="flex justify-between items-center bg-white py-1 w-full" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffffff', padding: '4px 0', marginTop: '8px', width: '100%', overflow: 'hidden' }}>
+          <div className="flex items-center gap-1 font-bold whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', whiteSpace: 'nowrap', flexShrink: 0, fontSize: '9px' }}>
             <span className="text-emerald-800" style={{ color: '#065f46' }}>📞</span>
             <span className="text-red-600 tracking-wide" style={{ color: '#dc2626', letterSpacing: '0.025em' }}>96776 13716, 93452 89217</span>
           </div>
-          <div className="flex items-center gap-1 font-bold text-emerald-800 whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', color: '#065f46', whiteSpace: 'nowrap', flexShrink: 0 }}>
+          <div className="flex items-center gap-1 font-bold text-emerald-800 whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', color: '#065f46', whiteSpace: 'nowrap', flexShrink: 0, fontSize: '9px' }}>
             <span>🌐</span> www.akshayamtamilmatrimony.com
           </div>
-          <div className="flex items-center gap-1 font-bold text-gray-800 whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', color: '#1f2937', whiteSpace: 'nowrap', flexShrink: 0 }}>
+          <div className="flex items-center gap-1 font-bold text-gray-800 whitespace-nowrap shrink-0" style={{ display: 'flex', alignItems: 'center', gap: '2px', fontWeight: 'bold', color: '#1f2937', whiteSpace: 'nowrap', flexShrink: 0, fontSize: '8.5px' }}>
             <span className="text-emerald-800" style={{ color: '#065f46' }}>📍</span> அருள்மிகு குழந்தை வேலாயுதசுவாமி திருக்கோயில், மலைக்கோயில், மங்கலம் ரோடு, திருப்பூர் - 641 604.
           </div>
         </div>
@@ -528,9 +528,9 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
 
         {/* 5. Akshayam Services Footer Box */}
         <div className="mt-auto flex-shrink-0 flex flex-col justify-end" style={{ marginTop: 'auto', flexShrink: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-          <div className="relative mb-1 px-4 w-full" style={{ position: 'relative', marginBottom: '4px', padding: '0 16px', width: '100%', textAlign: 'center' }}>
+          <div className="relative mb-1 w-full flex justify-center items-end" style={{ position: 'relative', marginBottom: '4px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
               <div className="font-black text-red-600" style={{ fontSize: '12px', fontWeight: 900, color: '#dc2626', position: 'absolute', left: '16px', bottom: '0' }}>ஜாதகம் முதல் பந்தி வரை</div>
-              <div className="font-bold text-emerald-800 inline-block" style={{ fontSize: '13px', fontWeight: 'bold', color: '#065f46', display: 'inline-block' }}>www.akshayamtamilmatrimony.com</div>
+              <div className="font-bold text-emerald-800" style={{ fontSize: '13px', fontWeight: 'bold', color: '#065f46' }}>www.akshayamtamilmatrimony.com</div>
             </div>
           <div className="bg-[#fdfbf2] border border-emerald-900 rounded-t p-1.5 text-[9px] leading-tight relative flex justify-between" style={{ backgroundColor: '#fdfbf2', border: '1px solid #064e3b', borderTopLeftRadius: '4px', borderTopRightRadius: '4px', padding: '6px', fontSize: '9px', lineHeight: '1.2', position: 'relative', display: 'flex', justifyContent: 'space-between' }}>
             {/* Left List */}
