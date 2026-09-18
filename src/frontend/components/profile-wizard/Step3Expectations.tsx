@@ -200,7 +200,7 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
             <div>
               <label className={labelClass + " mb-3"}>Job Preferences</label>
               <div className="flex flex-wrap gap-2 mt-2">
-                {['IT', 'Doctor', 'Govt', 'Private', 'Garment', 'Other (Job)'].map(sector => (
+                {['IT', 'Doctor', 'Govt', 'Private', 'Garment', 'Other (Job)', 'Any'].map(sector => (
                   <button
                     key={sector}
                     type="button"
@@ -211,7 +211,7 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
                         : 'bg-white text-gray-700 border-gray-300 hover:border-red-500 hover:bg-red-50'
                     }`}
                   >
-                    {sector}
+                    {sector === 'Any' ? (language === 'TA' ? 'எதுவும் / Any' : 'Any') : sector}
                   </button>
                 ))}
               </div>
@@ -252,7 +252,7 @@ export function Step3Expectations({ onPrev, onNext, language = 'TA', initialData
                       : 'bg-white text-gray-700 border-gray-300 hover:border-red-500 hover:bg-red-50'
                   }`}
                 >
-                  {sector}
+                  {sector === 'Any' ? (language === 'TA' ? 'எதுவும் / Any' : 'Any') : sector}
                 </button>
               ))}
             </div>

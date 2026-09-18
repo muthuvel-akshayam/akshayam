@@ -466,7 +466,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                   disabled={!watch('mobileNo')}
                   className="mt-2 sm:mt-0 sm:self-end h-[50px] px-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-600/90 transition-colors disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-2"
                 >
-                  {language === 'TA' ? 'சரிபார்க்க' : 'Verify'}
+                  {language === 'TA' ? 'OTP சரி பார்ப்பு' : 'Verify OTP'}
                 </button>
               )}
             </div>
