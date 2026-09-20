@@ -38,6 +38,7 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
 
     // Fetch max userIndex to generate sequential ID
     const maxUser = await prisma.user.findFirst({
+      where: { userIndex: { not: null } },
       orderBy: { userIndex: 'desc' },
       select: { userIndex: true }
     });
@@ -59,9 +60,29 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
         });
       } catch (e: any) {
         if (e.code === 'P2002') {
-          // Unique constraint failed (likely on userid), try next index
-          nextIndex++;
-          attempts++;
+          const target = e.meta?.target || [];
+          if (target.includes('userid')) {
+            // Unique constraint failed on userid, try next index
+            nextIndex++;
+            attempts++;
+          } else {
+            // Unique constraint failed on mobile_no or email (race condition on double click)
+            // Or the user was created exactly in this moment
+            const existingUserNow = await prisma.user.findFirst({
+              where: { mobile_no: mobileNo }
+            });
+            if (existingUserNow) {
+              // Update password and return success as if it was already there
+              const updated = await prisma.user.update({
+                where: { id: existingUserNow.id },
+                data: { password: hashedPassword }
+              });
+              newUser = updated;
+              break;
+            } else {
+              throw e;
+            }
+          }
         } else {
           throw e;
         }
