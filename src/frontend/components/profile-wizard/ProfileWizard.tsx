@@ -147,7 +147,7 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
           </div>
           <div className="flex flex-col items-center md:items-start">
             <h4 className="font-bold text-gray-900 mb-3">{language === 'TA' ? 'தொடர்புக்கு' : 'Contact Us'}</h4>
-            <div className="space-y-3 text-sm">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-sm">
               <div className="flex items-center gap-3 justify-center md:justify-start bg-white px-4 py-2 rounded-full shadow-sm w-fit border border-gray-100 mx-auto md:mx-0">
                 <Phone className="w-4 h-4 text-orange-500" />
                 <span className="font-bold text-[#004d40] text-base tracking-wide">96776 13716</span>
@@ -155,6 +155,9 @@ export default function ProfileWizard({ language: propLang, hideHeader = false, 
               <div className="flex items-center gap-3 justify-center md:justify-start bg-white px-4 py-2 rounded-full shadow-sm w-fit border border-gray-100 mx-auto md:mx-0">
                 <Phone className="w-4 h-4 text-orange-500" />
                 <span className="font-bold text-[#004d40] text-base tracking-wide">93452 89217</span>
+              </div>
+              <div className="text-base md:text-lg font-black text-[#004d40] mt-1 xl:mt-0 xl:ml-2 tracking-wide text-center md:text-left">
+                www.akshayamtamilmatrimony.com
               </div>
             </div>
           </div>
