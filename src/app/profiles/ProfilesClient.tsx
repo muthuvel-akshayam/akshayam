@@ -181,26 +181,36 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                   </div>
 
                   <div className="grid grid-cols-[max-content_auto_max-content] gap-y-1 gap-x-2 text-sm text-gray-600 mb-5 mx-auto w-fit">
-                    <div className="text-right">{language === 'TA' ? 'வயது' : 'Age'}</div>
-                    <div className="text-center">:</div>
+                    <div className="text-right font-bold text-gray-900">வயது</div>
+                    <div className="text-center font-bold text-gray-900">:</div>
                     <div className="font-semibold text-gray-800 text-left">{age !== 'N/A' ? age : 'N/A'}</div>
                     
-                    <div className="text-right">{language === 'TA' ? 'படிப்பு' : 'Education'}</div>
-                    <div className="text-center">:</div>
-                    <div className="font-semibold text-gray-800 text-left truncate max-w-[180px]" title={profile.educations?.[0]?.degreeName}>{profile.educations?.[0]?.degreeName || (language === 'TA' ? 'குறிப்பிடப்படவில்லை' : 'Not Specified')}</div>
+                    <div className="text-right font-bold text-gray-900">படிப்பு</div>
+                    <div className="text-center font-bold text-gray-900">:</div>
+                    <div className="font-semibold text-gray-800 text-left truncate max-w-[180px]" title={profile.educations?.[0]?.degreeName}>{profile.educations?.[0]?.degreeName || 'குறிப்பிடப்படவில்லை'}</div>
                     
-                    <div className="text-right">{language === 'TA' ? 'இராசி' : 'Rasi'}</div>
-                    <div className="text-center">:</div>
-                    <div className="font-semibold text-gray-800 text-left truncate max-w-[180px]" title={`${translateRasi(profile.rasi, language)}-${translateNakshatra(profile.nakshatra, language)}`}>{translateRasi(profile.rasi, language)}-{translateNakshatra(profile.nakshatra, language)}</div>
+                    <div className="text-right font-bold text-gray-900">நட்சத்திரம்</div>
+                    <div className="text-center font-bold text-gray-900">:</div>
+                    <div className="font-semibold text-gray-800 text-left truncate max-w-[180px]" title={translateNakshatra(profile.nakshatra, 'TA')}>{translateNakshatra(profile.nakshatra, 'TA') || 'குறிப்பிடப்படவில்லை'}</div>
                     
-                    <div className="text-right">{language === 'TA' ? 'ஜாதகம்' : 'Jathakam'}</div>
-                    <div className="text-center">:</div>
-                    <div className="font-semibold text-gray-800 text-left">{profile.dosham === 'NO' ? (language === 'TA' ? 'சுத்த ஜாதகம்' : 'No Dosham') : (language === 'TA' ? 'தோஷம் உண்டு' : 'Dosham')}</div>
+                    <div className="text-right font-bold text-gray-900">ஜாதகம்</div>
+                    <div className="text-center font-bold text-gray-900">:</div>
+                    <div className="font-semibold text-gray-800 text-left">{
+                      profile.dosham?.toLowerCase() === 'no' || profile.dosham?.toLowerCase() === 'sutham' || profile.dosham?.toLowerCase() === 'none' || profile.dosham?.toLowerCase() === 'no_dosham' ? 'சுத்த ஜாதகம்' :
+                      profile.dosham?.toLowerCase() === 'rahu_ketu' ? 'ராகு கேது தோஷம்' :
+                      profile.dosham?.toLowerCase() === 'chevvai' ? 'செவ்வாய் தோஷம்' :
+                      profile.dosham?.toLowerCase() === 'sarpa' ? 'சர்ப்ப தோஷம்' :
+                      (profile.dosham || 'சுத்த ஜாதகம்')
+                    }</div>
                     
-                    <div className="text-right">{language === 'TA' ? 'ஊர்' : 'Location'}</div>
-                    <div className="text-center">:</div>
-                    <div className="font-semibold text-gray-800 text-left flex items-center truncate max-w-[180px]" title={(profile.hideHouseLocation && !isApproved) ? (language === 'TA' ? 'பாதுகாக்கப்பட்டது' : 'Protected') : profile.city}>
-                      <span className="truncate">{(profile.hideHouseLocation && !isApproved) ? (language === 'TA' ? 'பாதுகாக்கப்பட்டது' : 'Protected') : profile.city}</span>
+                    <div className="text-right font-bold text-gray-900">கூட்டம்</div>
+                    <div className="text-center font-bold text-gray-900">:</div>
+                    <div className="font-semibold text-gray-800 text-left truncate max-w-[180px]">{profile.koottam || 'குறிப்பிடப்படவில்லை'}</div>
+
+                    <div className="text-right font-bold text-gray-900">ஊர்</div>
+                    <div className="text-center font-bold text-gray-900">:</div>
+                    <div className="font-semibold text-gray-800 text-left flex items-center truncate max-w-[180px]" title={(profile.hideHouseLocation && !isApproved) ? 'பாதுகாக்கப்பட்டது' : (profile.city || profile.district)}>
+                      <span className="truncate">{(profile.hideHouseLocation && !isApproved) ? 'பாதுகாக்கப்பட்டது' : (profile.city || profile.district || 'குறிப்பிடப்படவில்லை')}</span>
                       {profile.hideHouseLocation && !isApproved && <Lock className="w-3 h-3 ml-1 text-yellow-500 inline shrink-0" />}
                     </div>
                   </div>

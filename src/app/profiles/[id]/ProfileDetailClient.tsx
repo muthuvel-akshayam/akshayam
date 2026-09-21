@@ -52,10 +52,6 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
   };
 
   const handleShareClick = () => {
-    if (!currentUserHasProfile) {
-      alert('Please sign up and create your profile to share profiles.');
-      return;
-    }
     const shareId = user.userid || user.profile?.displayId || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
     shareToWhatsApp(shareId, user.profile);
   };

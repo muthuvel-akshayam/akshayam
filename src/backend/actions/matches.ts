@@ -256,8 +256,8 @@ export async function getRecentProfiles(limit: number = 10) {
 export async function getProfileById(targetUserId: string) {
   const currentUserId = await getUserId();
   
-  const parsedIndex = parseInt(targetUserId, 10);
-  const possibleUserIndex = !isNaN(parsedIndex) && parsedIndex >= 1000 ? parsedIndex - 1000 : -1;
+  const isNumeric = /^\d+$/.test(targetUserId);
+  const possibleUserIndex = isNumeric ? parseInt(targetUserId, 10) - 1000 : -1;
 
   const targetUser = await prisma.user.findFirst({
     where: {

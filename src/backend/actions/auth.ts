@@ -55,7 +55,7 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
             password: hashedPassword,
             email: `${mobileNo}@akshayam.local`,
             userIndex: nextIndex,
-            userid: `${1000 + nextIndex}ae`
+            userid: `${nextIndex}`
           }
         });
       } catch (e: any) {
