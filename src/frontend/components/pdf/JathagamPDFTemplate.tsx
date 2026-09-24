@@ -498,7 +498,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
             <FieldRow label="படிப்பு - விவரங்கள்" value={profile.educations?.map((e: any) => e.degreeName || e.degree).filter(Boolean).join(', ') || "-"} />
             <FieldRow label="மாத வருமானம்" value={income} />
             <FieldRow label="சொத்து விவரம்" value={propertyStr} />
-            <FieldRow label="நட்சத்திரங்கள்" value={profile.poruthaNakshatram?.length ? profile.poruthaNakshatram.map((val: string) => {
+            <FieldRow label="பொருந்தும் நட்சத்திரம்" value={profile.poruthaNakshatram?.length ? profile.poruthaNakshatram.map((val: string) => {
               const parts = val.split('(');
               const nakName = parts[0].trim();
               const tamilNak = translateToTamil(nakName, nakshatraMap) || nakName;
@@ -511,7 +511,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
                 return `${tamilNak} (${padaPart})`;
               }
               return tamilNak;
-            }).join(', ') : "Any"} />
+            }).join(', ') : "-"} />
             <FieldRow label="எதிர்பார்ப்பு" value={formatExpectations(profile.expectations)} />
             <FieldRow label="ராகு கேது ஜாதகம்" value={profile.dosham === 'RAHU_KETU' ? "உண்டு" : "-"} />
             <div className="grid grid-cols-[130px_10px_1fr] mt-1 text-[11px] leading-tight" style={{ display: 'flex', marginTop: '4px', fontSize: '11px', lineHeight: '1.2' }}>
