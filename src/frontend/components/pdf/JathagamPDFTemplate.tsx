@@ -1,6 +1,6 @@
 import React from 'react';
 import QRCode from 'react-qr-code';
-import JathagamChart from './JathagamChart';
+import JathagamChart from '../JathagamChart';
 
 interface JathagamPDFTemplateProps {
   profile: any;
