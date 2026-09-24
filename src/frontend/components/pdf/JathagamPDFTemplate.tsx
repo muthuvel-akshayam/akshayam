@@ -514,10 +514,12 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
             }).join(', ') : "-"} />
             <FieldRow label="எதிர்பார்ப்பு" value={formatExpectations(profile.expectations)} />
             <FieldRow label="ராகு கேது ஜாதகம்" value={profile.dosham === 'RAHU_KETU' ? "உண்டு" : "-"} />
-            <div className="grid grid-cols-[130px_10px_1fr] mt-1 text-[11px] leading-tight" style={{ display: 'flex', marginTop: '4px', fontSize: '11px', lineHeight: '1.2' }}>
-              <div className="font-bold text-emerald-950" style={{ fontWeight: 'bold', color: '#022c22', width: '130px' }}>தொடர்பு எண்</div>
-              <div className="font-bold text-emerald-950 text-center" style={{ fontWeight: 'bold', color: '#022c22', width: '10px', textAlign: 'center' }}>:</div>
-              <div className="font-bold text-red-600" style={{ fontWeight: 'bold', color: '#dc2626', flex: '1' }}>96776 13716, 93452 89217</div>
+            <div className="grid grid-cols-[160px_10px_1fr] mt-1 text-[11px] leading-tight" style={{ display: 'flex', marginTop: '4px', fontSize: '11px', lineHeight: '1.2' }}>
+              <div className="font-bold text-emerald-950 shrink-0" style={{ fontWeight: 'bold', color: '#022c22', width: '160px', flexShrink: 0 }}>தொடர்பு எண்</div>
+              <div className="font-bold text-emerald-950 text-center shrink-0" style={{ fontWeight: 'bold', color: '#022c22', width: '10px', textAlign: 'center', flexShrink: 0 }}>:</div>
+              <div className="font-bold text-red-600 pl-1 shrink-0" style={{ fontWeight: 'bold', color: '#dc2626', flex: '1', display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '4px', flexShrink: 0 }}>
+                96776 13716, 93452 89217
+              </div>
             </div>
           </div>
           <div className="w-[280px] flex flex-col gap-0.5 pt-5" style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '2px', paddingTop: '20px' }}>
