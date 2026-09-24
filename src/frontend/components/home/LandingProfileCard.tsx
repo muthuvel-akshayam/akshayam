@@ -67,7 +67,7 @@ export default function LandingProfileCard({ profile: data }: ProfileProps) {
       {/* Candidate Info */}
       <div className="p-4 flex flex-col items-center text-center flex-grow">
         <h3 className="text-base font-bold text-gray-900 mb-0.5 truncate w-full">{p.name || 'குறிப்பிடப்படவில்லை'}</h3>
-        <span className="text-sm font-bold text-primary mb-2">{user?.userid || p.displayId || p.userId?.slice(0, 8).toUpperCase() || p.id?.slice(0, 8).toUpperCase()}</span>
+        <span className="text-sm font-bold text-primary mb-2">{p.displayId || user?.userid || p.userId?.slice(0, 8).toUpperCase() || p.id?.slice(0, 8).toUpperCase()}</span>
         
         <div className="text-sm text-slate-700 space-y-1 w-full font-medium">
           <p className="truncate"><span className="text-gray-900 font-bold">வயது :</span> {age}</p>
@@ -82,7 +82,7 @@ export default function LandingProfileCard({ profile: data }: ProfileProps) {
       {/* Action Buttons Row */}
       <div className="px-4 pb-4 pt-2 w-full">
         <Link 
-          href={`/profiles/${user?.userid || p.displayId || p.userId || p.id || user?.id}`}
+          href={`/profiles/${p.displayId || user?.userid || p.userId || p.id || user?.id}`}
           className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold py-2 px-2 rounded text-center transition-colors shadow-sm block w-full"
         >
           ப்ரோபைல்

@@ -177,7 +177,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                   
                   <div className="text-gray-900 font-bold text-lg md:text-xl leading-tight text-center">{profile.name}</div>
                   <div className="text-green-600 font-bold text-base mt-0.5 mb-3 text-center">
-                    {(match as any).userid || (match.userIndex ? `${1000 + match.userIndex}` : `${match.id.substring(0, 6).toUpperCase()}`)}
+                    {(match.profile as any)?.displayId || (match as any).userid || (match.userIndex ? `${1000 + match.userIndex}` : `${match.id.substring(0, 6).toUpperCase()}`)}
                   </div>
 
                   <div className="grid grid-cols-[max-content_auto_max-content] gap-y-1 gap-x-2 text-sm text-gray-600 mb-5 mx-auto w-fit">
@@ -226,7 +226,7 @@ export default function ProfilesClient({ profiles, initialShortlists = [], initi
                       </button>
                       <button
                         onClick={() => {
-                          const displayId = (match as any).userid || (match.userIndex ? `${1000 + match.userIndex}` : `${match.id.substring(0, 6).toUpperCase()}`);
+                          const displayId = (match.profile as any)?.displayId || (match as any).userid || (match.userIndex ? `${1000 + match.userIndex}` : `${match.id.substring(0, 6).toUpperCase()}`);
                           downloadBioDataPdf(`pdf-template-${match.id}`, `${displayId} - ${profile.name}`);
                         }}
                         className="w-10 h-[40px] rounded-full border border-gray-200 text-gray-500 hover:text-primary hover:bg-gray-100 flex items-center justify-center transition-colors shadow-sm"

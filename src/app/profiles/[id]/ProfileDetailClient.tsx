@@ -52,7 +52,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
   };
 
   const handleShareClick = () => {
-    const shareId = user.userid || user.profile?.displayId || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
+    const shareId = user.profile?.displayId || user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
     shareToWhatsApp(shareId, user.profile);
   };
   const profile = user.profile;
@@ -203,7 +203,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
             </button>
             <button
               onClick={() => {
-                const shareId = user.userid || user.profile?.displayId || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
+                const shareId = user.profile?.displayId || user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
                 downloadBioDataPdf(`pdf-template-${profile.id}`, `${shareId} - ${profile.name}`);
               }}
               className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 px-2 py-2.5 sm:px-4 sm:py-2 bg-red-600 rounded-lg text-white hover:bg-red-700 shadow-sm transition-colors"
@@ -255,7 +255,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
             <div className="bg-gray-50 p-6 flex-1 border-t border-gray-100">
               <div className="grid grid-cols-[130px_auto] sm:grid-cols-[150px_auto] gap-y-4">
                 <div className="text-[15px] sm:text-lg font-bold text-gray-700">பதிவு எண்</div>
-                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {user.userid || (user.userIndex ? `${1000 + user.userIndex}` : `${user.id.substring(0, 6).toUpperCase()}`)}</div>
+                <div className="text-[15px] sm:text-lg font-bold text-gray-900">: {user.profile?.displayId || user.userid || (user.userIndex ? `${1000 + user.userIndex}` : `${user.id.substring(0, 6).toUpperCase()}`)}</div>
                 
                 <div className="text-[15px] sm:text-lg font-bold text-gray-700">ஜாதி</div>
                 <div className="text-gray-900">: {safeStr(profile.caste)}</div>
@@ -415,7 +415,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
                   ) : (
                      <div className="relative w-full max-w-4xl h-72 sm:h-96 overflow-hidden rounded-lg border border-gray-300 shadow-sm cursor-zoom-in group" onClick={(e) => {
                     e.stopPropagation();
-                    const shareId = user.userid || user.profile?.displayId || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
+                    const shareId = user.profile?.displayId || user.userid || (user.userIndex ? `${1000 + user.userIndex}` : user.id.substring(0, 8).toUpperCase());
                     shareToWhatsApp(shareId, profile);
                   }}>
                        <img 

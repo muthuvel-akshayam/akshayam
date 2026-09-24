@@ -148,12 +148,12 @@ export default function DashboardClient({
                   )}
                 </div>
                 <h3 className="text-xl font-extrabold text-gray-900">{profile.name}</h3>
-                <p className="text-primary font-bold text-sm mt-1">{user?.userid || profile.id.slice(0, 8).toUpperCase()}</p>
+                <p className="text-primary font-bold text-sm mt-1">{profile.displayId || user?.userid || profile.id.slice(0, 8).toUpperCase()}</p>
                 <div className="flex flex-wrap gap-2 justify-center mt-4">
                   <Link href="/profile" className="px-4 py-1.5 bg-primary text-white text-xs font-bold rounded-full">{language === 'TA' ? 'திருத்து' : 'Edit'}</Link>
                   <button onClick={() => shareToWhatsApp(profile.id, profile)} className="px-4 py-1.5 bg-green-600 text-white text-xs font-bold rounded-full flex items-center gap-1"><Share2 className="w-3 h-3" />{language === 'TA' ? 'பகிர்வு' : 'Share'}</button>
                   <button onClick={() => {
-                    const displayId = user?.userid || profile.id.slice(0, 8).toUpperCase();
+                    const displayId = profile.displayId || user?.userid || profile.id.slice(0, 8).toUpperCase();
                     downloadBioDataPdf(`pdf-template-${profile.id}`, `${displayId} - ${profile.name}`);
                   }} className="px-4 py-1.5 bg-red-600 text-white text-xs font-bold rounded-full flex items-center gap-1"><Download className="w-3 h-3" />{language === 'TA' ? 'பதிவிறக்கு' : 'Download'}</button>
                   <button onClick={async () => { await logoutUser(); window.location.href = '/'; }} className="px-4 py-1.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-full flex items-center gap-1"><LogOut className="w-3 h-3"/> Logout</button>
