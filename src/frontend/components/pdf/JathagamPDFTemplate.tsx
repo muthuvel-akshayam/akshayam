@@ -1,6 +1,6 @@
 import React from 'react';
 import QRCode from 'react-qr-code';
-import JathagamChart from '../JathagamChart';
+import JathagamChart from './JathagamChart';
 
 interface JathagamPDFTemplateProps {
   profile: any;
@@ -187,11 +187,12 @@ const FieldItem = ({ label, value, colSpan = 1, highlightLabel = false }: { labe
   const displayValue = (value === null || value === undefined || value === '' || value === 'null' || value === '-') ? 'குறிப்பிடப்படவில்லை' : value;
   const labelColor = highlightLabel ? '#dc2626' : '#1e293b';
   const labelFontWeight = highlightLabel ? 'bold' : 600;
+  const valColor = highlightLabel ? '#dc2626' : '#0f172a';
   return (
     <div className={`flex items-start text-[10.5px] leading-tight text-slate-900`} style={{ display: 'flex', alignItems: 'flex-start', fontSize: '11px', lineHeight: '1.3', color: '#0f172a', width: colSpan === 2 ? '100%' : '50%', boxSizing: 'border-box', paddingRight: '8px', marginBottom: '4px' }}>
       <div className={`${highlightLabel ? 'font-bold text-red-600' : 'font-semibold text-slate-800'} whitespace-nowrap w-[100px] flex-shrink-0`} style={{ fontWeight: labelFontWeight, color: labelColor, whiteSpace: 'nowrap', width: '100px', flexShrink: 0 }}>{label}</div>
-      <div className={`font-bold text-center text-slate-700 w-[10px] flex-shrink-0`} style={{ fontWeight: 'bold', textAlign: 'center', color: '#334155', width: '10px', flexShrink: 0 }}>:</div>
-      <div className={`${highlightLabel ? 'font-bold text-red-600' : 'font-medium text-slate-900'} pl-1 break-words flex-1 flex-shrink-0`} style={{ fontWeight: highlightLabel ? 'bold' : 500, color: highlightLabel ? '#dc2626' : '#0f172a', paddingLeft: '4px', wordBreak: 'break-word', flex: '1 1 0%', flexShrink: 0 }}>{displayValue}</div>
+      <div className={`font-bold text-center w-[10px] flex-shrink-0`} style={{ fontWeight: 'bold', textAlign: 'center', color: labelColor, width: '10px', flexShrink: 0 }}>:</div>
+      <div className={`${highlightLabel ? 'font-bold text-red-600' : 'font-medium text-slate-900'} pl-1 break-words flex-1 flex-shrink-0`} style={{ fontWeight: highlightLabel ? 'bold' : 500, color: valColor, paddingLeft: '4px', wordBreak: 'break-word', flex: '1 1 0%', flexShrink: 0 }}>{displayValue}</div>
     </div>
   );
 };
@@ -275,7 +276,12 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
   const placeOfBirth = translateToTamil(jData.placeOfBirth || jData.nativePlace || profile.placeOfBirth || profile.lob || profile.city, { 'coimbatore': 'கோயம்புத்தூர்', 'chennai': 'சென்னை', 'tiruppur': 'திருப்பூர்', 'erode': 'ஈரோடு', 'salem': 'சேலம்', 'karur': 'கரூர்', 'namakkal': 'நாமக்கல்' }) || 'குறிப்பிடப்படவில்லை';
   const dasaBalance = jData.dasaBalance || profile.dasaBalance || profile.birthDetails || 'தசா இருப்பு விவரம் பார்க்கவும்';
   
-  const kulam = profile.koottam || jData.kulam || profile.subCaste || 'குறிப்பிடப்படவில்லை';
+  const extractTamilKoottam = (str: string | null | undefined) => {
+    if (!str) return 'குறிப்பிடப்படவில்லை';
+    const match = str.match(/\((.*?)\)/);
+    return match ? match[1].trim() : str;
+  };
+  const kulam = extractTamilKoottam(profile.koottam || jData.kulam || profile.subCaste);
   const fatherName = family.fatherName || jData.fatherName || '-';
   const motherName = family.motherName || jData.motherName || '-';
   const fatherStatus = mapParentStatus(family.fatherLivingStatus || family.fatherStatus || jData.fatherStatus);
