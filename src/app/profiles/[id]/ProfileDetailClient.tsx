@@ -122,7 +122,8 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
   // Safe helper to return N/A if empty
   const safeStr = (str: any) => (str && str.toString().trim() !== '' ? str : '-');
 
-  const fullJathakamUrl = profile?.jathakamUrl 
+  const { isValidDocUrl } = require('@/frontend/utils/docUtils');
+  const fullJathakamUrl = isValidDocUrl(profile?.jathakamUrl) 
     ? supabase.storage.from('user-documents').getPublicUrl(profile.jathakamUrl).data.publicUrl 
     : null;
 
