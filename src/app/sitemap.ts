@@ -48,7 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let profileUrls: MetadataRoute.Sitemap = [];
   try {
     const approvedProfiles = await prisma.profile.findMany({
-      where: { isApproved: true },
+      where: { status: 'APPROVED' },
       select: { id: true, updatedAt: true },
       take: 1000,
     });
