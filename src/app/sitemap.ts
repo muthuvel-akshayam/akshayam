@@ -49,13 +49,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const approvedProfiles = await prisma.profile.findMany({
       where: { status: 'APPROVED' },
-      select: { id: true, updatedAt: true },
+      select: { id: true, approvedAt: true },
       take: 1000,
     });
 
     profileUrls = approvedProfiles.map((p) => ({
       url: `${baseUrl}/profiles/${p.id}`,
-      lastModified: p.updatedAt || new Date(),
+      lastModified: p.approvedAt || new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
     }));
