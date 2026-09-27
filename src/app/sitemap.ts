@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { prisma } from '@/backend/prisma';
+import prisma from '@/backend/prisma';
 
 export const dynamic = 'force-dynamic'; // Ensures sitemap stays up to date
 
