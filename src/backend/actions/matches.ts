@@ -277,12 +277,14 @@ export async function getProfileById(targetUserId: string) {
         include: { siblings: true }
       },
       expectations: true,
-      sentRequests: currentUserId ? {
-        where: { recipientId: currentUserId! }
-      } : undefined,
-      receivedRequests: currentUserId ? {
-        where: { requesterId: currentUserId! }
-      } : undefined
+      ...(currentUserId ? {
+        sentRequests: {
+          where: { recipientId: currentUserId }
+        },
+        receivedRequests: {
+          where: { requesterId: currentUserId }
+        }
+      } : {})
     }
   });
 

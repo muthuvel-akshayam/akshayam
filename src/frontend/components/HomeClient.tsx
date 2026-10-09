@@ -16,7 +16,7 @@ import {
   FileText, TreePine, Flame, Drum, Gift, ChefHat, 
   Vegan, Milk, Cake, Salad, GlassWater, Flower, 
   Camera, IceCream, CupSoda, MessageCircle, Tent, Eye, EyeOff
-, MailOpen } from 'lucide-react';
+, MailOpen, Gem } from 'lucide-react';
 
 export default function HomeClient() {
   const [showRegister, setShowRegister] = useState(false);
@@ -132,6 +132,7 @@ export default function HomeClient() {
     { title: 'போட்டோ வீடியோ', desc: 'உங்கள் திருமண நினைவுகளை அழியாப் படங்களாக்கும் நிபுணர்கள்.', icon: Camera, imageUrl: '/services/premium/premium_12.png' },
     { title: 'ஐஸ்கிரீம், பீடா, பழங்கள்', desc: 'சிறப்பு ஐஸ்கிரீம், தாம்பூலம் மற்றும் பழங்கள்.', icon: IceCream, imageUrl: '/services/premium/premium_13.png' },
     { title: 'கரும்பு ஜூஸ் மற்றும் பல', desc: 'விருந்தினர்களை உபசரிக்க சிறப்பு பானங்கள் மற்றும் தின்பண்டங்கள்.', icon: CupSoda, imageUrl: '/services/premium/premium_14.png' },
+    { title: 'திருமண நகைகள்', desc: 'திருமணத்திற்கான அழகிய மற்றும் பாரம்பரிய நகைகள்.', icon: Gem },
   ];
 
   const servicesEn = [
@@ -152,6 +153,7 @@ export default function HomeClient() {
     { title: 'Photo & Video', desc: 'Expert candid photographers to capture timeless wedding memories.', icon: Camera, imageUrl: '/services/premium/premium_12.png' },
     { title: 'Ice Cream, Beeda & Fruits', desc: 'Special dessert counters, traditional betel leaf, and fresh fruit stalls.', icon: IceCream, imageUrl: '/services/premium/premium_13.png' },
     { title: 'Sugarcane Juice & More', desc: 'Welcome drinks and snacks to treat your guests.', icon: CupSoda, imageUrl: '/services/premium/premium_14.png' },
+    { title: 'Wedding Jewelry', desc: 'Beautiful and traditional jewelry for your wedding.', icon: Gem },
   ];
 
   const services = language === 'TA' ? servicesTa : servicesEn;
@@ -697,9 +699,9 @@ export default function HomeClient() {
                 <a href="tel:+919345289217" className="hover:text-accent transition-colors">+91 9345289217</a>
               </div>
             </div>
-            <a href="mailto:support@akshayammatrimony.com" className="flex items-center gap-3 bg-white/10 px-6 py-3 rounded-full hover:bg-white/20 transition-colors text-white font-bold">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              support@akshayammatrimony.com
+            <a href="mailto:support@akshayamtamilmatrimony.com" className="flex items-center gap-3 bg-white/10 px-6 py-3 rounded-full hover:bg-white/20 transition-colors text-white font-bold text-sm sm:text-base max-w-full overflow-hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <span className="truncate">support@akshayamtamilmatrimony.com</span>
             </a>
           </div>
           <div className="w-full h-px bg-white/10 my-8"></div>

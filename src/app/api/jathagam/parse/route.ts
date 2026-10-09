@@ -78,24 +78,30 @@ Return ONLY raw JSON without markdown codeblock backticks.
 `;
 
     let text = null;
-    let retries = 3;
+    let retries = 4;
+    let delay = 2000;
     while (retries > 0) {
       try {
         const response = await ai.models.generateContent({
-            model: 'gemini-3.5-flash',
+            model: 'gemini-3.8-flash',
             contents: [
                 prompt,
                 { inlineData: { data: base64Data, mimeType: "image/jpeg" } }
-            ]
+            ],
+            config: {
+                responseMimeType: 'application/json'
+            }
         });
         text = response.text;
         break;
       } catch (err: any) {
-        if (err.message?.includes('503') || err.message?.includes('UNAVAILABLE')) {
+        const errMsg = err.message || '';
+        if (errMsg.includes('503') || errMsg.includes('UNAVAILABLE') || errMsg.includes('429')) {
           retries--;
           if (retries === 0) throw err;
-          // Wait 2 seconds before retrying
-          await new Promise(r => setTimeout(r, 2000));
+          console.warn(`Gemini API busy (503/429). Retrying in ${delay}ms... (${retries} retries left)`);
+          await new Promise(r => setTimeout(r, delay));
+          delay *= 2; // Exponential backoff
         } else {
           throw err;
         }
@@ -106,15 +112,7 @@ Return ONLY raw JSON without markdown codeblock backticks.
         throw new Error("No response from Gemini");
     }
 
-    // Clean up potential markdown formatting (```json ... ```)
-    let cleanText = text.trim();
-    if (cleanText.startsWith('```json')) {
-      cleanText = cleanText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
-    } else if (cleanText.startsWith('```')) {
-      cleanText = cleanText.replace(/^```\s*/, '').replace(/\s*```$/, '');
-    }
-
-    const parsedData = JSON.parse(cleanText);
+    const parsedData = JSON.parse(text);
 
     // Save to database if userId is provided
     if (userId) {

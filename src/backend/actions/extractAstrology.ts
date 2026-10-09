@@ -57,21 +57,41 @@ Zodiac Mapping (Clockwise from top-left):
 - Left-Column (bottom to top): dhanusu, magaram, kumbam, meenam
 `;
 
-    const response = await ai.models.generateContent({
-        model: 'gemini-3.5-flash',
-        contents: [
-            prompt,
-            {
-                inlineData: {
-                    data: base64Data,
-                    mimeType: mimeType
+    let response;
+    let retries = 4;
+    let delay = 2000;
+    
+    while (retries > 0) {
+      try {
+        response = await ai.models.generateContent({
+            model: 'gemini-3.8-flash',
+            contents: [
+                prompt,
+                {
+                    inlineData: {
+                        data: base64Data,
+                        mimeType: mimeType
+                    }
                 }
+            ],
+            config: {
+                responseMimeType: 'application/json'
             }
-        ],
-        config: {
-            responseMimeType: 'application/json'
+        });
+        break;
+      } catch (err: any) {
+        const errMsg = err.message || '';
+        if (errMsg.includes('503') || errMsg.includes('UNAVAILABLE') || errMsg.includes('429')) {
+          retries--;
+          if (retries === 0) throw err;
+          console.warn(`Gemini API busy (503/429). Retrying in ${delay}ms... (${retries} retries left)`);
+          await new Promise(r => setTimeout(r, delay));
+          delay *= 2; // Exponential backoff
+        } else {
+          throw err;
         }
-    });
+      }
+    }
 
     const resultText = response.text;
     if (!resultText) {

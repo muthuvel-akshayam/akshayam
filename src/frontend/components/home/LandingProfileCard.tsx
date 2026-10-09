@@ -43,7 +43,10 @@ export default function LandingProfileCard({ profile: data }: ProfileProps) {
   const city = p.city || p.district || 'குறிப்பிடப்படவில்லை';
 
   return (
-    <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow">
+    <Link 
+      href={`/profiles/${p.displayId || user?.userid || p.userId || p.id || user?.id}`}
+      className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow cursor-pointer"
+    >
       {/* Image Container */}
       <div className="relative h-48 sm:h-52 w-full bg-gray-100">
         {!p.hidePhoto && p.photoUrl ? (
@@ -81,13 +84,12 @@ export default function LandingProfileCard({ profile: data }: ProfileProps) {
 
       {/* Action Buttons Row */}
       <div className="px-4 pb-4 pt-2 w-full">
-        <Link 
-          href={`/profiles/${p.displayId || user?.userid || p.userId || p.id || user?.id}`}
+        <div 
           className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold py-2 px-2 rounded text-center transition-colors shadow-sm block w-full"
         >
           ப்ரோபைல்
-        </Link>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
