@@ -93,6 +93,9 @@ Zodiac Mapping (Clockwise from top-left):
       }
     }
 
+    if (!response) {
+        throw new Error("Failed to get a response from AI");
+    }
     const resultText = response.text;
     if (!resultText) {
         throw new Error("Empty response from AI");
