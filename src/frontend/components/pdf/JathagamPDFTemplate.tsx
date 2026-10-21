@@ -12,7 +12,15 @@ interface JathagamPDFTemplateProps {
 }
 
 const convertLegacyGrid = (gridData: any) => {
-    if (!gridData || typeof gridData !== 'object') return [];
+    if (!gridData) return [];
+    if (typeof gridData === 'string') {
+      try {
+        gridData = JSON.parse(gridData);
+      } catch {
+        return [];
+      }
+    }
+    if (typeof gridData !== 'object') return [];
     if (Array.isArray(gridData)) {
       return gridData.filter(h => h && typeof h.houseIndex === 'number' && Array.isArray(h.planets));
     }
@@ -176,7 +184,7 @@ const FieldRow = ({ label, value, labelWidth = "120px", valueWidth = "310px", hi
   const color = highlightLabel ? '#dc2626' : '#111827';
   return (
     <div className="flex items-start mb-1 text-[11px] leading-tight" style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '6px', fontSize: '11.5px', lineHeight: '1.4' }}>
-      <div className={`font-bold whitespace-pre-wrap flex-shrink-0 ${highlightLabel ? 'text-red-600' : 'text-emerald-950'}`} style={{ fontWeight: 'bold', color: highlightLabel ? '#dc2626' : '#022c22', whiteSpace: 'pre-wrap', flexShrink: 0, width: lWidth }}>{label}</div>
+      <div className={`font-bold flex-shrink-0 ${highlightLabel ? 'text-red-600' : 'text-emerald-950'}`} style={{ fontWeight: 'bold', color: highlightLabel ? '#dc2626' : '#022c22', whiteSpace: 'pre-wrap', flexShrink: 0, width: lWidth }}>{label}</div>
       <div className={`font-bold text-center flex-shrink-0 ${highlightLabel ? 'text-red-600' : 'text-emerald-950'}`} style={{ fontWeight: 'bold', color: highlightLabel ? '#dc2626' : '#022c22', textAlign: 'center', width: '10px', flexShrink: 0 }}>:</div>
       <div className={`font-bold whitespace-pre-wrap break-words pl-1 flex-shrink-0 ${highlightLabel ? 'text-red-600' : 'text-gray-900'}`} style={{ fontWeight: 'bold', color, whiteSpace: 'pre-wrap', wordBreak: 'break-word', paddingLeft: '4px', flexShrink: 0, width: vWidth }}>{value || '-'}</div>
     </div>
@@ -203,6 +211,18 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
   const rasiHouses = convertLegacyGrid(profile.jathagamData?.rasiChart || profile.jathagamData?.rasiGrid || profile.rasiGrid);
   const amsamHouses = convertLegacyGrid(profile.jathagamData?.navamsamChart || profile.jathagamData?.amsamGrid || profile.amsamGrid);
   const family = familyProp || profile.family || {};
+
+  const resolveSupabaseDocUrl = (urlOrPath: string | null | undefined): string | null => {
+    if (!urlOrPath) return null;
+    if (urlOrPath.startsWith('http://') || urlOrPath.startsWith('https://') || urlOrPath.startsWith('data:')) {
+      return urlOrPath;
+    }
+    const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://wtpbmpxwiasbnngciwye.supabase.co';
+    return `${baseUrl}/storage/v1/object/public/user-documents/${urlOrPath}`;
+  };
+
+  const rawJathagam = profile.jathagamUrl || profile.jathakamUrl || profile.documents?.find((d: any) => d.type === 'JATHAGAM')?.url;
+  const resolvedJathagamUrl = resolveSupabaseDocUrl(rawJathagam);
 
   const formatExpectations = (exp: any) => {
     if (!exp) return "நல்ல வாழ்க்கைத்துணை";
@@ -503,18 +523,28 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
 
               <PDFChartBox title="நவாம்சம்" houses={amsamHouses} />
             </>
+          ) : resolvedJathagamUrl ? (
+            <div className="flex flex-col items-center justify-center w-full min-h-[160px] border border-dashed border-emerald-400 rounded-lg bg-emerald-50/40 p-2" style={{ width: '100%', minHeight: '160px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px dashed #34d399', borderRadius: '8px', backgroundColor: 'rgba(236, 253, 245, 0.4)', padding: '8px' }}>
+              <div className="font-bold text-emerald-800 mb-1" style={{ fontSize: '11px', fontWeight: 'bold', color: '#065f46', marginBottom: '4px' }}>ஜாதகம் இணைக்கப்பட்டுள்ளது (Horoscope Chart)</div>
+              {resolvedJathagamUrl.toLowerCase().includes('.pdf') ? (
+                <div className="text-center p-3 bg-white rounded border border-emerald-200">
+                  <div className="text-emerald-800 font-bold text-xs">PDF கோப்பாக இணைக்கப்பட்டுள்ளது</div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">({resolvedJathagamUrl.split('/').pop()})</div>
+                </div>
+              ) : (
+                <img 
+                  crossOrigin="anonymous" 
+                  src={`/api/proxy-image?url=${encodeURIComponent(resolvedJathagamUrl)}`} 
+                  alt="Jathagam Chart" 
+                  style={{ maxWidth: '100%', maxHeight: '145px', objectFit: 'contain', borderRadius: '4px' }} 
+                />
+              )}
+            </div>
           ) : (
             <div className="flex flex-col items-center justify-center w-full min-h-[160px] border border-dashed border-emerald-300 rounded-lg bg-emerald-50/30 p-4" style={{ width: '100%', minHeight: '160px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', border: '1px dashed #6ee7b7', borderRadius: '8px', backgroundColor: 'rgba(236, 253, 245, 0.3)', padding: '16px' }}>
-              {profile.documents?.find((d: any) => d.type === 'JATHAGAM') ? (
-                <>
-                  <div className="font-bold text-emerald-800 mb-2" style={{ fontSize: '10px', fontWeight: 'bold', color: '#065f46', marginBottom: '8px' }}>ஜாதகம் இணைக்கப்பட்டுள்ளது</div>
-                  <img crossOrigin="anonymous" src={`/api/proxy-image?url=${encodeURIComponent(profile.documents.find((d: any) => d.type === 'JATHAGAM').url)}`} alt="Jathagam" style={{ maxWidth: '100%', maxHeight: '120px', objectFit: 'contain' }} />
-                </>
-              ) : (
-                <div className="font-bold text-emerald-800" style={{ fontSize: '10px', fontWeight: 'bold', color: '#065f46' }}>
-                  ஜாதக கட்டங்கள் இணைக்கப்படவில்லை (Jathagam Chart not available)
-                </div>
-              )}
+              <div className="font-bold text-emerald-800" style={{ fontSize: '10px', fontWeight: 'bold', color: '#065f46' }}>
+                ஜாதக கட்டங்கள் இணைக்கப்படவில்லை (Jathagam Chart not available)
+              </div>
             </div>
           )}
         </div>
@@ -547,6 +577,7 @@ export default function JathagamPDFTemplate({ profile, profileId, family: family
               <div className="font-bold text-emerald-950 text-center shrink-0" style={{ fontWeight: 'bold', color: '#022c22', width: '10px', flexShrink: 0, textAlign: 'center' }}>:</div>
               <div className="font-bold text-red-600 pl-1" style={{ fontWeight: 'bold', color: '#dc2626', flex: 1, display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px', paddingLeft: '4px' }}>
                 <span style={{ whiteSpace: 'nowrap' }}>{String(profile.user?.mobile_no || "96776 13716, 93452 89217").replace(/^\+91\s*/, '')}</span>
+                
               </div>
             </div>
           </div>

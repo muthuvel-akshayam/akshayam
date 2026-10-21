@@ -431,7 +431,7 @@ export function ProfileDetailClient({ user, initialIsShortlisted = false, curren
         )}
         
         {/* Hidden PDF Template */}
-        <div style={{ position: 'absolute', top: 0, left: 0, zIndex: -1000, opacity: 0.01, pointerEvents: 'none' }}>
+        <div style={{ position: 'fixed', top: 0, left: '-9999px', zIndex: -1000, pointerEvents: 'none' }}>
            <JathagamPDFTemplate profile={profile} profileId={profile.id} family={family} akshayamId={user.userid} userIndex={user.userIndex} userCreatedAt={user.createdAt} />
         </div>
       </div>
