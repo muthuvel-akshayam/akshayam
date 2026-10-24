@@ -13,10 +13,12 @@ export async function POST(req: Request) {
       );
     }
 
+    const trimmedOtp = otp.toString().trim();
+
+    // Find the latest active unverified OTP for this phone
     const record = await prisma.otpVerification.findFirst({
       where: {
         phone: cleanPhone,
-        otp: otp.trim(),
         verified: false,
         expiresAt: { gt: new Date() },
       },
@@ -25,7 +27,14 @@ export async function POST(req: Request) {
 
     if (!record) {
       return NextResponse.json(
-        { success: false, message: "தவறான அல்லது காலாவதியான OTP" },
+        { success: false, message: "காலாவதியான அல்லது தவறான OTP / Expired or invalid OTP" },
+        { status: 400 }
+      );
+    }
+
+    if (record.otp !== trimmedOtp) {
+      return NextResponse.json(
+        { success: false, message: "தவறான OTP / Invalid OTP" },
         { status: 400 }
       );
     }
@@ -36,16 +45,11 @@ export async function POST(req: Request) {
       data: { verified: true },
     });
 
-    // We can omit phoneVerified update if schema doesn't have it,
-    // or just leave it in try-catch as user provided.
-    await prisma.profile.updateMany({
-      where: { user: { phone: cleanPhone } as any },
-      data: { phoneVerified: true } as any,
-    }).catch(() => {});
-
     return NextResponse.json({
       success: true,
       message: "சரிபார்ப்பு வெற்றிகரமாக முடிந்தது",
+      resetToken: record.id,
+      phone: cleanPhone,
     });
   } catch (error: any) {
     console.error("Verify OTP Error:", error);

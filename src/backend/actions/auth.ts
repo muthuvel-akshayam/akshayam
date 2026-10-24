@@ -2,36 +2,67 @@
 
 import prisma from '@/backend/prisma';
 import { cookies } from 'next/headers';
-import crypto from 'crypto';
-
-function hashPassword(password: string): string {
-  return crypto.createHash('sha256').update(password).digest('hex');
-}
+import { 
+  hashPassword, 
+  verifyPassword, 
+  createSignedSessionToken, 
+  verifySessionToken 
+} from '@/backend/crypto';
 
 export async function registerAuthUser(mobileNo: string, passwordPlain: string) {
   if (!mobileNo || !passwordPlain) {
     return { success: false, error: 'Mobile number and password are required' };
   }
 
+  const cleanPhone = mobileNo.replace(/\D/g, '').slice(-10);
+  if (cleanPhone.length !== 10) {
+    return { success: false, error: 'Please enter a valid 10-digit mobile number' };
+  }
+
   const hashedPassword = hashPassword(passwordPlain);
 
   try {
+    const currentUserId = await getCurrentUserId();
+
     // Check if user already exists
     const existingUser = await prisma.user.findFirst({
-      where: { mobile_no: mobileNo }
+      where: { mobile_no: cleanPhone }
     });
 
     if (existingUser) {
-      // Update password if user exists
+      // If the current logged in user is editing their own phone/profile, allow update
+      if (currentUserId && currentUserId === existingUser.id) {
+        const updated = await prisma.user.update({
+          where: { id: existingUser.id },
+          data: { password: hashedPassword }
+        });
+        const cookieStore = await cookies();
+        cookieStore.set('auth_token', createSignedSessionToken(updated.id), {
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          maxAge: 60 * 60 * 24 * 30
+        });
+        return { success: true, userId: updated.id };
+      }
+
+      // Security fix: Prevent account takeover by re-registration
+      return { 
+        success: false, 
+        error: 'இந்த மொபைல் எண் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது. உள்நுழையவும் / Mobile number is already registered. Please login.' 
+      };
+    }
+
+    // If user is already logged in and changing to a new, unused mobile number
+    if (currentUserId) {
       const updated = await prisma.user.update({
-        where: { id: existingUser.id },
-        data: { password: hashedPassword }
-      });
-      const cookieStore = await cookies();
-      cookieStore.set('auth_token', updated.id, {
-        httpOnly: true,
-        path: '/',
-        maxAge: 60 * 60 * 24 * 30
+        where: { id: currentUserId },
+        data: {
+          mobile_no: cleanPhone,
+          password: hashedPassword,
+          email: `${cleanPhone}@akshayam.local`
+        }
       });
       return { success: true, userId: updated.id };
     }
@@ -51,9 +82,9 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
       try {
         newUser = await prisma.user.create({
           data: {
-            mobile_no: mobileNo,
+            mobile_no: cleanPhone,
             password: hashedPassword,
-            email: `${mobileNo}@akshayam.local`,
+            email: `${cleanPhone}@akshayam.local`,
             userIndex: nextIndex,
             userid: `${nextIndex}`
           }
@@ -62,26 +93,13 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
         if (e.code === 'P2002') {
           const target = e.meta?.target || [];
           if (target.includes('userid')) {
-            // Unique constraint failed on userid, try next index
             nextIndex++;
             attempts++;
           } else {
-            // Unique constraint failed on mobile_no or email (race condition on double click)
-            // Or the user was created exactly in this moment
-            const existingUserNow = await prisma.user.findFirst({
-              where: { mobile_no: mobileNo }
-            });
-            if (existingUserNow) {
-              // Update password and return success as if it was already there
-              const updated = await prisma.user.update({
-                where: { id: existingUserNow.id },
-                data: { password: hashedPassword }
-              });
-              newUser = updated;
-              break;
-            } else {
-              throw e;
-            }
+            return {
+              success: false,
+              error: 'இந்த மொபைல் எண் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது. உள்நுழையவும் / Mobile number is already registered. Please login.'
+            };
           }
         } else {
           throw e;
@@ -94,8 +112,10 @@ export async function registerAuthUser(mobileNo: string, passwordPlain: string) 
     }
 
     const cookieStore = await cookies();
-    cookieStore.set('auth_token', newUser.id, {
+    cookieStore.set('auth_token', createSignedSessionToken(newUser.id), {
       httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
       path: '/',
       maxAge: 60 * 60 * 24 * 30
     });
@@ -112,24 +132,35 @@ export async function loginUser(mobileNo: string, passwordPlain: string, remembe
     return { success: false, error: 'Mobile number and password are required' };
   }
 
-  const hashedPassword = hashPassword(passwordPlain);
+  const cleanPhone = mobileNo.replace(/\D/g, '').slice(-10);
 
   try {
     const user = await prisma.user.findFirst({
-      where: { mobile_no: mobileNo }
+      where: { mobile_no: cleanPhone }
     });
 
     if (!user) {
       return { success: false, error: 'User not found with this mobile number' };
     }
 
-    if (user.password !== hashedPassword && user.password !== passwordPlain) {
+    const isMatch = verifyPassword(passwordPlain, user.password);
+    if (!isMatch) {
       return { success: false, error: 'Invalid password' };
+    }
+
+    // Transparently upgrade legacy SHA-256 or plaintext password to PBKDF2
+    if (!user.password?.startsWith('pbkdf2$')) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { password: hashPassword(passwordPlain) }
+      }).catch(err => console.error('Error upgrading password hash:', err));
     }
 
     const cookieStore = await cookies();
     const cookieOptions: any = {
       httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
       path: '/'
     };
     
@@ -137,7 +168,7 @@ export async function loginUser(mobileNo: string, passwordPlain: string, remembe
       cookieOptions.maxAge = 60 * 60 * 24 * 30; // 30 days
     }
     
-    cookieStore.set('auth_token', user.id, cookieOptions);
+    cookieStore.set('auth_token', createSignedSessionToken(user.id), cookieOptions);
 
     return { success: true, userId: user.id };
   } catch (error: any) {
@@ -155,10 +186,18 @@ export async function logoutUser() {
 export async function getCurrentUserId(): Promise<string | null> {
   try {
     const cookieStore = await cookies();
-    const token = cookieStore.get('auth_token')?.value;
-    if (token) {
-      const user = await prisma.user.findUnique({ where: { id: token } });
-      if (user) return user.id;
+    const rawToken = cookieStore.get('auth_token')?.value;
+    if (!rawToken) return null;
+
+    const validatedUserId = verifySessionToken(rawToken);
+    if (validatedUserId) {
+      const user = await prisma.user.findUnique({ 
+        where: { id: validatedUserId },
+        select: { id: true, status: true }
+      });
+      if (user && user.status !== 'SUSPENDED') {
+        return user.id;
+      }
     }
   } catch (e) {
     console.error('Cookie error:', e);

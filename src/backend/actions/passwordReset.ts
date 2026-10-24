@@ -1,10 +1,28 @@
 'use server';
 
 import prisma from '@/backend/prisma';
-import crypto from 'crypto';
+import { hashPassword } from '@/backend/crypto';
+import { getCurrentUserId } from './auth';
 
-function hashPassword(password: string): string {
-  return crypto.createHash('sha256').update(password).digest('hex');
+/**
+ * Ensures the requesting user is an authenticated administrator.
+ */
+async function requireAdmin(): Promise<string> {
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    throw new Error('Unauthorized');
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { role: true }
+  });
+
+  if (user?.role !== 'ADMIN') {
+    throw new Error('Forbidden: Admin access required');
+  }
+
+  return userId;
 }
 
 /**
@@ -15,19 +33,19 @@ export async function requestPasswordReset(mobileNo: string) {
     return { success: false, error: 'Mobile number is required' };
   }
 
+  const cleanPhone = mobileNo.replace(/\D/g, '').slice(-10);
+
   try {
     const user = await prisma.user.findFirst({
       where: {
         OR: [
-          { mobile_no: mobileNo },
+          { mobile_no: cleanPhone },
           { email: mobileNo }
         ]
       }
     });
 
     if (!user) {
-      // Don't leak if user exists or not for security, but since this is an internal app,
-      // it might be helpful to tell them user not found, but we'll stick to generic success or specific error.
       return { success: false, error: 'No user found with this mobile number.' };
     }
 
@@ -58,10 +76,12 @@ export async function requestPasswordReset(mobileNo: string) {
 }
 
 /**
- * Admin action: get all password reset requests.
+ * Admin action: get all password reset requests. Protected by requireAdmin.
  */
 export async function getPasswordResetRequests() {
   try {
+    await requireAdmin();
+
     const requests = await prisma.passwordResetRequest.findMany({
       include: {
         user: {
@@ -82,15 +102,17 @@ export async function getPasswordResetRequests() {
     return { success: true, data: requests };
   } catch (error: any) {
     console.error('Error fetching requests:', error);
-    return { success: false, error: 'Failed to fetch requests' };
+    return { success: false, error: error.message || 'Failed to fetch requests' };
   }
 }
 
 /**
- * Admin action: get unread pending requests count.
+ * Admin action: get unread pending requests count. Protected by requireAdmin.
  */
 export async function getUnreadPasswordResetRequestsCount() {
   try {
+    await requireAdmin();
+
     const count = await prisma.passwordResetRequest.count({
       where: {
         status: 'PENDING',
@@ -105,10 +127,12 @@ export async function getUnreadPasswordResetRequestsCount() {
 }
 
 /**
- * Admin action: mark a request as read.
+ * Admin action: mark a request as read. Protected by requireAdmin.
  */
 export async function markPasswordResetRequestRead(id: string) {
   try {
+    await requireAdmin();
+
     await prisma.passwordResetRequest.update({
       where: { id },
       data: { isRead: true }
@@ -116,15 +140,17 @@ export async function markPasswordResetRequestRead(id: string) {
     return { success: true };
   } catch (error: any) {
     console.error('Error marking as read:', error);
-    return { success: false, error: 'Failed to mark as read' };
+    return { success: false, error: error.message || 'Failed to mark as read' };
   }
 }
 
 /**
- * Admin action: mark all as read.
+ * Admin action: mark all as read. Protected by requireAdmin.
  */
 export async function markAllPasswordResetRequestsRead() {
   try {
+    await requireAdmin();
+
     await prisma.passwordResetRequest.updateMany({
       where: { status: 'PENDING', isRead: false },
       data: { isRead: true }
@@ -132,12 +158,12 @@ export async function markAllPasswordResetRequestsRead() {
     return { success: true };
   } catch (error: any) {
     console.error('Error marking all as read:', error);
-    return { success: false, error: 'Failed to mark as read' };
+    return { success: false, error: error.message || 'Failed to mark as read' };
   }
 }
 
 /**
- * Admin action: reset the password and mark request as resolved.
+ * Admin action: reset the password and mark request as resolved. Protected by requireAdmin.
  */
 export async function resolvePasswordResetRequest(requestId: string, userId: string, newPasswordPlain: string) {
   if (!newPasswordPlain) {
@@ -145,6 +171,8 @@ export async function resolvePasswordResetRequest(requestId: string, userId: str
   }
 
   try {
+    await requireAdmin();
+
     const hashedPassword = hashPassword(newPasswordPlain);
 
     await prisma.$transaction([
@@ -161,47 +189,78 @@ export async function resolvePasswordResetRequest(requestId: string, userId: str
     return { success: true, message: 'Password reset successfully and request resolved.' };
   } catch (error: any) {
     console.error('Error resolving request:', error);
-    return { success: false, error: 'Failed to reset password' };
+    return { success: false, error: error.message || 'Failed to reset password' };
   }
 }
 
 /**
  * Reset password directly using OTP verified mobile number.
+ * STRICT SECURITY: Requires a valid, recent verified OTP record to prevent account takeover.
  */
-export async function resetPasswordDirectly(mobileNo: string, newPasswordPlain: string) {
+export async function resetPasswordDirectly(mobileNo: string, newPasswordPlain: string, resetToken?: string) {
   if (!mobileNo) {
     return { success: false, error: 'Mobile number is required' };
   }
   if (!newPasswordPlain) {
     return { success: false, error: 'New password is required' };
   }
+  if (newPasswordPlain.length < 6) {
+    return { success: false, error: 'Password must be at least 6 characters' };
+  }
+
+  const cleanPhone = mobileNo.replace(/\D/g, '').slice(-10);
 
   try {
+    // 1. Verify that OTP was genuinely completed for this phone number in the last 15 minutes
+    const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
+
+    const verifiedRecord = await prisma.otpVerification.findFirst({
+      where: {
+        phone: cleanPhone,
+        verified: true,
+        createdAt: { gt: fifteenMinutesAgo },
+        ...(resetToken ? { id: resetToken } : {})
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    if (!verifiedRecord) {
+      return { 
+        success: false, 
+        error: 'OTP சரிபார்ப்பு தேவை அல்லது காலாவதியானது / Verified OTP required or session expired. Please verify again.' 
+      };
+    }
+
+    // 2. Find target user
     const user = await prisma.user.findFirst({
       where: {
         OR: [
-          { mobile_no: mobileNo },
-          { email: mobileNo }
+          { mobile_no: cleanPhone },
+          { email: `${cleanPhone}@akshayam.local` }
         ]
       }
     });
 
     if (!user) {
-      return { success: false, error: 'User not found' };
+      return { success: false, error: 'User not found with this mobile number' };
     }
 
     const hashedPassword = hashPassword(newPasswordPlain);
 
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { password: hashedPassword }
-    });
-
-    // Optionally resolve any pending admin requests if they existed
-    await prisma.passwordResetRequest.updateMany({
-      where: { userId: user.id, status: 'PENDING' },
-      data: { status: 'RESOLVED', isRead: true }
-    });
+    // 3. Update password and invalidate the verified OTP record to prevent replay attacks
+    await prisma.$transaction([
+      prisma.user.update({
+        where: { id: user.id },
+        data: { password: hashedPassword }
+      }),
+      prisma.otpVerification.delete({
+        where: { id: verifiedRecord.id }
+      }),
+      prisma.passwordResetRequest.updateMany({
+        where: { userId: user.id, status: 'PENDING' },
+        data: { status: 'RESOLVED', isRead: true }
+      })
+    ]);
 
     return { success: true, message: 'Password updated successfully' };
   } catch (error: any) {

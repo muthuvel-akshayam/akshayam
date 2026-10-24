@@ -20,6 +20,14 @@ export async function POST(req: Request) {
         }
       }
       
+      const parsedUrl = new URL(finalUrl);
+      if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
+        throw new Error("Invalid URL protocol");
+      }
+      if (parsedUrl.hostname.includes('localhost') || parsedUrl.hostname.includes('127.0.0.1') || parsedUrl.hostname.includes('169.254')) {
+        throw new Error("Invalid target host");
+      }
+
       const imageRes = await fetch(finalUrl);
       if (!imageRes.ok) throw new Error("Failed to fetch image from storage");
       const arrayBuffer = await imageRes.arrayBuffer();

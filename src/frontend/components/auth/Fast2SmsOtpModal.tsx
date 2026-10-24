@@ -6,7 +6,7 @@ import { X, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 interface Fast2SmsOtpModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: (phone: string) => void;
+  onSuccess: (phone: string, token?: string) => void;
   initialPhone?: string;
   language?: 'TA' | 'EN';
 }
@@ -119,7 +119,7 @@ export default function Fast2SmsOtpModal({ isOpen, onClose, onSuccess, initialPh
       if (data.success) {
         setSuccess(data.message);
         setTimeout(() => {
-          onSuccess(phone);
+          onSuccess(phone, data.resetToken);
           onClose();
         }, 1500);
       } else {

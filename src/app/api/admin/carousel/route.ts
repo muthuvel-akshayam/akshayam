@@ -1,8 +1,30 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/backend/prisma';
+import { getCurrentUserId } from '@/backend/actions/auth';
+
+async function verifyAdminAuth() {
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    return { authorized: false, response: NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 }) };
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { role: true }
+  });
+
+  if (user?.role !== 'ADMIN') {
+    return { authorized: false, response: NextResponse.json({ success: false, error: 'Forbidden: Admin access required' }, { status: 403 }) };
+  }
+
+  return { authorized: true };
+}
 
 export async function POST(req: Request) {
   try {
+    const auth = await verifyAdminAuth();
+    if (!auth.authorized) return auth.response;
+
     const data = await req.json();
     
     if (!data.mediaUrl) {
@@ -27,6 +49,9 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
+    const auth = await verifyAdminAuth();
+    if (!auth.authorized) return auth.response;
+
     const data = await req.json();
     
     if (!data.id) {
@@ -52,6 +77,9 @@ export async function PUT(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
+    const auth = await verifyAdminAuth();
+    if (!auth.authorized) return auth.response;
+
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
     

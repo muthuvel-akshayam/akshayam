@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/backend/prisma";
+import crypto from "crypto";
 
 export async function POST(req: Request) {
   try {
@@ -13,8 +14,45 @@ export async function POST(req: Request) {
       );
     }
 
-    // Generate 6-digit OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // Rate Limiting 1: Cooldown check (prevent SMS spamming within 45 seconds)
+    const recentOtp = await prisma.otpVerification.findFirst({
+      where: {
+        phone: cleanPhone,
+        createdAt: { gt: new Date(Date.now() - 45 * 1000) },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (recentOtp) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          message: "தயவுசெய்து 45 விநாடிகள் காத்திருந்து மீண்டும் முயற்சிக்கவும் / Please wait 45 seconds before requesting another OTP" 
+        },
+        { status: 429 }
+      );
+    }
+
+    // Rate Limiting 2: Maximum 5 OTPs per phone number per hour
+    const hourlyCount = await prisma.otpVerification.count({
+      where: {
+        phone: cleanPhone,
+        createdAt: { gt: new Date(Date.now() - 60 * 60 * 1000) },
+      },
+    });
+
+    if (hourlyCount >= 5) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          message: "அதிகபட்ச முயற்சிகள் கடந்துவிட்டது. 1 மணிநேரம் கழித்து முயற்சிக்கவும் / Hourly limit exceeded. Try again in an hour." 
+        },
+        { status: 429 }
+      );
+    }
+
+    // Cryptographically secure 6-digit OTP
+    const otp = crypto.randomInt(100000, 1000000).toString();
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
     // Save OTP record to database
@@ -28,7 +66,7 @@ export async function POST(req: Request) {
 
     const apiKey = process.env.FAST2SMS_API_KEY;
 
-    // Local fallback if API key is not configured yet
+    // Local fallback if API key is not configured or in dev placeholder
     if (!apiKey || apiKey.includes("your_fast2sms")) {
       console.log("==========================================");
       console.log(`[DEV OTP SMS] Phone: ${cleanPhone} | OTP: ${otp}`);

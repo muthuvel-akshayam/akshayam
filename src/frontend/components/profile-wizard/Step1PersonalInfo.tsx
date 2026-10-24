@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { savePersonalInfo } from '@/backend/actions/profile';
 import { useState, useEffect, useRef } from 'react';
 import { extractAstrologyData } from '@/backend/actions/extractAstrology';
-import { Plus, Trash2, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { Plus, Trash2, Eye, EyeOff, CheckCircle2, Pencil, RotateCcw, ShieldCheck } from 'lucide-react';
 import Fast2SmsOtpModal from '../auth/Fast2SmsOtpModal';
 import { FileUpload } from '../FileUpload';
 import { rasiOptions, nakshatraByRasi } from '@/frontend/utils/astrology';
@@ -317,9 +317,16 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   const age = calculateAge(dob);
   const [dasaBalanceError, setDasaBalanceError] = useState('');
   
-  // OTP Verification States
-  const [isPhoneVerified, setIsPhoneVerified] = useState(!!initialData?.mobile_no);
+  // OTP Verification & Mobile Change States
+  const initialMobile = initialData?.mobile_no ? String(initialData.mobile_no).replace(/\D/g, '').slice(-10) : '';
+  const [verifiedPhone, setVerifiedPhone] = useState(initialMobile);
+  const [isPhoneVerified, setIsPhoneVerified] = useState(!!initialMobile);
+  const [isChangingPhone, setIsChangingPhone] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
+  const phoneInputRef = useRef<HTMLInputElement | null>(null);
+
+  const currentMobile = (watch('mobileNo') || '').replace(/\D/g, '').slice(-10);
+  const isCurrentlyVerified = isPhoneVerified && !isChangingPhone && !!verifiedPhone && currentMobile === verifiedPhone;
 
   const onError = (errors: any) => {
     console.error("Form validation errors:", errors);
@@ -328,8 +335,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
   };
 
   const onSubmit = async (data: FormValues) => {
-    // Disabled OTP check for testing
-    if (!isPhoneVerified) {
+    if (!isCurrentlyVerified) {
       alert(language === 'TA' ? 'தயவுசெய்து உங்கள் மொபைல் எண்ணை சரிபார்க்கவும்' : 'Please verify your mobile number first');
       return;
     }
@@ -421,11 +427,14 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
       <Fast2SmsOtpModal 
         isOpen={showOtpModal}
         onClose={() => setShowOtpModal(false)}
-        initialPhone={watch('mobileNo') || ''}
+        initialPhone={(watch('mobileNo') || '').replace(/\D/g, '').slice(-10)}
         language={language}
-        onSuccess={(verifiedPhone) => {
-          setValue('mobileNo', verifiedPhone, { shouldValidate: true, shouldDirty: true });
+        onSuccess={(verifiedPhoneNum) => {
+          const clean = verifiedPhoneNum.replace(/\D/g, '').slice(-10);
+          setValue('mobileNo', clean, { shouldValidate: true, shouldDirty: true });
+          setVerifiedPhone(clean);
           setIsPhoneVerified(true);
+          setIsChangingPhone(false);
           setShowOtpModal(false);
         }}
       />
@@ -437,39 +446,112 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div>
-            <label className={labelClass}>{t.mobileNo}</label>
-            <div className="flex flex-col sm:flex-row gap-2">
+            <div className="flex items-center justify-between">
+              <label className={labelClass}>{t.mobileNo}</label>
+              {isCurrentlyVerified && (
+                <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1 shadow-xs">
+                  <CheckCircle2 size={12} className="text-emerald-600" />
+                  {language === 'TA' ? 'சரிபார்க்கப்பட்டது' : 'Verified'}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2 mt-2">
               <div className="relative flex-1">
                 <input 
                   type="tel" 
-                  {...register('mobileNo', { required: 'Mobile number required' })} 
-                  className={inputClass} 
+                  maxLength={10}
+                  readOnly={isCurrentlyVerified}
+                  {...register('mobileNo', { 
+                    required: language === 'TA' ? 'மொபைல் எண் தேவை' : 'Mobile number required',
+                    pattern: {
+                      value: /^[6-9]\d{9}$/,
+                      message: language === 'TA' ? 'சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும்' : 'Please enter a valid 10-digit mobile number'
+                    },
+                    onChange: (e) => {
+                      const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                      setValue('mobileNo', val, { shouldValidate: true, shouldDirty: true });
+                    }
+                  })} 
+                  ref={(e) => {
+                    const formRef = register('mobileNo').ref;
+                    formRef(e);
+                    phoneInputRef.current = e;
+                  }}
+                  className={`${inputClass} !mt-0 ${isCurrentlyVerified ? 'bg-amber-50/50 cursor-default text-gray-800 font-semibold pr-10 border-amber-200' : 'bg-white'}`} 
                   placeholder={t.mobileNoPlaceholder} 
                 />
-                {isPhoneVerified && (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 mt-1 text-green-600 flex items-center bg-white px-1">
+                {isCurrentlyVerified && (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-600 flex items-center bg-white/90 rounded-full p-0.5 shadow-xs" title={language === 'TA' ? 'சரிபார்க்கப்பட்டது' : 'Verified'}>
                     <CheckCircle2 size={18} />
                   </div>
                 )}
               </div>
-              {!isPhoneVerified && (
+
+              {isCurrentlyVerified ? (
                 <button
                   type="button"
                   onClick={() => {
-                    const phone = watch('mobileNo');
-                    if (!phone || !/^[6-9]\d{9}$/.test(phone)) {
-                      alert(language === 'TA' ? 'சரியான மொபைல் எண்ணை 10 இலக்கங்களில் உள்ளிடவும்' : 'Please enter a valid 10-digit mobile number');
-                      return;
-                    }
-                    setShowOtpModal(true);
+                    setIsChangingPhone(true);
+                    setTimeout(() => {
+                      phoneInputRef.current?.focus();
+                      phoneInputRef.current?.select();
+                    }, 50);
                   }}
-                  disabled={!watch('mobileNo')}
-                  className="mt-2 sm:mt-0 sm:self-end h-[50px] px-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-600/90 transition-colors disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-2"
+                  className="sm:self-end h-[48px] px-4 bg-amber-100/90 hover:bg-amber-200 text-amber-900 border border-amber-300 font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-1.5 shadow-sm text-sm"
+                  title={language === 'TA' ? 'மொபைல் எண்ணை மாற்றுக' : 'Change Mobile Number'}
                 >
-                  {language === 'TA' ? 'OTP சரி பார்ப்பு' : 'Verify OTP'}
+                  <Pencil size={15} className="text-amber-700" />
+                  {language === 'TA' ? 'மாற்றுக' : 'Change'}
                 </button>
+              ) : (
+                <div className="flex gap-2 sm:self-end">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const phone = (watch('mobileNo') || '').replace(/\D/g, '').slice(-10);
+                      if (!phone || !/^[6-9]\d{9}$/.test(phone)) {
+                        alert(language === 'TA' ? 'சரியான மொபைல் எண்ணை 10 இலக்கங்களில் உள்ளிடவும்' : 'Please enter a valid 10-digit mobile number');
+                        return;
+                      }
+                      if (verifiedPhone && phone === verifiedPhone) {
+                        setIsChangingPhone(false);
+                        setIsPhoneVerified(true);
+                        return;
+                      }
+                      setShowOtpModal(true);
+                    }}
+                    disabled={!watch('mobileNo')}
+                    className="h-[48px] px-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-2 shadow-sm text-sm"
+                  >
+                    <ShieldCheck size={16} />
+                    {language === 'TA' ? 'OTP சரி பார்ப்பு' : 'Verify OTP'}
+                  </button>
+
+                  {isChangingPhone && verifiedPhone && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setValue('mobileNo', verifiedPhone, { shouldValidate: true });
+                        setIsChangingPhone(false);
+                        setIsPhoneVerified(true);
+                      }}
+                      className="h-[48px] px-3 bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300 font-medium rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-1 text-sm shadow-sm"
+                      title={language === 'TA' ? 'ரத்து செய்' : 'Cancel'}
+                    >
+                      <RotateCcw size={14} />
+                      {language === 'TA' ? 'ரத்து' : 'Cancel'}
+                    </button>
+                  )}
+                </div>
               )}
             </div>
+
+            {isChangingPhone && (
+              <p className="text-amber-800 text-xs mt-1.5 flex items-center gap-1 font-medium animate-in fade-in">
+                ℹ️ {language === 'TA' ? 'புதிய மொபைல் எண்ணை உள்ளிட்டு OTP மூலம் சரிபார்க்கவும்.' : 'Enter new mobile number and verify via OTP.'}
+              </p>
+            )}
+
             {errors.mobileNo && <p className="text-red-500 text-xs mt-1">{errors.mobileNo.message}</p>}
           </div>
           <div>

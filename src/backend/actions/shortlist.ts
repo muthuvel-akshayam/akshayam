@@ -98,7 +98,11 @@ export async function getShortlistedProfilesFull() {
       if (match.profile?.hidePhoto) {
         match.profile.photoUrl = '/static/assets/blurred-avatar.png';
       }
-      if (match.profile) match.profile.casteCertificateUrl = null;
+      if (match.profile) {
+        match.profile.casteCertificateUrl = null;
+        match.profile.idProofUrl = null;
+      }
+      delete (match as any).password;
       return match;
     });
   } catch (error: any) {

@@ -135,10 +135,13 @@ export async function getMatches(filters?: {
       match.profile.photoUrl = '/static/assets/blurred-avatar.png';
     }
 
-    // Community Certificate Protection
+    // Community Certificate & ID Proof Protection
     if (match.profile) {
       match.profile.casteCertificateUrl = null;
+      match.profile.idProofUrl = null;
     }
+
+    delete (match as any).password;
 
     return match;
   });
@@ -248,7 +251,11 @@ export async function getRecentProfiles(limit: number = 10) {
     if (match.profile?.hidePhoto) {
       match.profile.photoUrl = '/static/assets/blurred-avatar.png';
     }
-    if (match.profile) match.profile.casteCertificateUrl = null;
+    if (match.profile) {
+      match.profile.casteCertificateUrl = null;
+      match.profile.idProofUrl = null;
+    }
+    delete (match as any).password;
     return match;
   });
 }
@@ -311,9 +318,12 @@ export async function getProfileById(targetUserId: string) {
       targetUser.profile.photoUrl = '/static/assets/blurred-avatar.png';
     }
 
-    // Community Certificate Protection
+    // Community Certificate & ID Proof Protection
     targetUser.profile.casteCertificateUrl = null;
+    targetUser.profile.idProofUrl = null;
   }
+
+  delete (targetUser as any).password;
 
   return targetUser;
 }
@@ -366,7 +376,11 @@ export async function getReceivedInterestsFull() {
     if (match.profile?.hidePhoto) {
       match.profile.photoUrl = '/static/assets/blurred-avatar.png';
     }
-    if (match.profile) match.profile.casteCertificateUrl = null;
+    if (match.profile) {
+      match.profile.casteCertificateUrl = null;
+      match.profile.idProofUrl = null;
+    }
+    delete (match as any).password;
     return match;
   });
 }

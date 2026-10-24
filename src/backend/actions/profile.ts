@@ -44,18 +44,34 @@ export async function savePersonalInfo(data: z.infer<typeof personalInfoSchema>)
       return { success: false, error: "Unauthorized" };
     }
 
+    const cleanMobileNo = mobileNo ? mobileNo.replace(/\D/g, '').slice(-10) : undefined;
+
+    // Check if mobile number is already in use by another user
+    if (cleanMobileNo) {
+      const existingWithPhone = await prisma.user.findFirst({
+        where: { mobile_no: cleanMobileNo }
+      });
+      if (existingWithPhone && existingWithPhone.id !== userId) {
+        return {
+          success: false,
+          error: 'இந்த மொபைல் எண் ஏற்கனவே மற்றொரு கணக்கில் பதிவு செய்யப்பட்டுள்ளது / Mobile number is already registered to another account'
+        };
+      }
+    }
+
     // Create user if not exists
     await prisma.user.upsert({
       where: { id: userId },
       create: { 
         id: userId, 
-        mobile_no: mobileNo || undefined, 
+        mobile_no: cleanMobileNo, 
         whatsappProfileDeliveryNumber: whatsappProfileDeliveryNumber || undefined,
-        email: email || (mobileNo ? `${mobileNo}@akshayam.local` : `test-${userId}@example.com`) 
+        email: email || (cleanMobileNo ? `${cleanMobileNo}@akshayam.local` : `test-${userId}@example.com`) 
       },
       update: {
-        mobile_no: mobileNo || undefined,
-        whatsappProfileDeliveryNumber: whatsappProfileDeliveryNumber || undefined
+        mobile_no: cleanMobileNo,
+        whatsappProfileDeliveryNumber: whatsappProfileDeliveryNumber || undefined,
+        ...(cleanMobileNo && (!email || email.includes('@akshayam.local')) ? { email: `${cleanMobileNo}@akshayam.local` } : {})
       }
     });
 
@@ -186,6 +202,9 @@ export async function getFullProfile() {
       expectations: true,
     }
   });
+  if (user) {
+    delete (user as any).password;
+  }
   return user;
 }
 

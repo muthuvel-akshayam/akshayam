@@ -31,6 +31,7 @@ export default function HomeClient() {
   const [showPassword, setShowPassword] = useState(false);
   const [resetMessage, setResetMessage] = useState({ type: '', text: '' });
   const [showForgotOtpModal, setShowForgotOtpModal] = useState(false);
+  const [resetToken, setResetToken] = useState('');
   const [isResettingPassword, setIsResettingPassword] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
@@ -97,7 +98,7 @@ export default function HomeClient() {
     }
     setIsRequestingReset(true);
     try {
-      const res = await resetPasswordDirectly(loginMobile, newPassword);
+      const res = await resetPasswordDirectly(loginMobile, newPassword, resetToken);
       if (res.success) {
         setResetMessage({ type: 'success', text: language === 'TA' ? 'கடவுச்சொல் வெற்றிகரமாக மாற்றப்பட்டது. தயவுசெய்து உள்நுழையவும்.' : 'Password reset successfully. Please login.' });
         setIsResettingPassword(false);
@@ -719,7 +720,8 @@ export default function HomeClient() {
         onClose={() => setShowForgotOtpModal(false)}
         initialPhone={loginMobile}
         language={language}
-        onSuccess={(phone) => {
+        onSuccess={(phone, token) => {
+          if (token) setResetToken(token);
           setShowForgotOtpModal(false);
           setIsResettingPassword(true);
           setResetMessage({ type: 'success', text: language === 'TA' ? 'OTP சரிபார்க்கப்பட்டது. புதிய கடவுச்சொல்லை உள்ளிடவும்.' : 'OTP Verified. Enter new password.' });

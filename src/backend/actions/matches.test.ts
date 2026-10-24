@@ -70,16 +70,18 @@ test('Matches API - Bidirectional stars & different Kootam & Privacy Masks', asy
   
   // Verify Privacy Masking
   assert.strictEqual(match.mobile_no, 'Hidden for Safety');
-  assert.strictEqual(match.profile.houseAddress, 'Hidden for Safety');
-  assert.strictEqual(match.family.fatherMobile, 'Hidden for Safety');
-  assert.strictEqual(match.family.motherMobile, 'Hidden for Safety');
-  assert.strictEqual(match.family.workingAddress, 'Hidden for Safety');
+  assert.strictEqual(match.profile?.houseAddress, 'Hidden for Safety');
+  assert.strictEqual(match.family?.fatherMobile, 'Hidden for Safety');
+  assert.strictEqual(match.family?.motherMobile, 'Hidden for Safety');
+  assert.strictEqual(match.family?.workingAddress, 'Hidden for Safety');
   
   // Verify Photo Masking
-  assert.strictEqual(match.profile.photoUrl, '/static/assets/blurred-avatar.png');
+  assert.strictEqual(match.profile?.photoUrl, '/static/assets/blurred-avatar.png');
   
-  // Verify Certificate
-  assert.strictEqual(match.profile.casteCertificateUrl, null);
+  // Verify Certificate & idProofUrl
+  assert.strictEqual(match.profile?.casteCertificateUrl, null);
+  assert.strictEqual(match.profile?.idProofUrl, null);
+  assert.strictEqual((match as any).password, undefined);
 });
 
 test('Matches API - Empty query results', async () => {
