@@ -5,6 +5,7 @@ import ProfileWizard from './profile-wizard/ProfileWizard';
 import ProfileCarousel from './home/ProfileCarousel';
 import WhatsAppCommunities from './home/WhatsAppCommunities';
 import HeroCarousel from './HeroCarousel';
+import HeroVideoBanner from './home/HeroVideoBanner';
 import { useLanguage } from '@/frontend/context/LanguageContext';
 import { loginUser } from '@/backend/actions/auth';
 import { requestPasswordReset, resetPasswordDirectly } from '@/backend/actions/passwordReset';
@@ -349,14 +350,12 @@ export default function HomeClient() {
                 : '"A Trusted Companion for Your Family\'s Sweetest Relationships"'}
             </p>
 
-            {/* Launch Poster */}
-            <div className="w-full max-w-md sm:max-w-xl mx-auto my-6 sm:my-10 overflow-hidden rounded-2xl shadow-2xl border-4 border-accent/40 relative group">
-              <img 
-                src="/poster.jpg" 
-                alt="Akshayam Matrimony Launch Poster" 
-                className="w-full h-auto object-contain transform group-hover:scale-[1.02] transition-transform duration-500"
-              />
-            </div>
+            {/* Hero Video Banner */}
+            <HeroVideoBanner 
+              language={language} 
+              videoSrc="/banner-video.mp4" 
+              posterSrc="/poster.jpg" 
+            />
 
             <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-10 max-w-2xl font-medium leading-relaxed">
               {language === 'TA'
