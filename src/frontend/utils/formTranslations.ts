@@ -6,11 +6,11 @@ export const formTranslations = {
     step3: 'எதிர்பார்ப்புகள்',
     
     // Step 1 Section Titles
-    accountDetails: 'கணக்கு விவரங்கள் (உள்நுழைவுக்கு) / Account Details',
+    accountDetails: 'கணக்கு விவரங்கள் (பதிவுக்கு) / Account Details',
     mobileNo: 'மொபைல் எண் / Mobile Number',
-    mobileNoPlaceholder: '10 இலக்க மொபைல் எண் / 10-digit Mobile No',
+    mobileNoPlaceholder: '10 இலக்க மொபைல் எண்',
     password: 'கடவுச்சொல் உருவாக்கு / Create Password',
-    passwordPlaceholder: 'கடவுச்சொல்லை உள்ளிடவும் / Enter Password',
+    passwordPlaceholder: 'கடவுச்சொல்லை உள்ளிடவும்',
     loginTitle: 'உள்நுழைக / Login',
     loginBtn: 'உள்நுழைக / Login',
     logoutBtn: 'வெளியேறு / Logout',
@@ -254,7 +254,7 @@ export const formTranslations = {
     step3: 'Partner Preferences',
     
     // Step 1 Section Titles
-    accountDetails: 'Account Details (For Login)',
+    accountDetails: 'Account Details (For Registration)',
     mobileNo: 'Mobile Number',
     mobileNoPlaceholder: '10-digit Mobile No',
     password: 'Create Password',

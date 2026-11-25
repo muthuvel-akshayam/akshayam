@@ -444,9 +444,9 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
         <h3 className="text-lg font-bold text-amber-900 border-b border-amber-200/60 pb-2 flex items-center gap-2">
           🔒 {t.accountDetails}
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between min-h-[26px]">
               <label className={labelClass}>{t.mobileNo}</label>
               {isCurrentlyVerified && (
                 <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1 shadow-xs">
@@ -455,8 +455,8 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                 </span>
               )}
             </div>
-            <div className="flex flex-col sm:flex-row gap-2 mt-2">
-              <div className="relative flex-1">
+            <div className="flex flex-col sm:flex-row gap-2.5 mt-2">
+              <div className="relative flex-1 min-w-0">
                 <input 
                   type="tel" 
                   maxLength={10}
@@ -477,7 +477,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                     formRef(e);
                     phoneInputRef.current = e;
                   }}
-                  className={`${inputClass} !mt-0 ${isCurrentlyVerified ? 'bg-amber-50/50 cursor-default text-gray-800 font-semibold pr-10 border-amber-200' : 'bg-white'}`} 
+                  className={`${inputClass} !mt-0 h-[48px] ${isCurrentlyVerified ? 'bg-amber-50/50 cursor-default text-gray-800 font-semibold pr-10 border-amber-200' : 'bg-white'}`} 
                   placeholder={t.mobileNoPlaceholder} 
                 />
                 {isCurrentlyVerified && (
@@ -497,14 +497,14 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                       phoneInputRef.current?.select();
                     }, 50);
                   }}
-                  className="sm:self-end h-[48px] px-4 bg-amber-100/90 hover:bg-amber-200 text-amber-900 border border-amber-300 font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-1.5 shadow-sm text-sm"
+                  className="h-[48px] px-4 w-full sm:w-auto bg-amber-100/90 hover:bg-amber-200 text-amber-900 border border-amber-300 font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-1.5 shadow-sm text-sm shrink-0"
                   title={language === 'TA' ? 'மொபைல் எண்ணை மாற்றுக' : 'Change Mobile Number'}
                 >
                   <Pencil size={15} className="text-amber-700" />
                   {language === 'TA' ? 'மாற்றுக' : 'Change'}
                 </button>
               ) : (
-                <div className="flex gap-2 sm:self-end">
+                <div className="flex gap-2 w-full sm:w-auto shrink-0">
                   <button
                     type="button"
                     onClick={() => {
@@ -521,7 +521,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                       setShowOtpModal(true);
                     }}
                     disabled={!watch('mobileNo')}
-                    className="h-[48px] px-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-2 shadow-sm text-sm"
+                    className="h-[48px] px-4 w-full sm:w-auto bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-2 shadow-sm text-sm shrink-0"
                   >
                     <ShieldCheck size={16} />
                     {language === 'TA' ? 'OTP சரி பார்ப்பு' : 'Verify OTP'}
@@ -535,7 +535,7 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
                         setIsChangingPhone(false);
                         setIsPhoneVerified(true);
                       }}
-                      className="h-[48px] px-3 bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300 font-medium rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-1 text-sm shadow-sm"
+                      className="h-[48px] px-3 bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300 font-medium rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-1 text-sm shadow-sm shrink-0"
                       title={language === 'TA' ? 'ரத்து செய்' : 'Cancel'}
                     >
                       <RotateCcw size={14} />
@@ -554,48 +554,59 @@ export function Step1PersonalInfo({ onNext, language = 'TA', initialData, onGend
 
             {errors.mobileNo && <p className="text-red-500 text-xs mt-1">{errors.mobileNo.message}</p>}
           </div>
+
           <div>
-            <label className={labelClass}>{language === 'TA' ? 'வாட்ஸ்அப் எண் (வரன் அனுப்ப)' : 'WhatsApp No. (for profiles)'}</label>
-            <input 
-              type="tel" 
-              {...register('whatsappProfileDeliveryNumber', { required: 'WhatsApp number required' })} 
-              className={inputClass} 
-              placeholder={language === 'TA' ? 'எ.கா. 9876543210' : 'e.g. 9876543210'} 
-            />
+            <div className="flex items-center min-h-[26px]">
+              <label className={labelClass}>{language === 'TA' ? 'வாட்ஸ்அப் எண் (வரன் அனுப்ப)' : 'WhatsApp No. (for profiles)'}</label>
+            </div>
+            <div className="mt-2">
+              <input 
+                type="tel" 
+                {...register('whatsappProfileDeliveryNumber', { required: 'WhatsApp number required' })} 
+                className={`${inputClass} !mt-0 h-[48px]`} 
+                placeholder={language === 'TA' ? 'எ.கா. 9876543210' : 'e.g. 9876543210'} 
+              />
+            </div>
             {errors.whatsappProfileDeliveryNumber && <p className="text-red-500 text-xs mt-1">{errors.whatsappProfileDeliveryNumber.message}</p>}
           </div>
+
           <div>
-            <label className={labelClass}>{t.password}</label>
-            <div className="relative">
+            <div className="flex items-center min-h-[26px]">
+              <label className={labelClass}>{t.password}</label>
+            </div>
+            <div className="relative mt-2">
               <input 
                 type={showPassword ? 'text' : 'password'} 
                 {...register('password', { required: 'Password required' })} 
-                className={inputClass} 
+                className={`${inputClass} !mt-0 h-[48px] pr-10`} 
                 placeholder={t.passwordPlaceholder} 
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1"
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
             {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
           </div>
+
           <div>
-            <label className={labelClass}>{language === 'TA' ? 'கடவுச்சொல்லை மீண்டும் உள்ளிடவும் / Confirm Password' : 'Confirm Password'}</label>
-            <div className="relative">
+            <div className="flex items-center min-h-[26px]">
+              <label className={labelClass}>{language === 'TA' ? 'கடவுச்சொல்லை மீண்டும் உள்ளிடவும் / Confirm Password' : 'Confirm Password'}</label>
+            </div>
+            <div className="relative mt-2">
               <input 
                 type={showConfirmPassword ? 'text' : 'password'} 
                 {...register('confirmPassword', { required: 'Confirm password required' })} 
-                className={inputClass} 
-                placeholder={language === 'TA' ? 'கடவுச்சொல்லை உறுதிப்படுத்தவும் / Confirm Password' : 'Confirm Password'} 
+                className={`${inputClass} !mt-0 h-[48px] pr-10`} 
+                placeholder={language === 'TA' ? 'கடவுச்சொல்லை உறுதிப்படுத்தவும்' : 'Confirm Password'} 
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1"
               >
                 {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
